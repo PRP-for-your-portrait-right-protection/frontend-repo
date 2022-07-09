@@ -8,8 +8,10 @@ USER root
 WORKDIR /frontend
 COPY . /frontend
 
-RUN npm install -g yarn
-RUN yarn
+#아래 두 줄은 배포 시 주석 풀기 + 볼륨 공유 해제
+#yarn v3의 zero-install: yarn 명령어를 실행할 필요 없이 설치된 상태로 깃에 올리는 방식
+#RUN npm install -g yarn
+#RUN yarn
 
 # Make variable API_URL to put uri into url
 # uri 변수 형태로 받아서 url에 넣어 작동하도록 함
