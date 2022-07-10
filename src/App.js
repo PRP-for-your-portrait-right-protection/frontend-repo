@@ -1,5 +1,4 @@
-import TodoCard from 'organisms/TodoCard';
-import Mainpage from './Mainpage';
+import Mainpage from './pages/Mainpage';
 
 function App() {
   return (
