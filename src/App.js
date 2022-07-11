@@ -1,5 +1,5 @@
-import Mainpage from './pages/Mainpage';
-
+import Mainpage from "./pages/Mainpage";
+import React from "react";
 function App() {
   return (
     <div>
