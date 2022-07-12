@@ -1,0 +1,11 @@
+.title-component {
+  color: #ffffff;
+  font-family: "Stardos", "Stencil";
+  text-align: center;
+}
+
+.title-component > hr {
+  width: 80%;
+  height: 30px;
+  margin: auto;
+}
