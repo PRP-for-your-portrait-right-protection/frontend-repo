@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./Title.css";
 
 interface TitleProps {
-  textValue: String;
+  textValue: string;
 }
 
 function Title({ textValue }: TitleProps) {
