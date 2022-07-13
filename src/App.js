@@ -12,6 +12,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Mainpage />} />
+        <Route path="/people" element={<UploadImagePage />} />
         <Route path="/upload" element={<Mainpage />} />
         <Route path="/signin" element={<AftLoginMainpage />} />
         <Route path="/result" element={<ResultVideopage />} />
