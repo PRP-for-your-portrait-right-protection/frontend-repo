@@ -9,7 +9,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Mainpage />} />
-        <Route path="/upload" element={<UploadImagePage />} />
+        <Route path="/people" element={<UploadImagePage />} />
       </Routes>
     </BrowserRouter>
   );
