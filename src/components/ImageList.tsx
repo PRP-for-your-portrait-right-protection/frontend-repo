@@ -51,7 +51,7 @@ function ImageList({ object, changeFuc }: ImageListProps) {
 
   const silceImage = (imgList) => {
     let currentPosts = [];
-    currentPosts = imgList.slice(curPage, curPage + 3);
+    currentPosts = imgList[0].pictures.slice(curPage, curPage + 3);
     console.log(curPage);
     return currentPosts;
   };
@@ -63,9 +63,7 @@ function ImageList({ object, changeFuc }: ImageListProps) {
         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
         onClick={() =>
           setPage((curPage) =>
-            imgList.length > 3 && imgList.length - curPage > 3
-              ? curPage + 1
-              : curPage
+            count > 3 && count - curPage > 3 ? curPage + 1 : curPage
           )
         }
       >
@@ -94,7 +92,7 @@ function ImageList({ object, changeFuc }: ImageListProps) {
           silceImage(imgList).map((img) => (
             <ImgBlock
               key={img.id}
-              object={img[0]}
+              object={img}
               deleteFileImage={deleteFileImage}
             />
           ))}
