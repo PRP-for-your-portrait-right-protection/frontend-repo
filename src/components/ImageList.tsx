@@ -10,7 +10,8 @@ interface ImageListProps {
 function ImageList({ name }: ImageListProps) {
   const [fileImage, setFileImage] = useState("");
   const [imgList, setImgList]: [ImageDto[], any] = useState([]);
-  const [count, setCount]: [number, any] = useState(1);
+  const [count, setCount]: [number, any] = useState(0);
+  const [curPage, setPage]: [number, any] = useState(0);
 
   const saveFileImage = (event: React.ChangeEvent<HTMLInputElement>) => {
     // @ts-ignore
@@ -27,17 +28,46 @@ function ImageList({ name }: ImageListProps) {
 
   const deleteFileImage = (id) => {
     setImgList(imgList.filter((img) => img.id !== id));
+    if (curPage > 0) {
+      setPage((curPage) => curPage - 1);
+    }
+  };
+
+  const silceImage = (imgList) => {
+    let currentPosts = [];
+    currentPosts = imgList.slice(curPage, curPage + 3);
+    console.log(curPage);
+    return currentPosts;
   };
 
   return (
     <div className="imageList-component mt-28">
       <p> {name} </p>
-
-      <div className="grid grid-cols-3 gap-4">
+      <button
+        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+        onClick={() =>
+          setPage((curPage) =>
+            imgList.length > 3 && imgList.length - curPage > 3
+              ? curPage + 1
+              : curPage
+          )
+        }
+      >
+        Next
+      </button>
+      <button
+        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+        onClick={() =>
+          setPage((curPage) => (curPage > 0 ? curPage - 1 : curPage))
+        }
+      >
+        Pre
+      </button>
+      <div className="grid grid-cols-4 gap-4">
         <label className="h-60 w-60 col-span-1" htmlFor="input-file"></label>
 
         {imgList &&
-          imgList.map((img) => (
+          silceImage(imgList).map((img) => (
             <ImgBlock
               key={img.id}
               object={img}

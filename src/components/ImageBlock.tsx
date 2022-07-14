@@ -7,17 +7,14 @@ interface ImageButtonProps {
 
 function ImgBlock({ deleteFileImage, object }: ImageButtonProps) {
   return (
-    <div className="col-span-1">
+    <div className="col-span-1 ">
       <img className="h-60 w-60" alt="sample" src={object.url} />
-      <button
-        style={{
-          width: "50px",
-          height: "30px",
-          cursor: "pointer",
-        }}
-        onClick={() => deleteFileImage(object.id)}
-      >
-        삭제
+      <button onClick={() => deleteFileImage(object.id)}>
+        <img
+          className="absolute  h-5 w-5"
+          alt="deleteBtn"
+          src="images/deleteButton.png"
+        />
       </button>
     </div>
   );
