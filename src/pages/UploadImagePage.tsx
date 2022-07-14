@@ -2,17 +2,17 @@ import React from "react";
 import Title from "components/Title";
 import Button from "components/Button";
 import ImageList from "components/ImageList";
-
+import ImageListBlock from "components/ImageListBlock";
 function UploadImagePage() {
   return (
     <>
       <Title textValue="Select portraits without mosaic"></Title>
-      <ImageList name="you"></ImageList>
+      <ImageListBlock></ImageListBlock>
       <div className="absolute bottom-0 right-0 p-5">
-        <Button img="imges/rightArrow.png" url="/"></Button>
+        <Button img="images/rightArrow.png" url="/"></Button>
       </div>
       <div className="absolute bottom-0 left-0 p-5">
-        <Button img="imges/leftArrow.png" url="/"></Button>
+        <Button img="images/leftArrow.png" url="/"></Button>
       </div>
     </>
   );

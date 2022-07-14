@@ -11,6 +11,7 @@ function ImageListBlock() {
       },
     ],
   });
+
   const addImgList = () => {
     setTotalList({
       file: [
@@ -19,6 +20,33 @@ function ImageListBlock() {
       ],
     });
     setCount((count) => count + 1);
+    console.log(totalList);
+  };
+
+  const changeFuc = (object, name) => {
+    let findIndex = totalList.file.findIndex((element) => element.name == name);
+    console.log("복사전 현재 상태");
+    console.log(totalList);
+    console.log("들어갈 데이터!");
+    console.log(object);
+    console.log("들어갈 데이터가 속한 이름!");
+    console.log(name);
+    console.log("해당 속성의 인덱스!");
+    console.log(findIndex);
+
+    let copyArray = { ...totalList };
+    console.log("복사한 내용!");
+    console.log(copyArray);
+    copyArray.file[findIndex].pictures = [
+      ...copyArray.file[findIndex].pictures,
+      object,
+    ];
+    console.log("복사 직전 바꾼 내용!");
+    console.log(copyArray);
+
+    setTotalList(copyArray);
+
+    console.log("복사후 최종 변경내용");
     console.log(totalList);
   };
 
@@ -35,8 +63,18 @@ function ImageListBlock() {
         }}
       ></button>
 
-      <ImageList name="you"></ImageList>
-      <ImageList name="other"></ImageList>
+      {totalList.file &&
+        totalList.file.map((imgList) => (
+          <ImageList
+            key={imgList.name}
+            object={imgList}
+            changeFuc={changeFuc}
+          />
+        ))}
+      {
+        // <ImageList name="you"></ImageList>
+        // <ImageList name="other"></ImageList> */
+      }
     </>
   );
 }
