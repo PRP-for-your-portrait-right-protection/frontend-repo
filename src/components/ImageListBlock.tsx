@@ -49,7 +49,7 @@ function ImageListBlock() {
 
       console.log("복사후 최종 변경내용");
       console.log(totalList);
-    } else {
+    } else if (type == "delete") {
       console.log(object);
       console.log("copy내용(처리전)");
       console.log(copyArray);
@@ -58,13 +58,9 @@ function ImageListBlock() {
         findIndex
       ].pictures.filter((img) => img.id !== object);
 
-      console.log(
-        copyArray.file[findIndex].pictures.filter((img) => img.id !== object)
-      );
-      console.log(copyArray.file[findIndex].pictures);
-      // copyArray.file[findIndex].pictures.filter((img) => img.id == img.id);
-      console.log("copy내용(처리후)");
-      console.log(copyArray);
+      setTotalList(copyArray);
+    } else {
+      copyArray.file = copyArray.file.filter((list) => list.name !== name);
       setTotalList(copyArray);
     }
   };

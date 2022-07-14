@@ -36,6 +36,10 @@ function ImageList({ object, changeFuc }: ImageListProps) {
     }
   };
 
+  const deleteFileImageList = () => {
+    changeFuc(null, object.name, "deleteList");
+  };
+
   const silceImage = (imgList) => {
     let currentPosts = [];
     currentPosts = imgList[0].pictures.slice(curPage, curPage + 3);
@@ -46,6 +50,13 @@ function ImageList({ object, changeFuc }: ImageListProps) {
   return (
     <div className="imageList-component mt-28">
       <p> {object.name} </p>
+      <button onClick={() => deleteFileImageList()}>
+        <img
+          className="absolute  h-5 w-5"
+          alt="deleteBtn"
+          src="images/deleteButton.png"
+        />
+      </button>
       <button
         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
         onClick={() =>
