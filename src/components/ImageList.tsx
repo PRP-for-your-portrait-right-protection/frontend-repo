@@ -15,6 +15,7 @@ function ImageList({ name }: ImageListProps) {
 
   const saveFileImage = (event: React.ChangeEvent<HTMLInputElement>) => {
     // @ts-ignore
+    console.log(name);
     setImgList((imgList) => [
       ...imgList,
       {
@@ -64,7 +65,7 @@ function ImageList({ name }: ImageListProps) {
         Pre
       </button>
       <div className="grid grid-cols-4 gap-4">
-        <label className="h-60 w-60 col-span-1" htmlFor="input-file"></label>
+        <label className="h-60 w-60 col-span-1" htmlFor={name}></label>
 
         {imgList &&
           silceImage(imgList).map((img) => (
@@ -78,7 +79,7 @@ function ImageList({ name }: ImageListProps) {
 
       <div>
         <input
-          id="input-file"
+          id={name}
           className="hidden"
           name="imageUpload"
           type="file"
