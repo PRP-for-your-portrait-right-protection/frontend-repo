@@ -22,27 +22,14 @@ function ImageList({ object, changeFuc }: ImageListProps) {
     };
     console.log("picture 배열에 추가될 요소");
     console.log(object);
-    changeFuc(data, object.name);
+    changeFuc(data, object.name, "add");
     setCount((count) => count + 1);
     console.log("next");
     console.log(imgList);
   };
 
-  // const saveFileImage = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   // @ts-ignore
-  //   console.log(name);
-  //   setImgList((imgList) => [
-  //     ...imgList,
-  //     {
-  //       url: URL.createObjectURL(event.target.files[0]),
-  //       id: count,
-  //     },
-  //   ]);
-  //   setCount((count) => count + 1);
-  //   console.log(imgList);
-  // };
-
   const deleteFileImage = (id) => {
+    changeFuc(id, object.name, "delete");
     // setImgList(imgList.filter((img) => img.id !== id));
     if (curPage > 0) {
       setPage((curPage) => curPage - 1);
@@ -58,7 +45,7 @@ function ImageList({ object, changeFuc }: ImageListProps) {
 
   return (
     <div className="imageList-component mt-28">
-      <p> {name} </p>
+      <p> {object.name} </p>
       <button
         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
         onClick={() =>

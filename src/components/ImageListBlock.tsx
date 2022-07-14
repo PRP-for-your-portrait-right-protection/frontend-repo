@@ -23,31 +23,50 @@ function ImageListBlock() {
     console.log(totalList);
   };
 
-  const changeFuc = (object, name) => {
+  const changeFuc = (object, name, type) => {
     let findIndex = totalList.file.findIndex((element) => element.name == name);
-    console.log("복사전 현재 상태");
-    console.log(totalList);
-    console.log("들어갈 데이터!");
-    console.log(object);
-    console.log("들어갈 데이터가 속한 이름!");
-    console.log(name);
-    console.log("해당 속성의 인덱스!");
-    console.log(findIndex);
-
     let copyArray = { ...totalList };
-    console.log("복사한 내용!");
-    console.log(copyArray);
-    copyArray.file[findIndex].pictures = [
-      ...copyArray.file[findIndex].pictures,
-      object,
-    ];
-    console.log("복사 직전 바꾼 내용!");
-    console.log(copyArray);
+    if (type == "add") {
+      console.log("복사전 현재 상태");
+      console.log(totalList);
+      console.log("들어갈 데이터!");
+      console.log(object);
+      console.log("들어갈 데이터가 속한 이름!");
+      console.log(name);
+      console.log("해당 속성의 인덱스!");
+      console.log(findIndex);
 
-    setTotalList(copyArray);
+      console.log("복사한 내용!");
+      console.log(copyArray);
+      copyArray.file[findIndex].pictures = [
+        ...copyArray.file[findIndex].pictures,
+        object,
+      ];
+      console.log("복사 직전 바꾼 내용!");
+      console.log(copyArray);
 
-    console.log("복사후 최종 변경내용");
-    console.log(totalList);
+      setTotalList(copyArray);
+
+      console.log("복사후 최종 변경내용");
+      console.log(totalList);
+    } else {
+      console.log(object);
+      console.log("copy내용(처리전)");
+      console.log(copyArray);
+
+      copyArray.file[findIndex].pictures = copyArray.file[
+        findIndex
+      ].pictures.filter((img) => img.id !== object);
+
+      console.log(
+        copyArray.file[findIndex].pictures.filter((img) => img.id !== object)
+      );
+      console.log(copyArray.file[findIndex].pictures);
+      // copyArray.file[findIndex].pictures.filter((img) => img.id == img.id);
+      console.log("copy내용(처리후)");
+      console.log(copyArray);
+      setTotalList(copyArray);
+    }
   };
 
   return (
