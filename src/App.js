@@ -2,6 +2,7 @@ import Mainpage from "./pages/Mainpage";
 import UploadImagePage from "./pages/UploadImagePage";
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import "./App.css";
 import Mainpage from "./pages/Mainpage";
 import AftLoginMainpage from "./pages/AftLoginMainpage";
 import ResultVideopage from "./pages/ResultVideopage";
@@ -12,6 +13,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Mainpage />} />
+        <Route path="/people" element={<UploadImagePage />} />
         <Route path="/people" element={<UploadImagePage />} />
         <Route path="/upload" element={<Mainpage />} />
         <Route path="/signin" element={<AftLoginMainpage />} />
