@@ -27,12 +27,30 @@
 .text_style_1 {
   font-size: 6.25rem;
 }
-.text_style_2 {
-  font-size: 2.375rem;
-}
 .portrait_right_protection {
   padding-left: 29%;
   font-family: "StardosStencil-Regular";
   font-size: 2.5rem;
   color: #372a2a;
+}
+.For_Your_Login {
+  padding-left: 20%;
+  font-family: "StardosStencil-Regular";
+  font-size: 3.125rem;
+  color: #372a2a;
+  text-align: center;
+}
+.portrait_right_protection_Login {
+  padding-left: 20%;
+  font-family: "StardosStencil-Regular";
+  font-size: 2.5rem;
+  color: #372a2a;
+  text-align: center;
+}
+.login {
+  border-radius: 25px;
+  width: 83%;
+  height: 80%;
+  background-color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.5);
 }
