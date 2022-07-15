@@ -1,6 +1,6 @@
 @font-face {
   font-family: "StardosStencil-Regular";
-  src: url("C:\gitkraken_study\docker-repo\frontend-repo\src\fonts\StardosStencil-Regular.ttf");
+  src: url("../fonts/StardosStencil-Regular.ttf");
 }
 @media (max-width: 700px) {
   .conversion {
