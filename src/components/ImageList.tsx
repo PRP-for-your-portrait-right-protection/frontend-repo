@@ -28,6 +28,8 @@ function ImageList({ object, changeFuc }: ImageListProps) {
     let data = {
       url: URL.createObjectURL(event.target.files[0]),
       id: count,
+      file: event.target.files[0],
+      new: "Y",
     };
 
     changeFuc(data, object.name, "add");

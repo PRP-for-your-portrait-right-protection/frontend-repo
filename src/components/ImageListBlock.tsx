@@ -1,6 +1,8 @@
+import { element } from "prop-types";
 import React, { useState } from "react";
 import ImageList from "../components/ImageList";
-import "./ImageListBlock.css";
+import axios from "axios";
+
 /**
  * @name : Teawon
  * @component :ImageListBlock - 각각의 ImgList컴포넌트를 추가하고 전체 데이터를 관리하는 컴포넌트
@@ -24,6 +26,29 @@ function ImageListBlock() {
    * @function :addImgList - 전체 ImgList의 개수를 늘리는 함수(컴포넌트 수 증가), 처음 이름은 other{count}로 지정하여 컴포넌트를 생성함
    * @create-data: 2022-07-15
    */
+
+  const makeFormData = async () => {
+    const formData = new FormData();
+
+    const imageList = totalList.file;
+
+    totalList.file.forEach((element) => {
+      element.pictures.forEach((list) => {
+        formData.append(element.name, list.file);
+      });
+    });
+
+    const res = await axios.post(
+      "http://localhost:4000/file/upload",
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+  };
+
   const addImgList = () => {
     setTotalList({
       file: [
@@ -88,6 +113,20 @@ function ImageListBlock() {
             changeFuc={changeFuc}
           />
         ))}
+
+      <button
+        className="bg-yello-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+        onClick={() => makeFormData()}
+      >
+        makeFormData
+      </button>
+
+      <button
+        className="bg-yello-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+        onClick={() => console.log(totalList)}
+      >
+        checkasdadasdasd
+      </button>
     </>
   );
 }
