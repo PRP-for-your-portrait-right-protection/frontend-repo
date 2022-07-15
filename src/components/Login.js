@@ -79,7 +79,7 @@ function Login() {
           Do not have an account yet?
         </span>
         <Link to="/">
-          <strong className="ml-4 text-2xl font-Stardos text-bg-amber-900">
+          <strong className="ml-4 text-2xl font-Stardos text-amber-900">
             Sign up
           </strong>
         </Link>
