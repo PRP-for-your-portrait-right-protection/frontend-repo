@@ -1,0 +1,86 @@
+@font-face {
+  font-family: "StardosStencil-Regular";
+  src: url("C:\gitkraken_study\docker-repo\frontend-repo\src\fonts\StardosStencil-Regular.ttf");
+}
+@media (max-width: 700px) {
+  .Select {
+    font-size: 20px;
+  }
+}
+.Select {
+  position: absolute;
+  width: 10em;
+  height: 1em;
+  left: 36%;
+  top: 1.5em;
+  font-family: "StardosStencil-Regular", serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 450%;
+  line-height: 83px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: #ffffff;
+}
+
+.Pictures {
+  position: absolute;
+  width: 500px;
+  height: 55px;
+  left: 20%;
+  top: 250px;
+
+  font-family: "StardosStencil-Regular", serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 35px;
+  line-height: 55px;
+
+  color: #ffffff;
+}
+.Video {
+  position: absolute;
+  width: 500px;
+  height: 55px;
+  left: 20%;
+  top: 360px;
+
+  font-family: "StardosStencil-Regular", serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 35px;
+  line-height: 55px;
+
+  color: #ffffff;
+}
+.Effect {
+  position: absolute;
+  width: 500px;
+  height: 55px;
+  left: 20%;
+  top: 470px;
+
+  font-family: "StardosStencil-Regular", serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 35px;
+  line-height: 55px;
+
+  color: #ffffff;
+}
+.Estimated {
+  position: absolute;
+  width: 700px;
+  height: 55px;
+  left: 20%;
+  top: 580px;
+
+  font-family: "StardosStencil-Regular", serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 35px;
+  line-height: 55px;
+
+  color: #ffffff;
+}

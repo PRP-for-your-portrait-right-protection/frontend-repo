@@ -1,0 +1,35 @@
+@font-face {
+  font-family: "StardosStencil-Regular";
+  src: url("C:\gitkraken_study\docker-repo\frontend-repo\src\fonts\StardosStencil-Regular.ttf");
+}
+@media (max-width: 700px) {
+  .conversion {
+    font-size: 2rem;
+  }
+}
+.conversion {
+  position: absolute;
+  width: 60%;
+  height: 20%;
+  left: 30rem;
+  top: 15rem;
+
+  font-family: "StardosStencil-Regular", serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 4rem;
+  line-height: 110px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+
+  color: #ffffff;
+}
+.stop {
+  position: absolute;
+  width: 5rem;
+  height: 5rem;
+  left: 17rem;
+  top: 10rem;
+  color: white;
+}

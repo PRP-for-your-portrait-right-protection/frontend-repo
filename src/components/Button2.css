@@ -1,0 +1,16 @@
+.next {
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  right: 20px;
+  top: 630px;
+  color: white;
+}
+.previous {
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  left: 20px;
+  top: 630px;
+  color: white;
+}

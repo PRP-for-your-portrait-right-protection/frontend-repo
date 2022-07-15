@@ -1,0 +1,127 @@
+@font-face {
+  font-family: "StardosStencil-Regular";
+  src: url("C:\gitkraken_study\docker-repo\frontend-repo\src\fonts\StardosStencil-Regular.ttf");
+}
+.mosaicFont {
+  position: absolute;
+  width: 80%;
+  height: 83px;
+  left: 19%;
+  top: 1.5em;
+
+  font-family: "StardosStencil-Regular", serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 4em;
+  line-height: 83px;
+
+  text-transform: capitalize;
+
+  color: #ffffff;
+}
+.hr1 {
+  position: absolute;
+  margin: auto;
+  width: 68%;
+  height: 0px;
+  left: 16%;
+  top: 180px;
+  background-color: white;
+  border: 3px solid #fffcfc;
+}
+div.item {
+  position: relative;
+  padding-right: 20%;
+  top: 300px;
+  left: 430px;
+  vertical-align: top;
+  display: inline-block;
+  text-align: center;
+  width: 180px;
+  background-color: transparent;
+}
+
+.caption {
+  left: 30%;
+  display: block;
+  font-family: "StardosStencil-Regular", serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 2rem;
+  color: #ffffff;
+}
+.modalFont1 {
+  position: absolute;
+  width: 20%;
+  height: 10%;
+  left: 14rem;
+  top: 10rem;
+
+  font-family: "StardosStencil-Regular", serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1.5em;
+  color: white;
+}
+.modalFont2 {
+  position: absolute;
+  width: 20%;
+  height: 10%;
+  left: 15.4rem;
+  top: 22rem;
+
+  font-family: "StardosStencil-Regular", serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1.5em;
+  color: white;
+}
+.scale {
+  border: 0;
+  background-color: transparent;
+  transform: scale(1);
+  -webkit-transform: scale(1);
+  -moz-transform: scale(1);
+  -ms-transform: scale(1);
+  -o-transform: scale(1);
+  transition: all 0.3s ease-in-out; /* 부드러운 모션을 위해 추가*/
+}
+.scale:hover {
+  transform: scale(1.2);
+  -webkit-transform: scale(1.2);
+  -moz-transform: scale(1.2);
+  -ms-transform: scale(1.2);
+  -o-transform: scale(1.2);
+}
+.img {
+  width: 325px;
+  height: 280px;
+  overflow: hidden;
+}
+
+input[id="ch"] + label {
+  top: 30rem;
+  display: inline-block;
+  width: 12rem;
+  height: 9em;
+  border: 6px solid #bcbcbc;
+  cursor: pointer;
+  background-image: url("../../public/images/mosaic.png");
+  transition: all 0.3s ease-in-out; /* 부드러운 모션을 위해 추가*/
+}
+input[id="ch"] + label:hover {
+  transform: scale(1.2);
+  -webkit-transform: scale(1.2);
+  -moz-transform: scale(1.2);
+  -ms-transform: scale(1.2);
+  -o-transform: scale(1.2);
+}
+input[id="ch"]:checked + label {
+  border: 6px solid #c6c627;
+}
+input[id="ch"]:checked + label > span {
+  color: red;
+}
+input[id="ch"] {
+  display: none;
+}
