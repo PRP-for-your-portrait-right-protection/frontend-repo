@@ -1,0 +1,14 @@
+.admin {
+  position: absolute;
+  width: 50px;
+  height: 60px;
+  right: 100px;
+  top: 15px;
+}
+.signOut {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  right: 25px;
+  top: 15px;
+}
