@@ -13,9 +13,6 @@ function VideoUpload() {
 
   return (
     <div>
-      <div className="absolute bottom-0 right-0 p-5">
-        <Button img="images/rightArrow.png" url="/Mosaic"></Button>
-    <div className="justify-center">
       <Button2
         img="images\icons8-arrows-64 (2) 1.png"
         url="/upload"
@@ -40,7 +37,7 @@ function VideoUpload() {
           ></video>
         </div>
       ) : (
-        <div className="flex justify-center w-3/4 h-64 ">
+        <div className="flex cc justify-center w-3/4 h-64 ">
           <label
             htmlFor="dropzone-file"
             className="flex flex-col justify-center items-center w-full h-64 bg-gray-50 rounded-lg border-2 border-gray-300 border-dashed cursor-pointer dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
@@ -89,7 +86,10 @@ function VideoUpload() {
         onChange={saveFile}
       />
 
-      <span className="uploadButton" onClick={() => fileInput.current.click()}>
+      <span
+        className="uploadButton flex justify-center"
+        onClick={() => fileInput.current.click()}
+      >
         <img src="images\videoupload.png" alt="" className="file" />
       </span>
     </div>
