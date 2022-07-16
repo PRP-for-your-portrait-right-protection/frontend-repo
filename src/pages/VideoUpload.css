@@ -4,9 +4,6 @@
   src: url("../fonts/StardosStencil-Regular.ttf");
 }
 
-.dropzone {
-  margin: 0;
-}
 .uploadFont {
   position: absolute;
   width: 52rem;
@@ -24,23 +21,11 @@
 
   color: #ffffff;
 }
-.hr2 {
-  position: absolute;
-  margin: auto;
-  width: 50rem;
-  height: 0px;
-  left: 22rem;
-  top: 180px;
-  background-color: white;
-  border: 3px solid #fffcfc;
-}
 
 .file {
-  position: absolute;
-  top: 38rem;
-  left: 25rem;
   width: 4rem;
   height: 4rem;
+  text-align: center;
 }
 .form {
   display: absolute;
