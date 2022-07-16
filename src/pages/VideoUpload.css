@@ -3,6 +3,10 @@
   font-family: "StardosStencil-Regular";
   src: url("../fonts/StardosStencil-Regular.ttf");
 }
+
+.dropzone {
+  margin: 0;
+}
 .uploadFont {
   position: absolute;
   width: 52rem;
