@@ -29,24 +29,25 @@ function ImageListBlock() {
 
   const makeFormData = async () => {
     const formData = new FormData();
-
     const imageList = totalList.file;
 
     totalList.file.forEach((element) => {
+      formData.append("name", element.name);
       element.pictures.forEach((list) => {
-        formData.append(element.name, list.file);
+        formData.append("file", list.file);
       });
     });
 
-    const res = await axios.post(
-      "http://localhost:4000/file/upload",
-      formData,
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      }
-    );
+    for (let key of formData.keys()) {
+      console.log("FormData의 key를 확인합니다.");
+      console.log(key);
+    }
+
+    // FormData의 value 확인
+    for (let value of formData.values()) {
+      console.log("FormData의 Values를 확인합니다.");
+      console.log(value);
+    }
   };
 
   const addImgList = () => {
