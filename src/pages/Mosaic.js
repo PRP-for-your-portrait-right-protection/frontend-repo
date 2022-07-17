@@ -4,15 +4,20 @@ import Modal from "../components/Modal";
 import Button from "components/Button";
 import styled from "styled-components";
 import Title from "components/Title";
-
+import CharacterImageList from "components/CharacterImageList";
 function Mosaic() {
   const [modal, setModal] = useState(false); //스위치 역할
   const [toggle1, setToggle1] = useState(false);
   const [toggle2, setToggle2] = useState(false);
   const [selectedData, setSelectedData] = useState(null);
+  const [characterList, setCharacterList] = useState([
+    "https://www.newsworks.co.kr/news/photo/202002/433057_327801_345.jpg",
+    "https://img.seoul.co.kr/img/upload/2017/10/07/SSI_20171007154542_O2.jpg",
+    "https://www.kocca.kr/cmm/fnw/getImage.do?atchFileId=FILE_000000000296370&fileSn=1",
+    "https://gwgs.go.kr/images/kor/sub05/sub050304_img01.jpg",
+  ]);
   const openModal = () => {
     setModal(true);
-    setToggle(false);
   };
   const closeModal = () => {
     setModal(false);
@@ -53,11 +58,29 @@ function Mosaic() {
           <img src="images\character.png" alt="" onClick={openModal} />
           <span className="caption">CHARACTER</span>
         </ToggleBtn>
+
         <Modal open={modal} close={closeModal}>
           <div>
             <div className="modalFont1">CHARACTER</div>
             <div className="modalFont2">MY CHARACTER</div>
-            <ChoiceCharacterResearch></ChoiceCharacterResearch>
+
+            <CharacterImageList
+              characterList={characterList}
+              clickFuc={setSelectedData}
+            ></CharacterImageList>
+
+            <AppStyle>
+              <label htmlFor="ex_file">
+                <div className="btnStart">
+                  <img src="images\download.png" alt="btnStart" />
+                </div>
+              </label>
+              <input
+                type="file"
+                id="ex_file"
+                onChange={(e) => console.log(e.target.files[0])}
+              />
+            </AppStyle>
           </div>
         </Modal>
       </div>
