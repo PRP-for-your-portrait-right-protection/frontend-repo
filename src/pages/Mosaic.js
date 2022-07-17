@@ -7,14 +7,31 @@ import Title from "components/Title";
 import CharacterImageList from "components/CharacterImageList";
 function Mosaic() {
   const [modal, setModal] = useState(false); //스위치 역할
+  let imgId = -1;
+  const getId = () => {
+    imgId++;
+    return imgId;
+  };
   const [toggle1, setToggle1] = useState(false);
   const [toggle2, setToggle2] = useState(false);
   const [selectedData, setSelectedData] = useState(null);
   const [characterList, setCharacterList] = useState([
-    "https://www.newsworks.co.kr/news/photo/202002/433057_327801_345.jpg",
-    "https://img.seoul.co.kr/img/upload/2017/10/07/SSI_20171007154542_O2.jpg",
-    "https://www.kocca.kr/cmm/fnw/getImage.do?atchFileId=FILE_000000000296370&fileSn=1",
-    "https://gwgs.go.kr/images/kor/sub05/sub050304_img01.jpg",
+    {
+      url: "https://www.newsworks.co.kr/news/photo/202002/433057_327801_345.jpg",
+      id: getId(),
+    },
+    {
+      url: "https://img.seoul.co.kr/img/upload/2017/10/07/SSI_20171007154542_O2.jpg",
+      id: getId(),
+    },
+    {
+      url: "https://www.kocca.kr/cmm/fnw/getImage.do?atchFileId=FILE_000000000296370&fileSn=1",
+      id: getId(),
+    },
+    {
+      url: "https://gwgs.go.kr/images/kor/sub05/sub050304_img01.jpg",
+      id: getId(),
+    },
   ]);
   const openModal = () => {
     setModal(true);

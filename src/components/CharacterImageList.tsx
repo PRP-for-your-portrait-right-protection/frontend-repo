@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import CharacterBlock from "components/CharacterBlock";
-
+import "./CharacterImageList.css";
 /**
  * @name : Teawon
  * @component :ImageList - name , picture리스트를 통해 특정 유저에 대한 사진리스트를 관리하는 컴포넌트
@@ -9,15 +8,21 @@ import CharacterBlock from "components/CharacterBlock";
 
 interface ImageListProps {
   characterList: any;
-  changeFuc: any;
+  clickFuc: any;
 }
 
-function CharacterImageList({ characterList, changeFuc }: ImageListProps) {
+function CharacterImageList({ characterList, clickFuc }: ImageListProps) {
   const [count, setCount]: [number, any] = useState<number>(
     characterList.length
   ); //해당 컴포넌트가 가지고있는 list개수
-  console.log("개수는???");
-  console.log(count);
+
+  const [selectedId, setSeselectedId] = useState<number>(0); //선택된 이미지 id
+
+  const handleClickRadioButton = (e) => {
+    setSeselectedId(e.target.value);
+    clickFuc(characterList[e.target.value].url);
+  };
+
   const [curPage, setPage]: [number, any] = useState<number>(0); //curPage를 기점으로 curPage~curPage3까지의 요소만 보여줌
 
   /**
@@ -57,11 +62,18 @@ function CharacterImageList({ characterList, changeFuc }: ImageListProps) {
       <div className="grid grid-cols-4 gap-4">
         {characterList &&
           silceImage().map((img) => (
-            <CharacterBlock
-              key={img.id}
-              object={img}
-              deleteFileImage={silceImage}
-            />
+            <div className="col-span-1" key={img.id}>
+              <label>
+                <input
+                  type="radio"
+                  className="hidden"
+                  value={img.id}
+                  checked={selectedId == img.id}
+                  onChange={handleClickRadioButton}
+                />
+                <img className="h-60 w-60" alt="sample" src={img.url} />
+              </label>
+            </div>
           ))}
       </div>
     </div>
