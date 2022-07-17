@@ -4,41 +4,55 @@ import Modal from "../components/Modal";
 import Button from "components/Button";
 import styled from "styled-components";
 import Title from "components/Title";
-import ChoiceCharacterResearch from "components/ChoiceCharacterResearch";
 
 function Mosaic() {
   const [modal, setModal] = useState(false); //스위치 역할
-  const [toggle, setToggle] = useState(false);
+  const [toggle1, setToggle1] = useState(false);
+  const [toggle2, setToggle2] = useState(false);
+  const [selectedData, setSelectedData] = useState(null);
   const openModal = () => {
     setModal(true);
+    setToggle(false);
   };
   const closeModal = () => {
     setModal(false);
   };
-  const clickedToggle = () => {
-    setToggle((prev) => !prev);
+  const clickedToggle1 = () => {
+    setToggle1(true);
+    setToggle2(false);
+  };
+
+  const clickedToggle2 = () => {
+    setToggle2(true);
+    setToggle1(false);
   };
 
   return (
     <div>
-      <div className="absolute bottom-0 right-0 p-5">
-        <Button img="images/rightArrow.png" url="/Result"></Button>
-      </div>
-      <div className="absolute bottom-0 left-0 p-5">
-        <Button img="images/leftArrow.png" url="/VideoUpload"></Button>
-      </div>
+      <Button2
+        img="images\icons8-arrows-64 (2) 1.png"
+        url="/VideoUpload"
+        design="previous"
+      ></Button2>
+
+      <Button2
+        img="images\icons8-arrows-64 (2) 2.png"
+        url="/Result"
+        design="next"
+      ></Button2>
       <Title textValue="Select the image Processing type"></Title>
-      {/* <div className="item">
-       {/*  <ToggleBtn onClick={clickedToggle} toggle={toggle}>
-          <img src="images\mosaic.png" alt="" />
-        </ToggleBtn>
-        <span className="caption">MOSAIC</span>
-      </div> */}
+
       <div className="item">
-        <button className="scale">
+        <ToggleBtn onClick={clickedToggle1} toggle={toggle1}>
+          <img src="images\mosaic.png" alt="" />
+          <span className="caption">MOSAIC</span>
+        </ToggleBtn>
+      </div>
+      <div className="item">
+        <ToggleBtn onClick={clickedToggle2} toggle={toggle2}>
           <img src="images\character.png" alt="" onClick={openModal} />
           <span className="caption">CHARACTER</span>
-        </button>
+        </ToggleBtn>
         <Modal open={modal} close={closeModal}>
           <div>
             <div className="modalFont1">CHARACTER</div>
@@ -48,9 +62,9 @@ function Mosaic() {
         </Modal>
       </div>
       <input type="checkbox" id="ch" />
-      <label htmlFor="ch">
+      {/* <label>
         <span className="caption">MOSAIC</span>
-      </label>
+      </label> */}
     </div>
   );
 }
