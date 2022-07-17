@@ -16,22 +16,22 @@ function Mosaic() {
   const [toggle2, setToggle2] = useState(false);
   const [selectedData, setSelectedData] = useState(null);
   const [characterList, setCharacterList] = useState([
-    {
-      url: "https://www.newsworks.co.kr/news/photo/202002/433057_327801_345.jpg",
-      id: getId(),
-    },
-    {
-      url: "https://img.seoul.co.kr/img/upload/2017/10/07/SSI_20171007154542_O2.jpg",
-      id: getId(),
-    },
-    {
-      url: "https://www.kocca.kr/cmm/fnw/getImage.do?atchFileId=FILE_000000000296370&fileSn=1",
-      id: getId(),
-    },
-    {
-      url: "https://gwgs.go.kr/images/kor/sub05/sub050304_img01.jpg",
-      id: getId(),
-    },
+    "https://www.newsworks.co.kr/news/photo/202002/433057_327801_345.jpg",
+
+    "https://img.seoul.co.kr/img/upload/2017/10/07/SSI_20171007154542_O2.jpg",
+
+    "https://www.kocca.kr/cmm/fnw/getImage.do?atchFileId=FILE_000000000296370&fileSn=1",
+
+    "https://gwgs.go.kr/images/kor/sub05/sub050304_img01.jpg",
+  ]);
+  const [userCharacterList, setUserCharacterList] = useState([
+    "https://image.idus.com/image/files/58c639aa4a454c9887eb3cd2ced2b3ff.gif",
+
+    "https://i.pinimg.com/originals/67/c4/28/67c428560442f7aa423d7fdfc1ff88ea.gif",
+
+    "https://i.pinimg.com/originals/f7/b2/de/f7b2de46108993ffb90984b0173ae9c9.gif",
+
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_WEEfYdRouYlbmOlyxQguFxiHNTTbbhVZ855Q5qIgDUrVTURfCC2aeBhAwv0Sg2h3yLs&usqp=CAU",
   ]);
   const openModal = () => {
     setModal(true);
@@ -78,11 +78,9 @@ function Mosaic() {
 
         <Modal open={modal} close={closeModal}>
           <div>
-            <div className="modalFont1">CHARACTER</div>
-            <div className="modalFont2">MY CHARACTER</div>
-
             <CharacterImageList
               characterList={characterList}
+              userCharacterList={userCharacterList}
               clickFuc={setSelectedData}
             ></CharacterImageList>
 

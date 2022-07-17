@@ -24,7 +24,7 @@
 .modal > section {
   width: 1200px;
   margin: 0 auto;
-  height: 600px;
+  height: 50rem;
   border-radius: 0.3rem;
   background-color: rgb(55, 42, 42);
   /* 팝업이 열릴때 스르륵 열리는 효과 */
@@ -61,11 +61,12 @@
   padding: 6px 12px;
   color: #fff;
   position: absolute;
-  top: 37rem;
-  left: 40rem;
+  top: 50rem;
+  left: 45rem;
   cursor: pointer;
   height: 8%;
   width: 18%;
+  text-align: center;
   font-family: "StardosStencil-Regular", serif;
   font-style: normal;
   font-weight: 400;
