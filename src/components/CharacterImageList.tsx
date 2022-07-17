@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import "./CharacterImageList.css";
 /**
  * @name : Teawon
@@ -39,6 +39,13 @@ function CharacterImageList({
 
   const [curPage, setPage]: [number, any] = useState<number>(0); //curPage를 기점으로 curPage~curPage3까지의 요소만 보여줌
   const [curPageUser, setPageUser]: [number, any] = useState<number>(0); //curPage를 기점으로 curPage~curPage3까지의 요소만 보여줌
+
+  const imageInput = useRef<any>();
+  const [inputImage, setInputImage] = useState<any>("");
+
+  const saveImage = (event) => {
+    setInputImage(event.target.files[0]);
+  };
 
   /**
    * @name : Teawon
@@ -142,6 +149,40 @@ function CharacterImageList({
             </div>
           ))}
       </div>
+
+      {inputImage && (
+        <div>
+          <label>
+            <input
+              type="radio"
+              className="hidden"
+              value={inputImage}
+              checked={selectedId == inputImage}
+              onChange={handleClickRadioButtonUser}
+            />
+            <img
+              className="w-3/4 h-64"
+              id="video"
+              src={URL.createObjectURL(inputImage)}
+            />
+          </label>
+        </div>
+      )}
+
+      <input
+        ref={imageInput}
+        className="hidden"
+        name="imageUpload"
+        type="file"
+        onChange={saveImage}
+      />
+
+      <span
+        className="uploadButton flex justify-center"
+        onClick={() => imageInput.current.click()}
+      >
+        <img src="images\videoupload.png" alt="" className="file" />
+      </span>
     </div>
   );
 }
