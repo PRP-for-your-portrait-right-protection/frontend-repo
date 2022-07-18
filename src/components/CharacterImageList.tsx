@@ -174,6 +174,7 @@ function CharacterImageList({
         className="hidden"
         name="imageUpload"
         type="file"
+        accept="image/*"
         onChange={saveImage}
       />
 

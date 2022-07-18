@@ -35,6 +35,12 @@ function VideoUpload() {
             style={{ margin: "auto" }}
             controls
           ></video>
+          <span
+            className="uploadButton flex justify-center"
+            onClick={() => fileInput.current.click()}
+          >
+            <img src="images\videoupload.png" alt="" className="file" />
+          </span>
         </div>
       ) : (
         <div className="flex cc justify-center w-3/4 h-64 ">
@@ -72,6 +78,7 @@ function VideoUpload() {
               className="cursor-pointer absolute block  p-20 z-50 opacity-0"
               name="imageUpload"
               type="file"
+              accept="video/*"
               onChange={saveFile}
             />
           </label>
@@ -83,15 +90,9 @@ function VideoUpload() {
         className="hidden"
         name="imageUpload"
         type="file"
+        accept="video/*"
         onChange={saveFile}
       />
-
-      <span
-        className="uploadButton flex justify-center"
-        onClick={() => fileInput.current.click()}
-      >
-        <img src="images\videoupload.png" alt="" className="file" />
-      </span>
     </div>
   );
 }
