@@ -18,10 +18,10 @@ function VideoUpload() {
 
   return (
     <div>
-      <div className="absolute bottom-0 right-0 p-5">
+      <div className="fixed bottom-0 right-0 p-5">
         <Button img="images/rightArrow.png" url="/Mosaic"></Button>
       </div>
-      <div className="absolute bottom-0 left-0 p-5">
+      <div className="fixed bottom-0 left-0 p-5">
         <Button img="images/leftArrow.png" url="/upload"></Button>
       </div>
 
