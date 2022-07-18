@@ -55,10 +55,10 @@ function Mosaic() {
 
   return (
     <div>
-      <div className="absolute bottom-0 right-0 p-5">
+      <div className="fixed bottom-0 right-0 p-5">
         <Button img="images/rightArrow.png" url="/Result"></Button>
       </div>
-      <div className="absolute bottom-0 left-0 p-5">
+      <div className="fixed bottom-0 left-0 p-5">
         <Button img="images/leftArrow.png" url="/VideoUpload"></Button>
       </div>
 
