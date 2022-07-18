@@ -2,12 +2,38 @@
   font-family: "StardosStencil-Regular";
   src: url("../fonts/StardosStencil-Regular.ttf");
 }
+.mosaicFont {
+  position: absolute;
+  width: 80%;
+  height: 83px;
+  left: 19%;
+  top: 1.5em;
 
+  font-family: "StardosStencil-Regular", serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 4em;
+  line-height: 83px;
+
+  text-transform: capitalize;
+
+  color: #ffffff;
+}
+.hr1 {
+  position: absolute;
+  margin: auto;
+  width: 68%;
+  height: 0px;
+  left: 16%;
+  top: 180px;
+  background-color: white;
+  border: 3px solid #fffcfc;
+}
 div.item {
   position: relative;
   padding-right: 20%;
-  top: 10em;
-  left: 55rem;
+  top: 300px;
+  left: 430px;
   vertical-align: top;
   display: inline-block;
   text-align: center;
@@ -40,7 +66,7 @@ div.item {
   width: 20%;
   height: 10%;
   left: 15.4rem;
-  top: 24rem;
+  top: 22rem;
 
   font-family: "StardosStencil-Regular", serif;
   font-style: normal;
@@ -72,11 +98,10 @@ div.item {
 }
 
 input[id="ch"] + label {
-  top: 21rem;
-  display: block;
-  width: 13rem;
-  height: 10em;
-  left: 30rem;
+  top: 30rem;
+  display: inline-block;
+  width: 12rem;
+  height: 9em;
   border: 6px solid #bcbcbc;
   cursor: pointer;
   background-image: url("../../public/images/mosaic.png");
@@ -89,23 +114,12 @@ input[id="ch"] + label:hover {
   -ms-transform: scale(1.2);
   -o-transform: scale(1.2);
 }
-label {
-  position: absolute;
-}
-
 input[id="ch"]:checked + label {
   border: 6px solid #c6c627;
-}
-label > span {
-  position: fixed;
-  top: 31rem;
-  left: 10rem;
-  text-align: center;
 }
 input[id="ch"]:checked + label > span {
   color: red;
 }
 input[id="ch"] {
   display: none;
-  width: 11rem;
 }

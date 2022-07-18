@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import "./Mosaic.css";
 import Modal from "../components/Modal";
-import Button from "components/Button";
+import Button from "../components/Button";
 import styled from "styled-components";
 import Title from "components/Title";
 import CharacterImageList from "components/CharacterImageList";
@@ -55,17 +55,13 @@ function Mosaic() {
 
   return (
     <div>
-      <Button2
-        img="images\icons8-arrows-64 (2) 1.png"
-        url="/VideoUpload"
-        design="previous"
-      ></Button2>
+      <div className="absolute bottom-0 right-0 p-5">
+        <Button img="images/rightArrow.png" url="/Result"></Button>
+      </div>
+      <div className="absolute bottom-0 left-0 p-5">
+        <Button img="images/leftArrow.png" url="/VideoUpload"></Button>
+      </div>
 
-      <Button2
-        img="images\icons8-arrows-64 (2) 2.png"
-        url="/Result"
-        design="next"
-      ></Button2>
       <Title textValue="Select the image Processing type"></Title>
 
       <div className="item">
@@ -103,6 +99,11 @@ function Mosaic() {
           </div>
         </Modal>
       </div>
+      {/*  <CheckForm>
+        <label htmlFor="ch">
+          <input type="checkbox" name="check" id="check1" />
+        </label>
+      </CheckForm> */}
       <input type="checkbox" id="ch" />
       {/* <label>
         <span className="caption">MOSAIC</span>
@@ -112,7 +113,7 @@ function Mosaic() {
 }
 
 export default Mosaic;
-/* const ToggleBtn = styled.button`
+const ToggleBtn = styled.button`
   width: 12rem;
   height: 11.3rem;
   border: none;
@@ -122,15 +123,14 @@ export default Mosaic;
   position: center;
   display: flex;
   transition: all 0.3s ease-in-out; /* 부드러운 모션을 위해 추가*/
-
-/*  &:hover {
+  &:hover {
     transform: scale(1.2);
     -webkit-transform: scale(1.2);
     -moz-transform: scale(1.2);
     -ms-transform: scale(1.2);
     -o-transform: scale(1.2);
-  } */
-
+  }
+`;
 const AppStyle = styled.div`
   margin: 25rem 0 0 30rem;
   img {
@@ -155,3 +155,29 @@ const AppStyle = styled.div`
     border: 0;
   }
 `;
+/* const CheckForm = styled.div`
+  label {
+    display: absolute;
+    font-size: 1em;
+    font-weight: 600;
+    margin-bottom: 0;
+    input[type="checkbox"] {
+      margin-right: px;
+      width: 12.6rem;
+      height: 10.4rem;
+      background: $white no-repeat center center;
+      border: 6px solid redk;
+      cursor: pointer;
+      outline: none;
+      appearance: none;
+      background-image: url("image/mosaic.png");
+      img {
+        width: 3.5rem;
+        height: 3.5rem;
+      }
+    }
+  }
+  input[id="ch"]:checked + label {
+    border: 6px solid #d21b1b;
+  }
+`; */

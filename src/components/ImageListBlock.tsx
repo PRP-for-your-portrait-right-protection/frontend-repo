@@ -2,6 +2,7 @@ import { element } from "prop-types";
 import React, { useState } from "react";
 import ImageList from "../components/ImageList";
 import axios from "axios";
+import "./ImageListBlock.css";
 
 /**
  * @name : Teawon
@@ -114,20 +115,6 @@ function ImageListBlock() {
             changeFuc={changeFuc}
           />
         ))}
-
-      <button
-        className="bg-yello-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
-        onClick={() => makeFormData()}
-      >
-        makeFormData
-      </button>
-
-      <button
-        className="bg-yello-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
-        onClick={() => console.log(totalList)}
-      >
-        checkasdadasdasd
-      </button>
     </>
   );
 }

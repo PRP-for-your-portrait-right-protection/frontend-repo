@@ -18,16 +18,12 @@ function VideoUpload() {
 
   return (
     <div>
-      <Button2
-        img="images\icons8-arrows-64 (2) 1.png"
-        url="/upload"
-        design="previous"
-      ></Button2>
-      <Button2
-        img="images\icons8-arrows-64 (2) 2.png"
-        url="/Mosaic"
-        design="next"
-      ></Button2>
+      <div className="absolute bottom-0 right-0 p-5">
+        <Button img="images/rightArrow.png" url="/Mosaic"></Button>
+      </div>
+      <div className="absolute bottom-0 left-0 p-5">
+        <Button img="images/leftArrow.png" url="/upload"></Button>
+      </div>
 
       <Title textValue="Please upload your video"></Title>
 

@@ -104,7 +104,6 @@ function CharacterImageList({
           ))}
       </div>
 
-      <br></br>
       <div className="modalFont2">MY CHARACTER</div>
       <button
         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
@@ -132,7 +131,7 @@ function CharacterImageList({
       <div className="grid grid-cols-4 gap-4">
         {userCharacterList &&
           silceImage(userCharacterList, curPageUser).map((img) => (
-            <div className="col-span-1" key={img}>
+            <div className="col-span-1 " key={img}>
               <label>
                 <input
                   type="radio"
@@ -148,7 +147,7 @@ function CharacterImageList({
       </div>
 
       {inputImage && (
-        <div>
+        <div className="col-span-1 flex">
           <label>
             <input
               type="radio"
