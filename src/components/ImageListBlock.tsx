@@ -1,6 +1,9 @@
+import { element } from "prop-types";
 import React, { useState } from "react";
 import ImageList from "../components/ImageList";
+import axios from "axios";
 import "./ImageListBlock.css";
+
 /**
  * @name : Teawon
  * @component :ImageListBlock - 각각의 ImgList컴포넌트를 추가하고 전체 데이터를 관리하는 컴포넌트
@@ -24,6 +27,30 @@ function ImageListBlock() {
    * @function :addImgList - 전체 ImgList의 개수를 늘리는 함수(컴포넌트 수 증가), 처음 이름은 other{count}로 지정하여 컴포넌트를 생성함
    * @create-data: 2022-07-15
    */
+
+  const makeFormData = async () => {
+    const formData = new FormData();
+    const imageList = totalList.file;
+
+    totalList.file.forEach((element) => {
+      formData.append("name", element.name);
+      element.pictures.forEach((list) => {
+        formData.append("file", list.file);
+      });
+    });
+
+    for (let key of formData.keys()) {
+      console.log("FormData의 key를 확인합니다.");
+      console.log(key);
+    }
+
+    // FormData의 value 확인
+    for (let value of formData.values()) {
+      console.log("FormData의 Values를 확인합니다.");
+      console.log(value);
+    }
+  };
+
   const addImgList = () => {
     setTotalList({
       file: [
