@@ -2,7 +2,6 @@ import React, { useRef, useState } from "react";
 import "./VideoUpload.css";
 import Button from "components/Button";
 import Title from "components/Title";
-// import VideoChoice from "components/VideoChoice";
 function VideoUpload() {
   const fileInput = useRef(); // 외부 이미지 클릭 시  <input>가 눌리도록 설정하기 위한 변수
   const [fileVideo, setFileVideo] = useState(""); //화면에 보여 줄 비디오 오브젝트
@@ -28,23 +27,23 @@ function VideoUpload() {
       <Title textValue="Please upload your video"></Title>
 
       {fileVideo ? ( //입력된 비디오파일이 있다면 드롭박스를 숨기고 파일업로드 버튼이 생기도록 함
-        <div>
+        <div className="mt-9">
           <video
-            className="w-3/4 h-64"
+            className="flex items-center justify-center w-3/4 h-72"
             id="video"
             src={fileVideo}
             style={{ margin: "auto" }}
             controls
           ></video>
           <span
-            className="uploadButton flex justify-center"
+            className="uploadButton flex justify-center "
             onClick={() => fileInput.current.click()}
           >
             <img src="images\videoupload.png" alt="" className="file" />
           </span>
         </div>
       ) : (
-        <div className="flex cc justify-center w-3/4 h-64 ">
+        <div className="cc flex items-center justify-center w-3/4 h-64 mt-9">
           <label
             htmlFor="dropzone-file"
             className="flex flex-col justify-center items-center w-full h-64 bg-gray-50 rounded-lg border-2 border-gray-300 border-dashed cursor-pointer dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
@@ -76,7 +75,7 @@ function VideoUpload() {
             </div>
             <input
               id="dropzone-file"
-              className="cursor-pointer absolute block  p-20 z-50 opacity-0"
+              className="cursor-pointer absolute block p-20 z-50 opacity-0"
               name="imageUpload"
               type="file"
               accept="video/*"
