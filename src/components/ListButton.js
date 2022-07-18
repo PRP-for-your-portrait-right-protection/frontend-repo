@@ -1,53 +1,27 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "./ListButton.css";
-import { Link } from "react-router-dom";
+import Navigation from "./Navigation";
+
+/**
+ * @name : minji
+ * @component :ListButton - Navigation컴포넌트 이용하여 페이지 이동
+ * @create-data: 2022-07-15
+ */
 
 function ListButton() {
-  const [currentClick, setCurrentClick] = useState(null);
-  const [prevClick, setPrevClick] = React.useState(null);
-  const GetClick = (e) => {
-    setCurrentClick(e.target.id);
-  };
-
-  useEffect(
-    (e) => {
-      if (currentClick !== null) {
-        let current = document.getElementById(currentClick);
-        current.style.color = "orange";
-        current.style.borderBottom = "2px solid";
-        current.style.borderBottomColor = "#1c28f4";
-      }
-      if (prevClick !== null) {
-        let prev = document.getElementById(prevClick);
-        prev.style.color = "white";
-        prev.style.borderBottom = "none";
-      }
-      setPrevClick(currentClick);
-    },
-    [currentClick]
-  );
   return (
-    <div>
-      <Link to="/Video">
-        <button id="video" className="button1" width="20%" onClick={GetClick}>
-          VIDEO
-        </button>
-      </Link>
-      <Link to="/Photo">
-        <button id="photo" className="button2" width="20%" onClick={GetClick}>
-          PHOTO
-        </button>
-      </Link>
-      <Link to="/Character">
-        <button
-          id="character"
-          className="button3"
-          width="40%"
-          onClick={GetClick}
-        >
-          CHARACTER
-        </button>
-      </Link>
+    <div className="a">
+      <nav className="navbar">
+        <div>
+          <Navigation url="Photo" name="PHOTO" />
+        </div>
+        <div>
+          <Navigation url="Video" name="VIDEO" />
+        </div>
+        <div>
+          <Navigation url="Character" name="CHARACTER" />
+        </div>
+      </nav>
       <hr className="hr3"></hr>
     </div>
   );

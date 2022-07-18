@@ -1,3 +1,4 @@
+
 @font-face {
   font-family: "StardosStencil-Regular";
   src: url("../fonts/StardosStencil-Regular.ttf");
@@ -29,6 +30,7 @@
   background-color: white;
   border: 3px solid #fffcfc;
 }
+
 .file {
   position: absolute;
   top: 38rem;
@@ -53,4 +55,18 @@
   appearance: none;
   border-radius: 0.25rem;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+.Video_conversion_complete {
+  width: 100%;
+  height: auto;
+  text-align: center;
+  font-family: "StardosStencil-Regular";
+  font-size: 3.125rem;
+  color: white;
+}
+.video {
+  display: block;
+  margin: 0 auto;
+  width: 960px;
+  height: 640px;
 }

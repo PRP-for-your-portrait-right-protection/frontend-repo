@@ -1,24 +1,20 @@
 import React from "react";
 import "./Result.css";
-import Button2 from "../components/Button2";
+import Button from "components/Button";
+import Title from "components/Title";
+
 function Result() {
   return (
     <div>
-      <Button2
-        img="images\icons8-arrows-64 (2) 1.png"
-        url="/Mosaic"
-        design="previous"
-      ></Button2>
-
-      <Button2
-        img="images\icons8-arrows-64 (2) 2.png"
-        url="/Loading"
-        design="next"
-      ></Button2>
-
-      <div className="Select">
-        <div>Selected Result</div>
+      <div className="absolute bottom-0 right-0 p-5">
+        <Button img="images/rightArrow.png" url="/Loading"></Button>
       </div>
+      <div className="absolute bottom-0 left-0 p-5">
+        <Button img="images/leftArrow.png" url="/Mosaic"></Button>
+      </div>
+
+      <Title textValue="Selected Result"></Title>
+
       <div className="Pictures" top="403px">
         <div>Uploaded pictures</div>
       </div>

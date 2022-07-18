@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import "./ImageList.css";
 import ImgBlock from "components/ImageBlock";
 
@@ -14,6 +14,7 @@ interface ImageListProps {
 }
 
 function ImageList({ object, changeFuc }: ImageListProps) {
+  const imageInput = useRef<any>();
   const imgList = useState(object);
   const [count, setCount]: [number, any] = useState<number>(0); //해당 컴포넌트가 가지고있는 list개수
   const [curPage, setPage]: [number, any] = useState<number>(0); //curPage를 기점으로 curPage~curPage3까지의 요소만 보여줌
@@ -69,36 +70,33 @@ function ImageList({ object, changeFuc }: ImageListProps) {
   };
 
   return (
-    <div className="imageList-component mt-28">
-      <p> {object.name} </p>
-      <button onClick={() => deleteFileImageList()}>
-        <img
-          className="absolute  h-5 w-5"
-          alt="deleteBtn"
-          src="images/deleteButton.png"
-        />
+    <div className="pictureList">
+      <p className="personName"> {object.name} </p>
+      <button className="d" onClick={() => deleteFileImageList()}>
+        <img className="deleteBtn" alt="deleteBtn" src="images\delete.png" />
       </button>
       <button
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+        className="showNext"
         onClick={() =>
           setPage((curPage) =>
             count > 3 && count - curPage > 3 ? curPage + 1 : curPage
           )
         }
-      >
-        Next
-      </button>
+      ></button>
       <button
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+        className="showPre"
         onClick={() =>
           setPage((curPage) => (curPage > 0 ? curPage - 1 : curPage))
         }
-      >
-        Pre
-      </button>
+      ></button>
 
-      <div className="grid grid-cols-4 gap-4">
-        <label className="h-60 w-60 col-span-1" htmlFor={object.name}></label>
+      <div className="grid grid-cols-4 gap-4 mx-96">
+        <span
+          className="col-span-1 uploadButton flex justify-center"
+          onClick={() => imageInput.current.click()}
+        >
+          <img src="images\addImage.png" alt="" className=" h-36 w-36" />
+        </span>
 
         {imgList &&
           silceImage(imgList).map((img) => (
@@ -112,6 +110,7 @@ function ImageList({ object, changeFuc }: ImageListProps) {
 
       <div>
         <input
+          ref={imageInput}
           id={object.name}
           className="hidden"
           name="imageUpload"

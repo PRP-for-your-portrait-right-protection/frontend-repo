@@ -1,24 +1,20 @@
 import React from "react";
 import "./Loading.css";
-import Button2 from "../components/Button2";
+import Button from "components/Button";
+import Title from "components/Title";
 
 function Loading() {
   return (
     <div>
-      <Button2
-        img="images\icons8-arrows-64 (2) 1.png"
-        url="/Result"
-        design="previous"
-      ></Button2>
-      <Button2
-        img="images\icons8-arrows-64 (2) 2.png"
-        url="/videoResult"
-        design="next"
-      ></Button2>
-      <div className="conversion">
-        <div>Processing conversion</div>
-        <img src="images/stop.png" alt="" className="stop" />
+      <div className="absolute bottom-0 right-0 p-5">
+        <Button img="images/rightArrow.png" url="/videoResult"></Button>
       </div>
+      <div className="absolute bottom-0 left-0 p-5">
+        <Button img="images/leftArrow.png" url="/Result"></Button>
+      </div>
+
+      <Title textValue="Processing conversion"></Title>
+      <img src="images/stop.png" alt="" className="stop" />
     </div>
   );
 }
