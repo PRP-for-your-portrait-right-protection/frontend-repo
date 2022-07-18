@@ -10,6 +10,7 @@ function SignUp() {
   const [button, setButton] = useState(true);
 
   const onIdHandler = (e) => {
+    console.log(e);
     setInputId(e.currentTarget.value);
   };
 
@@ -17,7 +18,10 @@ function SignUp() {
     setName(e.currentTarget.value);
   };
 
-  const onPhoneNumHandler = (e) => {
+  const numberMaxLength = (e) => {
+    //if (e.value.length > e.maxLength) {
+    //  e.value = e.value.slice(0, e.maxLength);
+    // }
     setPhoneNum(e.currentTarget.value);
   };
 
@@ -48,7 +52,7 @@ function SignUp() {
   }
 
   return (
-    <div>
+    <form>
       <h2 className="pt-8 pl-16 text-3xl font-Stardos text-black">
         Create Account
       </h2>
@@ -73,10 +77,12 @@ function SignUp() {
       <div className="mt-6 ml-16 text-xl font-Stardos text-black">
         <div>Phone number</div>
         <input
-          placeholder="Phone number"
+          type="text"
+          maxLength="11"
+          placeholder="Phone number ex) 01012314512"
           className="w-5/6 h-12 rounded-xl"
           PhoneNum="Phone number"
-          onChange={onPhoneNumHandler}
+          onChange={numberMaxLength}
         />
       </div>
       <div className="mt-6 ml-16 text-xl font-Stardos text-black">
@@ -122,7 +128,7 @@ function SignUp() {
           </strong>
         </Link>
       </div>
-    </div>
+    </form>
   );
 }
 
