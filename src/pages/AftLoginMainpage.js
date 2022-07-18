@@ -1,8 +1,8 @@
 import React from "react";
 import styles from "./Mainpage.module.css";
 import MainButton from "../components/MainButton";
-import OtherButton from "../components/OtherButton";
 import BasicButton from "../components/BasicButton";
+import { Link } from "react-router-dom";
 
 function AftLoginMainpage() {
   return (
@@ -12,11 +12,11 @@ function AftLoginMainpage() {
         <BasicButton />
       </nav>
       <section className={styles.section}>
-        <div className={styles.For_Your}>
+        <div className={styles.For_Your_Login}>
           For Your
           <div className={styles.text_style_1}>PRP</div>
         </div>
-        <div className={styles.portrait_right_protection}>
+        <div className={styles.portrait_right_protection_Login}>
           portrait right protection
         </div>
       </section>
@@ -25,13 +25,34 @@ function AftLoginMainpage() {
           <MainButton title="START" text="upload" />
         </div>
         <div>
-          <OtherButton title="PHOTO" text="photo" />
+          <Link to={"/photo"}>
+            <button
+              className="absolute top-1/3 right-0 w-64 h-20 mt-12 text-3xl font-Stardos 
+        text-center text-black hover:text-white bg-inherit hover:bg-amber-900 border-2 border-amber-900"
+            >
+              PHOTO
+            </button>
+          </Link>
         </div>
         <div>
-          <OtherButton title="VIDEO" text="video" />
+          <Link to={"/video"}>
+            <button
+              className="absolute top-1/2 right-0 w-64 h-20 mt-12 text-3xl font-Stardos 
+        text-center text-black hover:text-white bg-inherit hover:bg-amber-900 border-2 border-amber-900"
+            >
+              VIDEO
+            </button>
+          </Link>
         </div>
         <div>
-          <OtherButton title="CHARACTER" text="character" />
+          <Link to={"/character"}>
+            <button
+              className="absolute top-2/3 right-0 w-64 h-20 mt-12 text-3xl font-Stardos 
+        text-center text-black hover:text-white bg-inherit hover:bg-amber-900 border-2 border-amber-900"
+            >
+              CHARACTER
+            </button>
+          </Link>
         </div>
       </aside>
     </div>

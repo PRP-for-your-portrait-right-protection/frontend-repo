@@ -3,10 +3,11 @@
   src: url("../fonts/StardosStencil-Regular.ttf");
 }
 .section {
-  width: 86%;
+  width: 60%;
   float: left;
 }
 .aside {
+  width: 40%;
   float: right;
 }
 .img_1 {
@@ -18,20 +19,8 @@
   background-position: center;
   box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
 }
-.For_Your {
-  padding-left: 36%;
-  font-family: "StardosStencil-Regular";
-  font-size: 3.125rem;
-  color: #372a2a;
-}
 .text_style_1 {
   font-size: 6.25rem;
-}
-.portrait_right_protection {
-  padding-left: 29%;
-  font-family: "StardosStencil-Regular";
-  font-size: 2.5rem;
-  color: #372a2a;
 }
 .For_Your_Login {
   padding-left: 19.35%;

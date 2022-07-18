@@ -57,6 +57,7 @@ function Login() {
       <div className="mt-12 ml-16 text-xl font-Stardos text-black">
         <div>Password</div>
         <input
+          type="password"
           placeholder="Password"
           className="w-5/6 h-16 rounded-xl"
           inputpw="password"
@@ -67,7 +68,7 @@ function Login() {
       <div>
         <button
           type="button"
-          className="mt-20 ml-16 w-3/4 h-16 border-2 border-amber-900
+          className="mt-20 ml-16 w-2/3 h-16 border-2 border-amber-900
            text-3xl font-Stardos text-black hover:text-white rounded-xl 
            bg-amber-900"
           disabled={button}
@@ -77,11 +78,11 @@ function Login() {
         </button>
       </div>
       <div className="my-16 ml-24 h-20">
-        <span className="text-2xl font-Stardos text-black text-center">
+        <span className="text-xl font-Stardos text-black text-center">
           Do not have an account yet?
         </span>
         <Link to="/">
-          <strong className="ml-4 text-2xl font-Stardos text-amber-900">
+          <strong className="ml-4 text-2xl font-Stardos text-center text-amber-900">
             Sign up
           </strong>
         </Link>
