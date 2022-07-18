@@ -1,3 +1,36 @@
+
+@font-face {
+  font-family: "StardosStencil-Regular";
+  src: url("../fonts/StardosStencil-Regular.ttf");
+}
+.uploadFont {
+  position: absolute;
+  width: 52rem;
+  height: 83px;
+  left: 25rem;
+  top: 1.5em;
+
+  font-family: "StardosStencil-Regular", serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 4em;
+  line-height: 83px;
+
+  text-transform: capitalize;
+
+  color: #ffffff;
+}
+.hr2 {
+  position: absolute;
+  margin: auto;
+  width: 50rem;
+  height: 0px;
+  left: 22rem;
+  top: 180px;
+  background-color: white;
+  border: 3px solid #fffcfc;
+}
+
 .file {
   position: absolute;
   top: 38rem;

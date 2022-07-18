@@ -3,6 +3,7 @@ import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Mainpage from "./pages/Mainpage";
 import AftLoginMainpage from "./pages/AftLoginMainpage";
+import Loginpage from "./pages/Loginpage";
 import ResultVideopage from "./pages/ResultVideopage";
 import "./App.css";
 import Result from "./pages/Result";
@@ -12,13 +13,16 @@ import Video from "./pages/Video";
 import Photo from "./pages/Photo";
 import Character from "./pages/Character";
 import VideoUpload from "./pages/VideoUpload";
+import SignUppage from "./pages/SignUppage";
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Mainpage />} />
         <Route path="/people" element={<UploadImagePage />} />
-        <Route path="/signin" element={<AftLoginMainpage />} />
+        <Route path="/signin" element={<Loginpage />} />
+        <Route path="/signup" element={<SignUppage />} />
+        <Route path="/main" element={<AftLoginMainpage />} />
         <Route path="/videoResult" element={<ResultVideopage />} />
         <Route path="/upload" element={<UploadImagePage />} />
         <Route path="/VideoUpload" element={<VideoUpload />} />
