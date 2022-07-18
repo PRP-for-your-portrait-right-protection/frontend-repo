@@ -64,6 +64,11 @@ function Login() {
           onKeyUp={changeButton}
         />
       </div>
+      <div className="ml-16 text-xl text-black hover:text-white font-Stardos text-amber-900">
+        <Link to="/">
+          <div>Forget password?</div>
+        </Link>
+      </div>
       <div>
         <button
           type="button"
@@ -81,7 +86,7 @@ function Login() {
           Do not have an account yet?
         </span>
         <Link to="/signup">
-          <strong className="ml-4 text-2xl font-Stardos text-center text-amber-900">
+          <strong className="ml-4 text-2xl font-Stardos text-center text-amber-900 hover:text-white">
             Sign up
           </strong>
         </Link>
