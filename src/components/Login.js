@@ -13,11 +13,11 @@ function Login() {
 
   // input data 의 변화가 있을 때마다 value 값을 변경해서 useState 해준다
   const handleInputId = (e) => {
-    setInputId(e.target.value);
+    setInputId(e.currentTarget.value);
   };
 
   const handleInputPw = (e) => {
-    setInputPw(e.target.value);
+    setInputPw(e.currentTarget.value);
   };
 
   // login 버튼 클릭 이벤트
@@ -51,7 +51,6 @@ function Login() {
           className="w-5/6 h-16 rounded-xl"
           inputid="id"
           onChange={handleInputId}
-          onKeyUp={changeButton}
         />
       </div>
       <div className="mt-12 ml-16 text-xl font-Stardos text-black">
@@ -81,7 +80,7 @@ function Login() {
         <span className="text-xl font-Stardos text-black text-center">
           Do not have an account yet?
         </span>
-        <Link to="/">
+        <Link to="/signup">
           <strong className="ml-4 text-2xl font-Stardos text-center text-amber-900">
             Sign up
           </strong>
