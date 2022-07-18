@@ -36,14 +36,14 @@ function VideoUpload() {
             controls
           ></video>
           <span
-            className="uploadButton flex justify-center "
+            className="uploadButton flex justify-center mt-6 "
             onClick={() => fileInput.current.click()}
           >
             <img src="images\videoupload.png" alt="" className="file" />
           </span>
         </div>
       ) : (
-        <div className="cc flex items-center justify-center w-3/4 h-64 mt-9">
+        <div className="flex cc items-center justify-center w-3/4 h-64 mt-9">
           <label
             htmlFor="dropzone-file"
             className="flex flex-col justify-center items-center w-full h-64 bg-gray-50 rounded-lg border-2 border-gray-300 border-dashed cursor-pointer dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"

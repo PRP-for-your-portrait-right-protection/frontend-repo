@@ -97,7 +97,7 @@ function ImageList({ object, changeFuc }: ImageListProps) {
           className="col-span-1 uploadButton flex justify-center"
           onClick={() => imageInput.current.click()}
         >
-          <img src="images\addImage.png" alt="" className=" h-36 w-36" />
+          <img src="images\addImage.png" alt="" className="h-36 w-36" />
         </span>
 
         {imgList &&
