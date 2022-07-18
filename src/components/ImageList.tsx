@@ -71,9 +71,39 @@ function ImageList({ object, changeFuc }: ImageListProps) {
     return currentPosts;
   };
 
+  const [edit, setEdit] = useState(false);
+  const [text, setText] = useState(object.name);
+
+  const handleChange = (event) => {
+    setText(event.target.value);
+  };
+
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      setEdit((edit) => !edit);
+    }
+  };
+
+  const changeEditMode = () => {
+    setEdit((edit) => !edit);
+  };
   return (
     <div className="pictureList">
-      <p className="personName"> {object.name} </p>
+      <div className="personName">
+        {edit ? (
+          <input
+            className="form-control text-black w-32"
+            type="text"
+            value={text}
+            onChange={(event) => handleChange(event)}
+            onKeyDown={handleKeyDown}
+          />
+        ) : (
+          <span onDoubleClick={() => changeEditMode()}>{text}</span>
+        )}
+      </div>
+
+      {/* <p className="personName"> {object.name} </p> */}
       <button className="d" onClick={() => deleteFileImageList()}>
         <img className="deleteBtn" alt="deleteBtn" src="images\delete.png" />
       </button>
