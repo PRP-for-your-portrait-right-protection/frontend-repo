@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import "./ImageList.css";
 import ImgBlock from "components/ImageBlock";
 
@@ -14,6 +14,7 @@ interface ImageListProps {
 }
 
 function ImageList({ object, changeFuc }: ImageListProps) {
+  const imageInput = useRef<any>();
   const imgList = useState(object);
   const [count, setCount]: [number, any] = useState<number>(0); //해당 컴포넌트가 가지고있는 list개수
   const [curPage, setPage]: [number, any] = useState<number>(0); //curPage를 기점으로 curPage~curPage3까지의 요소만 보여줌
@@ -88,26 +89,28 @@ function ImageList({ object, changeFuc }: ImageListProps) {
           setPage((curPage) => (curPage > 0 ? curPage - 1 : curPage))
         }
       ></button>
-      <div className="addPicture">
-        <div className="grid grid-cols-4 gap-6">
-          <label
-            className="uploadLabel h-60 w-60 col-span-1"
-            htmlFor={object.name}
-          ></label>
 
-          {imgList &&
-            silceImage(imgList).map((img) => (
-              <ImgBlock
-                key={img.id}
-                object={img}
-                deleteFileImage={deleteFileImage}
-              />
-            ))}
-        </div>
+      <div className="grid grid-cols-4 gap-4 mx-96">
+        <span
+          className="col-span-1 uploadButton flex justify-center"
+          onClick={() => imageInput.current.click()}
+        >
+          <img src="images\addImage.png" alt="" className=" h-36 w-36" />
+        </span>
+
+        {imgList &&
+          silceImage(imgList).map((img) => (
+            <ImgBlock
+              key={img.id}
+              object={img}
+              deleteFileImage={deleteFileImage}
+            />
+          ))}
       </div>
 
       <div>
         <input
+          ref={imageInput}
           id={object.name}
           className="hidden"
           name="imageUpload"
