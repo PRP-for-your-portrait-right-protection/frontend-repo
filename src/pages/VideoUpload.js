@@ -4,9 +4,14 @@ import Button from "components/Button";
 import Title from "components/Title";
 // import VideoChoice from "components/VideoChoice";
 function VideoUpload() {
-  const fileInput = useRef();
-  const [fileVideo, setFileVideo] = useState("");
+  const fileInput = useRef(); // 외부 이미지 클릭 시  <input>가 눌리도록 설정하기 위한 변수
+  const [fileVideo, setFileVideo] = useState(""); //화면에 보여 줄 비디오 오브젝트
 
+  /**
+   * @name : Teawon
+   * @function :saveFile - 파일을 입력받아 화면에 보여줄 ObjectURL을 만드는 함수
+   * @create-data: 2022-07-18
+   */
   const saveFile = (event) => {
     setFileVideo(window.URL.createObjectURL(event.target.files[0]));
   };
@@ -26,7 +31,7 @@ function VideoUpload() {
 
       <Title textValue="Please upload your video"></Title>
 
-      {fileVideo ? (
+      {fileVideo ? ( //입력된 비디오파일이 있다면 드롭박스를 숨기고 파일업로드 버튼이 생기도록 함
         <div>
           <video
             className="w-3/4 h-64"
@@ -70,7 +75,7 @@ function VideoUpload() {
                 and drop
               </p>
               <p className="text-xs text-gray-500 dark:text-gray-400">
-                SVG, PNG, JPG or GIF (MAX. 800x400px)
+                MP4, AVI , WMV , MKV , MOV
               </p>
             </div>
             <input
@@ -85,7 +90,7 @@ function VideoUpload() {
         </div>
       )}
 
-      <input
+      <input //uploadimage클릭 시 해당 input이 Click
         ref={fileInput}
         className="hidden"
         name="imageUpload"

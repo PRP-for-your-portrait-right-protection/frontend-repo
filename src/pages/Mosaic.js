@@ -7,15 +7,11 @@ import Title from "components/Title";
 import CharacterImageList from "components/CharacterImageList";
 function Mosaic() {
   const [modal, setModal] = useState(false); //스위치 역할
-  let imgId = -1;
-  const getId = () => {
-    imgId++;
-    return imgId;
-  };
-  const [toggle1, setToggle1] = useState(false);
-  const [toggle2, setToggle2] = useState(false);
-  const [selectedData, setSelectedData] = useState(null);
+  const [toggleM, setToggleM] = useState(false); //Mosaic토글
+  const [toggleC, setToggleC] = useState(false); //Character토글
+  const [selectedData, setSelectedData] = useState(null); //최종으로 선택된 하나의 이미지
   const [characterList, setCharacterList] = useState([
+    //임시로 넣은 기존캐릭터(고정값)
     "https://www.newsworks.co.kr/news/photo/202002/433057_327801_345.jpg",
 
     "https://img.seoul.co.kr/img/upload/2017/10/07/SSI_20171007154542_O2.jpg",
@@ -25,6 +21,7 @@ function Mosaic() {
     "https://gwgs.go.kr/images/kor/sub05/sub050304_img01.jpg",
   ]);
   const [userCharacterList, setUserCharacterList] = useState([
+    //임시로 넣은 사용자캐릭터(고정값)
     "https://image.idus.com/image/files/58c639aa4a454c9887eb3cd2ced2b3ff.gif",
 
     "https://i.pinimg.com/originals/67/c4/28/67c428560442f7aa423d7fdfc1ff88ea.gif",
@@ -39,14 +36,21 @@ function Mosaic() {
   const closeModal = () => {
     setModal(false);
   };
-  const clickedToggle1 = () => {
-    setToggle1(true);
-    setToggle2(false);
+
+  /**
+   * @name : Teawon
+   * @function :clickedToggleM(C) - 각 버튼이 눌리면 자신의 Toggle값을 활성화 및 상대방 활성화를 False
+   * @create-data: 2022-07-18
+   * @개선사항 : 향후 Radio버튼으로 변경하여 코드의 가독성을 높일 필요가 있을 것 같습니다.
+   */
+  const clickedToggleM = () => {
+    setToggleM(true);
+    setToggleC(false);
   };
 
-  const clickedToggle2 = () => {
-    setToggle2(true);
-    setToggle1(false);
+  const clickedToggleC = () => {
+    setToggleC(true);
+    setToggleM(false);
   };
 
   return (
@@ -65,13 +69,13 @@ function Mosaic() {
       <Title textValue="Select the image Processing type"></Title>
 
       <div className="item">
-        <ToggleBtn onClick={clickedToggle1} toggle={toggle1}>
+        <ToggleBtn onClick={clickedToggleM} toggle={toggleM}>
           <img src="images\mosaic.png" alt="" />
           <span className="caption">MOSAIC</span>
         </ToggleBtn>
       </div>
       <div className="item">
-        <ToggleBtn onClick={clickedToggle2} toggle={toggle2}>
+        <ToggleBtn onClick={clickedToggleC} toggle={toggleC}>
           <img src="images\character.png" alt="" onClick={openModal} />
           <span className="caption">CHARACTER</span>
         </ToggleBtn>
