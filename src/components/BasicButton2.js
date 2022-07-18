@@ -11,8 +11,8 @@ function BasicButton2() {
       <Link to="">
         <img src="images\admin.png" alt="" className="admin" />
       </Link>
-      <Link to="">
-        <img src="images\signout.png" alt="" className="signOut" />
+      <Link to="/">
+        <img src="images\signout.png" alt="/" className="signOut" />
       </Link>
     </div>
   );

@@ -1,0 +1,11 @@
+.picture {
+  position: absolute;
+  width: 10rem;
+  height: 10rem;
+}
+.btnDeleteOther {
+  position: absolute;
+  width: 2rem;
+  top: 0%;
+  z-index: 1;
+}

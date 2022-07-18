@@ -1,12 +1,7 @@
 .title-component {
-    
   color: #ffffff;
-  font-family: "Stardos", "Stencil";
+  font-family: "StardosStencil-Regular", serif;
   text-align: center;
-}
-
-.title-component > hr {
-  width: 80%;
-  height: 30px;
-  margin: auto;
+  text-decoration: overline underline;
+  text-underline-position: under;
 }

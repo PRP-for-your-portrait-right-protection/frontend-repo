@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import ImageList from "../components/ImageList";
-import "./ImageListBlock.css";
+import "./ResearchListBlock.css";
 /**
  * @name : Teawon
  * @component :ImageListBlock - 각각의 ImgList컴포넌트를 추가하고 전체 데이터를 관리하는 컴포넌트
  * @create-data: 2022-07-15
  */
 
-function ImageListBlock() {
+function ResearchListBlock() {
   const [count, setCount] = useState<number>(1); //전체 List개수
   const [totalList, setTotalList]: [any, any] = useState({
     //최종적으로 backend로 보내질 데이터 리스트 집합
@@ -74,7 +74,7 @@ function ImageListBlock() {
   return (
     <>
       <button //ImgList추가 버튼
-        className="addBtn"
+        className="addBtn1"
         onClick={() => addImgList()}
       >
         ADD
@@ -91,4 +91,5 @@ function ImageListBlock() {
     </>
   );
 }
-export default ImageListBlock;
+
+export default ResearchListBlock;

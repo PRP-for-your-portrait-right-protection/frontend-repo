@@ -69,45 +69,41 @@ function ImageList({ object, changeFuc }: ImageListProps) {
   };
 
   return (
-    <div className="imageList-component mt-28">
-      <p> {object.name} </p>
-      <button onClick={() => deleteFileImageList()}>
-        <img
-          className="absolute  h-5 w-5"
-          alt="deleteBtn"
-          src="images/deleteButton.png"
-        />
+    <div className="pictureList">
+      <p className="personName"> {object.name} </p>
+      <button className="d" onClick={() => deleteFileImageList()}>
+        <img className="deleteBtn" alt="deleteBtn" src="images\delete.png" />
       </button>
       <button
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+        className="showNext"
         onClick={() =>
           setPage((curPage) =>
             count > 3 && count - curPage > 3 ? curPage + 1 : curPage
           )
         }
-      >
-        Next
-      </button>
+      ></button>
       <button
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+        className="showPre"
         onClick={() =>
           setPage((curPage) => (curPage > 0 ? curPage - 1 : curPage))
         }
-      >
-        Pre
-      </button>
+      ></button>
+      <div className="addPicture">
+        <div className="grid grid-cols-4 gap-6">
+          <label
+            className="uploadLabel h-60 w-60 col-span-1"
+            htmlFor={object.name}
+          ></label>
 
-      <div className="grid grid-cols-4 gap-4">
-        <label className="h-60 w-60 col-span-1" htmlFor={object.name}></label>
-
-        {imgList &&
-          silceImage(imgList).map((img) => (
-            <ImgBlock
-              key={img.id}
-              object={img}
-              deleteFileImage={deleteFileImage}
-            />
-          ))}
+          {imgList &&
+            silceImage(imgList).map((img) => (
+              <ImgBlock
+                key={img.id}
+                object={img}
+                deleteFileImage={deleteFileImage}
+              />
+            ))}
+        </div>
       </div>
 
       <div>

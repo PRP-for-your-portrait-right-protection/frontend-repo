@@ -1,0 +1,81 @@
+/* label {
+  background-image: url("../../public/images/addImage.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+label > button {
+  width: 30rem;
+  left: 0;
+}
+
+.showPre2 {
+  position: absolute;
+  background-image: url("../../public/images/iconoir_nav-arrow-left.png");
+  background-size: cover;
+  width: 5rem;
+  height: 5rem;
+  left: 3rem;
+  padding-right: 5%;
+  top: 10rem;
+  display: grid;
+  transform: translate(80%, 55%);
+}
+
+.showPre3 {
+  position: absolute;
+  background-image: url("../../public/images/iconoir_nav-arrow-left.png");
+  background-size: cover;
+  width: 5rem;
+  height: 5rem;
+  left: 3rem;
+  padding-right: 5%;
+  top: 20rem;
+  display: grid;
+  transform: translate(80%, 350%);
+}
+
+.showNext2 {
+  position: absolute;
+  background-image: url("../../public/images/iconoir_nav-arrow-right.png");
+  background-size: cover;
+  width: 5rem;
+  height: 5rem;
+  right: 3rem;
+  top: 20rem;
+  display: grid;
+  padding-left: 5%;
+  transform: translate(-90%, 350%);
+}
+
+.showNext3 {
+  position: absolute;
+  background-image: url("../../public/images/iconoir_nav-arrow-right.png");
+  background-size: cover;
+  width: 5rem;
+  height: 5rem;
+  right: 3rem;
+  top: 10rem;
+  display: grid;
+  padding-left: 5%;
+  transform: translate(-90%, 55%);
+}
+
+.CharacterChoiceList {
+  display: inline-block;
+  position: relative;
+  top: 3rem;
+  width: 100%;
+  height: 200px;
+  left: 1.5%;
+}
+.CharacterChoiceList > .addPicture2 {
+  position: absolute;
+  left: 14rem;
+  top: 2rem;
+}
+.CharacterChoiceList > .addPicture3 {
+  position: absolute;
+  left: 14rem;
+  top: 16rem;
+} */

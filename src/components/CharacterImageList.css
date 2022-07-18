@@ -1,58 +1,41 @@
-.uploadLabel {
+/* label {
   background-image: url("../../public/images/addImage.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
 }
-
-.uploadLabel > button {
+label > button {
   width: 30rem;
   left: 0;
 }
 
-.personName {
-  position: absolute;
-  top: 4.5rem;
-  font-size: 2rem;
-  color: white;
-  font-family: "StardosStencil-Regular", serif;
-  left: 9rem;
-  text-transform: uppercase;
-  text-align: center;
-}
-
-.showPre {
+.showPre1 {
   position: absolute;
   background-image: url("../../public/images/iconoir_nav-arrow-left.png");
   background-size: cover;
   width: 7rem;
   height: 7rem;
-  left: 10rem;
+  left: 9rem;
   padding-right: 5%;
-  top: 6rem;
+  top: 13rem;
   display: grid;
   transform: translate(80%, -50%);
 }
-.deleteBtn {
-  position: absolute;
-  width: 1.2rem;
-  left: 7rem;
-  top: 5.3rem;
-}
-.showNext {
+
+.showNext1 {
   position: absolute;
   background-image: url("../../public/images/iconoir_nav-arrow-right.png");
   background-size: cover;
   width: 7rem;
   height: 7rem;
-  right: 10rem;
-  top: 6rem;
+  right: 9rem;
+  top: 13rem;
   display: grid;
   padding-left: 5%;
   transform: translate(-90%, -50%);
 }
 
-.pictureList {
+.characterList {
   display: inline-block;
   position: relative;
   top: 3rem;
@@ -60,9 +43,9 @@
   height: 200px;
   left: 1.5%;
 }
-.pictureList > .addPicture {
+.characterList > .addPicture1 {
+  position: absolute;
   left: 23rem;
   top: 1.5rem;
-  width: 10rem;
-  height: 10rem;
 }
+ */
