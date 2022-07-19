@@ -28,7 +28,7 @@ function IdCheck() {
   }
 
   const goToMain = () => {
-    navigate("/");
+    navigate("/reset");
   };
 
   return (
@@ -50,19 +50,19 @@ function IdCheck() {
       <div className="float-right ">
         <button
           type="button"
-          className="mt-20 mr-44 w-2/3 h-16 border-2 border-amber-900
+          className="mt-24 mr-36 w-2/3 h-16 border-2 border-amber-900
            text-3xl font-Stardos text-black hover:text-white rounded-xl 
            bg-amber-900"
           disabled={button}
           onClick={onClickLogin}
         >
-          Sign in
+          Countinue
         </button>
       </div>
-      <div className="my-20 ml-12 h-20 ">
-        <div className="text-xl font-Stardos text-black text-center">
+      <div className="my-24 ml-24 h-20">
+        <div className="text-base font-Stardos text-black text-center">
           Remembered your password?
-          <div className="ml-24">
+          <div className="ml-16">
             Back to
             <Link to="/signin">
               <strong className="ml-2 text-2xl font-Stardos text-center text-amber-900 hover:text-white">
