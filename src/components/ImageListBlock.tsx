@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import ImageList from "../components/ImageList";
 //import axios from "axios";
 import "./ImageListBlock.css";
-import ButtonApi from "../components/ButtonApi";
+import ButtonSession from "./ButtonSession";
 
 /**
  * @name : Teawon
@@ -29,7 +29,7 @@ function ImageListBlock() {
    * @create-data: 2022-07-15
    */
 
-  const makeFormData = async () => {
+  const makeFormData = () => {
     // const formData = new FormData();
     // const imageList = totalList.file;
 
@@ -138,21 +138,18 @@ function ImageListBlock() {
         ))}
 
       <div className="absolute bottom-0 right-0 p-5">
-        <ButtonApi
+        <ButtonSession
           img="images/rightArrow.png"
           url="/VideoUpload"
           saveFuc={makeFormData}
-        ></ButtonApi>
+        ></ButtonSession>
       </div>
-      <div
-        className="absolute bottom-0 left-0 p-5"
-        onClick={() => makeFormData()}
-      >
-        <ButtonApi
+      <div className="absolute bottom-0 left-0 p-5">
+        <ButtonSession
           img="images/leftArrow.png"
           url="/"
-          saveFuc={makeFormData}
-        ></ButtonApi>
+          saveFuc={null}
+        ></ButtonSession>
       </div>
     </>
   );
