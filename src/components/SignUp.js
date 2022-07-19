@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 
 function SignUp() {
@@ -18,11 +18,17 @@ function SignUp() {
     setName(e.currentTarget.value);
   };
 
+  /**
+  - @name : Sung Hyun
+  - @function: numberMaxLength - 문자열이 정규 표현식을 만족하는 지 판별하는 함수
+  - @param : regex(정규표현식) 
+  - @create-date : 2022.07.19
+  */
   const numberMaxLength = (e) => {
-    //if (e.value.length > e.maxLength) {
-    //  e.value = e.value.slice(0, e.maxLength);
-    // }
-    setPhoneNum(e.currentTarget.value);
+    const regex = /^[0-9\b -]{0,13}$/;
+    if (regex.test(e.currentTarget.value)) {
+      setPhoneNum(e.currentTarget.value);
+    }
   };
 
   const onPasswordHandler = (e) => {
@@ -35,8 +41,15 @@ function SignUp() {
 
   const navigate = useNavigate();
 
+  /**
+  - @name : Sung Hyun
+  - @function: 비밀번호 입력과 재입력이 같을 시 버튼 눌렀을 때 다른 페이지로 이동하는 함수
+              아닐 경우 팝업창 뜸
+  - @param : inputpw(비밀번호 입력) , ConfirmPassword(비밀번호 재입력)
+  - @create-date : 2022.07.15
+  */
   const onClickSignup = () => {
-    if (inputpw == ConfirmPassword) {
+    if (inputpw === ConfirmPassword) {
       goToMain();
     } else {
       alert("비밀번호를 다시 확인해주세요.");
@@ -47,9 +60,32 @@ function SignUp() {
     navigate("/signin");
   };
 
+  /**
+  - @name : Sung Hyun
+  - @function: 비밀번호 5글자 이상인 지 검사한 후 버튼 활성화
+  - @param : inputpw(비밀번호 입력) 
+  - @create-date : 2022.07.15
+  */
   function changeButton() {
     inputpw.length >= 5 ? setButton(false) : setButton(true);
   }
+
+  /**
+  - @name : Sung Hyun
+  - @function: 전화번호 입력 시 자동으로 하이픈을 넣어주는 함수
+  - @param : PhoneNum(전화번호 입력) 
+  - @create-date : 2022.07.19
+  */
+  useEffect(() => {
+    if (PhoneNum.length === 10) {
+      setPhoneNum(PhoneNum.replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3"));
+    }
+    if (PhoneNum.length === 13) {
+      setPhoneNum(
+        PhoneNum.replace(/-/g, "").replace(/(\d{3})(\d{4})(\d{4})/, "$1-$2-$3")
+      );
+    }
+  }, [PhoneNum]);
 
   return (
     <form>
@@ -61,7 +97,7 @@ function SignUp() {
         <input
           placeholder="ID"
           className="w-5/6 h-12 rounded-xl"
-          inputid="id"
+          value={inputid}
           onChange={onIdHandler}
         />
       </div>
@@ -70,7 +106,7 @@ function SignUp() {
         <input
           placeholder="User Name"
           className="w-5/6 h-12 rounded-xl"
-          Name="User Name"
+          value={Name}
           onChange={onNameHandler}
         />
       </div>
@@ -78,10 +114,9 @@ function SignUp() {
         <div>Phone number</div>
         <input
           type="text"
-          maxLength="11"
-          placeholder="Phone number ex) 01012314512"
+          value={PhoneNum}
+          placeholder="Phone number"
           className="w-5/6 h-12 rounded-xl"
-          PhoneNum="Phone number"
           onChange={numberMaxLength}
         />
       </div>
@@ -91,7 +126,7 @@ function SignUp() {
           type="password"
           placeholder="Password"
           className="w-5/6 h-12 rounded-xl"
-          inputpw="password"
+          value={inputpw}
           onChange={onPasswordHandler}
           onKeyUp={changeButton}
         />
@@ -102,7 +137,7 @@ function SignUp() {
           type="password"
           placeholder="Confirm Password"
           className="w-5/6 h-12 rounded-xl"
-          ConfirmPassword="password"
+          value={ConfirmPassword}
           onChange={onConfirmPasswordHandler}
         />
       </div>
