@@ -29,7 +29,7 @@ function CharacterImageList({
   const [curPageUser, setPageUser]: [number, any] = useState<number>(0); //curPage를 기점으로 curPage~curPage3까지의 요소만 보여줌
 
   const imageInput = useRef<any>();
-  const [inputImage, setInputImage] = useState<any>(""); //사용자가 새로 입력한 이미지
+  const [inputImage, setInputImage] = useState<any>([]); //사용자가 새로 입력한 이미지
 
   /**
    * @name : Teawon
@@ -48,9 +48,18 @@ function CharacterImageList({
    * @create-data: 2022-07-18
    */
   const saveImage = (event) => {
-    setInputImage(event.target.files[0]);
+    console.log(event.target.files[0]);
+    setInputImage([...inputImage, event.target.files[0]]);
+    console.log(inputImage);
   };
 
+  const deleteImage = (id) => {
+    setInputImage(inputImage.filter((img) => img.name !== id));
+
+    if (curPage > 0) {
+      setPageUser((curPageUser) => curPageUser - 1);
+    }
+  };
   /**
    * @name : Teawon
    * @function :silceImage - 해당 리스트컴포넌트에서 총 3개의 이미지만 보여주도록 slice하는 함수
@@ -61,6 +70,12 @@ function CharacterImageList({
   const silceImage = (imglist, page) => {
     let currentPosts = [];
     currentPosts = imglist.slice(page, page + 4);
+    return currentPosts;
+  };
+
+  const silceImageC2 = (imglist, page) => {
+    let currentPosts = [];
+    currentPosts = imglist.slice(page, page + 3);
     return currentPosts;
   };
 
@@ -127,26 +142,59 @@ function CharacterImageList({
           }
         ></button>
 
-        {/* <div className="grid grid-cols-4 gap-8 mx-32 mt-6">
-          {userCharacterList &&
-            silceImage(userCharacterList, curPageUser).map((img) => (
-              <div className="col-span-1 " key={img}>
-                <label>
-                  <input
-                    type="radio"
-                    className="hidden"
-                    value={img}
-                    checked={selectedId == img}
-                    onChange={handleClickRadioButton}
-                  />
-                  <img className="h-40 w-48 left-20" alt="sample" src={img} />
-                </label>
-              </div>
-            ))}
-        </div> */}
-      </div>
+      <div className="grid grid-cols-4 gap-4">
+        <span
+          className="col-span-1 uploadButton flex justify-center"
+          onClick={() => imageInput.current.click()}
+        >
+          <img src="images\addImage.png" alt="" className=" h-36 w-36" />
+        </span>
 
-      {/*  {inputImage && (
+        {inputImage &&
+          silceImage(inputImage, curPageUser).map((img) => (
+            <div className="col-span-1 " key={img.name}>
+              <label>
+                <input
+                  type="radio"
+                  className="hidden"
+                  value={img.name}
+                  checked={selectedId == img.name}
+                  onChange={handleClickRadioButton}
+                />
+                <img
+                  className="h-60 w-60"
+                  alt="sample"
+                  src={URL.createObjectURL(img)}
+                />
+              </label>
+              <button onClick={() => deleteImage(img.name)}>
+                <img
+                  className="relative w-8 h-8 z-1 -top-14 -left-14"
+                  alt="deleteBtn"
+                  src="images/deleteButton.png"
+                />
+              </button>
+            </div>
+          ))}
+
+        {userCharacterList &&
+          silceImageC2(userCharacterList, curPageUser).map((img) => (
+            <div className="col-span-1 " key={img}>
+              <label>
+                <input
+                  type="radio"
+                  className="hidden"
+                  value={img}
+                  checked={selectedId == img}
+                  onChange={handleClickRadioButton}
+                />
+                <img className="h-60 w-60" alt="sample" src={img} />
+              </label>
+            </div>
+          ))}
+      </div>
+      {/* 
+      {inputImage && (
         <div className="col-span-1 flex">
           <label>
             <input
@@ -172,14 +220,7 @@ function CharacterImageList({
         type="file"
         accept="image/*"
         onChange={saveImage}
-      /> */}
-
-      {/*  <span
-        className="uploadButton flex justify-center"
-        onClick={() => imageInput.current.click()}
-      >
-        <img src="images\videoupload.png" alt="" className="file" />
-      </span> */}
+      />
     </div>
   );
 }
