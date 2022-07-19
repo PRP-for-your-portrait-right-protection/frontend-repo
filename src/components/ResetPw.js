@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function ResetPw() {
   const [inputpw, setInputPw] = useState("");
@@ -40,8 +40,9 @@ function ResetPw() {
         Reset Password
       </h2>
       <div className="mt-12 ml-16 text-xl font-Stardos text-black">
-        <div>Password</div>
+        <div>New Password</div>
         <input
+          type="password"
           placeholder="Password"
           className="w-5/6 h-16 rounded-xl"
           value={inputpw}
