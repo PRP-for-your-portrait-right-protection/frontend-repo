@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 import "./VideoUpload.css";
-import Button from "components/Button";
+// import Button from "components/Button";
+import ButtonSession from "../components/ButtonSession";
 import Title from "components/Title";
 function VideoUpload() {
   const fileInput = useRef(); // 외부 이미지 클릭 시  <input>가 눌리도록 설정하기 위한 변수
@@ -12,17 +13,61 @@ function VideoUpload() {
    * @create-data: 2022-07-18
    */
   const saveFile = (event) => {
-    setFileVideo(window.URL.createObjectURL(event.target.files[0]));
+    setFileVideo(event.target.files[0]);
+  };
+
+  const makeFormData = () => {
+    function getBase64Image(img) {
+      var canvas = document.createElement("canvas");
+      canvas.width = img.width;
+      canvas.height = img.height;
+
+      var ctx = canvas.getContext("2d");
+      ctx.drawImage(img, 0, 0);
+
+      var dataURL = canvas.toDataURL("image/png");
+
+      return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
+    }
+    console.log(fileVideo);
+
+    // var reader = new FileReader();
+    // reader.onload = function (base64) {
+    sessionStorage.setItem("viedo", getBase64Image(fileVideo));
+    // };
+    // reader.readAsDataURL(fileVideo);
+    console.log("fileSave");
+    console.log(sessionStorage.getItem("video"));
+
+    // sessionStorage.setItem("viedo", JSON.stringify(fileVideo));
+    // console.log(sessionStorage.getItem("video"));
+    // sessionStorage.setItem("viedo", fileVideo);
+    // console.log(sessionStorage.getItem("video"));
   };
 
   return (
     <div>
-      <div className="fixed bottom-0 right-0 p-5">
+      <div className="absolute bottom-0 right-0 p-5">
+        <ButtonSession
+          img="images/rightArrow.png"
+          url="/Mosaic"
+          saveFuc={makeFormData}
+        ></ButtonSession>
+      </div>
+      <div className="absolute bottom-0 left-0 p-5">
+        <ButtonSession
+          img="images/leftArrow.png"
+          url="/upload"
+          saveFuc={null}
+        ></ButtonSession>
+      </div>
+
+      {/* <div className="absolute bottom-0 right-0 p-5">
         <Button img="images/rightArrow.png" url="/Mosaic"></Button>
       </div>
       <div className="fixed bottom-0 left-0 p-5">
         <Button img="images/leftArrow.png" url="/upload"></Button>
-      </div>
+      </div> */}
 
       <Title textValue="Please upload your video"></Title>
 
@@ -31,7 +76,7 @@ function VideoUpload() {
           <video
             className="flex items-center justify-center w-3/4 h-72"
             id="video"
-            src={fileVideo}
+            src={window.URL.createObjectURL(fileVideo)}
             style={{ margin: "auto" }}
             controls
           ></video>
@@ -78,7 +123,6 @@ function VideoUpload() {
               className="cursor-pointer absolute block p-20 z-50 opacity-0"
               name="imageUpload"
               type="file"
-              accept="video/*"
               onChange={saveFile}
             />
           </label>
@@ -90,9 +134,10 @@ function VideoUpload() {
         className="hidden"
         name="imageUpload"
         type="file"
-        accept="video/*"
         onChange={saveFile}
       />
+
+      <button onClick={() => makeFormData()}>asdsad</button>
     </div>
   );
 }

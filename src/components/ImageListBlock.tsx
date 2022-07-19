@@ -52,6 +52,7 @@ function ImageListBlock() {
     // }
 
     //  sessionStorage.removeItem("key");
+    console.log(totalList);
     sessionStorage.setItem("key", JSON.stringify(totalList));
     console.log(sessionStorage.getItem("key"));
   };
