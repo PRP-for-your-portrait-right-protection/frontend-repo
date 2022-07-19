@@ -81,6 +81,9 @@ function ImageList({ object, changeFuc }: ImageListProps) {
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
       setEdit((edit) => !edit);
+      if (object.name !== text) {
+        changeFuc(text, object.name, "reName");
+      }
     }
   };
 

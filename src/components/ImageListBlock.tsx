@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import ImageList from "../components/ImageList";
 //import axios from "axios";
 import "./ImageListBlock.css";
+import ButtonApi from "../components/ButtonApi";
 
 /**
  * @name : Teawon
@@ -29,29 +30,34 @@ function ImageListBlock() {
    */
 
   const makeFormData = async () => {
-    const formData = new FormData();
-    const imageList = totalList.file;
+    // const formData = new FormData();
+    // const imageList = totalList.file;
 
-    totalList.file.forEach((element) => {
-      formData.append("name", element.name);
-      element.pictures.forEach((list) => {
-        formData.append("file", list.file);
-      });
-    });
+    // totalList.file.forEach((element) => {
+    //   formData.append("name", element.name);
+    //   element.pictures.forEach((list) => {
+    //     formData.append("file", list.file);
+    //   });
+    // });
 
-    for (let key of formData.keys()) {
-      console.log("FormData의 key를 확인합니다.");
-      console.log(key);
-    }
+    // for (let key of formData.keys()) {
+    //   console.log("FormData의 key를 확인합니다.");
+    //   console.log(key);
+    // }
 
-    // FormData의 value 확인
-    for (let value of formData.values()) {
-      console.log("FormData의 Values를 확인합니다.");
-      console.log(value);
-    }
+    // // FormData의 value 확인
+    // for (let value of formData.values()) {
+    //   console.log("FormData의 Values를 확인합니다.");
+    //   console.log(value);
+    // }
+
+    //  sessionStorage.removeItem("key");
+    sessionStorage.setItem("key", JSON.stringify(totalList));
+    console.log(sessionStorage.getItem("key"));
   };
 
   const addImgList = () => {
+    window.scrollTo(0, document.body.scrollHeight);
     setTotalList({
       file: [
         ...totalList.file,
@@ -95,6 +101,14 @@ function ImageListBlock() {
         copyArray.file = copyArray.file.filter((list) => list.name !== name);
         setTotalList(copyArray);
         break;
+      case "reName":
+        copyArray.file.map((data) => {
+          if (data.name === name) {
+            data.name = object;
+          }
+        });
+
+        setTotalList(copyArray);
     }
   };
 
@@ -107,6 +121,13 @@ function ImageListBlock() {
         ADD
       </button>
 
+      <button //ImgList추가 버튼
+        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        onClick={() => makeFormData()}
+      >
+        Make
+      </button>
+
       {totalList.file && //map을 통해 각 imgList를 출력
         totalList.file.map((imgList) => (
           <ImageList
@@ -115,6 +136,24 @@ function ImageListBlock() {
             changeFuc={changeFuc}
           />
         ))}
+
+      <div className="absolute bottom-0 right-0 p-5">
+        <ButtonApi
+          img="images/rightArrow.png"
+          url="/VideoUpload"
+          saveFuc={makeFormData}
+        ></ButtonApi>
+      </div>
+      <div
+        className="absolute bottom-0 left-0 p-5"
+        onClick={() => makeFormData()}
+      >
+        <ButtonApi
+          img="images/leftArrow.png"
+          url="/"
+          saveFuc={makeFormData}
+        ></ButtonApi>
+      </div>
     </>
   );
 }
