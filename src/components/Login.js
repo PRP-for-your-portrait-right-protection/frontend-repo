@@ -65,7 +65,7 @@ function Login() {
         />
       </div>
       <div className="ml-16 text-xl text-black hover:text-white font-Stardos text-amber-900">
-        <Link to="/">
+        <Link to="/reset">
           <div>Forget password?</div>
         </Link>
       </div>

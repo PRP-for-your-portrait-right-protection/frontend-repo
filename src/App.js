@@ -14,6 +14,7 @@ import Photo from "./pages/Photo";
 import Character from "./pages/Character";
 import VideoUpload from "./pages/VideoUpload";
 import SignUppage from "./pages/SignUppage";
+import ForgetPasswordpage from "./pages/ForgetPasswordpage";
 function App() {
   return (
     <BrowserRouter>
@@ -22,6 +23,7 @@ function App() {
         <Route path="/people" element={<UploadImagePage />} />
         <Route path="/signin" element={<Loginpage />} />
         <Route path="/signup" element={<SignUppage />} />
+        <Route path="/reset" element={<ForgetPasswordpage />} />
         <Route path="/main" element={<AftLoginMainpage />} />
         <Route path="/videoResult" element={<ResultVideopage />} />
         <Route path="/upload" element={<UploadImagePage />} />
