@@ -65,9 +65,15 @@ function ImageList({ object, changeFuc }: ImageListProps) {
    * imgList - 이미지 리스트
    */
   const silceImage = (imgList) => {
+    // const reverse = [...imgList.reverse()];
+    // let temp = [...imgList[0]].reverse();
+    //temp.reverse();
     let currentPosts = [];
-    currentPosts = imgList[0].pictures.slice(curPage, curPage + 3);
+    let reverse = [...imgList].reverse();
+    console.log(imgList);
+    currentPosts = reverse.slice(curPage, curPage + 3);
     console.log(curPage);
+
     return currentPosts;
   };
 
@@ -133,8 +139,8 @@ function ImageList({ object, changeFuc }: ImageListProps) {
           <img src="images\addImage.png" alt="" className="h-36 w-36" />
         </span>
 
-        {imgList &&
-          silceImage(imgList).map((img) => (
+        {imgList[0].pictures &&
+          silceImage(imgList[0].pictures).map((img) => (
             <ImgBlock
               key={img.id}
               object={img}
