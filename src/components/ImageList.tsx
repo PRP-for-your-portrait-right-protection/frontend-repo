@@ -30,7 +30,6 @@ function ImageList({ object, changeFuc }: ImageListProps) {
       url: URL.createObjectURL(event.target.files[0]),
       id: uuid(),
       file: event.target.files[0],
-      new: true,
     };
 
     changeFuc(data, object.name, "add");

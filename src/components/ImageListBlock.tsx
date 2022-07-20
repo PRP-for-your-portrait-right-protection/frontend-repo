@@ -13,21 +13,16 @@ import uuid from "react-uuid";
 
 function ImageListBlock() {
   const [count, setCount] = useState<number>(1); //other + n으로 사용하기 위한 url
-  const [totalList, setTotalList]: [any, any] = useState(null);
-  const [apiData, setApiData]: [any, any] = useState(null);
-  // interface Book {
-  //   isbn : string;
-  //   name : string;
-  //   price : number;
-  //   author : string;
-  // }
-
-  // axios.get<Book[]>('/books', {
-  //   baseURL : 'https://ecom-backend-example/api/v1',
-  // }).then( response => {
-  //   console.log(response.data);
-  //   console.log(response.status);
-  // })
+  const [totalList, setTotalList]: [any, any] = useState({
+    //최종적으로 backend로 보내질 데이터 리스트 집합
+    file: [
+      {
+        name: "you",
+        pictures: [],
+      },
+    ],
+  });
+  const [isLoding, setIsLoading]: [boolean, any] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -35,80 +30,33 @@ function ImageListBlock() {
         `https://1f413be8-5eb6-428f-a4d4-492745c03b38.mock.pstmn.io/userImage`
       )
         .then(function (response) {
-          // let initData = totalList;
-
-          // console.log(response.data.data);
-          // let data = response.data.data;
-          let data = response.data.data;
-
-          // console.log("APIDATA");
-          // console.log(apiData);
-
-          let temp = {
+          let initialData = {
+            //초기 설정 값
             file: [],
           };
 
-          data.forEach((element) => {
-            console.log("너무야");
-            console.log(element);
-            // addImgList(element.name);
-            let output = {
-              name: element.name,
+          response.data.data.forEach((imgList) => {
+            //바깥 반복문의 리스트 및 이름 정의
+            let imgListBlock = {
+              name: imgList.name,
               pictures: [],
             };
-            element.pictures.forEach((image) => {
-              console.log("내부함수");
-              console.log(image);
+
+            imgList.pictures.forEach((image) => {
+              //내부 이미지 리스트의 각 내용 정의
               let imgData = {
                 url: image,
-                id: uuid(),
-                file: null,
-                new: false,
+                id: uuid(), //식별키
+                file: null, //버킷에서 가져왔다면 null, 그렇지 않다면 File객체 저장
               };
-              // changeFuc(imgData, element.name, "add");
-              output.pictures = output.pictures.concat(imgData);
+
+              imgListBlock.pictures = imgListBlock.pictures.concat(imgData);
             });
-            temp.file = temp.file.concat(output);
-            console.log("중간과정 결과는?");
-            console.log(temp);
-            //initData.file.push(output);
+            initialData.file = initialData.file.concat(imgListBlock);
           });
-          console.log("최종 결과는?");
-          console.log(temp);
-          setTotalList(temp);
 
-          // console.log("data Value");
-          // console.log(data);
-          // totalList.file.forEach((element) => {
-          //   formData.append("name", element.name);
-          //   element.pictures.forEach((list) => {
-          //     formData.append("file", list.file);
-          //   });
-          // });
-
-          //   setChart({
-
-          //     series: [{
-          //       name: response.mallHistoryInfoList[0].mallName,
-          //       data: response.mallHistoryInfoList[0].priceList
-          //     }, {
-          //       name: response.mallHistoryInfoList[1].mallName,
-          //       data: response.mallHistoryInfoList[1].priceList
-          //     }, {
-          //       name: response.mallHistoryInfoList[2].mallName,
-          //       data: response.mallHistoryInfoList[2].priceList
-          //     }
-          //   ],
-
-          //     plotOptions: {
-          //       series: {
-          //         pointStart: new Date(response.date).getTime(),
-          //         pointInterval: 0.5 * 3600 * 1000 * 1
-
-          //       }
-          //     }
-
-          // });
+          setTotalList(initialData);
+          setIsLoading(true);
         })
         .catch(function (error) {
           console.log("error");
@@ -219,7 +167,7 @@ function ImageListBlock() {
 
   return (
     <>
-      {totalList ? (
+      {isLoding ? (
         <>
           <button //ImgList추가 버튼
             className="addBtn"
@@ -257,7 +205,7 @@ function ImageListBlock() {
           </div>
         </>
       ) : (
-        "loading"
+        "Loading" //향후 민지님께서 만드신 Component 사용해야함
       )}
     </>
   );
