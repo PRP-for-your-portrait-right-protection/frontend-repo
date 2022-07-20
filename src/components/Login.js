@@ -1,98 +1,127 @@
-import React, { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import React, { useRef, useState, useEffect, useContext } from "react";
+import { Link } from "react-router-dom";
+//import AuthContext from "./context/AuthProvider";
 
-function Login() {
-  const [inputid, setInputId] = useState("");
-  const [inputpw, setInputPw] = useState("");
-  const [button, setButton] = useState(true);
+import axios from "../api/axios";
+//const LOGIN_URL = '/auth'
 
-  const realId = "agllwy116";
-  const realPw = "12345678";
+const Login = () => {
+  //const { setAuth } = useContext(AuthContext);
+  const userRef = useRef();
+  const errRef = useRef();
 
-  const navigate = useNavigate();
+  const [id, setId] = useState("");
+  const [pwd, setPwd] = useState("");
+  const [errMsg, setErrMsg] = useState("");
+  const [success, setSuccess] = useState(false);
 
-  // input data 의 변화가 있을 때마다 value 값을 변경해서 useState 해준다
-  const handleInputId = (e) => {
-    setInputId(e.currentTarget.value);
-  };
+  useEffect(() => {
+    userRef.current.focus();
+  }, []);
 
-  const handleInputPw = (e) => {
-    setInputPw(e.currentTarget.value);
-  };
+  useEffect(() => {
+    setErrMsg("");
+  }, [id, pwd]);
 
-  // login 버튼 클릭 이벤트
-  const onClickLogin = () => {
-    if (realId == inputid) {
-      if (realPw == inputpw) {
-        goToMain();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.post(
+        LOGIN_URL,
+        JSON.stringify({ id, pwd }),
+        {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true,
+        }
+      );
+      console.log(JSON.stringify(response?.data));
+      //console.log(JSON.stringify(response));
+      const accessToken = response?.data?.accessToken;
+      const roles = response?.data?.roles;
+      setAuth({ id, pwd, roles, accessToken });
+      setId("");
+      setPwd("");
+      setSuccess(true);
+    } catch (err) {
+      if (!err?.response) {
+        setErrMsg("No Server Response");
+      } else if (err.response?.status === 400) {
+        setErrMsg("Missing Username or Password");
+      } else if (err.response?.status === 401) {
+        setErrMsg("Unauthorized");
       } else {
-        alert("아이디 혹은 비밀번호가 일치하지 않습니다.");
+        setErrMsg("Login Failed");
       }
-    } else {
-      alert("아이디 혹은 비밀번호가 일치하지 않습니다.");
+      errRef.current.focus();
     }
-  };
-  // 입력하는 패스워드 길이가 5 이상이 아닐 경우 버튼이 활성화 되지 않는 함수
-  function changeButton() {
-    inputpw.length >= 5 ? setButton(false) : setButton(true);
-  }
-
-  const goToMain = () => {
-    navigate("/main");
   };
 
   return (
-    <div>
-      <h2 className="pt-20 pl-16 text-3xl font-Stardos text-black">Login</h2>
-      <div className="mt-12 ml-16 text-xl font-Stardos text-black">
-        <div>ID</div>
-        <input
-          placeholder="ID"
-          className="w-5/6 h-16 rounded-xl"
-          inputid="id"
-          onChange={handleInputId}
-        />
-      </div>
-      <div className="mt-12 ml-16 text-xl font-Stardos text-black">
-        <div>Password</div>
-        <input
-          type="password"
-          placeholder="Password"
-          className="w-5/6 h-16 rounded-xl"
-          inputpw="password"
-          onChange={handleInputPw}
-          onKeyUp={changeButton}
-        />
-      </div>
-      <div className="ml-16 text-xl text-black hover:text-white font-Stardos text-amber-900">
-        <Link to="/check">
-          <div>Forget password?</div>
-        </Link>
-      </div>
-      <div>
-        <button
-          type="button"
-          className="mt-20 ml-16 w-2/3 h-16 border-2 border-amber-900
-           text-3xl font-Stardos text-black hover:text-white rounded-xl 
-           bg-amber-900"
-          disabled={button}
-          onClick={onClickLogin}
-        >
-          Sign in
-        </button>
-      </div>
-      <div className="my-16 ml-24 h-20">
-        <span className="text-xl font-Stardos text-black text-center">
-          Do not have an account yet?
-        </span>
-        <Link to="/signup">
-          <strong className="ml-4 text-2xl font-Stardos text-center text-amber-900 hover:text-white">
-            Sign up
-          </strong>
-        </Link>
-      </div>
-    </div>
+    <>
+      {success ? (
+        <section>
+          <h1>You are logged in!</h1>
+          <br />
+          <p>
+            <Link to="/main">Go to Home</Link>
+          </p>
+        </section>
+      ) : (
+        <section>
+          <p
+            ref={errRef}
+            className={errMsg ? "errmsg" : "offscreen"}
+            aria-live="assertive"
+          >
+            {errMsg}
+          </p>
+          <h1 className="text-3xl font-Stardos text-black">Sign In</h1>
+          <form onSubmit={handleSubmit}>
+            <label
+              htmlFor="userid"
+              className="mt-16 text-xl font-Stardos text-black"
+            >
+              ID:
+            </label>
+            <input
+              type="text"
+              id="userid"
+              ref={userRef}
+              autoComplete="off"
+              onChange={(e) => setId(e.target.value)}
+              value={id}
+              required
+            />
+
+            <label
+              htmlFor="password"
+              className="mt-16 text-xl font-Stardos text-black"
+            >
+              Password:
+            </label>
+            <input
+              type="password"
+              id="password"
+              onChange={(e) => setPwd(e.target.value)}
+              value={pwd}
+              required
+            />
+            <button className="mt-20 border-2 border-amber-900 text-2xl font-Stardos text-black hover:text-white bg-amber-900">
+              Sign In
+            </button>
+          </form>
+          <p className="text-xl font-Stardos text-black">
+            Need an Account?
+            <br />
+            <span className="line">
+              <Link to="/signup">Sign Up</Link>
+            </span>
+          </p>
+        </section>
+      )}
+    </>
   );
-}
+};
 
 export default Login;
