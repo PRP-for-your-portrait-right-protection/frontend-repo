@@ -1,7 +1,8 @@
 import React, { useRef, useState } from "react";
 import "./ImageList.css";
 import ImgBlock from "components/ImageBlock";
-import PhotoLandingPage from "components/PhotoLandingPage";
+import uuid from "react-uuid";
+
 /**
  * @name : Teawon
  * @component :ImageList - name , picture리스트를 통해 특정 유저에 대한 사진리스트를 관리하는 컴포넌트
@@ -16,7 +17,7 @@ interface ImageListProps {
 function ImageList({ object, changeFuc }: ImageListProps) {
   const imageInput = useRef<any>();
   const imgList = useState(object);
-  const [count, setCount]: [number, any] = useState<number>(0); //해당 컴포넌트가 가지고있는 list개수
+  const count: number = object.pictures.length; //해당 컴포넌트가 가지고있는 list개수
   const [curPage, setPage]: [number, any] = useState<number>(0); //curPage를 기점으로 curPage~curPage3까지의 요소만 보여줌
 
   /**
@@ -27,13 +28,12 @@ function ImageList({ object, changeFuc }: ImageListProps) {
   const saveFileImageNew = (event: React.ChangeEvent<HTMLInputElement>) => {
     let data = {
       url: URL.createObjectURL(event.target.files[0]),
-      id: count,
+      id: uuid(),
       file: event.target.files[0],
-      new: "Y",
+      new: true,
     };
 
     changeFuc(data, object.name, "add");
-    setCount((count) => count + 1);
   };
 
   /**

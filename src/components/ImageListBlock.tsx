@@ -1,9 +1,10 @@
 import { element } from "prop-types";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ImageList from "../components/ImageList";
 //import axios from "axios";
 import "./ImageListBlock.css";
 import ButtonSession from "./ButtonSession";
+import { FaceImageResponseDto } from "../utils/types";
 
 /**
  * @name : Teawon
@@ -15,14 +16,96 @@ function ImageListBlock() {
   const [count, setCount] = useState<number>(1); //전체 List개수
   const [totalList, setTotalList]: [any, any] = useState({
     //최종적으로 backend로 보내질 데이터 리스트 집합
-    file: [
-      {
-        name: "you",
-        pictures: [],
-      },
-    ],
+    file: [],
   });
+  // interface Book {
+  //   isbn : string;
+  //   name : string;
+  //   price : number;
+  //   author : string;
+  // }
 
+  // axios.get<Book[]>('/books', {
+  //   baseURL : 'https://ecom-backend-example/api/v1',
+  // }).then( response => {
+  //   console.log(response.data);
+  //   console.log(response.status);
+  // })
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const result = await axios(
+  //       `https://1f413be8-5eb6-428f-a4d4-492745c03b38.mock.pstmn.io/userImage`
+  //     )
+  //       .then(function (response) {
+  //         // let initData = totalList;
+
+  //         // console.log(response.data.data);
+  //         let data = response.data.data;
+
+  //         data.forEach((element) => {
+  //           console.log("너무야");
+  //           console.log(element);
+  //           addImgList(element.name);
+  //           // let output = {
+  //           //   name: element.name,
+  //           //   pictures: [],
+  //           // };
+  //           element.pictures.forEach((image) => {
+  //             console.log("내부함수");
+  //             console.log(image);
+  //             let data2 = {
+  //               url: image,
+  //               id: count,
+  //               file: null,
+  //               new: false,
+  //             };
+  //             changeFuc(data2, element.name, "add");
+  //             setCount((count) => count + 1);
+  //           });
+  //           //initData.file.push(output);
+  //         });
+
+  //         // console.log("data Value");
+  //         // console.log(data);
+  //         // totalList.file.forEach((element) => {
+  //         //   formData.append("name", element.name);
+  //         //   element.pictures.forEach((list) => {
+  //         //     formData.append("file", list.file);
+  //         //   });
+  //         // });
+
+  //         //   setChart({
+
+  //         //     series: [{
+  //         //       name: response.mallHistoryInfoList[0].mallName,
+  //         //       data: response.mallHistoryInfoList[0].priceList
+  //         //     }, {
+  //         //       name: response.mallHistoryInfoList[1].mallName,
+  //         //       data: response.mallHistoryInfoList[1].priceList
+  //         //     }, {
+  //         //       name: response.mallHistoryInfoList[2].mallName,
+  //         //       data: response.mallHistoryInfoList[2].priceList
+  //         //     }
+  //         //   ],
+
+  //         //     plotOptions: {
+  //         //       series: {
+  //         //         pointStart: new Date(response.date).getTime(),
+  //         //         pointInterval: 0.5 * 3600 * 1000 * 1
+
+  //         //       }
+  //         //     }
+
+  //         // });
+  //       })
+  //       .catch(function (error) {
+  //         console.log("error");
+  //         console.log(error);
+  //       });
+  //   };
+  //   fetchData();
+  // }, []);
   /**
    * @name : Teawon
    * @function :addImgList - 전체 ImgList의 개수를 늘리는 함수(컴포넌트 수 증가), 처음 이름은 other{count}로 지정하여 컴포넌트를 생성함
@@ -57,15 +140,19 @@ function ImageListBlock() {
     console.log(sessionStorage.getItem("key"));
   };
 
-  const addImgList = () => {
+  const addImgList = (filename) => {
     window.scrollTo(0, document.body.scrollHeight);
+    let strName = filename;
+    if (filename == null) {
+      strName = "other".concat(String(count));
+    }
+
     setTotalList({
-      file: [
-        ...totalList.file,
-        { name: "other".concat(String(count)), pictures: [] },
-      ],
+      file: [...totalList.file, { name: strName, pictures: [] }],
     });
     setCount((count) => count + 1);
+
+    console.log("생성되었습니다. 생성된 파일은 다음과 같아요.");
     console.log(totalList);
   };
 
@@ -83,6 +170,9 @@ function ImageListBlock() {
   const changeFuc = (object, name, type) => {
     let findIndex = totalList.file.findIndex((element) => element.name == name);
     let copyArray = { ...totalList };
+
+    console.log("changeFuc의 copyArray값 :");
+    console.log(copyArray);
 
     switch (type) {
       case "add":
@@ -117,7 +207,7 @@ function ImageListBlock() {
     <>
       <button //ImgList추가 버튼
         className="addBtn"
-        onClick={() => addImgList()}
+        onClick={() => addImgList(null)}
       >
         ADD
       </button>
