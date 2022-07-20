@@ -3,6 +3,7 @@ import "./Video.css";
 import ListButton from "../components/ListButton";
 import Button from "components/Button";
 import ResearchListBlock from "components/ResearchListBlock";
+import LandingPage from "components/LandingPage";
 function Video() {
   return (
     <div>
@@ -17,7 +18,7 @@ function Video() {
       </div>
       <ListButton></ListButton>
       <div className="font1">VIDEO</div>
-      <ResearchListBlock></ResearchListBlock>
+      <LandingPage></LandingPage>
     </div>
   );
 }
