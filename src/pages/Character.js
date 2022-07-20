@@ -2,7 +2,7 @@ import React from "react";
 import "./Character.css";
 import Button from "components/Button";
 import ListButton from "../components/ListButton";
-
+import CharacterListBlock from "components/CharacterListBlock";
 function Character() {
   return (
     <div>
@@ -17,6 +17,7 @@ function Character() {
       </div>
       <ListButton></ListButton>
       <div className="font3">CHARACTER</div>
+      <CharacterListBlock></CharacterListBlock>
     </div>
   );
 }

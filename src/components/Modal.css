@@ -7,13 +7,10 @@
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  right: 0;
+  bottom: 0;
   z-index: 10;
   background-color: rgba(0, 0, 0, 0.6);
-}
-.modal.show {
-  display: block;
 }
 .modal button {
   outline: none;
@@ -22,9 +19,9 @@
   border: 0;
 }
 .modal > section {
-  width: 1200px;
+  width: 80%;
   margin: 0 auto;
-  height: 50rem;
+  height: 90%;
   border-radius: 0.3rem;
   background-color: rgb(55, 42, 42);
   /* 팝업이 열릴때 스르륵 열리는 효과 */
@@ -50,6 +47,8 @@
 }
 .modal > section > main {
   padding: 16px;
+  border-bottom: 1px solid #dee2e6;
+  border-top: 1px solid #dee2e6;
 }
 
 .modal > section > footer {
@@ -58,19 +57,20 @@
   left: 5rem;
 }
 .modal > section > footer button {
-  padding: 6px 12px;
+  padding: 0.5% 2%;
   color: #fff;
+  display: flex;
   position: absolute;
-  top: 50rem;
-  left: 45rem;
+  top: 85%;
+  left: 43%;
   cursor: pointer;
   height: 8%;
-  width: 18%;
+  width: 15%;
   text-align: center;
   font-family: "StardosStencil-Regular", serif;
   font-style: normal;
   font-weight: 400;
-  font-size: 2em;
+  font-size: 2vw;
   background-color: transparent;
   box-shadow: white 0 0px 0px 2px inset;
 }
