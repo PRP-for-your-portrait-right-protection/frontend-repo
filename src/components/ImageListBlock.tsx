@@ -13,10 +13,7 @@ import uuid from "react-uuid";
 
 function ImageListBlock() {
   const [count, setCount] = useState<number>(1); //other + n으로 사용하기 위한 url
-  const [totalList, setTotalList]: [any, any] = useState({
-    //최종적으로 backend로 보내질 데이터 리스트 집합
-    file: [],
-  });
+  const [totalList, setTotalList]: [any, any] = useState(null);
   const [apiData, setApiData]: [any, any] = useState(null);
   // interface Book {
   //   isbn : string;
@@ -42,7 +39,43 @@ function ImageListBlock() {
 
           // console.log(response.data.data);
           // let data = response.data.data;
-          setApiData(response.data.data);
+          let data = response.data.data;
+
+          // console.log("APIDATA");
+          // console.log(apiData);
+
+          let temp = {
+            file: [],
+          };
+
+          data.forEach((element) => {
+            console.log("너무야");
+            console.log(element);
+            // addImgList(element.name);
+            let output = {
+              name: element.name,
+              pictures: [],
+            };
+            element.pictures.forEach((image) => {
+              console.log("내부함수");
+              console.log(image);
+              let imgData = {
+                url: image,
+                id: uuid(),
+                file: null,
+                new: false,
+              };
+              // changeFuc(imgData, element.name, "add");
+              output.pictures = output.pictures.concat(imgData);
+            });
+            temp.file = temp.file.concat(output);
+            console.log("중간과정 결과는?");
+            console.log(temp);
+            //initData.file.push(output);
+          });
+          console.log("최종 결과는?");
+          console.log(temp);
+          setTotalList(temp);
 
           // console.log("data Value");
           // console.log(data);
@@ -84,32 +117,6 @@ function ImageListBlock() {
     };
     fetchData();
   }, []);
-
-  const initData = () => {
-    console.log("APIDATA");
-    console.log(apiData);
-    apiData.forEach((element) => {
-      console.log("너무야");
-      console.log(element);
-      addImgList(element.name);
-      // let output = {
-      //   name: element.name,
-      //   pictures: [],
-      // };
-      element.pictures.forEach((image) => {
-        console.log("내부함수");
-        console.log(image);
-        let imgData = {
-          url: image,
-          id: uuid(),
-          file: null,
-          new: false,
-        };
-        changeFuc(imgData, element.name, "add");
-      });
-      //initData.file.push(output);
-    });
-  };
 
   /**
    * @name : Teawon
@@ -161,9 +168,6 @@ function ImageListBlock() {
     console.log("생성되었습니다. 생성된 파일은 다음과 같아요.");
 
     console.log(totalList);
-    console.log("");
-    console.log("");
-    console.log("");
   };
 
   /**
@@ -215,9 +219,8 @@ function ImageListBlock() {
 
   return (
     <>
-      {apiData ? (
+      {totalList ? (
         <>
-          {initData()}
           <button //ImgList추가 버튼
             className="addBtn"
             onClick={() => addImgList(null)}
