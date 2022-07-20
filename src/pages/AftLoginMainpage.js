@@ -11,7 +11,7 @@ function AftLoginMainpage() {
       <nav className="static pt-40">
         <BasicButton />
       </nav>
-      <section className={styles.section}>
+      <div className={styles.section}>
         <div className={styles.For_Your_Login}>
           For Your
           <div className={styles.text_style_1}>PRP</div>
@@ -19,7 +19,7 @@ function AftLoginMainpage() {
         <div className={styles.portrait_right_protection_Login}>
           portrait right protection
         </div>
-      </section>
+      </div>
       <aside className={styles.aside}>
         <div>
           <MainButton title="START" text="upload" />

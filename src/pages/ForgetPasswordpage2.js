@@ -10,7 +10,7 @@ function ForgetPasswordpage2() {
         <img src="images\iconoir_home.png" className={styles.home} />
       </Link>
       <nav className="static pt-40"></nav>
-      <section className="w-3/5 float-left">
+      <div className="w-3/5 float-left">
         <div className={styles.For_Your_Login}>
           For Your
           <div className={styles.text_style_1}>PRP</div>
@@ -18,7 +18,7 @@ function ForgetPasswordpage2() {
         <div className={styles.portrait_right_protection_Login}>
           portrait right protection
         </div>
-      </section>
+      </div>
       <aside className="w-2/5 float-right">
         <div className={styles.login}>
           <ResetPw />
