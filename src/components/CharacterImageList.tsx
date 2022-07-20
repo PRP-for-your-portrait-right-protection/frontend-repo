@@ -23,7 +23,7 @@ function CharacterImageList({
 }: ImageListProps) {
   const countFix: number = characterList.length; //해당 컴포넌트가 가지고있는 list개수
   const countNew: number = userCharacterList.length; //해당 컴포넌트가 가지고있는 list개수
-  const [selectedId, setSeselectedId] = useState<number>(0); //선택된 이미지 id
+  const [selectedId, setSeselectedId] = useState<string>(""); //선택된 이미지 id
 
   const [curPage, setPage]: [number, any] = useState<number>(0); //curPage를 기점으로 curPage~curPage3까지의 요소만 보여줌
   const [curPageUser, setPageUser]: [number, any] = useState<number>(0); //curPage를 기점으로 curPage~curPage3까지의 요소만 보여줌
@@ -53,13 +53,6 @@ function CharacterImageList({
     console.log(inputImage);
   };
 
-  const deleteImage = (id) => {
-    setInputImage(inputImage.filter((img) => img.name !== id));
-
-    if (curPage > 0) {
-      setPageUser((curPageUser) => curPageUser - 1);
-    }
-  };
   /**
    * @name : Teawon
    * @function :silceImage - 해당 리스트컴포넌트에서 총 3개의 이미지만 보여주도록 slice하는 함수
@@ -69,14 +62,49 @@ function CharacterImageList({
    */
   const silceImage = (imglist, page) => {
     let currentPosts = [];
-    currentPosts = imglist.slice(page, page + 4);
+
+    let reverse = [...imglist].reverse();
+    console.log(imglist);
+
+    currentPosts = reverse.slice(page, page + 3);
     return currentPosts;
   };
 
   const silceImageC2 = (imglist, page) => {
+    console.log("현재 페이지");
+    console.log(page);
+
+    console.log("추가 요소 개수");
+    console.log(inputImage.length);
+
+    console.log("기존  개수");
+    console.log(countNew);
+
     let currentPosts = [];
-    currentPosts = imglist.slice(page, page + 3);
+
+    let pre = page - inputImage.length > 0 ? page - inputImage.length : 0;
+    let next =
+      page - inputImage.length + 3 > 0 ? page - inputImage.length + 3 : 0;
+    currentPosts = imglist.slice(pre, next);
     return currentPosts;
+  };
+
+  const makeFormData = () => {
+    console.log("선택된 이미지");
+    console.log(selectedId);
+
+    const checkUrl = process.env.REACT_APP_BUCKET_URL;
+    console.log(checkUrl);
+
+    if (selectedId.startsWith(checkUrl)) {
+      console.log("선택된 내용이 파일이 아닙니다.");
+      //backend로 모든 입력된 파일만 보낸 후 , url은 받지않고 기존값 기록해서 넘기기
+    } else {
+      console.log("선택된 내용이 파일입니다.");
+
+      //backend api통신 후 , 해당 파일값만 selected로 보내기
+      //그리고 받은 url정보를 기록해서 다음페이지로 이동
+    }
   };
 
   return (
@@ -119,28 +147,30 @@ function CharacterImageList({
         </div>
       </div>
 
-      <div className="modalFont flex justify-end items-center">
-        MY CHARACTER
-      </div>
-      <div className="flex content-center w-auto h-56">
-        <button
-          className="Pre absolute top-30"
-          onClick={() =>
-            setPageUser((curPageUser) =>
-              countNew > 3 && countNew - curPageUser > 3
-                ? curPageUser + 1
-                : curPageUser
-            )
-          }
-        ></button>
-        <button
-          className="Next inline-block top-1/2 right-56"
-          onClick={() =>
-            setPageUser((curPageUser) =>
-              curPageUser > 0 ? curPageUser - 1 : curPageUser
-            )
-          }
-        ></button>
+      <div className="modalFont2">MY CHARACTER</div>
+      <button
+        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+        onClick={() =>
+          setPageUser((curPageUser) =>
+            countNew + inputImage.length > 3 &&
+            countNew + inputImage.length - curPageUser > 3
+              ? curPageUser + 1
+              : curPageUser
+          )
+        }
+      >
+        Next
+      </button>
+      <button
+        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+        onClick={() =>
+          setPageUser((curPageUser) =>
+            curPageUser > 0 ? curPageUser - 1 : curPageUser
+          )
+        }
+      >
+        Pre
+      </button>
 
       <div className="grid grid-cols-4 gap-4">
         <span
@@ -167,13 +197,6 @@ function CharacterImageList({
                   src={URL.createObjectURL(img)}
                 />
               </label>
-              <button onClick={() => deleteImage(img.name)}>
-                <img
-                  className="relative w-8 h-8 z-1 -top-14 -left-14"
-                  alt="deleteBtn"
-                  src="images/deleteButton.png"
-                />
-              </button>
             </div>
           ))}
 
@@ -221,6 +244,13 @@ function CharacterImageList({
         accept="image/*"
         onChange={saveImage}
       />
+
+      <button //ImgList추가 버튼
+        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        onClick={() => makeFormData()}
+      >
+        Make
+      </button>
     </div>
   );
 }
