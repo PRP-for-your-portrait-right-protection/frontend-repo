@@ -2,7 +2,6 @@ import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import "./Mosaic.css";
 import Modal from "../components/Modal";
-import Button from "../components/Button";
 import styled from "styled-components";
 import Title from "components/Title";
 import CharacterImageList from "components/CharacterImageList";
@@ -12,9 +11,17 @@ function Mosaic() {
   const [toggleM, setToggleM] = useState(false); //Mosaic토글
   const [toggleC, setToggleC] = useState(false); //Character토글
   const [selectedData, setSelectedData] = useState(""); //최종으로 선택된 하나의 이미지
-  const [characterList, setCharacterList] = useState([]);
-  const [userCharacterList, setUserCharacterList] = useState([]);
+  const [characterList, setCharacterList] = useState([]); //기존 캐릭터 이미지
+  const [userCharacterList, setUserCharacterList] = useState([]); // 사용자 캐릭터 이미지
+  const [inputCharacteList, setinputCharacteList] = useState([]); //사용자가 새로 입력한 이미지
 
+  /**
+   * @name : Teawon
+   * @function :useEffect - 캐릭터의 사진 및 사용자 캐릭터를 가져와 리스트에 설정
+   * 만약 세션에 이전에 선택했던 정보가 들어있다면 selectedData에 값을 설정하여 복구
+   * @create-data: 2022-07-22
+   *
+   */
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios
@@ -35,11 +42,6 @@ function Mosaic() {
           console.log(error);
         });
     };
-    // if (localStorage.getItem("token") != null) {
-    //   fetchData();
-    // } else {
-    //   setIsLoading(true); //만약 로그인이 되어있지 않다면 api를 보내지 않고 바로 로딩을 완료시킨다.
-    // }
 
     fetchData();
 
@@ -61,22 +63,60 @@ function Mosaic() {
     setModal(false);
   };
 
+  /**
+   * @name : Teawon
+   * @function :makeFormData - 다음 페이지로 넘어갈 때 보내는 api정보
+   * @create-data: 2022-07-22
+   *
+   */
   const makeFormData = () => {
-    console.log("선택된 이미지");
-    console.log(selectedData);
-
+    const formData = new FormData();
     const checkUrl = process.env.REACT_APP_BUCKET_URL;
-    console.log(checkUrl);
 
     if (selectedData.startsWith(checkUrl)) {
       console.log("선택된 내용이 파일이 아닙니다.");
+      formData.append("characterList", inputCharacteList);
+      axios({
+        method: "post",
+        url: `https://d601a5df-dc71-481f-9ca6-f2d053dd56e7.mock.pstmn.io/video`,
+        formData,
+        headers: { Authorization: "Bearer " + localStorage.token },
+      })
+        .then(function (response) {})
+        .catch(function (error) {
+          console.log("ERROR 발생");
+          console.log(error);
+        });
+
       //backend로 모든 입력된 파일만 보낸 후 , url은 받지않고 기존값 기록해서 넘기기
     } else {
-      console.log("선택된 내용이 파일입니다.");
+      formData.append(
+        "selectedCharacter",
+        inputCharacteList.filter((file) => file.name === selectedData)
+      );
+      formData.append(
+        "characterList",
+        inputCharacteList.filter((file) => file.name !== selectedData)
+      );
 
-      //backend api통신 후 , 해당 파일값만 selected로 보내기
-      //그리고 받은 url정보를 기록해서 다음페이지로 이동
+      axios({
+        method: "post",
+        url: `https://d601a5df-dc71-481f-9ca6-f2d053dd56e7.mock.pstmn.io/video`,
+        formData,
+        headers: { Authorization: "Bearer " + localStorage.token },
+      })
+        .then(function (response) {
+          selectedData(response.data.url);
+        })
+        .catch(function (error) {
+          console.log("ERROR 발생");
+          console.log(error);
+        });
     }
+
+    //backend api통신 후 , 해당 파일값만 selected로 보내기
+    //그리고 받은 url정보를 기록해서 다음페이지로 이동
+
     sessionStorage.setItem("character", selectedData);
   };
 
@@ -95,6 +135,16 @@ function Mosaic() {
   const clickedToggleC = () => {
     setToggleC(true);
     setToggleM(false);
+  };
+
+  /**
+   * @name : Teawon
+   * @function :addImgList - 사용자가 새로 추가한 캐릭터 이미지를 저장하는 함수
+   * @create-data: 2022-07-22
+   *
+   */
+  const addImgList = (insertData) => {
+    setinputCharacteList([...inputCharacteList, insertData]);
   };
 
   return (
@@ -140,7 +190,9 @@ function Mosaic() {
               characterList={characterList}
               userCharacterList={userCharacterList}
               preSelectedImage={selectedData}
+              inputCharacteList={inputCharacteList}
               clickFuc={setSelectedData}
+              insertFuc={addImgList}
             ></CharacterImageList>
 
               <AppStyle>
@@ -159,6 +211,8 @@ function Mosaic() {
           </Modal>
         </div>
       </div>
+
+      <input type="checkbox" id="ch" />
     </div>
   );
 }

@@ -5,16 +5,20 @@ import "./CharacterImageList.css";
  * @component :CharacterImageList - 기존 이미지리스트, 사용자 이미지 리스트 변수를 받아
   하나의 클릭된 이미지정보를  부모컴포넌트의 상태변경함수에 넣는 컴포넌트
  * @create-data: 2022-07-18
- * @개선사항 : 컴포넌트화가 이루어지지 않고, 두 고정된 이미지 리스트(기존, 사용자)가 중복되어 사용되고있습니다.
- * Radio타입의 특징 상 상대방 컴포넌트의 특정 이미지가 눌렸을 때 다른 컴포넌트에서 변수값의 변화를 확인해야하는데 모든 컴포넌트마다 상태변경함수를 넣어
- * 관리하는 방식은 좋지 않을 것 같아 고민중입니다. 향후 적절한 모듈화가 필요합니다.
+   @update-date: 2022-07-22
+   - 사용자로부터 새로 입력된 데이터를 부모컴포넌트에서 관리하며 자식컴포넌트에서는 값을 받아서 사용
+   - 추가한 데이터를 Modal창을 닫았다가 다시 띄웠을 때 기존 데이터를 유지
+   - 사용자로부터 여러 이미지를 업로드 할 수 있고 하나의 리스트로 표현됨
+ * 
  */
 
 interface ImageListProps {
-  characterList: any; //이미지 리스트
-  userCharacterList: any; //이미지 리스트
-  clickFuc: any; //상태값 변경 함수(부모), 선택된 파일의 URL을 저장한다.
-  preSelectedImage: string;
+  characterList: string[]; //기존 이미지 리스트
+  userCharacterList: string[]; //사용자 이미지 리스트
+  clickFuc: any; //상태값 변경 함수(부모), 선택된 파일의 URL(혹은 File.name)을 저장한다.
+  preSelectedImage: string; //기존에 선택되었던 정보가 담겨있는 url
+  inputCharacteList: string[]; //사용자로부터 입력된 이미지 리스트
+  insertFuc: any; //상태값 변경 함수(부모), 이미지의 정보를 리스트에 추가
 }
 
 function CharacterImageList({
@@ -22,16 +26,16 @@ function CharacterImageList({
   userCharacterList,
   clickFuc,
   preSelectedImage,
+  inputCharacteList,
+  insertFuc,
 }: ImageListProps) {
-  const countFix: number = characterList.length; //해당 컴포넌트가 가지고있는 list개수
-  const countNew: number = userCharacterList.length; //해당 컴포넌트가 가지고있는 list개수
+  const countFix: number = characterList.length; // 기존 이미지 리스트의 개수
+  const countUser: number = userCharacterList.length; //사용자 이미지 리스트의 개수
+  const countNew: number = inputCharacteList.length; // 새로 입력된 이미지 리스트의 개수
   const [selectedId, setSeselectedId] = useState<string>(preSelectedImage); //선택된 이미지 id
-
   const [curPage, setPage]: [number, any] = useState<number>(0); //curPage를 기점으로 curPage~curPage3까지의 요소만 보여줌
   const [curPageUser, setPageUser]: [number, any] = useState<number>(0); //curPage를 기점으로 curPage~curPage3까지의 요소만 보여줌
-
   const imageInput = useRef<any>();
-  const [inputImage, setInputImage] = useState<any>([]); //사용자가 새로 입력한 이미지
 
   /**
    * @name : Teawon
@@ -51,8 +55,8 @@ function CharacterImageList({
    */
   const saveImage = (event) => {
     console.log(event.target.files[0]);
-    setInputImage([...inputImage, event.target.files[0]]);
-    console.log(inputImage);
+    insertFuc(event.target.files[0]);
+    console.log(inputCharacteList);
   };
 
   /**
@@ -66,7 +70,6 @@ function CharacterImageList({
     let currentPosts = [];
 
     let reverse = [...imglist].reverse();
-    console.log(imglist);
 
     currentPosts = reverse.slice(page, page + 3);
     return currentPosts;
@@ -77,37 +80,17 @@ function CharacterImageList({
     console.log(page);
 
     console.log("추가 요소 개수");
-    console.log(inputImage.length);
+    console.log(countNew);
 
     console.log("기존  개수");
-    console.log(countNew);
+    console.log(countUser);
 
     let currentPosts = [];
 
-    let pre = page - inputImage.length > 0 ? page - inputImage.length : 0;
-    let next =
-      page - inputImage.length + 3 > 0 ? page - inputImage.length + 3 : 0;
+    let pre = page - countNew > 0 ? page - countNew : 0;
+    let next = page - countNew + 3 > 0 ? page - countNew + 3 : 0;
     currentPosts = imglist.slice(pre, next);
     return currentPosts;
-  };
-
-  const makeFormData = () => {
-    console.log("선택된 이미지");
-    console.log(selectedId);
-
-    const checkUrl = process.env.REACT_APP_BUCKET_URL;
-    console.log(checkUrl);
-
-    if (selectedId.startsWith(checkUrl)) {
-      console.log("선택된 내용이 파일이 아닙니다.");
-      //backend로 모든 입력된 파일만 보낸 후 , url은 받지않고 기존값 기록해서 넘기기
-    } else {
-      console.log("선택된 내용이 파일입니다.");
-
-      //backend api통신 후 , 해당 파일값만 selected로 보내기
-      //그리고 받은 url정보를 기록해서 다음페이지로 이동
-    }
-    sessionStorage.setItem("character", selectedId);
   };
 
   return (
@@ -155,8 +138,7 @@ function CharacterImageList({
         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
         onClick={() =>
           setPageUser((curPageUser) =>
-            countNew + inputImage.length > 3 &&
-            countNew + inputImage.length - curPageUser > 3
+            countUser + countNew > 3 && countUser + countNew - curPageUser > 3
               ? curPageUser + 1
               : curPageUser
           )
@@ -183,8 +165,8 @@ function CharacterImageList({
           <img src="images\addImage.png" alt="" className=" h-36 w-36" />
         </span>
 
-        {inputImage &&
-          silceImage(inputImage, curPageUser).map((img) => (
+        {inputCharacteList &&
+          silceImage(inputCharacteList, curPageUser).map((img) => (
             <div className="col-span-1" key={img.name}>
               <label>
                 <input
@@ -247,13 +229,6 @@ function CharacterImageList({
         accept="image/*"
         onChange={saveImage}
       />
-
-      <button //ImgList추가 버튼
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-        onClick={() => makeFormData()}
-      >
-        Make
-      </button>
     </div>
   );
 }
