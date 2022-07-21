@@ -95,17 +95,37 @@ const SignUp = () => {
       setErrMsg("Invalid Entry");
       return;
     }
+    // form data 로 받음
     try {
-      const response = await axios.post(
-        REGISTER_URL,
-        JSON.stringify({ id, name, phonenum, pwd }),
+      const formData = new FormData();
+
+      const value = [
         {
-          headers: { "Content-Type": "application/json" },
+          user_id: id,
+          password: pwd,
+          name: name,
+          phone: phonenum,
+        },
+      ];
+
+      const blob = new Blob([JSON.stringify(value)], {
+        type: "application/json",
+      });
+
+      formData.append("data", blob);
+
+      const response = await axios({
+        method: "POST",
+        url: `/mock_api/user/signup`,
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json",
           withCredentials: true,
-        }
-      );
+        },
+        data: formData,
+      });
+      console.log(value);
       console.log(response?.data);
-      console.log(response?.accessToken);
       console.log(JSON.stringify(response));
       setSuccess(true);
       //clear state and controlled inputs
@@ -119,20 +139,39 @@ const SignUp = () => {
       if (!err?.response) {
         setErrMsg("No Server Response");
       } else if (err.response?.status === 409) {
-        setErrMsg("Username Taken");
+        setErrMsg("ID Taken");
       } else {
         setErrMsg("Registration Failed");
       }
       errRef.current.focus();
     }
+    // const response = await axios.post(
+    //   REGISTER_URL,
+    //   JSON.stringify({ id, name, phonenum, pwd }),
+    //   {
+    //     headers: { "Content-Type": "application/json" },
+    //     withCredentials: true,
+    //   }
+    // );
+    // console.log(response?.data);
+    // console.log(response?.accessToken);
+    // console.log(JSON.stringify(response));
+    // setSuccess(true);
+    // //clear state and controlled inputs
+    // //need value attrib on inputs for this
+    // setId("");
+    // setName("");
+    // setPhoneNum("");
+    // setPwd("");
+    // setMatchPwd("");
   };
 
   return (
     <>
       {success ? (
         <section>
-          <h1>Success!</h1>
-          <p>
+          <h1 className="text-4xl font-Stardos text-black">Success!</h1>
+          <p className="mt-12 text-3xl font-Stardos text-black">
             <Link to="/signin">Sign In</Link>
           </p>
         </section>
