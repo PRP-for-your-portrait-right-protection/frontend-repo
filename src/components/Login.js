@@ -1,12 +1,9 @@
-import React, { useRef, useState, useEffect, useContext } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-//import AuthContext from "./context/AuthProvider";
 
 import axios from "../api/axios";
-//const LOGIN_URL = '/auth'
 
 const Login = () => {
-  //const { setAuth } = useContext(AuthContext);
   const userRef = useRef();
   const errRef = useRef();
 
@@ -25,21 +22,43 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    console.log(id, pwd);
     try {
-      const response = await axios.post(
-        LOGIN_URL,
-        JSON.stringify({ id, pwd }),
+      const formData = new FormData();
+
+      const value = [
         {
-          headers: { "Content-Type": "application/json" },
+          user_id: id,
+          password: pwd,
+        },
+      ];
+
+      const blob = new Blob([JSON.stringify(value)], {
+        type: "application/json",
+      });
+
+      formData.append("data", blob);
+
+      const response = await axios({
+        method: "POST",
+        url: `/mock_api/user/signin`,
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json",
           withCredentials: true,
-        }
-      );
+        },
+        data: formData,
+      });
+      console.log(value);
+      console.log(response?.data);
       console.log(JSON.stringify(response?.data));
       //console.log(JSON.stringify(response));
-      const accessToken = response?.data?.accessToken;
-      const roles = response?.data?.roles;
-      setAuth({ id, pwd, roles, accessToken });
+      const accessToken = response?.data?.token;
+      //const roles = response?.data?.roles;
+      localStorage.setItem("token", accessToken);
+      console.log(localStorage.getItem("token"));
+      console.log(accessToken);
+      //console.log(roles);
       setId("");
       setPwd("");
       setSuccess(true);
@@ -47,7 +66,7 @@ const Login = () => {
       if (!err?.response) {
         setErrMsg("No Server Response");
       } else if (err.response?.status === 400) {
-        setErrMsg("Missing Username or Password");
+        setErrMsg("Missing ID or Password");
       } else if (err.response?.status === 401) {
         setErrMsg("Unauthorized");
       } else {
@@ -61,9 +80,11 @@ const Login = () => {
     <>
       {success ? (
         <section>
-          <h1>You are logged in!</h1>
+          <h1 className="text-4xl font-Stardos text-black">
+            You are logged in!
+          </h1>
           <br />
-          <p>
+          <p className="mt-16 text-2xl font-Stardos text-black">
             <Link to="/main">Go to Home</Link>
           </p>
         </section>
