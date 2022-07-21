@@ -120,11 +120,8 @@ function ImageListBlock() {
       formData.append("name", nameStr);
     });
 
-    if (
-      sessionStorage.getItem("token") != null &&
-      formData.get("name") != null
-    ) {
-      //회원이고 , 동시에 보낼 파일 내용이 있다면 postApi보낸 후 응답값의 url들을 리스트에 추가
+    if (formData.get("name") != null) {
+      // 동시에 보낼 파일 내용이 있다면 postApi보낸 후 응답값의 url들을 리스트에 추가
     }
 
     sessionStorage.setItem("images", JSON.stringify(imageUrlList)); //
