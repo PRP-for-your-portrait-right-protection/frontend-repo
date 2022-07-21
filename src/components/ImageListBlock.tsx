@@ -73,31 +73,72 @@ function ImageListBlock() {
    */
 
   const makeFormData = () => {
-    // const formData = new FormData();
-    // const imageList = totalList.file;
+    const formData = new FormData();
 
-    // totalList.file.forEach((element) => {
-    //   formData.append("name", element.name);
-    //   element.pictures.forEach((list) => {
-    //     formData.append("file", list.file);
-    //   });
-    // });
+    let imageUrlList = [];
 
-    // for (let key of formData.keys()) {
-    //   console.log("FormData의 key를 확인합니다.");
-    //   console.log(key);
-    // }
+    totalList.file.forEach((element) => {
+      formData.append("name", element.name);
 
-    // // FormData의 value 확인
-    // for (let value of formData.values()) {
-    //   console.log("FormData의 Values를 확인합니다.");
-    //   console.log(value);
-    // }
+      element.pictures.forEach((list) => {
+        if (list.file == null) {
+          imageUrlList.push(list.url); //url
+        } else {
+          formData.append(element.name, list.file); //file
+        }
+      });
+    });
+
+    for (let key of formData.keys()) {
+      console.log("FormData의 key를 확인합니다.");
+      console.log(key);
+    }
+
+    // FormData의 value 확인
+    for (let value of formData.values()) {
+      console.log("FormData의 Values를 확인합니다.");
+      console.log(value);
+    }
+
+    let array = formData.getAll("name");
+    console.log("파일이 업로드된 이름");
+    console.log(array);
+
+    totalList.file.forEach((element) => {
+      if (formData.get(element.name) == null) {
+        console.log(element.name);
+        console.log("은 지금 파일이 없어서 지웁니다.");
+        formData.delete(element.name);
+        array = array.filter((data) => data !== element.name);
+      }
+    });
+
+    formData.delete("name");
+    array.forEach((nameStr) => {
+      formData.append("name", nameStr);
+    });
+
+    console.log("파일이 업로드된 이름");
+    console.log(array);
+
+    console.log("배열값?");
+    console.log(imageUrlList);
+
+    for (let key of formData.keys()) {
+      console.log("FormData의 key를 확인합니다.");
+      console.log(key);
+    }
+
+    // FormData의 value 확인
+    for (let value of formData.values()) {
+      console.log("FormData의 Values를 확인합니다.");
+      console.log(value);
+    }
 
     //  sessionStorage.removeItem("key");
-    console.log(totalList);
-    sessionStorage.setItem("key", JSON.stringify(totalList));
-    console.log(sessionStorage.getItem("key"));
+    // console.log(totalList);
+    // sessionStorage.setItem("key", JSON.stringify(totalList));
+    // console.log(sessionStorage.getItem("key"));
   };
 
   const addImgList = (filename) => {
