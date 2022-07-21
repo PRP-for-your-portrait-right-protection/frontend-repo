@@ -14,16 +14,18 @@ interface ImageListProps {
   characterList: any; //이미지 리스트
   userCharacterList: any; //이미지 리스트
   clickFuc: any; //상태값 변경 함수(부모), 선택된 파일의 URL을 저장한다.
+  preSelectedImage: string;
 }
 
 function CharacterImageList({
   characterList,
   userCharacterList,
   clickFuc,
+  preSelectedImage,
 }: ImageListProps) {
   const countFix: number = characterList.length; //해당 컴포넌트가 가지고있는 list개수
   const countNew: number = userCharacterList.length; //해당 컴포넌트가 가지고있는 list개수
-  const [selectedId, setSeselectedId] = useState<string>(""); //선택된 이미지 id
+  const [selectedId, setSeselectedId] = useState<string>(preSelectedImage); //선택된 이미지 id
 
   const [curPage, setPage]: [number, any] = useState<number>(0); //curPage를 기점으로 curPage~curPage3까지의 요소만 보여줌
   const [curPageUser, setPageUser]: [number, any] = useState<number>(0); //curPage를 기점으로 curPage~curPage3까지의 요소만 보여줌
@@ -39,7 +41,7 @@ function CharacterImageList({
 
   const handleClickRadioButton = (e) => {
     setSeselectedId(e.target.value);
-    clickFuc([e.target.value]);
+    clickFuc(e.target.value);
   };
 
   /**
@@ -105,6 +107,7 @@ function CharacterImageList({
       //backend api통신 후 , 해당 파일값만 selected로 보내기
       //그리고 받은 url정보를 기록해서 다음페이지로 이동
     }
+    sessionStorage.setItem("character", selectedId);
   };
 
   return (
@@ -182,7 +185,7 @@ function CharacterImageList({
 
         {inputImage &&
           silceImage(inputImage, curPageUser).map((img) => (
-            <div className="col-span-1 " key={img.name}>
+            <div className="col-span-1" key={img.name}>
               <label>
                 <input
                   type="radio"
