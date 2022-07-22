@@ -61,14 +61,14 @@ function VideoUpload() {
 
   return (
     <div>
-      <div className="absolute bottom-0 right-0 p-5">
+      <div className="fixed bottom-0 right-0 p-5">
         <ButtonSession
           img="images/rightArrow.png"
           url="/Mosaic"
           saveFuc={makeFormData}
         ></ButtonSession>
       </div>
-      <div className="absolute bottom-0 left-0 p-5">
+      <div className="fixed bottom-0 left-0 p-5">
         <ButtonSession
           img="images/leftArrow.png"
           url="/upload"

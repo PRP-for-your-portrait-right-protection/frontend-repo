@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ImageList from "../components/ImageList";
-//import axios from "axios";
+import axios from "axios";
 import "./ImageListBlock.css";
 import ButtonSession from "./ButtonSession";
 import uuid from "react-uuid";
@@ -218,12 +218,6 @@ function ImageListBlock() {
           >
             ADD
           </button>
-          <button //ImgList추가 버튼
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-            onClick={() => makeFormData()}
-          >
-            Make
-          </button>
           {totalList.file && //map을 통해 각 imgList를 출력
             totalList.file.map((imgList) => (
               <ImageList
@@ -232,14 +226,14 @@ function ImageListBlock() {
                 changeFuc={changeFuc}
               />
             ))}
-          <div className="absolute bottom-0 right-0 p-5">
+          <div className="fixed bottom-0 right-0 p-5">
             <ButtonSession
               img="images/rightArrow.png"
               url="/VideoUpload"
               saveFuc={makeFormData}
             ></ButtonSession>
           </div>
-          <div className="absolute bottom-0 left-0 p-5">
+          <div className="fixed bottom-0 left-0 p-5">
             <ButtonSession
               img="images/leftArrow.png"
               url="/"

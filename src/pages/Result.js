@@ -18,7 +18,7 @@ function Result() {
       <div className="absolute bottom-0 right-0 p-5">
         <ButtonSession
           img="images/rightArrow.png"
-          url="/Loading"
+          url="/video"
           saveFuc={makeFormData}
         ></ButtonSession>
       </div>

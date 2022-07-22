@@ -76,17 +76,17 @@ function Mosaic() {
     if (selectedData.startsWith(checkUrl)) {
       console.log("선택된 내용이 파일이 아닙니다.");
       formData.append("characterList", inputCharacteList);
-      axios({
-        method: "post",
-        url: `https://d601a5df-dc71-481f-9ca6-f2d053dd56e7.mock.pstmn.io/video`,
-        formData,
-        headers: { Authorization: "Bearer " + localStorage.token },
-      })
-        .then(function (response) {})
-        .catch(function (error) {
-          console.log("ERROR 발생");
-          console.log(error);
-        });
+      // axios({
+      //   method: "post",
+      //   url: `https://d601a5df-dc71-481f-9ca6-f2d053dd56e7.mock.pstmn.io/video`,
+      //   formData,
+      //   headers: { Authorization: "Bearer " + localStorage.token },
+      // })
+      //   .then(function (response) {})
+      //   .catch(function (error) {
+      //     console.log("ERROR 발생");
+      //     console.log(error);
+      //   });
 
       //backend로 모든 입력된 파일만 보낸 후 , url은 받지않고 기존값 기록해서 넘기기
     } else {
@@ -99,19 +99,19 @@ function Mosaic() {
         inputCharacteList.filter((file) => file.name !== selectedData)
       );
 
-      axios({
-        method: "post",
-        url: `https://d601a5df-dc71-481f-9ca6-f2d053dd56e7.mock.pstmn.io/video`,
-        formData,
-        headers: { Authorization: "Bearer " + localStorage.token },
-      })
-        .then(function (response) {
-          selectedData(response.data.url);
-        })
-        .catch(function (error) {
-          console.log("ERROR 발생");
-          console.log(error);
-        });
+      // axios({
+      //   method: "post",
+      //   url: `https://d601a5df-dc71-481f-9ca6-f2d053dd56e7.mock.pstmn.io/video`,
+      //   formData,
+      //   headers: { Authorization: "Bearer " + localStorage.token },
+      // })
+      //   .then(function (response) {
+      //     selectedData(response.data.url);
+      //   })
+      //   .catch(function (error) {
+      //     console.log("ERROR 발생");
+      //     console.log(error);
+      //   });
     }
 
     //backend api통신 후 , 해당 파일값만 selected로 보내기
@@ -149,14 +149,14 @@ function Mosaic() {
 
   return (
     <div>
-      <div className="absolute bottom-0 right-0 p-5">
+      <div className="fixed bottom-0 right-0 p-5">
         <ButtonSession
           img="images/rightArrow.png"
           url="/Result"
           saveFuc={makeFormData}
         ></ButtonSession>
       </div>
-      <div className="absolute bottom-0 left-0 p-5">
+      <div className="fixed bottom-0 left-0 p-5">
         <ButtonSession
           img="images/leftArrow.png"
           url="/VideoUpload"
@@ -184,16 +184,16 @@ function Mosaic() {
           </ToggleBtn>
           <span className="caption ml-3">CHARACTER</span>
 
-        <Modal open={modal} close={closeModal}>
-          <div>
-            <CharacterImageList
-              characterList={characterList}
-              userCharacterList={userCharacterList}
-              preSelectedImage={selectedData}
-              inputCharacteList={inputCharacteList}
-              clickFuc={setSelectedData}
-              insertFuc={addImgList}
-            ></CharacterImageList>
+          <Modal open={modal} close={closeModal}>
+            <div>
+              <CharacterImageList
+                characterList={characterList}
+                userCharacterList={userCharacterList}
+                preSelectedImage={selectedData}
+                inputCharacteList={inputCharacteList}
+                clickFuc={setSelectedData}
+                insertFuc={addImgList}
+              ></CharacterImageList>
 
               <AppStyle>
                 <label htmlFor="ex_file">

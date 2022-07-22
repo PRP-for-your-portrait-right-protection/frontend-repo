@@ -71,7 +71,7 @@ function CharacterImageList({
 
     let reverse = [...imglist].reverse();
 
-    currentPosts = reverse.slice(page, page + 3);
+    currentPosts = reverse.slice(page, page + 4);
     return currentPosts;
   };
 
@@ -95,42 +95,42 @@ function CharacterImageList({
 
   return (
     <div className="imageList-component">
-      <div className="modalFont flex justify-center items-center mt-3 ">
-        CHARACTER
-      </div>
-      <div className="flex content-center w-auto h-56">
-        <button
-          className="Pre inline-block justify-center mt-48"
-          onClick={() =>
-            setPage((curPage) =>
-              countFix > 4 && countFix - curPage > 4 ? curPage + 1 : curPage
-            )
-          }
-        ></button>
-        <button
-          className="Next inline-block justify-center mt-48 right-56"
-          onClick={() =>
-            setPage((curPage) => (curPage > 0 ? curPage - 1 : curPage))
-          }
-        ></button>
+      <div className="modalFont1">CHARACTER</div>
+      <button
+        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+        onClick={() =>
+          setPage((curPage) =>
+            countFix > 3 && countFix - curPage > 3 ? curPage + 1 : curPage
+          )
+        }
+      >
+        Next
+      </button>
+      <button
+        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+        onClick={() =>
+          setPage((curPage) => (curPage > 0 ? curPage - 1 : curPage))
+        }
+      >
+        Pre
+      </button>
 
-        <div className="grid grid-cols-4 gap-8 mx-32 mt-6">
-          {characterList &&
-            silceImage(characterList, curPage).map((img) => (
-              <div className="col-span-1" key={img}>
-                <label>
-                  <input
-                    type="radio"
-                    className="hidden"
-                    value={img}
-                    checked={selectedId == img}
-                    onChange={handleClickRadioButton}
-                  />
-                  <img className="h-40 w-48" alt="sample" src={img} />
-                </label>
-              </div>
-            ))}
-        </div>
+      <div className="grid grid-cols-4 gap-4">
+        {characterList &&
+          silceImage(characterList, curPage).map((img) => (
+            <div className="col-span-1" key={img}>
+              <label>
+                <input
+                  type="radio"
+                  className="hidden"
+                  value={img}
+                  checked={selectedId == img}
+                  onChange={handleClickRadioButton}
+                />
+                <img className="h-60 w-60" alt="sample" src={img} />
+              </label>
+            </div>
+          ))}
       </div>
 
       <div className="modalFont2">MY CHARACTER</div>
@@ -221,7 +221,7 @@ function CharacterImageList({
         </div>
       )} */}
 
-      {/*    <input
+      <input
         ref={imageInput}
         className="hidden"
         name="imageUpload"
