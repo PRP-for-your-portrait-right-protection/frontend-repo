@@ -1,37 +1,104 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
+import axios from "axios";
 import "./VideoUpload.css";
-import Button from "components/Button";
+import ButtonSession from "../components/ButtonSession";
 import Title from "components/Title";
 function VideoUpload() {
   const fileInput = useRef(); // 외부 이미지 클릭 시  <input>가 눌리도록 설정하기 위한 변수
-  const [fileVideo, setFileVideo] = useState(""); //화면에 보여 줄 비디오 오브젝트
+  const [fileVideo, setFileVideo] = useState(); //화면에 보여 줄 비디오 오브젝트
+  const [preFileVideo, setPreFileVideo] = useState(); //기존에 넣었던 데이터가 있는 지
 
   /**
    * @name : Teawon
    * @function :saveFile - 파일을 입력받아 화면에 보여줄 ObjectURL을 만드는 함수
-   * @create-data: 2022-07-18
+   * @create-date: 2022-07-18
+   * @update-date: 2020-07-21
+   * - 새로 파일 업로드 시 , preFileVideo값을 null로 갱신로직 추가
    */
   const saveFile = (event) => {
-    setFileVideo(window.URL.createObjectURL(event.target.files[0]));
+    setPreFileVideo();
+    setFileVideo(event.target.files[0]);
   };
+
+  /**
+   * @name : Teawon
+   * @function :makeFormData - 입력한 동영상파일을 보낸 후 해당 url을 받아 세션에 저장하는 함수
+   * @create-data: 2022-07-21
+   */
+  const makeFormData = () => {
+    if (!preFileVideo) {
+      //만약 기존에 저장된영상이 있다면 추가로 보내지 않는다.
+      const formData = new FormData();
+      formData.append("video", fileVideo);
+
+      axios({
+        method: "post",
+        url: `https://d601a5df-dc71-481f-9ca6-f2d053dd56e7.mock.pstmn.io/video`,
+        formData,
+        headers: { Authorization: "Bearer " + localStorage.token },
+      })
+        .then(function (response) {
+          console.log(response.data.video);
+          sessionStorage.setItem("video", response.data.video);
+        })
+        .catch(function (error) {
+          console.log("ERROR 발생");
+          console.log(error);
+        });
+    }
+  };
+
+  /**
+   * @name : Teawon
+   * @function :useEffect - 세션에 저장된 값이 있다면 (기존에 업로드한 영상이 있다면) 해당 값을 가져와서 사용한다
+   * @create-data: 2022-07-21
+   */
+  useEffect(() => {
+    if (sessionStorage.getItem("video") != null) {
+      setPreFileVideo(sessionStorage.getItem("video"));
+    }
+  }, []);
 
   return (
     <div>
       <div className="fixed bottom-0 right-0 p-5">
-        <Button img="images/rightArrow.png" url="/Mosaic"></Button>
+        <ButtonSession
+          img="images/rightArrow.png"
+          url="/Mosaic"
+          saveFuc={makeFormData}
+        ></ButtonSession>
       </div>
       <div className="fixed bottom-0 left-0 p-5">
-        <Button img="images/leftArrow.png" url="/upload"></Button>
+        <ButtonSession
+          img="images/leftArrow.png"
+          url="/upload"
+          saveFuc={null}
+        ></ButtonSession>
       </div>
 
       <Title textValue="Please upload your video"></Title>
-
-      {fileVideo ? ( //입력된 비디오파일이 있다면 드롭박스를 숨기고 파일업로드 버튼이 생기도록 함
-        <div className="mt-9">
+      {preFileVideo ? ( //이전 값을 사용할 때는 별도의 파일을object로 바꾸지 않고 그대로 출력하기 위해 따로 if문으로 분리
+        <div>
           <video
             className="flex items-center justify-center w-3/4 h-72"
             id="video"
-            src={fileVideo}
+            src={preFileVideo}
+            style={{ margin: "auto" }}
+            controls
+          ></video>
+          <span
+            className="uploadButton flex justify-center"
+            onClick={() => fileInput.current.click()}
+          >
+            <img src="images\videoupload.png" alt="" className="file" />
+          </span>
+        </div>
+      ) : fileVideo ? ( //입력된 비디오파일이 있다면 드롭박스를 숨기고 파일업로드 버튼이 생기도록 함
+        <div>
+          <video
+            className="w-3/4 h-64"
+            id="video"
+            src={window.URL.createObjectURL(fileVideo)}
             style={{ margin: "auto" }}
             controls
           ></video>
@@ -84,6 +151,7 @@ function VideoUpload() {
           </label>
         </div>
       )}
+      {}
 
       <input //uploadimage클릭 시 해당 input이 Click
         ref={fileInput}
@@ -93,6 +161,8 @@ function VideoUpload() {
         accept="video/*"
         onChange={saveFile}
       />
+
+      <button onClick={() => makeFormData()}>asdsad</button>
     </div>
   );
 }

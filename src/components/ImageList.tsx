@@ -1,7 +1,8 @@
 import React, { useRef, useState } from "react";
 import "./ImageList.css";
 import ImgBlock from "components/ImageBlock";
-import PhotoLandingPage from "components/PhotoLandingPage";
+import uuid from "react-uuid";
+
 /**
  * @name : Teawon
  * @component :ImageList - name , picture리스트를 통해 특정 유저에 대한 사진리스트를 관리하는 컴포넌트
@@ -16,7 +17,7 @@ interface ImageListProps {
 function ImageList({ object, changeFuc }: ImageListProps) {
   const imageInput = useRef<any>();
   const imgList = useState(object);
-  const [count, setCount]: [number, any] = useState<number>(0); //해당 컴포넌트가 가지고있는 list개수
+  const count: number = object.pictures.length; //해당 컴포넌트가 가지고있는 list개수
   const [curPage, setPage]: [number, any] = useState<number>(0); //curPage를 기점으로 curPage~curPage3까지의 요소만 보여줌
 
   /**
@@ -27,13 +28,11 @@ function ImageList({ object, changeFuc }: ImageListProps) {
   const saveFileImageNew = (event: React.ChangeEvent<HTMLInputElement>) => {
     let data = {
       url: URL.createObjectURL(event.target.files[0]),
-      id: count,
+      id: uuid(),
       file: event.target.files[0],
-      new: "Y",
     };
 
     changeFuc(data, object.name, "add");
-    setCount((count) => count + 1);
   };
 
   /**
@@ -65,15 +64,54 @@ function ImageList({ object, changeFuc }: ImageListProps) {
    * imgList - 이미지 리스트
    */
   const silceImage = (imgList) => {
+    // const reverse = [...imgList.reverse()];
+    // let temp = [...imgList[0]].reverse();
+    //temp.reverse();
     let currentPosts = [];
-    currentPosts = imgList[0].pictures.slice(curPage, curPage + 3);
+    let reverse = [...imgList].reverse();
+    console.log(imgList);
+    currentPosts = reverse.slice(curPage, curPage + 3);
     console.log(curPage);
+
     return currentPosts;
   };
 
+  const [edit, setEdit] = useState(false);
+  const [text, setText] = useState(object.name);
+
+  const handleChange = (event) => {
+    setText(event.target.value);
+  };
+
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      setEdit((edit) => !edit);
+      if (object.name !== text) {
+        changeFuc(text, object.name, "reName");
+      }
+    }
+  };
+
+  const changeEditMode = () => {
+    setEdit((edit) => !edit);
+  };
   return (
     <div className="pictureList">
-      <p className="personName"> {object.name} </p>
+      <div className="personName">
+        {edit ? (
+          <input
+            className="form-control text-black w-32"
+            type="text"
+            value={text}
+            onChange={(event) => handleChange(event)}
+            onKeyDown={handleKeyDown}
+          />
+        ) : (
+          <span onDoubleClick={() => changeEditMode()}>{text}</span>
+        )}
+      </div>
+
+      {/* <p className="personName"> {object.name} </p> */}
       <button className="d" onClick={() => deleteFileImageList()}>
         <img className="deleteBtn" alt="deleteBtn" src="images\delete.png" />
       </button>
@@ -100,8 +138,8 @@ function ImageList({ object, changeFuc }: ImageListProps) {
           <img src="images\addImage.png" alt="" className="h-36 w-36" />
         </span>
 
-        {imgList &&
-          silceImage(imgList).map((img) => (
+        {imgList[0].pictures &&
+          silceImage(imgList[0].pictures).map((img) => (
             <ImgBlock
               key={img.id}
               object={img}
