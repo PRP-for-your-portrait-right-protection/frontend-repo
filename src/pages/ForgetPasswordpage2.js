@@ -1,8 +1,8 @@
 import React from "react";
 import styles from "./Mainpage.module.css";
-import Login from "../components/Login";
+import ResetPw from "../components/ResetPw";
 import { Link } from "react-router-dom";
-function Loginpage() {
+function ForgetPasswordpage2() {
   return (
     //실제 화면에 출력할 내용들 설정 해주는 곳
     <div className={styles.img_1}>
@@ -21,11 +21,11 @@ function Loginpage() {
       </div>
       <aside className="w-2/5 float-right">
         <div className={styles.login}>
-          <Login />
+          <ResetPw />
         </div>
       </aside>
     </div>
   );
 }
 
-export default Loginpage;
+export default ForgetPasswordpage2;

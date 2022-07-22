@@ -7,7 +7,7 @@ function Mainpage() {
     //실제 화면에 출력할 내용들 설정 해주는 곳
     <div className={styles.img_1}>
       <nav className="static pt-40"></nav>
-      <section className={styles.section}>
+      <div className={styles.section}>
         <div className={styles.For_Your_Login}>
           For Your
           <div className={styles.text_style_1}>PRP</div>
@@ -15,7 +15,7 @@ function Mainpage() {
         <div className={styles.portrait_right_protection_Login}>
           portrait right protection
         </div>
-      </section>
+      </div>
       <aside className={styles.aside}>
         <div>
           <MainButton title="START" text="upload" />
@@ -23,8 +23,9 @@ function Mainpage() {
         <div>
           <Link to={"/signin"}>
             <button
-              className="absolute top-1/3 right-0 w-64 h-20 mt-12 text-3xl font-Stardos 
-        text-center text-black hover:text-white bg-inherit hover:bg-amber-900 border-2 border-amber-900"
+              className="absolute top-1/3 right-0 w-64 h-20 mt-12 
+              text-3xl font-Stardos text-center text-black hover:text-white 
+              bg-inherit hover:bg-amber-900 border-2 border-amber-900"
             >
               SIGH IN
             </button>
@@ -33,8 +34,9 @@ function Mainpage() {
         <div>
           <Link to={"/signup"}>
             <button
-              className="absolute top-1/2 right-0 w-64 h-20 mt-12 text-3xl font-Stardos 
-        text-center text-black hover:text-white bg-inherit hover:bg-amber-900 border-2 border-amber-900"
+              className="absolute top-1/2 right-0 w-64 h-20 mt-12
+              text-3xl font-Stardos text-center text-black hover:text-white 
+              bg-inherit hover:bg-amber-900 border-2 border-amber-900"
             >
               SIGH UP
             </button>
