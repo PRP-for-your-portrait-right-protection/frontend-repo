@@ -4,6 +4,7 @@ import ListButton from "../components/ListButton";
 import ResearchListBlock from "components/ResearchListBlock";
 import Button from "components/Button";
 
+import PhotoLandingPage from "components/PhotoLandingPage";
 function Photo() {
   return (
     <div>
@@ -20,6 +21,7 @@ function Photo() {
       <ListButton></ListButton>
       <div className="font2">PHOTO</div>
       <ResearchListBlock></ResearchListBlock>
+      {/*<PhotoLandingPage />*/}
     </div>
   );
 }

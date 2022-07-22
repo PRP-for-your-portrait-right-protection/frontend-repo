@@ -3,6 +3,8 @@ import "./Character.css";
 import Button from "components/Button";
 import ListButton from "../components/ListButton";
 import CharacterListBlock from "components/CharacterListBlock";
+import CharacterLandingPage from "components/CharacterLandingPage";
+
 function Character() {
   return (
     <div>
@@ -18,6 +20,7 @@ function Character() {
       <ListButton></ListButton>
       <div className="font3">CHARACTER</div>
       <CharacterListBlock></CharacterListBlock>
+      <CharacterLandingPage />
     </div>
   );
 }

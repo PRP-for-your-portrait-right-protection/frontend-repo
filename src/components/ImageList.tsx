@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import "./ImageList.css";
 import ImgBlock from "components/ImageBlock";
-
+import PhotoLandingPage from "components/PhotoLandingPage";
 /**
  * @name : Teawon
  * @component :ImageList - name , picture리스트를 통해 특정 유저에 대한 사진리스트를 관리하는 컴포넌트
