@@ -1,7 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import axios from "axios";
 import "./VideoUpload.css";
-// import Button from "components/Button";
 import ButtonSession from "../components/ButtonSession";
 import Title from "components/Title";
 function VideoUpload() {
