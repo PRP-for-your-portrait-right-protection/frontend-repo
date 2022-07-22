@@ -1,4 +1,4 @@
-section {
+.signupSection {
   width: 100%;
   max-width: 640px;
   min-height: 400px;
@@ -10,21 +10,20 @@ section {
   background-color: rgba(255, 255, 255, 0.5);
   border-radius: 25px;
 }
-form {
+.signupForm {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   flex-grow: 1;
   padding-bottom: 1rem;
 }
-a,
-a:visited {
+.signupA,
+.signupA:visited {
   color: #92400e;
 }
 
-input[type="text"],
-input[type="password"],
-button,
+.signupInput[type="text"],
+.signupInput[type="password"],
 textarea {
   font-family: "StardosStencil-Regular";
   font-size: 22px;
@@ -32,12 +31,16 @@ textarea {
   border-radius: 0.5rem;
 }
 
-label,
-button {
+.signupLabel {
   margin-top: 1rem;
 }
 
-button {
+.signupButton {
+  font-family: "StardosStencil-Regular";
+  font-size: 22px;
+  padding: 0.25rem;
+  border-radius: 0.5rem;
+  margin-top: 1rem;
   padding: 1rem;
 }
 

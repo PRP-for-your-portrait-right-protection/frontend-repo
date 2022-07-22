@@ -169,14 +169,16 @@ const SignUp = () => {
   return (
     <>
       {success ? (
-        <section>
+        <section className="signupSection">
           <h1 className="text-4xl font-Stardos text-black">Success!</h1>
           <p className="mt-12 text-3xl font-Stardos text-black">
-            <Link to="/signin">Sign In</Link>
+            <Link to="/signin" className="signupA">
+              Sign In
+            </Link>
           </p>
         </section>
       ) : (
-        <section>
+        <section className="signupSection">
           <p
             ref={errRef}
             className={errMsg ? "errmsg" : "offscreen"}
@@ -185,8 +187,11 @@ const SignUp = () => {
             {errMsg}
           </p>
           <h1 className="text-2xl font-Stardos text-black">Create Account</h1>
-          <form onSubmit={handleSubmit}>
-            <label htmlFor="userid" className="text-xl font-Stardos text-black">
+          <form className="signupForm" onSubmit={handleSubmit}>
+            <label
+              htmlFor="userid"
+              className="text-xl font-Stardos text-black signupLabel"
+            >
               ID:
               <FontAwesomeIcon
                 icon={faCheck}
@@ -198,6 +203,7 @@ const SignUp = () => {
               />
             </label>
             <input
+              className="signupInput"
               type="text"
               id="userid"
               ref={userRef}
@@ -226,7 +232,7 @@ const SignUp = () => {
 
             <label
               htmlFor="username"
-              className="text-xl font-Stardos text-black"
+              className="text-xl font-Stardos text-black signupLabel"
             >
               User Name:
               <FontAwesomeIcon
@@ -239,6 +245,7 @@ const SignUp = () => {
               />
             </label>
             <input
+              className="signupInput"
               type="text"
               id="username"
               ref={userRef}
@@ -263,7 +270,10 @@ const SignUp = () => {
               or Must input First Name(3~11) and Last Name(3~11)
             </p>
 
-            <label htmlFor="phnum" className="text-xl font-Stardos text-black">
+            <label
+              htmlFor="phnum"
+              className="text-xl font-Stardos text-black signupLabel"
+            >
               Phone Number:
               <FontAwesomeIcon
                 icon={faCheck}
@@ -275,6 +285,7 @@ const SignUp = () => {
               />
             </label>
             <input
+              className="signupInput"
               type="text"
               id="phnum"
               ref={userRef}
@@ -301,7 +312,7 @@ const SignUp = () => {
 
             <label
               htmlFor="password"
-              className="text-xl font-Stardos text-black"
+              className="text-xl font-Stardos text-black signupLabel"
             >
               Password:
               <FontAwesomeIcon
@@ -314,6 +325,7 @@ const SignUp = () => {
               />
             </label>
             <input
+              className="signupInput"
               type="password"
               id="password"
               onChange={(e) => setPwd(e.target.value)}
@@ -344,7 +356,7 @@ const SignUp = () => {
 
             <label
               htmlFor="confirm_pwd"
-              className="text-xl font-Stardos text-black"
+              className="text-xl font-Stardos text-black signupLabel"
             >
               Confirm Password:
               <FontAwesomeIcon
@@ -357,6 +369,7 @@ const SignUp = () => {
               />
             </label>
             <input
+              className="signupInput"
               type="password"
               id="confirm_pwd"
               onChange={(e) => setMatchPwd(e.target.value)}
@@ -384,7 +397,7 @@ const SignUp = () => {
                   : false
               }
               className="border-2 border-amber-900 text-2xl 
-              font-Stardos text-black hover:text-white bg-amber-900"
+              font-Stardos text-black hover:text-white bg-amber-900 signupButton"
             >
               Sign Up
             </button>
@@ -393,7 +406,9 @@ const SignUp = () => {
             Already registered?
             <br />
             <span className="line">
-              <Link to="/signin">Sign In</Link>
+              <Link to="/signin" className="signupA">
+                Sign In
+              </Link>
             </span>
           </p>
         </section>
