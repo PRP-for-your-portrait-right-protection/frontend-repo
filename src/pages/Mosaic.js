@@ -55,73 +55,69 @@ function Mosaic() {
 
   return (
     <div>
-      <div className="absolute bottom-0 right-0 p-5">
+      <div className="fixed bottom-0 right-0 p-5">
         <Button img="images/rightArrow.png" url="/Result"></Button>
       </div>
-      <div className="absolute bottom-0 left-0 p-5">
+      <div className="fixed bottom-0 left-0 p-5">
         <Button img="images/leftArrow.png" url="/VideoUpload"></Button>
       </div>
 
       <Title textValue="Select the image Processing type"></Title>
 
-      <div className="item">
-        <ToggleBtn onClick={clickedToggleM} toggle={toggleM}>
-          <img src="images\mosaic.png" alt="" />
-          <span className="caption">MOSAIC</span>
-        </ToggleBtn>
-      </div>
-      <div className="item">
-        <ToggleBtn onClick={clickedToggleC} toggle={toggleC}>
-          <img src="images\character.png" alt="" onClick={openModal} />
-          <span className="caption">CHARACTER</span>
-        </ToggleBtn>
+      <div className="flex justify-center mt-36 ml-15">
+        <div className="inline-block px-32">
+          <ToggleBtn onClick={clickedToggleM} toggle={toggleM}>
+            <img src="images\mosaic.png" alt="" className="p-2" />
+          </ToggleBtn>
+          <span className="caption ml-11">MOSAIC</span>
+        </div>
+        <div className="inline-block px-32">
+          <ToggleBtn onClick={clickedToggleC} toggle={toggleC}>
+            <img
+              src="images\character.png"
+              alt=""
+              className="p-2"
+              onClick={openModal}
+            />
+          </ToggleBtn>
+          <span className="caption ml-3">CHARACTER</span>
 
-        <Modal open={modal} close={closeModal}>
-          <div>
-            <CharacterImageList
-              characterList={characterList}
-              userCharacterList={userCharacterList}
-              clickFuc={setSelectedData}
-            ></CharacterImageList>
+          <Modal open={modal} close={closeModal}>
+            <div>
+              <CharacterImageList
+                characterList={characterList}
+                userCharacterList={userCharacterList}
+                clickFuc={setSelectedData}
+              ></CharacterImageList>
 
-            <AppStyle>
-              <label htmlFor="ex_file">
-                <div className="btnStart">
-                  <img src="images\download.png" alt="btnStart" />
-                </div>
-              </label>
-              <input
-                type="file"
-                id="ex_file"
-                onChange={(e) => console.log(e.target.files[0])}
-              />
-            </AppStyle>
-          </div>
-        </Modal>
+              <AppStyle>
+                <label htmlFor="ex_file">
+                  <div className="btnStart">
+                    <img src="images\download.png" alt="btnStart" />
+                  </div>
+                </label>
+                <input
+                  type="file"
+                  id="ex_file"
+                  onChange={(e) => console.log(e.target.files[0])}
+                />
+              </AppStyle>
+            </div>
+          </Modal>
+        </div>
       </div>
-      {/*  <CheckForm>
-        <label htmlFor="ch">
-          <input type="checkbox" name="check" id="check1" />
-        </label>
-      </CheckForm> */}
-      <input type="checkbox" id="ch" />
-      {/* <label>
-        <span className="caption">MOSAIC</span>
-      </label> */}
     </div>
   );
 }
 
 export default Mosaic;
 const ToggleBtn = styled.button`
-  width: 12rem;
-  height: 11.3rem;
+  width: 13rem;
+  height: 11rem;
   border: none;
   cursor: pointer;
   background-color: ${(props) =>
     !props.toggle ? "transparent" : "rgb(231, 179, 35)"};
-  position: center;
-  display: flex;
   transition: all 0.3s ease-in-out; /* 부드러운 모션을 위해 추가*/
   &:hover {
     transform: scale(1.2);
@@ -155,29 +151,3 @@ const AppStyle = styled.div`
     border: 0;
   }
 `;
-/* const CheckForm = styled.div`
-  label {
-    display: absolute;
-    font-size: 1em;
-    font-weight: 600;
-    margin-bottom: 0;
-    input[type="checkbox"] {
-      margin-right: px;
-      width: 12.6rem;
-      height: 10.4rem;
-      background: $white no-repeat center center;
-      border: 6px solid redk;
-      cursor: pointer;
-      outline: none;
-      appearance: none;
-      background-image: url("image/mosaic.png");
-      img {
-        width: 3.5rem;
-        height: 3.5rem;
-      }
-    }
-  }
-  input[id="ch"]:checked + label {
-    border: 6px solid #d21b1b;
-  }
-`; */

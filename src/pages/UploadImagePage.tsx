@@ -8,10 +8,10 @@ function UploadImagePage() {
     <>
       <Title textValue="Select portraits without mosaic"></Title>
       <ImageListBlock></ImageListBlock>
-      <div className="absolute bottom-0 right-0 p-5">
+      <div className="fixed bottom-0 right-0 p-5">
         <Button img="images/rightArrow.png" url="/VideoUpload"></Button>
       </div>
-      <div className="absolute bottom-0 left-0 p-5">
+      <div className="fixed bottom-0 left-0 p-5">
         <Button img="images/leftArrow.png" url="/"></Button>
       </div>
     </>

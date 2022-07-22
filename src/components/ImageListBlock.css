@@ -1,18 +1,19 @@
 .addBtn {
   padding: 3px 12px;
   color: #fff;
-  position: absolute;
-  top: 40rem;
-  left: 80rem;
+  position: fixed;
+  top: 40.8rem;
+  left: 82rem;
   cursor: pointer;
   height: 3rem;
-  width: 8rem;
+  width: 7rem;
   font-family: "StardosStencil-Regular", serif;
   font-style: normal;
   font-weight: 400;
   font-size: 2em;
   background-color: transparent;
   box-shadow: white 0 0px 0px 2px inset;
+  z-index: 1;
 }
 .addBtn:hover {
   transition: 0.3s;

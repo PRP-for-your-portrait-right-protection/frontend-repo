@@ -60,93 +60,93 @@ function CharacterImageList({
    */
   const silceImage = (imglist, page) => {
     let currentPosts = [];
-    currentPosts = imglist.slice(page, page + 3);
+    currentPosts = imglist.slice(page, page + 4);
     return currentPosts;
   };
 
   return (
     <div className="imageList-component">
-      <div className="modalFont1">CHARACTER</div>
-      <button
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
-        onClick={() =>
-          setPage((curPage) =>
-            countFix > 3 && countFix - curPage > 3 ? curPage + 1 : curPage
-          )
-        }
-      >
-        Next
-      </button>
-      <button
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
-        onClick={() =>
-          setPage((curPage) => (curPage > 0 ? curPage - 1 : curPage))
-        }
-      >
-        Pre
-      </button>
+      <div className="modalFont flex justify-center items-center mt-3 ">
+        CHARACTER
+      </div>
+      <div className="flex content-center w-auto h-56">
+        <button
+          className="Pre inline-block justify-center mt-48"
+          onClick={() =>
+            setPage((curPage) =>
+              countFix > 4 && countFix - curPage > 4 ? curPage + 1 : curPage
+            )
+          }
+        ></button>
+        <button
+          className="Next inline-block justify-center mt-48 right-56"
+          onClick={() =>
+            setPage((curPage) => (curPage > 0 ? curPage - 1 : curPage))
+          }
+        ></button>
 
-      <div className="grid grid-cols-4 gap-4">
-        {characterList &&
-          silceImage(characterList, curPage).map((img) => (
-            <div className="col-span-1" key={img}>
-              <label>
-                <input
-                  type="radio"
-                  className="hidden"
-                  value={img}
-                  checked={selectedId == img}
-                  onChange={handleClickRadioButton}
-                />
-                <img className="h-60 w-60" alt="sample" src={img} />
-              </label>
-            </div>
-          ))}
+        <div className="grid grid-cols-4 gap-8 mx-32 mt-6">
+          {characterList &&
+            silceImage(characterList, curPage).map((img) => (
+              <div className="col-span-1" key={img}>
+                <label>
+                  <input
+                    type="radio"
+                    className="hidden"
+                    value={img}
+                    checked={selectedId == img}
+                    onChange={handleClickRadioButton}
+                  />
+                  <img className="h-40 w-48" alt="sample" src={img} />
+                </label>
+              </div>
+            ))}
+        </div>
       </div>
 
-      <div className="modalFont2">MY CHARACTER</div>
-      <button
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
-        onClick={() =>
-          setPageUser((curPageUser) =>
-            countNew > 3 && countNew - curPageUser > 3
-              ? curPageUser + 1
-              : curPageUser
-          )
-        }
-      >
-        Next
-      </button>
-      <button
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
-        onClick={() =>
-          setPageUser((curPageUser) =>
-            curPageUser > 0 ? curPageUser - 1 : curPageUser
-          )
-        }
-      >
-        Pre
-      </button>
+      <div className="modalFont flex justify-end items-center">
+        MY CHARACTER
+      </div>
+      <div className="flex content-center w-auto h-56">
+        <button
+          className="Pre absolute top-30"
+          onClick={() =>
+            setPageUser((curPageUser) =>
+              countNew > 3 && countNew - curPageUser > 3
+                ? curPageUser + 1
+                : curPageUser
+            )
+          }
+        ></button>
+        <button
+          className="Next inline-block top-1/2 right-56"
+          onClick={() =>
+            setPageUser((curPageUser) =>
+              curPageUser > 0 ? curPageUser - 1 : curPageUser
+            )
+          }
+        ></button>
 
-      <div className="grid grid-cols-4 gap-4">
-        {userCharacterList &&
-          silceImage(userCharacterList, curPageUser).map((img) => (
-            <div className="col-span-1 " key={img}>
-              <label>
-                <input
-                  type="radio"
-                  className="hidden"
-                  value={img}
-                  checked={selectedId == img}
-                  onChange={handleClickRadioButton}
-                />
-                <img className="h-60 w-60" alt="sample" src={img} />
-              </label>
-            </div>
-          ))}
+        {/* <div className="grid grid-cols-4 gap-8 mx-32 mt-6">
+          {userCharacterList &&
+            silceImage(userCharacterList, curPageUser).map((img) => (
+              <div className="col-span-1 " key={img}>
+                <label>
+                  <input
+                    type="radio"
+                    className="hidden"
+                    value={img}
+                    checked={selectedId == img}
+                    onChange={handleClickRadioButton}
+                  />
+                  <img className="h-40 w-48 left-20" alt="sample" src={img} />
+                </label>
+              </div>
+            ))}
+        </div> */}
       </div>
 
-      {inputImage && (
+      {/*  {inputImage && (
         <div className="col-span-1 flex">
           <label>
             <input
@@ -163,23 +163,23 @@ function CharacterImageList({
             />
           </label>
         </div>
-      )}
+      )} */}
 
-      <input
+      {/*    <input
         ref={imageInput}
         className="hidden"
         name="imageUpload"
         type="file"
         accept="image/*"
         onChange={saveImage}
-      />
+      /> */}
 
-      <span
+      {/*  <span
         className="uploadButton flex justify-center"
         onClick={() => imageInput.current.click()}
       >
         <img src="images\videoupload.png" alt="" className="file" />
-      </span>
+      </span> */}
     </div>
   );
 }
