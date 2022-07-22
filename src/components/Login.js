@@ -128,7 +128,13 @@ const Login = () => {
               value={pwd}
               required
             />
-            <button className="mt-20 border-2 border-amber-900 text-2xl font-Stardos text-black hover:text-white bg-amber-900">
+            <span className="line text-xl font-Stardos text-black">
+              <Link to="/check">Forget password?</Link>
+            </span>
+            <button
+              className="mt-20 border-2 border-amber-900 
+            text-2xl font-Stardos text-black hover:text-white bg-amber-900"
+            >
               Sign In
             </button>
           </form>

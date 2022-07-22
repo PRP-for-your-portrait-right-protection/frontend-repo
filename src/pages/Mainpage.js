@@ -23,8 +23,9 @@ function Mainpage() {
         <div>
           <Link to={"/signin"}>
             <button
-              className="absolute top-1/3 right-0 w-64 h-20 mt-12 text-3xl font-Stardos 
-        text-center text-black hover:text-white bg-inherit hover:bg-amber-900 border-2 border-amber-900"
+              className="absolute top-1/3 right-0 w-64 h-20 mt-12 
+              text-3xl font-Stardos text-center text-black hover:text-white 
+              bg-inherit hover:bg-amber-900 border-2 border-amber-900"
             >
               SIGH IN
             </button>
@@ -33,8 +34,9 @@ function Mainpage() {
         <div>
           <Link to={"/signup"}>
             <button
-              className="absolute top-1/2 right-0 w-64 h-20 mt-12 text-3xl font-Stardos 
-        text-center text-black hover:text-white bg-inherit hover:bg-amber-900 border-2 border-amber-900"
+              className="absolute top-1/2 right-0 w-64 h-20 mt-12
+              text-3xl font-Stardos text-center text-black hover:text-white 
+              bg-inherit hover:bg-amber-900 border-2 border-amber-900"
             >
               SIGH UP
             </button>

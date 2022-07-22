@@ -383,7 +383,8 @@ const SignUp = () => {
                   ? true
                   : false
               }
-              className="border-2 border-amber-900 text-2xl font-Stardos text-black hover:text-white bg-amber-900"
+              className="border-2 border-amber-900 text-2xl 
+              font-Stardos text-black hover:text-white bg-amber-900"
             >
               Sign Up
             </button>

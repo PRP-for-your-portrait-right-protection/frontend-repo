@@ -18,7 +18,8 @@ function ResultVideopage() {
           src="https://www.youtube.com/embed/6Gtz3jGEfps"
           title="YouTube video player"
           frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allow="accelerometer; autoplay; clipboard-write; 
+          encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
         ></iframe>
       </div>

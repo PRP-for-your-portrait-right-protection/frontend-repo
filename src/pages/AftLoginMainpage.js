@@ -27,8 +27,9 @@ function AftLoginMainpage() {
         <div>
           <Link to={"/photo"}>
             <button
-              className="absolute top-1/3 right-0 w-64 h-20 mt-12 text-3xl font-Stardos 
-        text-center text-black hover:text-white bg-inherit hover:bg-amber-900 border-2 border-amber-900"
+              className="absolute top-1/3 right-0 w-64 h-20 mt-12 
+              text-3xl font-Stardos text-center text-black hover:text-white 
+              bg-inherit hover:bg-amber-900 border-2 border-amber-900"
             >
               PHOTO
             </button>
@@ -37,8 +38,9 @@ function AftLoginMainpage() {
         <div>
           <Link to={"/video"}>
             <button
-              className="absolute top-1/2 right-0 w-64 h-20 mt-12 text-3xl font-Stardos 
-        text-center text-black hover:text-white bg-inherit hover:bg-amber-900 border-2 border-amber-900"
+              className="absolute top-1/2 right-0 w-64 h-20 mt-12 
+              text-3xl font-Stardos text-center text-black hover:text-white 
+              bg-inherit hover:bg-amber-900 border-2 border-amber-900"
             >
               VIDEO
             </button>
@@ -47,8 +49,9 @@ function AftLoginMainpage() {
         <div>
           <Link to={"/character"}>
             <button
-              className="absolute top-2/3 right-0 w-64 h-20 mt-12 text-3xl font-Stardos 
-        text-center text-black hover:text-white bg-inherit hover:bg-amber-900 border-2 border-amber-900"
+              className="absolute top-2/3 right-0 w-64 h-20 mt-12 
+              text-3xl font-Stardos text-center text-black hover:text-white 
+              bg-inherit hover:bg-amber-900 border-2 border-amber-900"
             >
               CHARACTER
             </button>
