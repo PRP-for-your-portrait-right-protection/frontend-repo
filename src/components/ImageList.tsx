@@ -1,7 +1,8 @@
 import React, { useRef, useState } from "react";
 import "./ImageList.css";
 import ImgBlock from "components/ImageBlock";
-import uuid from "react-uuid";
+//import uuid from "react-uuid";
+import { v4 as uuidv4 } from "uuid";
 
 /**
  * @name : Teawon
@@ -28,7 +29,7 @@ function ImageList({ object, changeFuc }: ImageListProps) {
   const saveFileImageNew = (event: React.ChangeEvent<HTMLInputElement>) => {
     let data = {
       url: URL.createObjectURL(event.target.files[0]),
-      id: uuid(),
+      id: uuidv4(),
       file: event.target.files[0],
     };
 

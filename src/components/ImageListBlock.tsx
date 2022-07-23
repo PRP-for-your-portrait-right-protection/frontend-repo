@@ -3,7 +3,8 @@ import ImageList from "../components/ImageList";
 import axios from "axios";
 import "./ImageListBlock.css";
 import ButtonSession from "./ButtonSession";
-import uuid from "react-uuid";
+//import uuid from "react-uuid";
+import { v4 as uuidv4 } from "uuid";
 
 /**
  * @name : Teawon
@@ -57,7 +58,7 @@ function ImageListBlock() {
               //내부 이미지 리스트의 각 내용 정의
               let imgData = {
                 url: image,
-                id: uuid(), //식별키
+                id: uuidv4(), //식별키
                 file: null, //버킷에서 가져왔다면 null, 그렇지 않다면 File객체 저장
               };
 

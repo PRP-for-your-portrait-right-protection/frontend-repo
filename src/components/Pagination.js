@@ -11,12 +11,8 @@ const Pagination = ({ videosPerPage, totalVideos, paginate }) => {
     <nav>
       <ul className="pagination">
         {pageNumbers.map((num) => (
-          <li key={num} className="page-item">
-            <a
-              onClick={() => paginate(num)}
-              href="!#"
-              className="page-selected"
-            >
+          <li key={num}>
+            <a href="#" onClick={() => paginate(num)}>
               {num}
             </a>
           </li>
