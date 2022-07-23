@@ -38,8 +38,8 @@ function VideoUpload() {
         headers: { Authorization: "Bearer " + localStorage.token },
       })
         .then(function (response) {
-          console.log(response.data.video);
-          sessionStorage.setItem("video", response.data.video);
+          console.log(response.data.beforeVideosUrl);
+          sessionStorage.setItem("video", response.data.beforeVideosUrl);
         })
         .catch(function (error) {
           console.log("ERROR 발생");

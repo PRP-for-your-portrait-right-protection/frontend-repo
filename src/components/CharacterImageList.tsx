@@ -199,39 +199,22 @@ function CharacterImageList({
               ))}
           </div>
 
-          <button
-            className="flex w-32 h-32 mt-3"
-            onClick={() =>
-              setPageUser((curPageUser) =>
-                countUser + countNew > 3 &&
-                countUser + countNew - curPageUser > 3
-                  ? curPageUser + 1
-                  : curPageUser
-              )
-            }
-          >
-            <img src="images\iconoir_nav-arrow-right.png" alt="Next" />
-          </button>
-
-          {/* 
-      {inputImage && (
-        <div className="col-span-1 flex">
-          <label>
-            <input
-              type="radio"
-              className="hidden"
-              value={inputImage}
-              checked={selectedId == inputImage}
-              onChange={handleClickRadioButton}
-            />
-            <img
-              className="w-3/4 h-64"
-              id="video"
-              src={URL.createObjectURL(inputImage)}
-            />
-          </label>
-        </div>
-      )} */}
+        {userCharacterList &&
+          silceImageC2(userCharacterList, curPageUser).map((img) => (
+            <div className="col-span-1 " key={img}>
+              <label>
+                <input
+                  type="radio"
+                  className="hidden"
+                  value={img}
+                  checked={selectedId == img}
+                  onChange={handleClickRadioButton}
+                />
+                <img className="h-60 w-60" alt="sample" src={img} />
+              </label>
+            </div>
+          ))}
+      </div>
 
           <input
             ref={imageInput}

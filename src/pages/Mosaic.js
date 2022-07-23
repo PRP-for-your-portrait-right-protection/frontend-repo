@@ -22,38 +22,74 @@ function Mosaic() {
    * @create-data: 2022-07-22
    *
    */
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const resultFix = await axios
+  //       .get(
+  //         `https://9bac662b-822f-45f7-854a-1d5ff7069263.mock.pstmn.io/fixCharacter`,
+  //         {
+  //           headers: {
+  //             Authorization: "Bearer " + localStorage.getItem("token"),
+  //           },
+  //         }
+  //       )
+  //       .then(function (response) {
+  //         console.log(response);
+  //         setCharacterList(response.data.faceImageUrls);
+  //         console.log(characterList);
+  //       })
+  //       .catch(function (error) {
+  //         console.log("error");
+  //         console.log(error);
+  //       });
+
+  //     const resultUser = await axios
+  //       .get(
+  //         `https://9bac662b-822f-45f7-854a-1d5ff7069263.mock.pstmn.io/userCharacter`,
+  //         {
+  //           headers: {
+  //             Authorization: "Bearer " + localStorage.getItem("token"),
+  //           },
+  //         }
+  //       )
+  //       .then(function (response) {
+  //         let personalCharacterList = [];
+  //         response.data.data.forEach((personalUrl) => {
+  //           personalCharacterList.push(personalUrl.url);
+  //         });
+  //         console.log(response);
+  //         setUserCharacterList(personalCharacterList);
+  //         console.log(userCharacterList);
+  //       })
+  //       .catch(function (error) {
+  //         console.log("error");
+  //         console.log(error);
+  //       });
+  //   };
+
+  //   fetchData();
+
+  //   const preValue = sessionStorage.getItem("character");
+  //   if (preValue != null) {
+  //     setSelectedData(preValue);
+  //     if (preValue === "M") {
+  //       clickedToggleM();
+  //     } else {
+  //       clickedToggleC();
+  //     }
+  //   }
+  // }, []);
+
   useEffect(() => {
-    const fetchData = async () => {
-      const result = await axios
-        .get(
-          `https://9bac662b-822f-45f7-854a-1d5ff7069263.mock.pstmn.io/character`,
-          {
-            headers: {
-              Authorization: "Bearer " + localStorage.getItem("token"),
-            },
-          }
-        )
-        .then(function (response) {
-          setCharacterList(response.data.fixCharacter);
-          setUserCharacterList(response.data.personalCharacter);
-        })
-        .catch(function (error) {
-          console.log("error");
-          console.log(error);
-        });
-    };
+    const data1 = [
+      "https://summersilicon.s3.ap-northeast-2.amazonaws.com/upload_character/qweriu1.jpg2022-07-18+15%3A17%3A32.jpg",
+    ];
+    const data2 = [
+      "https://lh3.googleusercontent.com/cS5nvr3r6Q16NoV6IuJLaauz7HNNRPnuHtsHleZ8du594H4EeiOjeNxV-Nq_w-qRA87TUedLQjTmqCG5s6jNZRp29n571FDWyditF-WJhfhQTY_73OM",
+    ];
 
-    fetchData();
-
-    const preValue = sessionStorage.getItem("character");
-    if (preValue != null) {
-      setSelectedData(preValue);
-      if (preValue === "M") {
-        clickedToggleM();
-      } else {
-        clickedToggleC();
-      }
-    }
+    setCharacterList(data1);
+    setUserCharacterList(data2);
   }, []);
 
   const openModal = () => {
@@ -70,54 +106,73 @@ function Mosaic() {
    *
    */
   const makeFormData = () => {
-    const formData = new FormData();
-    const checkUrl = process.env.REACT_APP_BUCKET_URL;
+    console.log(selectedData);
 
-    if (selectedData.startsWith(checkUrl)) {
-      console.log("선택된 내용이 파일이 아닙니다.");
-      formData.append("characterList", inputCharacteList);
-      // axios({
-      //   method: "post",
-      //   url: `https://d601a5df-dc71-481f-9ca6-f2d053dd56e7.mock.pstmn.io/video`,
-      //   formData,
-      //   headers: { Authorization: "Bearer " + localStorage.token },
-      // })
-      //   .then(function (response) {})
-      //   .catch(function (error) {
-      //     console.log("ERROR 발생");
-      //     console.log(error);
-      //   });
+    if (inputCharacteList != "") {
+      const formData = new FormData();
+      const checkUrl = process.env.REACT_APP_BUCKET_URL;
+      let notSelectedCharactersList = inputCharacteList;
 
-      //backend로 모든 입력된 파일만 보낸 후 , url은 받지않고 기존값 기록해서 넘기기
-    } else {
-      formData.append(
-        "selectedCharacter",
-        inputCharacteList.filter((file) => file.name === selectedData)
-      );
-      formData.append(
-        "characterList",
-        inputCharacteList.filter((file) => file.name !== selectedData)
-      );
+      if (selectedData.startsWith(checkUrl)) {
+        console.log("선택된 내용이 파일이 아닙니다.");
+        formData.append("selectedYN", "N");
+      } else {
+        //console.log("파일이 맞고 선택도 됬음");
+        formData.append("selectedYN", "Y");
+        formData.append("selectedCharacter", selectedData);
+        console.log(notSelectedCharactersList);
+        console.log("시작");
+        console.log(
+          notSelectedCharactersList.filter((notSelectedCharacter) => {
+            console.log("너는 뭐니..?");
+            console.log(notSelectedCharacter.name);
+            console.log("선택은 누군데??");
+            console.log(selectedData);
+            console.log(notSelectedCharacter.name !== selectedData);
+            notSelectedCharacter.name !== selectedData;
+          })
+        );
 
-      // axios({
-      //   method: "post",
-      //   url: `https://d601a5df-dc71-481f-9ca6-f2d053dd56e7.mock.pstmn.io/video`,
-      //   formData,
-      //   headers: { Authorization: "Bearer " + localStorage.token },
-      // })
-      //   .then(function (response) {
-      //     selectedData(response.data.url);
-      //   })
-      //   .catch(function (error) {
-      //     console.log("ERROR 발생");
-      //     console.log(error);
-      //   });
+        console.log("선택된 애를 뺍니다.");
+        console.log(notSelectedCharactersList);
+      }
+
+      if (notSelectedCharactersList == "") {
+        console.log("널값입니다!!");
+        formData.append("notSelectedYN", "N");
+      } else {
+        formData.append("notSelectedYN", "Y");
+        formData.append("notSelectedCharacters", notSelectedCharactersList);
+      }
+
+      for (let key of formData.keys()) {
+        console.log("FormData의 key를 확인합니다.");
+        console.log(key);
+      }
+
+      // FormData의 value 확인
+      for (let value of formData.values()) {
+        console.log("FormData의 Values를 확인합니다.");
+        console.log(value);
+      }
     }
 
-    //backend api통신 후 , 해당 파일값만 selected로 보내기
-    //그리고 받은 url정보를 기록해서 다음페이지로 이동
+    // formData.append("characterList", inputCharacteList);
+    // axios({
+    //   method: "post",
+    //   url: `https://d601a5df-dc71-481f-9ca6-f2d053dd56e7.mock.pstmn.io/video`,
+    //   formData,
+    //   headers: { Authorization: "Bearer " + localStorage.token },
+    // })
+    //   .then(function (response) {})
+    //   .catch(function (error) {
+    //     console.log("ERROR 발생");
+    //     console.log(error);
+    //   });
 
-    sessionStorage.setItem("character", selectedData);
+    //backend로 모든 입력된 파일만 보낸 후 , url은 받지않고 기존값 기록해서 넘기기
+
+    //sessionStorage.setItem("character", selectedData);
   };
 
   /**
@@ -147,6 +202,11 @@ function Mosaic() {
     setinputCharacteList([...inputCharacteList, insertData]);
   };
 
+  const showData = () => {
+    console.log(characterList);
+    console.log(userCharacterList);
+    console.log(inputCharacteList);
+  };
   return (
     <div>
       <div className="fixed bottom-0 right-0 p-5">
