@@ -44,6 +44,7 @@ function ImageListBlock() {
           }
         )
         .then(function (response) {
+          console.log(response);
           let initialData = {
             //초기 설정 값
             file: [],
@@ -59,8 +60,8 @@ function ImageListBlock() {
             imgList.pictures.forEach((image) => {
               //내부 이미지 리스트의 각 내용 정의
               let imgData = {
-                url: image,
-                id: uuidv4(), //식별키
+                url: image.pictureUrl,
+                id: uuid(), //식별키
                 file: null, //버킷에서 가져왔다면 null, 그렇지 않다면 File객체 저장
               };
 
@@ -77,7 +78,7 @@ function ImageListBlock() {
           console.log(error);
         });
     };
-    if (localStorage.getItem("token") == null) {
+    if (localStorage.getItem("token") != null) {
       fetchData();
     } else {
       setIsLoading(true); //만약 로그인이 되어있지 않다면 api를 보내지 않고 바로 로딩을 완료시킨다.
@@ -93,42 +94,90 @@ function ImageListBlock() {
   const makeFormData = () => {
     const formData = new FormData();
 
-    let imageUrlList = []; //AI에 입력될 이미지 url리스트
+    const data = {
+      data: [
+        {
+          name: "you",
+          pictures: [
+            totalList.file[0].pictures[0].file,
+            totalList.file[0].pictures[1].file,
+          ],
+        },
+      ],
+    };
+    console.log("보낼 데이터 확인");
+    console.log(data);
+    formData.append("file", JSON.stringify(data));
 
-    totalList.file.forEach((element) => {
-      //리스트들의 이름을 키값으로 정의 후 각 이름값을 키값으로 하는 formData를 만든다.
-      formData.append("name", element.name);
-
-      element.pictures.forEach((list) => {
-        //만약 해당 리스트에 파일이 없고 모두 url이라면 리스트에 저장
-        if (list.file == null) {
-          imageUrlList.push(list.url); //url
-        } else {
-          formData.append(element.name, list.file); //file
+    const result = axios
+      .post(
+        `https://1f413be8-5eb6-428f-a4d4-492745c03b38.mock.pstmn.io//userImage`,
+        {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
         }
+      )
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log("error");
+        console.log(error);
       });
-    });
 
-    let array = formData.getAll("name"); // 특정 이름을 키 값으로하는 데이터가 만약 Null이라면 삭제후 name의 배열값도 수정한다.
+    //   let imageUrlList = []; //AI에 입력될 이미지 url리스트
 
-    totalList.file.forEach((element) => {
-      if (formData.get(element.name) == null) {
-        formData.delete(element.name);
-        array = array.filter((data) => data !== element.name);
-      }
-    });
+    //   totalList.file.forEach((element) => {
+    //     //리스트들의 이름을 키값으로 정의 후 각 이름값을 키값으로 하는 formData를 만든다.
+    //     formData.append("name", element.name);
 
-    formData.delete("name");
-    array.forEach((nameStr) => {
-      formData.append("name", nameStr);
-    });
+    //     element.pictures.forEach((list) => {
+    //       //만약 해당 리스트에 파일이 없고 모두 url이라면 리스트에 저장
+    //       if (list.file == null) {
+    //         imageUrlList.push(list.url); //url
+    //       } else {
+    //         formData.append(element.name, list.file); //file
+    //       }
+    //     });
+    //   });
 
-    if (formData.get("name") != null) {
-      // 동시에 보낼 파일 내용이 있다면 postApi보낸 후 응답값의 url들을 리스트에 추가
-    }
+    //   let array = formData.getAll("name"); // 특정 이름을 키 값으로하는 데이터가 만약 Null이라면 삭제후 name의 배열값도 수정한다.
 
-    sessionStorage.setItem("images", JSON.stringify(imageUrlList)); //
-    console.log(sessionStorage.getItem("images"));
+    //   totalList.file.forEach((element) => {
+    //     if (formData.get(element.name) == null) {
+    //       formData.delete(element.name);
+    //       array = array.filter((data) => data !== element.name);
+    //     }
+    //   });
+
+    //   formData.delete("name");
+    //   array.forEach((nameStr) => {
+    //     formData.append("name", nameStr);
+    //   });
+
+    //   if (formData.get("name") != null) {
+    //     const result = axios
+    //     .post(
+    //       `https://1f413be8-5eb6-428f-a4d4-492745c03b38.mock.pstmn.io//userImage`,
+    //       {
+    //         headers: {
+    //           Authorization: "Bearer " + localStorage.getItem("token"),
+    //         },
+    //       }
+    //     )
+    //     .then(function (response) {
+    //       console.log(response);
+
+    //     })
+    //     .catch(function (error) {
+    //       console.log("error");
+    //       console.log(error);
+    //     });
+    // };
+
+    //   sessionStorage.setItem("images", JSON.stringify(imageUrlList)); //
+
     // for (let key of formData.keys()) {
     //   console.log("FormData의 key를 확인합니다.");
     //   console.log(key);
@@ -147,6 +196,7 @@ function ImageListBlock() {
    * @create-data: 2022-07-15
    */
   const addImgList = (filename) => {
+    console.log(totalList);
     window.scrollTo(0, document.body.scrollHeight);
     let strName = filename;
     if (filename == null) {
