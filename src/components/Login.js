@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-
+import "./Signup.css";
 import axios from "../api/axios";
 
 const Login = () => {
@@ -79,7 +79,7 @@ const Login = () => {
   return (
     <>
       {success ? (
-        <section>
+        <section className="signupSection">
           <h1 className="text-4xl font-Stardos text-black">
             You are logged in!
           </h1>
@@ -89,7 +89,7 @@ const Login = () => {
           </p>
         </section>
       ) : (
-        <section>
+        <section className="signupSection">
           <p
             ref={errRef}
             className={errMsg ? "errmsg" : "offscreen"}
@@ -97,15 +97,16 @@ const Login = () => {
           >
             {errMsg}
           </p>
-          <h1 className="text-3xl font-Stardos text-black">Sign In</h1>
-          <form onSubmit={handleSubmit}>
+          <h1 className="mt-12 text-3xl font-Stardos text-black">Sign In</h1>
+          <form className="signupForm" onSubmit={handleSubmit}>
             <label
               htmlFor="userid"
-              className="mt-16 text-xl font-Stardos text-black"
+              className="mt-16 text-xl font-Stardos text-black signupLabel"
             >
               ID:
             </label>
             <input
+              className="signupInput"
               type="text"
               id="userid"
               ref={userRef}
@@ -117,11 +118,12 @@ const Login = () => {
 
             <label
               htmlFor="password"
-              className="mt-16 text-xl font-Stardos text-black"
+              className="mt-16 text-xl font-Stardos text-black signupLabel"
             >
               Password:
             </label>
             <input
+              className="signupInput"
               type="password"
               id="password"
               onChange={(e) => setPwd(e.target.value)}
@@ -133,7 +135,7 @@ const Login = () => {
             </span>
             <button
               className="mt-20 border-2 border-amber-900 
-            text-2xl font-Stardos text-black hover:text-white bg-amber-900"
+            text-2xl font-Stardos text-black hover:text-white bg-amber-900 signupButton"
             >
               Sign In
             </button>
