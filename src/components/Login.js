@@ -7,7 +7,7 @@ const Login = () => {
   const userRef = useRef();
   const errRef = useRef();
 
-  const [id, setId] = useState("");
+  const [email, setEmail] = useState("");
   const [pwd, setPwd] = useState("");
   const [errMsg, setErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
@@ -18,17 +18,17 @@ const Login = () => {
 
   useEffect(() => {
     setErrMsg("");
-  }, [id, pwd]);
+  }, [email, pwd]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(id, pwd);
+    console.log(email, pwd);
     try {
       const formData = new FormData();
 
       const value = [
         {
-          user_id: id,
+          email: email,
           password: pwd,
         },
       ];
@@ -59,7 +59,7 @@ const Login = () => {
       console.log(localStorage.getItem("token"));
       console.log(accessToken);
       //console.log(roles);
-      setId("");
+      setEmail("");
       setPwd("");
       setSuccess(true);
     } catch (err) {
@@ -100,19 +100,19 @@ const Login = () => {
           <h1 className="mt-12 text-3xl font-Stardos text-black">Sign In</h1>
           <form className="signupForm" onSubmit={handleSubmit}>
             <label
-              htmlFor="userid"
+              htmlFor="useremail"
               className="mt-16 text-xl font-Stardos text-black signupLabel"
             >
-              ID:
+              Email:
             </label>
             <input
               className="signupInput"
               type="text"
-              id="userid"
+              id="useremail"
               ref={userRef}
               autoComplete="off"
-              onChange={(e) => setId(e.target.value)}
-              value={id}
+              onChange={(e) => setEmail(e.target.value)}
+              value={email}
               required
             />
 
@@ -130,8 +130,11 @@ const Login = () => {
               value={pwd}
               required
             />
-            <span className="line text-xl font-Stardos text-black">
-              <Link to="/check">Forget password?</Link>
+            <span className="line mt-4 text-xl font-Stardos text-black hover:text-amber-900">
+              <Link to="/email">Forget Email?</Link>
+            </span>
+            <span className="line text-xl font-Stardos text-black hover:text-amber-900">
+              <Link to="/reset">Forget password?</Link>
             </span>
             <button
               className="mt-20 border-2 border-amber-900 
@@ -143,7 +146,7 @@ const Login = () => {
           <p className="text-xl font-Stardos text-black">
             Need an Account?
             <br />
-            <span className="line">
+            <span className="line hover:text-amber-900">
               <Link to="/signup">Sign Up</Link>
             </span>
           </p>

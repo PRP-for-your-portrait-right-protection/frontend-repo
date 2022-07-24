@@ -9,7 +9,8 @@ import { Link } from "react-router-dom";
 import axios from "../api/axios";
 import "./Signup.css";
 
-const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
+const EMAIL_REGEX =
+  /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 const NAME_REGEX = /^[가-힣]{2,4}|[a-zA-Z]{2,10}\s[a-zA-Z]{2,10}$/;
 const PHNUM_REGEX = /^[0-9\b -]{1,13}$/;
@@ -19,9 +20,9 @@ const SignUp = () => {
   const userRef = useRef();
   const errRef = useRef();
 
-  const [id, setId] = useState("");
-  const [validId, setValidId] = useState(false);
-  const [idFocus, setIdFocus] = useState(false);
+  const [email, setEmail] = useState("");
+  const [validEmail, setValidEmail] = useState(false);
+  const [EmailFocus, setEmailFocus] = useState(false);
 
   const [name, setName] = useState("");
   const [validName, setValidName] = useState(false);
@@ -47,8 +48,8 @@ const SignUp = () => {
   }, []);
 
   useEffect(() => {
-    setValidId(USER_REGEX.test(id));
-  }, [id]);
+    setValidEmail(EMAIL_REGEX.test(email));
+  }, [email]);
 
   useEffect(() => {
     setValidName(NAME_REGEX.test(name));
@@ -82,12 +83,12 @@ const SignUp = () => {
 
   useEffect(() => {
     setErrMsg("");
-  }, [id, name, phonenum, pwd, matchPwd]);
+  }, [email, name, phonenum, pwd, matchPwd]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     // if button enabled with JS hack
-    const v1 = USER_REGEX.test(id);
+    const v1 = EMAIL_REGEX.test(email);
     const v2 = PWD_REGEX.test(pwd);
     const v3 = NAME_REGEX.test(name);
     const v4 = PHNUM_REGEX.test(phonenum);
@@ -101,7 +102,7 @@ const SignUp = () => {
 
       const value = [
         {
-          user_id: id,
+          email: email,
           password: pwd,
           name: name,
           phone: phonenum,
@@ -189,45 +190,43 @@ const SignUp = () => {
           <h1 className="text-2xl font-Stardos text-black">Create Account</h1>
           <form className="signupForm" onSubmit={handleSubmit}>
             <label
-              htmlFor="userid"
+              htmlFor="email"
               className="text-xl font-Stardos text-black signupLabel"
             >
-              ID:
+              Email:
               <FontAwesomeIcon
                 icon={faCheck}
-                className={validId ? "valid" : "hide"}
+                className={validEmail ? "valid" : "hide"}
               />
               <FontAwesomeIcon
                 icon={faTimes}
-                className={validId || !id ? "hide" : "invalid"}
+                className={validEmail || !email ? "hide" : "invalid"}
               />
             </label>
             <input
               className="signupInput"
               type="text"
-              id="userid"
+              id="email"
               ref={userRef}
               autoComplete="off"
-              onChange={(e) => setId(e.target.value)}
-              value={id}
+              onChange={(e) => setEmail(e.target.value)}
+              value={email}
               required
-              aria-invalid={validId ? "false" : "true"}
+              aria-invalid={validEmail ? "false" : "true"}
               aria-describedby="uidnote"
-              onFocus={() => setIdFocus(true)}
-              onBlur={() => setIdFocus(false)}
+              onFocus={() => setEmailFocus(true)}
+              onBlur={() => setEmailFocus(false)}
             />
             <p
               id="uidnote"
               className={
-                idFocus && id && !validId ? "instructions" : "offscreen"
+                EmailFocus && email && !validEmail
+                  ? "instructions"
+                  : "offscreen"
               }
             >
               <FontAwesomeIcon icon={faInfoCircle} />
-              4 to 24 characters.
-              <br />
-              Must begin with a letter.
-              <br />
-              Letters, numbers, underscores, hyphens allowed.
+              Must input your Email
             </p>
 
             <label
@@ -392,7 +391,7 @@ const SignUp = () => {
 
             <button
               disabled={
-                !validId || !validName || !validPwd || !validMatch
+                !validEmail || !validName || !validPwd || !validMatch
                   ? true
                   : false
               }

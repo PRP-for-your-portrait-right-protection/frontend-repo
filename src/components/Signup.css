@@ -27,7 +27,7 @@
 textarea {
   font-family: "StardosStencil-Regular";
   font-size: 22px;
-  padding: 0.25rem;
+  padding: 0.5rem;
   border-radius: 0.5rem;
 }
 
@@ -40,7 +40,7 @@ textarea {
   font-size: 22px;
   padding: 0.25rem;
   border-radius: 0.5rem;
-  margin-top: 1rem;
+  margin-top: 3rem;
   padding: 1rem;
 }
 
