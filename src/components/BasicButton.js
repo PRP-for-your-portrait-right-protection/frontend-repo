@@ -2,14 +2,18 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styles from "./BasicButton.module.css";
 
+const onclick = () => {
+  localStorage.clear();
+};
+
 function BasicButton() {
   return (
     <div>
-      <Link to="/result">
-        <img src="images\admin.png" className={styles.admin} />
-      </Link>
+      <img src="images\admin.png" className={styles.admin} />
       <Link to="/">
-        <img src="images\signout.png" className={styles.signOut} />
+        <button className={styles.signOut} onClick={onclick}>
+          <img src="images\signout.png" />
+        </button>
       </Link>
     </div>
   );
