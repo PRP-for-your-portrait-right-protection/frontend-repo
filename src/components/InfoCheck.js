@@ -5,28 +5,38 @@ import {
   faInfoCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./Signup.css";
 import axios from "../api/axios";
 
-const NAME_REGEX = /^[가-힣]{2,4}|[a-zA-Z]{2,10}\s[a-zA-Z]{2,10}$/;
+const EMAIL_REGEX =
+  /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
 const PHNUM_REGEX = /^[0-9\b -]{1,13}$/;
+const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
 function InfoCheck() {
   const userRef = useRef();
   const errRef = useRef();
+  const navigate = useNavigate();
 
-  const [name, setName] = useState("");
-  const [validName, setValidName] = useState(false);
-  const [nameFocus, setNameFocus] = useState(false);
+  const [email, setEmail] = useState("");
+  const [validEmail, setValidEmail] = useState(false);
+  const [EmailFocus, setEmailFocus] = useState(false);
 
   const [phonenum, setPhonenum] = useState("");
   const [validPhoneNum, setValidPhoneNum] = useState(false);
   const [phoneNumFocus, setPhoneFocus] = useState(false);
 
+  const [pwd, setPwd] = useState("");
+  const [validPwd, setValidPwd] = useState(false);
+  const [pwdFocus, setPwdFocus] = useState(false);
+
+  const [matchPwd, setMatchPwd] = useState("");
+  const [validMatch, setValidMatch] = useState(false);
+  const [matchFocus, setMatchFocus] = useState(false);
+
   const [errMsg, setErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
-  const [result, setResult] = useState({});
 
   useEffect(() => {
     userRef.current.focus();
@@ -34,11 +44,11 @@ function InfoCheck() {
 
   useEffect(() => {
     setErrMsg("");
-  }, [name, phonenum]);
+  }, [email, phonenum]);
 
   useEffect(() => {
-    setValidName(NAME_REGEX.test(name));
-  }, [name]);
+    setValidEmail(EMAIL_REGEX.test(email));
+  }, [email]);
 
   useEffect(() => {
     setValidPhoneNum(PHNUM_REGEX.test(phonenum));
@@ -61,14 +71,24 @@ function InfoCheck() {
     }
   }, [phonenum]);
 
+  useEffect(() => {
+    setErrMsg("");
+  }, [pwd, matchPwd]);
+
+  useEffect(() => {
+    setValidPwd(PWD_REGEX.test(pwd));
+    setValidMatch(pwd === matchPwd);
+  }, [pwd, matchPwd]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const formData = new FormData();
-
+      sessionStorage.setItem("Email", email);
+      sessionStorage.setItem("Phone", phonenum);
       const value = [
         {
-          name: name,
+          email: email,
           phone: phonenum,
         },
       ];
@@ -81,7 +101,7 @@ function InfoCheck() {
 
       const response = await axios({
         method: "POST",
-        url: `/mock_api/user/check`,
+        url: `/mock_api/user/reset`,
         mode: "cors",
         headers: {
           "Content-Type": "application/json",
@@ -93,10 +113,8 @@ function InfoCheck() {
       console.log(response?.data);
       console.log(JSON.stringify(response?.data));
       //console.log(JSON.stringify(response));
-      setName("");
+      setEmail("");
       setPhonenum("");
-      setResult(response?.data);
-      console.log(result);
       setSuccess(true);
     } catch (err) {
       if (!err?.response) {
@@ -106,7 +124,59 @@ function InfoCheck() {
       } else if (err.response?.status === 401) {
         setErrMsg("Unauthorized");
       } else {
-        setErrMsg("Don't find your Email");
+        setErrMsg("Information is not collected");
+      }
+      errRef.current.focus();
+    }
+  };
+
+  const resetHandle = async (e) => {
+    e.preventDefault();
+    try {
+      const formData = new FormData();
+
+      const value = [
+        {
+          email: sessionStorage.getItem("Email"),
+          phone: sessionStorage.getItem("Phone"),
+          pwd: pwd,
+        },
+      ];
+
+      const blob = new Blob([JSON.stringify(value)], {
+        type: "application/json",
+      });
+
+      formData.append("data", blob);
+
+      const response = await axios({
+        method: "PATCH",
+        url: `/mock_api/user/reset`,
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json",
+          withCredentials: true,
+        },
+        data: formData,
+      });
+      console.log(value);
+      console.log(response?.data);
+      console.log(JSON.stringify(response?.data));
+      //console.log(JSON.stringify(response));
+      setPwd("");
+      setMatchPwd("");
+      sessionStorage.clear();
+      alert("Successed reset Password!!");
+      navigate("/signin");
+    } catch (err) {
+      if (!err?.response) {
+        setErrMsg("No Server Response");
+      } else if (err.response?.status === 400) {
+        setErrMsg("Missing Name or Phonenum");
+      } else if (err.response?.status === 401) {
+        setErrMsg("Unauthorized");
+      } else {
+        setErrMsg("Failed to reset password");
       }
       errRef.current.focus();
     }
@@ -116,16 +186,105 @@ function InfoCheck() {
     <>
       {success ? (
         <section className="signupSection">
-          <div className="text-4xl font-Stardos text-black">
-            Find Your Email!
-          </div>
-          <div className="text-4xl font-Stardos text-black">
-            Your Email = {result.Email}
-          </div>
-          <br />
-          <p className="mt-16 text-2xl font-Stardos text-black hover:text-amber-300">
-            <Link to="/signin">Sign in</Link>
+          <p
+            ref={errRef}
+            className={errMsg ? "errmsg" : "offscreen"}
+            aria-live="assertive"
+          >
+            {errMsg}
           </p>
+          <h1 className="mt-12 text-3xl font-Stardos text-black">
+            Reset Password
+          </h1>
+          <form className="signupForm" onSubmit={resetHandle}>
+            <label
+              htmlFor="password"
+              className="text-xl font-Stardos text-black signupLabel"
+            >
+              Password:
+              <FontAwesomeIcon
+                icon={faCheck}
+                className={validPwd ? "valid" : "hide"}
+              />
+              <FontAwesomeIcon
+                icon={faTimes}
+                className={validPwd || !pwd ? "hide" : "invalid"}
+              />
+            </label>
+            <input
+              className="signupInput"
+              type="password"
+              id="password"
+              onChange={(e) => setPwd(e.target.value)}
+              value={pwd}
+              required
+              aria-invalid={validPwd ? "false" : "true"}
+              aria-describedby="pwdnote"
+              onFocus={() => setPwdFocus(true)}
+              onBlur={() => setPwdFocus(false)}
+            />
+            <p
+              id="pwdnote"
+              className={pwdFocus && !validPwd ? "instructions" : "offscreen"}
+            >
+              <FontAwesomeIcon icon={faInfoCircle} />
+              8 to 24 characters.
+              <br />
+              Must include uppercase and lowercase letters, a number and a
+              special character.
+              <br />
+              Allowed special characters:{" "}
+              <span aria-label="exclamation mark">!</span>{" "}
+              <span aria-label="at symbol">@</span>{" "}
+              <span aria-label="hashtag">#</span>{" "}
+              <span aria-label="dollar sign">$</span>{" "}
+              <span aria-label="percent">%</span>
+            </p>
+
+            <label
+              htmlFor="confirm_pwd"
+              className="text-xl font-Stardos text-black signupLabel"
+            >
+              Confirm Password:
+              <FontAwesomeIcon
+                icon={faCheck}
+                className={validMatch && matchPwd ? "valid" : "hide"}
+              />
+              <FontAwesomeIcon
+                icon={faTimes}
+                className={validMatch || !matchPwd ? "hide" : "invalid"}
+              />
+            </label>
+            <input
+              className="signupInput"
+              type="password"
+              id="confirm_pwd"
+              onChange={(e) => setMatchPwd(e.target.value)}
+              value={matchPwd}
+              required
+              aria-invalid={validMatch ? "false" : "true"}
+              aria-describedby="confirmnote"
+              onFocus={() => setMatchFocus(true)}
+              onBlur={() => setMatchFocus(false)}
+            />
+            <p
+              id="confirmnote"
+              className={
+                matchFocus && !validMatch ? "instructions" : "offscreen"
+              }
+            >
+              <FontAwesomeIcon icon={faInfoCircle} />
+              Must match the first password input field.
+            </p>
+
+            <button
+              disabled={!validPwd || !validMatch ? true : false}
+              className="border-2 border-amber-900 text-2xl font-Stardos 
+              text-black hover:text-white bg-amber-900 signupButton"
+            >
+              Reset Password
+            </button>
+          </form>
         </section>
       ) : (
         <section className="signupSection">
@@ -137,47 +296,48 @@ function InfoCheck() {
             {errMsg}
           </p>
           <h1 className="mt-12 text-3xl font-Stardos text-black">
-            Forget Email?
+            Forget Password?
+            <div className="text-2xl">check your Infomation</div>
           </h1>
           <form className="signupForm" onSubmit={handleSubmit}>
             <label
-              htmlFor="username"
+              htmlFor="email"
               className="mt-16 text-xl font-Stardos text-black signupLabel"
             >
-              User Name:
+              Email:
               <FontAwesomeIcon
                 icon={faCheck}
-                className={validName ? "valid" : "hide"}
+                className={validEmail ? "valid" : "hide"}
               />
               <FontAwesomeIcon
                 icon={faTimes}
-                className={validName || !name ? "hide" : "invalid"}
+                className={validEmail || !email ? "hide" : "invalid"}
               />
             </label>
             <input
               className="signupInput"
               type="text"
-              id="username"
+              id="email"
               ref={userRef}
               autoComplete="off"
-              onChange={(e) => setName(e.target.value)}
-              value={name}
+              onChange={(e) => setEmail(e.target.value)}
+              value={email}
               required
-              aria-invalid={validName ? "false" : "true"}
-              aria-describedby="unamenote"
-              onFocus={() => setNameFocus(true)}
-              onBlur={() => setNameFocus(false)}
+              aria-invalid={validEmail ? "false" : "true"}
+              aria-describedby="uemailnote"
+              onFocus={() => setEmailFocus(true)}
+              onBlur={() => setEmailFocus(false)}
             />
             <p
-              id="unamenote"
+              id="uemailnote"
               className={
-                nameFocus && name && !validName ? "instructions" : "offscreen"
+                EmailFocus && email && !validEmail
+                  ? "instructions"
+                  : "offscreen"
               }
             >
               <FontAwesomeIcon icon={faInfoCircle} />
-              Must input Korean 2 to 4 characters.
-              <br />
-              or Must input First Name(3~11) and Last Name(3~11)
+              Must input your Email
             </p>
 
             <label
@@ -221,11 +381,11 @@ function InfoCheck() {
             </p>
 
             <button
-              disabled={!validName || !validPhoneNum ? true : false}
+              disabled={!validEmail || !validPhoneNum ? true : false}
               className="border-2 border-amber-900 text-2xl font-Stardos 
               text-black hover:text-white bg-amber-900 signupButton"
             >
-              Find Email
+              Information check
             </button>
           </form>
         </section>
