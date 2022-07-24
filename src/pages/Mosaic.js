@@ -194,25 +194,10 @@ function Mosaic() {
                 clickFuc={setSelectedData}
                 insertFuc={addImgList}
               ></CharacterImageList>
-
-              <AppStyle>
-                <label htmlFor="ex_file">
-                  <div className="btnStart">
-                    <img src="images\download.png" alt="btnStart" />
-                  </div>
-                </label>
-                <input
-                  type="file"
-                  id="ex_file"
-                  onChange={(e) => console.log(e.target.files[0])}
-                />
-              </AppStyle>
             </div>
           </Modal>
         </div>
       </div>
-
-      <input type="checkbox" id="ch" />
     </div>
   );
 }
@@ -232,29 +217,5 @@ const ToggleBtn = styled.button`
     -moz-transform: scale(1.2);
     -ms-transform: scale(1.2);
     -o-transform: scale(1.2);
-  }
-`;
-const AppStyle = styled.div`
-  margin: 25rem 0 0 30rem;
-  img {
-    width: 3.5rem;
-    height: 3.5rem;
-  }
-  label {
-    display: absolute;
-    font-size: inherit;
-    line-height: normal;
-    vertical-align: middle;
-    cursor: pointer;
-  }
-  input[type="file"] {
-    position: absolute;
-    width: 0;
-    height: 0;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    border: 0;
   }
 `;

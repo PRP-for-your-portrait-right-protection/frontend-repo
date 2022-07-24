@@ -1,27 +1,15 @@
 label > input[type="radio"]:checked + img {
   border: 6px solid #c6c627;
 }
-.Pre {
-  position: absolute;
-  object-fit: cover;
-  background-image: url("../../public/images/iconoir_nav-arrow-left.png");
-  background-size: cover;
-  width: 6rem;
-  height: 6rem;
-}
-.Next {
-  position: absolute;
-  background-image: url("../../public/images/iconoir_nav-arrow-right.png");
-  background-size: cover;
-  width: 6rem;
-  height: 6rem;
-}
+
 .modalFont {
-  width: 20%;
+  display: flex;
+  width: 80%;
   height: 10%;
   font-family: "StardosStencil-Regular", serif;
   font-style: normal;
-  font-weight: 400;
-  font-size: 2vw;
+  font-weight: 200;
+  font-size: 2.5vw;
+  margin-left: 2rem;
   color: white;
 }

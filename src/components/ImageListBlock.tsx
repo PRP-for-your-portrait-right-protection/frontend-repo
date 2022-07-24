@@ -34,7 +34,7 @@ function ImageListBlock() {
     const fetchData = async () => {
       const result = await axios
         .get(
-          `https://1f413be8-5eb6-428f-a4d4-492745c03b38.mock.pstmn.io/userImage`,
+          `https://e25ff998-e1ec-49c0-9e9e-0360f06e946e.mock.pstmn.io//mock-api/effect`,
           {
             headers: {
               Authorization: "Bearer " + localStorage.getItem("token"),
