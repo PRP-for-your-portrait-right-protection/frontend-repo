@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./Mainpage.module.css";
-import IdCheck from "../components/IdCheck";
+import InfoCheck from "../components/InfoCheck";
 import { Link } from "react-router-dom";
 function ForgetPasswordpage() {
   return (
@@ -21,7 +21,7 @@ function ForgetPasswordpage() {
       </div>
       <aside className="w-2/5 float-right">
         <div className={styles.login}>
-          <IdCheck />
+          <InfoCheck />
         </div>
       </aside>
     </div>

@@ -4,10 +4,10 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Mainpage from "./pages/Mainpage";
 import AftLoginMainpage from "./pages/AftLoginMainpage";
 import Loginpage from "./pages/Loginpage";
-import ResultVideopage from "./pages/ResultVideopage";
+import ForgetEmailpage from "./pages/ForgetEmailpage";
+import ForgetPasswordpage from "./pages/ForgetPasswordpage";
 import "./App.css";
 import Result from "./pages/Result";
-import Loading from "./pages/Loading";
 import Mosaic from "./pages/Mosaic";
 import Video from "./pages/Video";
 import Photo from "./pages/Photo";
@@ -22,6 +22,8 @@ function App() {
         <Route path="/people" element={<UploadImagePage />} />
         <Route path="/signin" element={<Loginpage />} />
         <Route path="/signup" element={<SignUppage />} />
+        <Route path="/email" element={<ForgetEmailpage />} />
+        <Route path="/reset" element={<ForgetPasswordpage />} />
         <Route path="/main" element={<AftLoginMainpage />} />
 
         <Route path="/upload" element={<UploadImagePage />} />

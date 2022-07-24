@@ -1,8 +1,8 @@
 import React from "react";
 import styles from "./Mainpage.module.css";
-import ResetPw from "../components/ResetPw";
+import IdCheck from "../components/IdCheck";
 import { Link } from "react-router-dom";
-function ForgetPasswordpage2() {
+function ForgetEmailpage() {
   return (
     //실제 화면에 출력할 내용들 설정 해주는 곳
     <div className={styles.img_1}>
@@ -21,11 +21,11 @@ function ForgetPasswordpage2() {
       </div>
       <aside className="w-2/5 float-right">
         <div className={styles.login}>
-          <ResetPw />
+          <IdCheck />
         </div>
       </aside>
     </div>
   );
 }
 
-export default ForgetPasswordpage2;
+export default ForgetEmailpage;
