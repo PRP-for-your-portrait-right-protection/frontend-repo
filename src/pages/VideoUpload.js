@@ -18,6 +18,7 @@ function VideoUpload() {
   const saveFile = (event) => {
     setPreFileVideo();
     setFileVideo(event.target.files[0]);
+    sessionStorage.setItem("videoName", event.target.files[0].name);
   };
 
   /**

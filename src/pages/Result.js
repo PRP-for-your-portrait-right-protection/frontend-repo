@@ -5,12 +5,23 @@ import ButtonSession from "../components/ButtonSession";
 
 function Result() {
   const makeFormData = () => {
-    console.log(JSON.parse(sessionStorage.getItem("images")).length);
-    JSON.parse(sessionStorage.getItem("images")).map((element) => {
-      console.log(element);
-    });
+    const formData = new FormData();
+    formData.append("video", fileVideo);
 
-    console.log(sessionStorage.getItem("character"));
+    axios({
+      method: "post",
+      url: `https://d601a5df-dc71-481f-9ca6-f2d053dd56e7.mock.pstmn.io/video`,
+      formData,
+      headers: { Authorization: "Bearer " + localStorage.token },
+    })
+      .then(function (response) {
+        console.log(response.data.beforeVideosUrl);
+        sessionStorage.setItem("video", response.data.beforeVideosUrl);
+      })
+      .catch(function (error) {
+        console.log("ERROR 발생");
+        console.log(error);
+      });
   };
 
   return (
@@ -55,6 +66,16 @@ function Result() {
           </li>
         </ul>
       </div>
+      <div className="Video" top="520px">
+        <div>Uploaded video : {sessionStorage.getItem("videoName")}</div>
+      </div>
+      <div className="Effect">
+        <div>
+          Processing effect :
+          {sessionStorage.getItem("character") === "M" ? "Mozaic" : "Character"}
+        </div>
+      </div>
+
       <button onClick={() => makeFormData()}>asdsad</button>
     </div>
   );

@@ -81,8 +81,9 @@ function Mosaic() {
   // }, []);
 
   useEffect(() => {
+    //mockApi 무료사용량 초과로 고정값 가져오는 임시 함수사용중입니다.
     const data1 = [
-      "https://summersilicon.s3.ap-northeast-2.amazonaws.com/upload_character/qweriu1.jpg2022-07-18+15%3A17%3A32.jpg",
+      "http://news.samsungdisplay.com/wp-content/uploads/2018/08/8.jpg",
     ];
     const data2 = [
       "https://lh3.googleusercontent.com/cS5nvr3r6Q16NoV6IuJLaauz7HNNRPnuHtsHleZ8du594H4EeiOjeNxV-Nq_w-qRA87TUedLQjTmqCG5s6jNZRp29n571FDWyditF-WJhfhQTY_73OM",
@@ -102,77 +103,63 @@ function Mosaic() {
   /**
    * @name : Teawon
    * @function :makeFormData - 다음 페이지로 넘어갈 때 보내는 api정보
-   * @create-data: 2022-07-22
-   *
+   * @create-date: 2022-07-22
+   * @update-date :2022-07-24
+   * - 파일의 선택여부에 따라 백엔드로 파일객체값을 두 필드값으로 분리하여 보냄
+   * - 응답값을 받아 session에 저장
    */
   const makeFormData = () => {
     console.log(selectedData);
 
     if (inputCharacteList != "") {
+      //사용자가 파일을 추가로 입력했다면 backend로 api를 보냄
       const formData = new FormData();
-      const checkUrl = process.env.REACT_APP_BUCKET_URL;
-      let notSelectedCharactersList = inputCharacteList;
+      const checkUrl = process.env.REACT_APP_BUCKET_URL; //선택된 이미지가 버킷url & 사용자가 새로 추가했는 지 검사
+      let notSelectedCharactersList = []; //선택되지 않은 파일 리스트
 
-      if (selectedData.startsWith(checkUrl)) {
-        console.log("선택된 내용이 파일이 아닙니다.");
-        formData.append("selectedYN", "N");
-      } else {
-        //console.log("파일이 맞고 선택도 됬음");
-        formData.append("selectedYN", "Y");
+      if (!selectedData.startsWith(checkUrl)) {
+        //선택된 이미지가 사용쟈가 추가한 파일
         formData.append("selectedCharacter", selectedData);
-        console.log(notSelectedCharactersList);
-        console.log("시작");
-        console.log(
-          notSelectedCharactersList.filter((notSelectedCharacter) => {
-            console.log("너는 뭐니..?");
-            console.log(notSelectedCharacter.name);
-            console.log("선택은 누군데??");
-            console.log(selectedData);
-            console.log(notSelectedCharacter.name !== selectedData);
-            notSelectedCharacter.name !== selectedData;
-          })
-        );
-
-        console.log("선택된 애를 뺍니다.");
-        console.log(notSelectedCharactersList);
-      }
-
-      if (notSelectedCharactersList == "") {
-        console.log("널값입니다!!");
-        formData.append("notSelectedYN", "N");
+        inputCharacteList.forEach((notSelectedCharacter) => {
+          if (notSelectedCharacter.name !== selectedData) {
+            notSelectedCharactersList.push(notSelectedCharacter);
+          }
+        });
       } else {
-        formData.append("notSelectedYN", "Y");
-        formData.append("notSelectedCharacters", notSelectedCharactersList);
+        //선택된 이미지가 기존의 db에서 가져온 url
+        notSelectedCharactersList = inputCharacteList;
       }
+      formData.append("notSelectedCharacters", notSelectedCharactersList);
 
-      for (let key of formData.keys()) {
-        console.log("FormData의 key를 확인합니다.");
-        console.log(key);
-      }
+      // for (let key of formData.keys()) {
+      //   console.log("FormData의 key를 확인합니다.");
+      //   console.log(key);
+      // }
 
-      // FormData의 value 확인
-      for (let value of formData.values()) {
-        console.log("FormData의 Values를 확인합니다.");
-        console.log(value);
-      }
+      // // FormData의 value 확인
+      // for (let value of formData.values()) {
+      //   console.log("FormData의 Values를 확인합니다.");
+      //   console.log(value);
+      // }
+      axios({
+        method: "post",
+        url: `https://d601a5df-dc71-481f-9ca6-f2d053dd56e7.mock.pstmn.io/video`,
+        formData,
+        headers: { Authorization: "Bearer " + localStorage.token },
+      })
+        .then(function (response) {
+          console.log(response);
+          if (response.data != null) {
+            selectedData = response.data;
+          }
+        })
+        .catch(function (error) {
+          console.log("ERROR 발생");
+          console.log(error);
+        });
     }
 
-    // formData.append("characterList", inputCharacteList);
-    // axios({
-    //   method: "post",
-    //   url: `https://d601a5df-dc71-481f-9ca6-f2d053dd56e7.mock.pstmn.io/video`,
-    //   formData,
-    //   headers: { Authorization: "Bearer " + localStorage.token },
-    // })
-    //   .then(function (response) {})
-    //   .catch(function (error) {
-    //     console.log("ERROR 발생");
-    //     console.log(error);
-    //   });
-
-    //backend로 모든 입력된 파일만 보낸 후 , url은 받지않고 기존값 기록해서 넘기기
-
-    //sessionStorage.setItem("character", selectedData);
+    sessionStorage.setItem("character", selectedData);
   };
 
   /**

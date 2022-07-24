@@ -78,7 +78,7 @@ function ImageListBlock() {
           console.log(error);
         });
     };
-    if (localStorage.getItem("token") != null) {
+    if (localStorage.getItem("token") == null) {
       fetchData();
     } else {
       setIsLoading(true); //만약 로그인이 되어있지 않다면 api를 보내지 않고 바로 로딩을 완료시킨다.
