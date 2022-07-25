@@ -41,7 +41,9 @@ const SignUp = () => {
   const [matchFocus, setMatchFocus] = useState(false);
 
   const [errMsg, setErrMsg] = useState("");
+  const [checkErrMsg, setCheckErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
+  const [usableId, setUsableID] = useState(false);
 
   useEffect(() => {
     userRef.current.focus();
@@ -49,6 +51,8 @@ const SignUp = () => {
 
   useEffect(() => {
     setValidEmail(EMAIL_REGEX.test(email));
+    setUsableID(false);
+    setCheckErrMsg("");
   }, [email]);
 
   useEffect(() => {
@@ -94,6 +98,10 @@ const SignUp = () => {
     const v4 = PHNUM_REGEX.test(phonenum);
     if (!v1 || !v2 || !v3 || !v4) {
       setErrMsg("Invalid Entry");
+      return;
+    }
+    if (usableId === false) {
+      setErrMsg("Please Check Your Email");
       return;
     }
     // form data 로 받음
@@ -146,25 +154,58 @@ const SignUp = () => {
       }
       errRef.current.focus();
     }
-    // const response = await axios.post(
-    //   REGISTER_URL,
-    //   JSON.stringify({ id, name, phonenum, pwd }),
-    //   {
-    //     headers: { "Content-Type": "application/json" },
-    //     withCredentials: true,
-    //   }
-    // );
-    // console.log(response?.data);
-    // console.log(response?.accessToken);
-    // console.log(JSON.stringify(response));
-    // setSuccess(true);
-    // //clear state and controlled inputs
-    // //need value attrib on inputs for this
-    // setId("");
-    // setName("");
-    // setPhoneNum("");
-    // setPwd("");
-    // setMatchPwd("");
+  };
+
+  const Clicksubmit = async (e) => {
+    e.preventDefault();
+    // if button enabled with JS hack
+    const v1 = EMAIL_REGEX.test(email);
+    if (!v1) {
+      setErrMsg("Invalid Entry");
+      return;
+    }
+    // form data 로 받음
+    try {
+      const formData = new FormData();
+      const value = [
+        {
+          email: email,
+        },
+      ];
+
+      const blob = new Blob([JSON.stringify(value)], {
+        type: "application/json",
+      });
+
+      formData.append("data", blob);
+
+      const response = await axios({
+        method: "POST",
+        url: `/mock_api/user/checkEm`,
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json",
+          withCredentials: true,
+        },
+        data: formData,
+      });
+      console.log(value);
+      console.log(response?.data);
+      console.log(JSON.stringify(response));
+      if (response.status === 200) {
+        setUsableID(true);
+        setCheckErrMsg("사용 가능한 Email 입니다.");
+      }
+    } catch (err) {
+      if (!err?.response) {
+        setCheckErrMsg("No Server Response");
+      } else if (err.response?.status === 409) {
+        setCheckErrMsg("이미 사용 중인 Email 입니다.");
+      } else {
+        setCheckErrMsg("사용 불가한 Email 입니다.");
+      }
+      errRef.current.focus();
+    }
   };
 
   return (
@@ -217,6 +258,20 @@ const SignUp = () => {
               onFocus={() => setEmailFocus(true)}
               onBlur={() => setEmailFocus(false)}
             />
+            <button
+              className="border-2 border-amber-900 font-Stardos
+            text-orange-300 hover:text-white bg-amber-900 checkButton"
+              onClick={Clicksubmit}
+            >
+              Check ID
+            </button>
+            <p
+              ref={errRef}
+              className={checkErrMsg ? "checkmsg" : "hide"}
+              aria-live="assertive"
+            >
+              {checkErrMsg}
+            </p>
             <p
               id="uidnote"
               className={
@@ -417,9 +472,3 @@ const SignUp = () => {
 };
 
 export default SignUp;
-
-/*
-agllwy116
-12345678
-
-*/
