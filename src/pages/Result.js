@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import "./Result.css";
 import Title from "components/Title";
 import ButtonSession from "../components/ButtonSession";
+import WaitVideos from "components/WaitVideos";
 
 function Result() {
   useEffect(() => {
@@ -104,6 +105,7 @@ function Result() {
       </div>
 
       <button onClick={() => makeFormData()}>asdsad</button>
+      <WaitVideos />
     </div>
   );
 }
