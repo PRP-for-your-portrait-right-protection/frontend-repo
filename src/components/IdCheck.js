@@ -10,7 +10,7 @@ import "./Signup.css";
 import axios from "../api/axios";
 
 const NAME_REGEX = /^[가-힣]{2,4}|[a-zA-Z]{2,10}\s[a-zA-Z]{2,10}$/;
-const PHNUM_REGEX = /^[0-9\b -]{1,13}$/;
+const PHNUM_REGEX = /^[0-9\b -]{11,13}$/;
 
 function IdCheck() {
   const userRef = useRef();

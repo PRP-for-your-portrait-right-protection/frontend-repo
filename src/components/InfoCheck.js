@@ -11,7 +11,7 @@ import axios from "../api/axios";
 
 const EMAIL_REGEX =
   /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
-const PHNUM_REGEX = /^[0-9\b -]{1,13}$/;
+const PHNUM_REGEX = /^[0-9\b -]{11,13}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
 function InfoCheck() {

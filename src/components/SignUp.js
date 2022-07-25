@@ -13,7 +13,7 @@ const EMAIL_REGEX =
   /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 const NAME_REGEX = /^[가-힣]{2,4}|[a-zA-Z]{2,10}\s[a-zA-Z]{2,10}$/;
-const PHNUM_REGEX = /^[0-9\b -]{1,13}$/;
+const PHNUM_REGEX = /^[0-9\b -]{11,13}$/;
 //const REGISTER_URL = "/signup";
 
 const SignUp = () => {
