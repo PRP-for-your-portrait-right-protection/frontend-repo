@@ -1,27 +1,54 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Result.css";
 import Title from "components/Title";
 import ButtonSession from "../components/ButtonSession";
 
 function Result() {
-  const makeFormData = () => {
-    const formData = new FormData();
-    formData.append("video", fileVideo);
+  useEffect(() => {
+    if (sessionStorage.getItem("task") == null) {
+      sessionStorage.setItem("task", JSON.stringify([]));
+    }
+  }, []);
 
-    axios({
-      method: "post",
-      url: `https://d601a5df-dc71-481f-9ca6-f2d053dd56e7.mock.pstmn.io/video`,
-      formData,
-      headers: { Authorization: "Bearer " + localStorage.token },
-    })
-      .then(function (response) {
-        console.log(response.data.beforeVideosUrl);
-        sessionStorage.setItem("video", response.data.beforeVideosUrl);
-      })
-      .catch(function (error) {
-        console.log("ERROR 발생");
-        console.log(error);
-      });
+  const makeFormData = () => {
+    let temp = JSON.parse(sessionStorage.getItem("task"));
+    temp.push("add" + Math.random());
+    sessionStorage.setItem("task", JSON.stringify(temp));
+
+    // const formData = new FormData();
+    // let faceType =
+    //   sessionStorage.getItem("character") === "M" ? "mosaic" : "character";
+    // formData.append("faceType", faceType);
+
+    // if (faceType === "character") {
+    //   formData.append(
+    //     "block_character_url",
+    //     JSON.parse(sessionStorage.getItem("character"))
+    //   );
+    // }
+
+    // formData.append(
+    //   "whitelist_face_image_url",
+    //   JSON.parse(sessionStorage.getItem("images"))
+    // );
+
+    // formData.append("video_url", JSON.parse(sessionStorage.getItem("video")));
+    // axios({
+    //   method: "post",
+    //   url: `https://d601a5df-dc71-481f-9ca6-f2d053dd56e7.mock.pstmn.io/video`,
+    //   formData,
+    //   headers: { Authorization: "Bearer " + localStorage.token },
+    // })
+    //   .then(function (response) {
+    //     console.log(response.data.celeryId);
+    //     let temp = JSON.parse(sessionStorage.getItem("task"));
+    //     temp.push(response.data.celeryId);
+    //     sessionStorage.setItem("task", JSON.stringify(temp));
+    //   })
+    //   .catch(function (error) {
+    //     console.log("ERROR 발생");
+    //     console.log(error);
+    //   });
   };
 
   return (
