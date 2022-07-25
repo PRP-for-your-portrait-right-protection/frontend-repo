@@ -1,16 +1,16 @@
 import React, { useRef, useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Signup.css";
 import axios from "../api/axios";
 
 const Login = () => {
   const userRef = useRef();
   const errRef = useRef();
+  const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
   const [pwd, setPwd] = useState("");
   const [errMsg, setErrMsg] = useState("");
-  const [success, setSuccess] = useState(false);
 
   useEffect(() => {
     userRef.current.focus();
@@ -61,7 +61,7 @@ const Login = () => {
       //console.log(roles);
       setEmail("");
       setPwd("");
-      setSuccess(true);
+      navigate("/");
     } catch (err) {
       if (!err?.response) {
         setErrMsg("No Server Response");
@@ -77,82 +77,68 @@ const Login = () => {
   };
 
   return (
-    <>
-      {success ? (
-        <section className="signupSection">
-          <h1 className="text-4xl font-Stardos text-black">
-            You are logged in!
-          </h1>
-          <br />
-          <p className="mt-16 text-2xl font-Stardos text-black">
-            <Link to="/main">Go to Home</Link>
-          </p>
-        </section>
-      ) : (
-        <section className="signupSection">
-          <p
-            ref={errRef}
-            className={errMsg ? "errmsg" : "offscreen"}
-            aria-live="assertive"
-          >
-            {errMsg}
-          </p>
-          <h1 className="mt-12 text-3xl font-Stardos text-black">Sign In</h1>
-          <form className="signupForm" onSubmit={handleSubmit}>
-            <label
-              htmlFor="useremail"
-              className="mt-16 text-xl font-Stardos text-black signupLabel"
-            >
-              Email:
-            </label>
-            <input
-              className="signupInput"
-              type="text"
-              id="useremail"
-              ref={userRef}
-              autoComplete="off"
-              onChange={(e) => setEmail(e.target.value)}
-              value={email}
-              required
-            />
+    <section className="signupSection">
+      <p
+        ref={errRef}
+        className={errMsg ? "errmsg" : "offscreen"}
+        aria-live="assertive"
+      >
+        {errMsg}
+      </p>
+      <h1 className="mt-12 text-3xl font-Stardos text-black">Sign In</h1>
+      <form className="signupForm" onSubmit={handleSubmit}>
+        <label
+          htmlFor="useremail"
+          className="mt-16 text-xl font-Stardos text-black signupLabel"
+        >
+          Email:
+        </label>
+        <input
+          className="signupInput"
+          type="text"
+          id="useremail"
+          ref={userRef}
+          autoComplete="off"
+          onChange={(e) => setEmail(e.target.value)}
+          value={email}
+          required
+        />
 
-            <label
-              htmlFor="password"
-              className="mt-16 text-xl font-Stardos text-black signupLabel"
-            >
-              Password:
-            </label>
-            <input
-              className="signupInput"
-              type="password"
-              id="password"
-              onChange={(e) => setPwd(e.target.value)}
-              value={pwd}
-              required
-            />
-            <span className="line mt-4 text-xl font-Stardos text-black hover:text-amber-900">
-              <Link to="/email">Forget Email?</Link>
-            </span>
-            <span className="line text-xl font-Stardos text-black hover:text-amber-900">
-              <Link to="/reset">Forget password?</Link>
-            </span>
-            <button
-              className="mt-20 border-2 border-amber-900 
+        <label
+          htmlFor="password"
+          className="mt-16 text-xl font-Stardos text-black signupLabel"
+        >
+          Password:
+        </label>
+        <input
+          className="signupInput"
+          type="password"
+          id="password"
+          onChange={(e) => setPwd(e.target.value)}
+          value={pwd}
+          required
+        />
+        <span className="line mt-4 text-xl font-Stardos text-black hover:text-amber-900">
+          <Link to="/email">Forget Email?</Link>
+        </span>
+        <span className="line text-xl font-Stardos text-black hover:text-amber-900">
+          <Link to="/reset">Forget password?</Link>
+        </span>
+        <button
+          className="mt-20 border-2 border-amber-900 
             text-2xl font-Stardos text-black hover:text-white bg-amber-900 signupButton"
-            >
-              Sign In
-            </button>
-          </form>
-          <p className="text-xl font-Stardos text-black">
-            Need an Account?
-            <br />
-            <span className="line hover:text-amber-900">
-              <Link to="/signup">Sign Up</Link>
-            </span>
-          </p>
-        </section>
-      )}
-    </>
+        >
+          Sign In
+        </button>
+      </form>
+      <p className="text-xl font-Stardos text-black">
+        Need an Account?
+        <br />
+        <span className="line hover:text-amber-900">
+          <Link to="/signup">Sign Up</Link>
+        </span>
+      </p>
+    </section>
   );
 };
 
