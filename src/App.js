@@ -2,7 +2,6 @@ import UploadImagePage from "./pages/UploadImagePage";
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Mainpage from "./pages/Mainpage";
-import AftLoginMainpage from "./pages/AftLoginMainpage";
 import Loginpage from "./pages/Loginpage";
 import ForgetEmailpage from "./pages/ForgetEmailpage";
 import ForgetPasswordpage from "./pages/ForgetPasswordpage";
@@ -24,7 +23,6 @@ function App() {
         <Route path="/signup" element={<SignUppage />} />
         <Route path="/email" element={<ForgetEmailpage />} />
         <Route path="/reset" element={<ForgetPasswordpage />} />
-        <Route path="/main" element={<AftLoginMainpage />} />
 
         <Route path="/upload" element={<UploadImagePage />} />
         <Route path="/VideoUpload" element={<VideoUpload />} />
