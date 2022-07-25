@@ -11,7 +11,7 @@
   float: right;
 }
 .img_1 {
-  width: 100%;
+  width: 100vw;
   height: 100vh;
   background-image: url("/public/images/img 1.jpg");
   background-repeat: no-repeat;
