@@ -98,12 +98,9 @@ function Mainpage() {
           </div>
           <aside className={styles.aside}>
             <div>
-              <MainButton title="START" text="upload" />
-            </div>
-            <div>
               <Link to={"/signin"}>
                 <button
-                  className="absolute top-1/3 right-0 w-64 h-20 mt-12 
+                  className="absolute top-40 right-0 w-64 h-20 mt-12 
         text-3xl font-Stardos text-center text-black hover:text-white 
         bg-inherit hover:bg-amber-900 border-2 border-amber-900"
                 >
@@ -114,7 +111,7 @@ function Mainpage() {
             <div>
               <Link to={"/signup"}>
                 <button
-                  className="absolute top-1/2 right-0 w-64 h-20 mt-12
+                  className="absolute top-1/3 right-0 w-64 h-20 mt-12
         text-3xl font-Stardos text-center text-black hover:text-white 
         bg-inherit hover:bg-amber-900 border-2 border-amber-900"
                 >
