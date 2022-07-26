@@ -232,7 +232,7 @@ const SignUp = () => {
           <form className="signupForm" onSubmit={handleSubmit}>
             <label
               htmlFor="email"
-              className="text-xl font-Stardos text-black signupLabel"
+              className="text-base font-Stardos text-black signupLabel"
             >
               Email:
               <FontAwesomeIcon
@@ -286,7 +286,7 @@ const SignUp = () => {
 
             <label
               htmlFor="username"
-              className="text-xl font-Stardos text-black signupLabel"
+              className="text-base font-Stardos text-black signupLabel"
             >
               User Name:
               <FontAwesomeIcon
@@ -326,7 +326,7 @@ const SignUp = () => {
 
             <label
               htmlFor="phnum"
-              className="text-xl font-Stardos text-black signupLabel"
+              className="text-base font-Stardos text-black signupLabel"
             >
               Phone Number:
               <FontAwesomeIcon
@@ -366,7 +366,7 @@ const SignUp = () => {
 
             <label
               htmlFor="password"
-              className="text-xl font-Stardos text-black signupLabel"
+              className="text-base font-Stardos text-black signupLabel"
             >
               Password:
               <FontAwesomeIcon
@@ -410,7 +410,7 @@ const SignUp = () => {
 
             <label
               htmlFor="confirm_pwd"
-              className="text-xl font-Stardos text-black signupLabel"
+              className="text-base font-Stardos text-black signupLabel"
             >
               Confirm Password:
               <FontAwesomeIcon
@@ -456,7 +456,7 @@ const SignUp = () => {
               Sign Up
             </button>
           </form>
-          <p className="text-xl font-Stardos text-black">
+          <p className="text-base font-Stardos text-black">
             Already registered?
             <br />
             <span className="line">
