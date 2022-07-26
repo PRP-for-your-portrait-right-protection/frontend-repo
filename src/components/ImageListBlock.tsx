@@ -27,6 +27,7 @@ function ImageListBlock() {
     ],
   });
   const [isLoding, setIsLoading]: [boolean, any] = useState(false); //api통신 완료 상태 값
+  const [checkedItems, setCheckedItems] = useState(new Set<string>());
 
   /**
    * @name : Teawon
@@ -152,71 +153,11 @@ function ImageListBlock() {
   const makeFormData = () => {
     const formData = new FormData();
 
-    let imageUrlList = []; //AI에 입력될 이미지 url리스트
-
-    totalList.data.forEach((element) => {
-      //리스트들의 이름을 키값으로 정의 후 각 이름값을 키값으로 하는 formData를 만든다.
-      formData.append("name", element.name);
-
-      element.pictures.forEach((list) => {
-        //만약 해당 리스트에 파일이 없고 모두 url이라면 리스트에 저장
-        if (list.data == null) {
-          imageUrlList.push(list.url); //url
-        } else {
-          formData.append(element.name, list.data); //file
-        }
+    if (checkedItems != null) {
+      Array.from(checkedItems).forEach((faceId) => {
+        formData.append("faceId", faceId);
       });
-    });
-
-    let array = formData.getAll("name"); // 특정 이름을 키 값으로하는 데이터가 만약 Null이라면 삭제후 name의 배열값도 수정한다.
-
-    totalList.data.forEach((element) => {
-      if (formData.get(element.name) == null) {
-        formData.delete(element.name);
-        array = array.filter((data) => data !== element.name);
-      }
-    });
-
-    formData.delete("name");
-    array.forEach((nameStr) => {
-      formData.append("name", nameStr);
-    });
-
-    // for (let key of formData.keys()) {
-    //   console.log("FormData의 key를 확인합니다.");
-    //   console.log(key);
-    // }
-
-    // // FormData의 value 확인
-    // for (let value of formData.values()) {
-    //   console.log("FormData의 Values를 확인합니다.");
-    //   console.log(value);
-    // }
-
-    if (formData.get("name") != null) {
-      const result = axios
-        .post(
-          `https://1f413be8-5eb6-428f-a4d4-492745c03b38.mock.pstmn.io//userImage`,
-          formData,
-          {
-            headers: {
-              Authorization: "Bearer " + localStorage.getItem("token"),
-            },
-          }
-        )
-        .then(function (response) {
-          console.log(response);
-          response.data.faceImageUrls.forEach((faceurl) => {
-            imageUrlList.push(faceurl);
-          });
-        })
-        .catch(function (error) {
-          console.log("error");
-          console.log(error);
-        });
     }
-    console.log(imageUrlList);
-    sessionStorage.setItem("images", JSON.stringify(imageUrlList));
   };
 
   /**
@@ -302,6 +243,7 @@ function ImageListBlock() {
         );
         setTotalList(copyArray);
         //axios로 delete아이디 값 보내기
+        checkedItemHandler(whitelistFace.whitelistFaceId, false);
         break;
       case "reName":
         //object.whitelistFaceId 값과 data.white...값을 post로 보내기
@@ -313,6 +255,18 @@ function ImageListBlock() {
 
         setTotalList(copyArray);
     }
+  };
+
+  const checkedItemHandler = (id, isChecked) => {
+    if (isChecked) {
+      checkedItems.add(id);
+      setCheckedItems(checkedItems);
+    } else if (!isChecked && checkedItems.has(id)) {
+      checkedItems.delete(id);
+      setCheckedItems(checkedItems);
+    }
+    console.log("체크값");
+    console.log(checkedItems);
   };
 
   return (
@@ -336,6 +290,7 @@ function ImageListBlock() {
                 key={imgList.whitelistFaceId}
                 object={imgList}
                 changeFuc={changeFuc}
+                checkFuc={checkedItemHandler}
               />
             ))}
           <div className="fixed bottom-0 right-0 p-5">

@@ -14,15 +14,22 @@ import { Linter } from "eslint";
 interface ImageListProps {
   object: any;
   changeFuc: any;
+  checkFuc: any;
 }
 
-function ImageList({ object, changeFuc }: ImageListProps) {
+function ImageList({ object, changeFuc, checkFuc }: ImageListProps) {
   const imageInput = useRef<any>();
   const imgList = useState(object);
   const count: number = object.whitelistFaceImages.length; //해당 컴포넌트가 가지고있는 list개수
   const [curPage, setPage]: [number, any] = useState<number>(0); //curPage를 기점으로 curPage~curPage3까지의 요소만 보여줌
   const [edit, setEdit] = useState(false);
   const [text, setText] = useState(object.whitelistFaceName);
+  const [bChecked, setChecked] = useState(false);
+
+  const checkHandler = ({ target }) => {
+    setChecked(!bChecked);
+    checkFuc(object.whitelistFaceId, target.checked);
+  };
 
   /**
    * @name : Teawon
@@ -98,7 +105,11 @@ function ImageList({ object, changeFuc }: ImageListProps) {
   };
   return (
     <div className="pictureList">
-      <input type="checkbox" />
+      <input
+        type="checkbox"
+        checked={bChecked}
+        onChange={(e) => checkHandler(e)}
+      />
       <div className="personName">
         {edit ? (
           <input
