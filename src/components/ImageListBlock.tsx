@@ -3,8 +3,6 @@ import ImageList from "../components/ImageList";
 import axios from "axios";
 import "./ImageListBlock.css";
 import ButtonSession from "./ButtonSession";
-//import uuid from "react-uuid";
-import { v4 as uuidv4 } from "uuid";
 import { HiUserAdd } from "react-icons/hi";
 import Load from "components/Load";
 

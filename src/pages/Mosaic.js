@@ -13,7 +13,6 @@ function Mosaic() {
   const [selectedData, setSelectedData] = useState(""); //최종으로 선택된 하나의 이미지
   const [characterList, setCharacterList] = useState([]); //기존 캐릭터 이미지
   const [userCharacterList, setUserCharacterList] = useState([]); // 사용자 캐릭터 이미지
-  const [inputCharacteList, setinputCharacteList] = useState([]); //사용자가 새로 입력한 이미지
 
   /**
    * @name : Teawon
@@ -83,10 +82,25 @@ function Mosaic() {
   useEffect(() => {
     //mockApi 무료사용량 초과로 고정값 가져오는 임시 함수사용중입니다.
     const data1 = [
-      "http://news.samsungdisplay.com/wp-content/uploads/2018/08/8.jpg",
+      {
+        id: "user1",
+        url: "https://i.pinimg.com/originals/11/bc/3d/11bc3dd3e0f0e369e9b4613ece97fba8.gif",
+      },
+      {
+        id: "user2",
+        url: "https://i.pinimg.com/originals/11/bc/3d/11bc3dd3e0f0e369e9b4613ece97fba8.gif",
+      },
     ];
+
     const data2 = [
-      "https://lh3.googleusercontent.com/cS5nvr3r6Q16NoV6IuJLaauz7HNNRPnuHtsHleZ8du594H4EeiOjeNxV-Nq_w-qRA87TUedLQjTmqCG5s6jNZRp29n571FDWyditF-WJhfhQTY_73OM",
+      {
+        id: "user3",
+        url: "https://i.pinimg.com/originals/11/bc/3d/11bc3dd3e0f0e369e9b4613ece97fba8.gif",
+      },
+      {
+        id: "user4",
+        url: "https://i.pinimg.com/originals/11/bc/3d/11bc3dd3e0f0e369e9b4613ece97fba8.gif",
+      },
     ];
 
     setCharacterList(data1);
@@ -109,56 +123,6 @@ function Mosaic() {
    * - 응답값을 받아 session에 저장
    */
   const makeFormData = () => {
-    console.log(selectedData);
-
-    if (inputCharacteList != "") {
-      //사용자가 파일을 추가로 입력했다면 backend로 api를 보냄
-      const formData = new FormData();
-      const checkUrl = process.env.REACT_APP_BUCKET_URL; //선택된 이미지가 버킷url & 사용자가 새로 추가했는 지 검사
-      let notSelectedCharactersList = []; //선택되지 않은 파일 리스트
-
-      if (!selectedData.startsWith(checkUrl)) {
-        //선택된 이미지가 사용쟈가 추가한 파일
-        formData.append("selectedCharacter", selectedData);
-        inputCharacteList.forEach((notSelectedCharacter) => {
-          if (notSelectedCharacter.name !== selectedData) {
-            notSelectedCharactersList.push(notSelectedCharacter);
-          }
-        });
-      } else {
-        //선택된 이미지가 기존의 db에서 가져온 url
-        notSelectedCharactersList = inputCharacteList;
-      }
-      formData.append("notSelectedCharacters", notSelectedCharactersList);
-
-      // for (let key of formData.keys()) {
-      //   console.log("FormData의 key를 확인합니다.");
-      //   console.log(key);
-      // }
-
-      // // FormData의 value 확인
-      // for (let value of formData.values()) {
-      //   console.log("FormData의 Values를 확인합니다.");
-      //   console.log(value);
-      // }
-      axios({
-        method: "post",
-        url: `https://d601a5df-dc71-481f-9ca6-f2d053dd56e7.mock.pstmn.io/video`,
-        formData,
-        headers: { Authorization: "Bearer " + localStorage.token },
-      })
-        .then(function (response) {
-          console.log(response);
-          if (response.data != null) {
-            selectedData = response.data;
-          }
-        })
-        .catch(function (error) {
-          console.log("ERROR 발생");
-          console.log(error);
-        });
-    }
-
     sessionStorage.setItem("character", selectedData);
   };
 
@@ -186,7 +150,13 @@ function Mosaic() {
    *
    */
   const addImgList = (insertData) => {
-    setinputCharacteList([...inputCharacteList, insertData]);
+    console.log(userCharacterList);
+    //axios insertData(file객체)보낸 후, 데이터를 받아서 아래 리스트에 추가
+    let tempAxiosData = {
+      id: "newAxiosID2",
+      url: "https://cdn.pixabay.com/photo/2022/01/11/21/48/link-6931554__340.png",
+    };
+    setUserCharacterList([...userCharacterList, tempAxiosData]);
   };
 
   const showData = () => {
@@ -245,7 +215,6 @@ function Mosaic() {
                 characterList={characterList}
                 userCharacterList={userCharacterList}
                 preSelectedImage={selectedData}
-                inputCharacteList={inputCharacteList}
                 clickFuc={setSelectedData}
                 insertFuc={addImgList}
               ></CharacterImageList>
