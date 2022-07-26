@@ -40,7 +40,12 @@ function VideoUpload() {
       })
         .then(function (response) {
           console.log(response.data.beforeVideosUrl);
-          sessionStorage.setItem("video", response.data.beforeVideosUrl);
+          let videoObject = {
+            id: response.data.beforeVideosId,
+            video: response.data.beforeVideosUrl,
+            videoName: fileVideo.name,
+          };
+          sessionStorage.setItem("video", JSON.stringify(videoObject));
         })
         .catch(function (error) {
           console.log("ERROR 발생");
@@ -56,7 +61,7 @@ function VideoUpload() {
    */
   useEffect(() => {
     if (sessionStorage.getItem("video") != null) {
-      setPreFileVideo(sessionStorage.getItem("video"));
+      setPreFileVideo(JSON.parse(sessionStorage.getItem("video")).url);
     }
   }, []);
 
