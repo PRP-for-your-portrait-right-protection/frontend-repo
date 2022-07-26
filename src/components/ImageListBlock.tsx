@@ -18,9 +18,10 @@ function ImageListBlock() {
   const [count, setCount] = useState<number>(1); //other + n으로 사용하기 위한 url
   const [totalList, setTotalList]: [any, any] = useState({
     //최종적으로 backend로 보내질 데이터 리스트 집합
-    file: [
+    data: [
       {
-        name: "you",
+        whitelistFaceId: "id",
+        whitelistFaceName: "you",
         pictures: [],
       },
     ],
@@ -34,55 +35,112 @@ function ImageListBlock() {
    */
   useEffect(() => {
     const fetchData = async () => {
-      const result = await axios
-        .get(
-          `https://e25ff998-e1ec-49c0-9e9e-0360f06e946e.mock.pstmn.io//mock-api/effect`,
-          {
-            headers: {
-              Authorization: "Bearer " + localStorage.getItem("token"),
+      let data = [
+        {
+          whitelistFaceId: "id1",
+          whitelistFaceName: "you",
+          whitelistFaceImages: [
+            {
+              id: "img1",
+              url: "https://image.dongascience.com/Photo/2019/05/15568758367729.jpg",
             },
-          }
-        )
-        .then(function (response) {
-          console.log(response);
-          let initialData = {
-            //초기 설정 값
-            file: [],
+            {
+              id: "img2",
+              url: "https://rimage.gnst.jp/livejapan.com/public/article/detail/a/10/00/a1000408/img/basic/a1000408_main.jpg?20210428225326&q=80&rw=750&rh=536",
+            },
+          ],
+        },
+        {
+          whitelistFaceId: "id",
+          whitelistFaceName: "other",
+          whitelistFaceImages: [
+            {
+              id: "img3",
+              url: "https://rimage.gnst.jp/livejapan.com/public/article/detail/a/10/00/a1000408/img/basic/a1000408_main.jpg?20210428225326&q=80&rw=750&rh=536",
+            },
+            {
+              id: "img4",
+              url: "https://rimage.gnst.jp/livejapan.com/public/article/detail/a/10/00/a1000408/img/basic/a1000408_main.jpg?20210428225326&q=80&rw=750&rh=536",
+            },
+          ],
+        },
+      ];
+
+      let initialData = {
+        //초기 설정 값
+        data: [],
+      };
+
+      data.forEach((imgList) => {
+        //바깥 반복문의 리스트 및 이름 정의
+        let imgListBlock = {
+          whitelistFaceName: imgList.whitelistFaceName,
+          whitelistFaceId: imgList.whitelistFaceId,
+          whitelistFaceImages: [],
+        };
+
+        imgList.whitelistFaceImages.forEach((image) => {
+          //내부 이미지 리스트의 각 내용 정의
+          let imgData = {
+            url: image.url,
+            id: image.id,
           };
 
-          response.data.data.forEach((imgList) => {
-            //바깥 반복문의 리스트 및 이름 정의
-            let imgListBlock = {
-              name: imgList.name,
-              pictures: [],
-            };
-
-            imgList.pictures.forEach((image) => {
-              //내부 이미지 리스트의 각 내용 정의
-              let imgData = {
-                url: image.pictureUrl,
-                id: uuid(), //식별키
-                file: null, //버킷에서 가져왔다면 null, 그렇지 않다면 File객체 저장
-              };
-
-              imgListBlock.pictures = imgListBlock.pictures.concat(imgData);
-            });
-            initialData.file = initialData.file.concat(imgListBlock);
-          });
-
-          setTotalList(initialData); //가져온 데이터의 가공한 최종 리스트를 totalList에 저장
-          setIsLoading(true);
-        })
-        .catch(function (error) {
-          console.log("error");
-          console.log(error);
+          imgListBlock.whitelistFaceImages =
+            imgListBlock.whitelistFaceImages.concat(imgData);
         });
+        initialData.data = initialData.data.concat(imgListBlock);
+      });
+      setTotalList(initialData); //가져온 데이터의 가공한 최종 리스트를 totalList에 저장
+      setIsLoading(true);
     };
-    if (localStorage.getItem("token") == null) {
-      fetchData();
-    } else {
-      setIsLoading(true); //만약 로그인이 되어있지 않다면 api를 보내지 않고 바로 로딩을 완료시킨다.
-    }
+
+    //   const result = await axios
+    //     .get(
+    //       `https://1f413be8-5eb6-428f-a4d4-492745c03b38.mock.pstmn.io/userImage`,
+    //       {
+    //         headers: {
+    //           Authorization: "Bearer " + localStorage.getItem("token"),
+    //         },
+    //       }
+    //     )
+    //     .then(function (response) {
+    //       console.log(response);
+    //       let initialData = {
+    //         //초기 설정 값
+    //         file: [],
+    //       };
+
+    //       response.data.data.forEach((imgList) => {
+    //         //바깥 반복문의 리스트 및 이름 정의
+    //         let imgListBlock = {
+    //           name: imgList.name,
+    //           pictures: [],
+    //         };
+
+    //         imgList.pictures.forEach((image) => {
+    //           //내부 이미지 리스트의 각 내용 정의
+    //           let imgData = {
+    //             url: image.pictureUrl,
+    //             id: uuid(), //식별키
+    //             file: null, //버킷에서 가져왔다면 null, 그렇지 않다면 File객체 저장
+    //           };
+
+    //           imgListBlock.pictures = imgListBlock.pictures.concat(imgData);
+    //         });
+    //         initialData.file = initialData.file.concat(imgListBlock);
+    //       });
+
+    //       setTotalList(initialData); //가져온 데이터의 가공한 최종 리스트를 totalList에 저장
+    //       setIsLoading(true);
+    //     })
+    //     .catch(function (error) {
+    //       console.log("error");
+    //       console.log(error);
+    //     });
+    // };
+
+    fetchData();
   }, []);
 
   /**
@@ -96,23 +154,23 @@ function ImageListBlock() {
 
     let imageUrlList = []; //AI에 입력될 이미지 url리스트
 
-    totalList.file.forEach((element) => {
+    totalList.data.forEach((element) => {
       //리스트들의 이름을 키값으로 정의 후 각 이름값을 키값으로 하는 formData를 만든다.
       formData.append("name", element.name);
 
       element.pictures.forEach((list) => {
         //만약 해당 리스트에 파일이 없고 모두 url이라면 리스트에 저장
-        if (list.file == null) {
+        if (list.data == null) {
           imageUrlList.push(list.url); //url
         } else {
-          formData.append(element.name, list.file); //file
+          formData.append(element.name, list.data); //file
         }
       });
     });
 
     let array = formData.getAll("name"); // 특정 이름을 키 값으로하는 데이터가 만약 Null이라면 삭제후 name의 배열값도 수정한다.
 
-    totalList.file.forEach((element) => {
+    totalList.data.forEach((element) => {
       if (formData.get(element.name) == null) {
         formData.delete(element.name);
         array = array.filter((data) => data !== element.name);
@@ -173,8 +231,17 @@ function ImageListBlock() {
       strName = "other".concat(String(count));
     }
 
+    // axios를 통해 해당 strName을 보낸 후 , return값의 ID를 해당 id값으로 등록
+
     setTotalList({
-      file: [...totalList.file, { name: strName, pictures: [] }],
+      data: [
+        ...totalList.data,
+        {
+          whitelistFaceName: strName,
+          whitelistFaceId: "axiosId",
+          whitelistFaceImages: [],
+        },
+      ],
     });
 
     setCount((count) => count + 1);
@@ -195,8 +262,15 @@ function ImageListBlock() {
    * @create-data: 2022-07-15
    */
 
-  const changeFuc = (object, name, type) => {
-    let findIndex = totalList.file.findIndex((element) => element.name == name);
+  const changeFuc = (object, whitelistFace, type) => {
+    console.log("totalList?");
+    console.log(totalList);
+    let findIndex = totalList.data.findIndex(
+      (element) => element.whitelistFaceName == whitelistFace.whitelistFaceName
+    );
+    console.log(object);
+    console.log("index? : ");
+    console.log(findIndex);
     let copyArray = { ...totalList };
 
     console.log("changeFuc의 copyArray값 :");
@@ -204,26 +278,36 @@ function ImageListBlock() {
 
     switch (type) {
       case "add":
-        copyArray.file[findIndex].pictures = [
-          ...copyArray.file[findIndex].pictures,
+        //axio(object.file값 넘기고 return 받아서 object.id값에 덮어씌우기)
+
+        object.id = "axiosId";
+        delete object["file"];
+
+        copyArray.data[findIndex].whitelistFaceImages = [
+          ...copyArray.data[findIndex].whitelistFaceImages,
           object,
         ];
         setTotalList(copyArray);
         break;
       case "deleteImg":
-        copyArray.file[findIndex].pictures = copyArray.file[
+        copyArray.data[findIndex].whitelistFaceImages = copyArray.data[
           findIndex
-        ].pictures.filter((img) => img.id !== object);
+        ].whitelistFaceImages.filter((img) => img.id !== object);
         setTotalList(copyArray);
+        //axios로 해당 imgID값을 지운다고 post보내기.
         break;
       case "deleteList":
-        copyArray.file = copyArray.file.filter((list) => list.name !== name);
+        copyArray.data = copyArray.data.filter(
+          (list) => list.whitelistFaceName !== whitelistFace.whitelistFaceName
+        );
         setTotalList(copyArray);
+        //axios로 delete아이디 값 보내기
         break;
       case "reName":
-        copyArray.file.map((data) => {
-          if (data.name === name) {
-            data.name = object;
+        //object.whitelistFaceId 값과 data.white...값을 post로 보내기
+        copyArray.data.map((data) => {
+          if (data.whitelistFaceName === whitelistFace.whitelistFaccName) {
+            data.whitelistFaceName = object.whitelistFaccName;
           }
         });
 
@@ -246,10 +330,10 @@ function ImageListBlock() {
               place-content="center"
             />
           </button>
-          {totalList.file && //map을 통해 각 imgList를 출력
-            totalList.file.map((imgList) => (
+          {totalList.data && //map을 통해 각 imgList를 출력
+            totalList.data.map((imgList) => (
               <ImageList
-                key={imgList.name}
+                key={imgList.whitelistFaceId}
                 object={imgList}
                 changeFuc={changeFuc}
               />

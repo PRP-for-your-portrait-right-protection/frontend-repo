@@ -19,8 +19,10 @@ interface ImageListProps {
 function ImageList({ object, changeFuc }: ImageListProps) {
   const imageInput = useRef<any>();
   const imgList = useState(object);
-  const count: number = object.pictures.length; //해당 컴포넌트가 가지고있는 list개수
+  const count: number = object.whitelistFaceImages.length; //해당 컴포넌트가 가지고있는 list개수
   const [curPage, setPage]: [number, any] = useState<number>(0); //curPage를 기점으로 curPage~curPage3까지의 요소만 보여줌
+  const [edit, setEdit] = useState(false);
+  const [text, setText] = useState(object.whitelistFaceName);
 
   /**
    * @name : Teawon
@@ -34,7 +36,7 @@ function ImageList({ object, changeFuc }: ImageListProps) {
       file: event.target.files[0],
     };
 
-    changeFuc(data, object.name, "add");
+    changeFuc(data, object, "add");
   };
 
   /**
@@ -45,7 +47,7 @@ function ImageList({ object, changeFuc }: ImageListProps) {
    * @create-data: 2022-07-15
    */
   const deleteFileImage = (id) => {
-    changeFuc(id, object.name, "deleteImg");
+    changeFuc(id, object, "deleteImg");
     if (curPage > 0) {
       setPage((curPage) => curPage - 1);
     }
@@ -56,7 +58,7 @@ function ImageList({ object, changeFuc }: ImageListProps) {
    * @function :deleteFileImage - 전체 리스트컴포넌트를 지우는 함수 (부모의 상태값 갱신함수 changeFuc 호출)
    */
   const deleteFileImageList = () => {
-    changeFuc(null, object.name, "deleteList");
+    changeFuc(null, object, "deleteList");
   };
 
   /**
@@ -78,9 +80,6 @@ function ImageList({ object, changeFuc }: ImageListProps) {
     return currentPosts;
   };
 
-  const [edit, setEdit] = useState(false);
-  const [text, setText] = useState(object.name);
-
   const handleChange = (event) => {
     setText(event.target.value);
   };
@@ -89,7 +88,7 @@ function ImageList({ object, changeFuc }: ImageListProps) {
     if (event.key === "Enter") {
       setEdit((edit) => !edit);
       if (object.name !== text) {
-        changeFuc(text, object.name, "reName");
+        changeFuc(text, object, "reName");
       }
     }
   };
@@ -98,13 +97,16 @@ function ImageList({ object, changeFuc }: ImageListProps) {
     setEdit((edit) => !edit);
   };
   return (
-    <div className="wrapImage">
-      <ul className="pictureList">
-        <button className="p-2" onClick={() => deleteFileImageList()}>
-          <img
-            className="w-8 justify-center items-center"
-            alt="deleteBtn"
-            src="images\delete.png"
+    <div className="pictureList">
+      <input type="checkbox" />
+      <div className="personName">
+        {edit ? (
+          <input
+            className="form-control text-black w-32"
+            type="text"
+            value={text}
+            onChange={(event) => handleChange(event)}
+            onKeyDown={handleKeyDown}
           />
         </button>
         <li className="personName">
@@ -145,28 +147,12 @@ function ImageList({ object, changeFuc }: ImageListProps) {
             <img src="images\addImage.png" alt="" className="h-36 w-36" />
           </span>
 
-          {imgList[0].pictures &&
-            silceImage(imgList[0].pictures).map((img) => (
-              <ImgBlock
-                key={img.id}
-                object={img}
-                deleteFileImage={deleteFileImage}
-              />
-            ))}
-        </li>
-        <li>
-          <button
-            className="show flex items-center"
-            onClick={() =>
-              setPage((curPage) =>
-                count > 3 && count - curPage > 3 ? curPage + 1 : curPage
-              )
-            }
-          >
-            <img
-              src="images/iconoir_nav-arrow-right.png"
-              alt=""
-              className="justify-center"
+        {imgList[0].whitelistFaceImages &&
+          silceImage(imgList[0].whitelistFaceImages).map((img) => (
+            <ImgBlock
+              key={img.id}
+              object={img}
+              deleteFileImage={deleteFileImage}
             />
           </button>
         </li>
