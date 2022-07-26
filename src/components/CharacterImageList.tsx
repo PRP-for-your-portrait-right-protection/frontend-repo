@@ -18,6 +18,7 @@ interface ImageListProps {
   clickFuc: any; //상태값 변경 함수(부모), 선택된 파일의 URL(혹은 File.name)을 저장한다.
   preSelectedImage: string; //기존에 선택되었던 정보가 담겨있는 url
   insertFuc: any; //상태값 변경 함수(부모), 이미지의 정보를 리스트에 추가
+  deleteFuc: any;
 }
 
 function CharacterImageList({
@@ -26,6 +27,7 @@ function CharacterImageList({
   clickFuc,
   preSelectedImage,
   insertFuc,
+  deleteFuc,
 }: ImageListProps) {
   const countFix: number = characterList.length; // 기존 이미지 리스트의 개수
   const countUser: number = userCharacterList.length; //사용자 이미지 리스트의 개수
@@ -72,6 +74,10 @@ function CharacterImageList({
 
     currentPosts = reverse.slice(page, page + 4);
     return currentPosts;
+  };
+
+  const deleteCharacterImage = (imgId) => {
+    deleteFuc(imgId);
   };
 
   return (
@@ -181,6 +187,13 @@ function CharacterImageList({
                 />
                 <img className="h-60 w-60" alt="sample" src={img.url} />
               </label>
+              <button onClick={() => deleteCharacterImage(img.id)}>
+                <img
+                  className="relative w-8 h-8 z-1 -top-14 -left-14"
+                  alt="deleteBtn"
+                  src="images/deleteButton.png"
+                />
+              </button>
             </div>
           ))}
       </div>

@@ -149,6 +149,18 @@ function Mosaic() {
    * @create-data: 2022-07-22
    *
    */
+
+  const deleteImgList = (imgId) => {
+    console.log("지웁니다.");
+    console.log(userCharacterList);
+    //axios로 delete함수 호출해서 부르기
+
+    setUserCharacterList(
+      userCharacterList.filter((characterImg) => characterImg.id !== imgId)
+    );
+    console.log(userCharacterList);
+  };
+
   const addImgList = (insertData) => {
     console.log(userCharacterList);
     //axios insertData(file객체)보낸 후, 데이터를 받아서 아래 리스트에 추가
@@ -217,6 +229,7 @@ function Mosaic() {
                 preSelectedImage={selectedData}
                 clickFuc={setSelectedData}
                 insertFuc={addImgList}
+                deleteFuc={deleteImgList}
               ></CharacterImageList>
             </div>
           </Modal>
