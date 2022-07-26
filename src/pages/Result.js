@@ -12,44 +12,44 @@ function Result() {
   }, []);
 
   const makeFormData = () => {
-    let temp = JSON.parse(sessionStorage.getItem("task"));
-    temp.push("add" + Math.random());
-    sessionStorage.setItem("task", JSON.stringify(temp));
+    // let temp = JSON.parse(sessionStorage.getItem("task"));
+    // temp.push("add" + Math.random());
+    // sessionStorage.setItem("task", JSON.stringify(temp));
 
-    // const formData = new FormData();
-    // let faceType =
-    //   sessionStorage.getItem("character") === "M" ? "mosaic" : "character";
-    // formData.append("faceType", faceType);
+    const formData = new FormData();
+    let faceType =
+      sessionStorage.getItem("character") === "M" ? "mosaic" : "character";
+    formData.append("faceType", faceType);
 
-    // if (faceType === "character") {
-    //   formData.append(
-    //     "block_character_url",
-    //     JSON.parse(sessionStorage.getItem("character"))
-    //   );
-    // }
+    if (faceType === "character") {
+      formData.append(
+        "block_character_url",
+        JSON.parse(sessionStorage.getItem("character"))
+      );
+    }
 
-    // formData.append(
-    //   "whitelist_face_image_url",
-    //   JSON.parse(sessionStorage.getItem("images"))
-    // );
+    formData.append(
+      "whitelist_face_image_id",
+      JSON.parse(sessionStorage.getItem("images"))
+    );
 
-    // formData.append("video_url", JSON.parse(sessionStorage.getItem("video")));
-    // axios({
-    //   method: "post",
-    //   url: `https://d601a5df-dc71-481f-9ca6-f2d053dd56e7.mock.pstmn.io/video`,
-    //   formData,
-    //   headers: { Authorization: "Bearer " + localStorage.token },
-    // })
-    //   .then(function (response) {
-    //     console.log(response.data.celeryId);
-    //     let temp = JSON.parse(sessionStorage.getItem("task"));
-    //     temp.push(response.data.celeryId);
-    //     sessionStorage.setItem("task", JSON.stringify(temp));
-    //   })
-    //   .catch(function (error) {
-    //     console.log("ERROR 발생");
-    //     console.log(error);
-    //   });
+    formData.append("video_url", JSON.parse(sessionStorage.getItem("video")));
+    axios({
+      method: "post",
+      url: `https://d601a5df-dc71-481f-9ca6-f2d053dd56e7.mock.pstmn.io/video`,
+      formData,
+      headers: { Authorization: "Bearer " + localStorage.token },
+    })
+      .then(function (response) {
+        console.log(response.data.celeryId);
+        let temp = JSON.parse(sessionStorage.getItem("task"));
+        temp.push(response.data.celeryId);
+        sessionStorage.setItem("task", JSON.stringify(temp));
+      })
+      .catch(function (error) {
+        console.log("ERROR 발생");
+        console.log(error);
+      });
   };
 
   return (
