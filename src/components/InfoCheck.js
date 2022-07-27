@@ -83,111 +83,72 @@ function InfoCheck() {
   // 비밀번호 찾기 전 정보 검증 함수
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const formData = new FormData();
-      sessionStorage.setItem("Email", email);
-      sessionStorage.setItem("Phone", phonenum);
 
-      formData.append("email", email);
-      formData.append("phone", phonenum);
-      // const value = [
-      //   {
-      //     email: email,
-      //     phone: phonenum,
-      //   },
-      // ];
+    const formData = new FormData();
+    sessionStorage.setItem("Email", email);
+    sessionStorage.setItem("Phone", phonenum);
 
-      // const blob = new Blob([JSON.stringify(value)], {
-      //   type: "application/json",
-      // });
+    formData.append("email", email);
+    formData.append("phone", phonenum);
 
-      // formData.append("data", blob);
-
-      const response = await axios({
-        method: "POST",
-        url: `/users/password/vaildation`,
-        mode: "cors",
-        headers: {
-          "Content-Type": "application/json",
-          withCredentials: true,
-        },
-        data: formData,
+    const response = await axios
+      .post(`/users/password/validation`, formData)
+      .then(function (response) {
+        console.log(response);
+        console.log(response?.data);
+        setEmail("");
+        setPhonenum("");
+        setSuccess(true);
+      })
+      .catch(function (error) {
+        console.log(error);
+        if (!error?.response) {
+          setErrMsg("No Server Response");
+        } else if (error.response?.status === 400) {
+          setErrMsg("Missing Name or Phonenum");
+        } else if (error.response?.status === 401) {
+          setErrMsg("Unauthorized");
+        } else {
+          setErrMsg("Information is not collected");
+        }
+        errRef.current.focus();
       });
-      console.log(value);
-      console.log(response?.data);
-      console.log(JSON.stringify(response?.data));
-      //console.log(JSON.stringify(response));
-      setEmail("");
-      setPhonenum("");
-      setSuccess(true);
-    } catch (err) {
-      if (!err?.response) {
-        setErrMsg("No Server Response");
-      } else if (err.response?.status === 400) {
-        setErrMsg("Missing Name or Phonenum");
-      } else if (err.response?.status === 401) {
-        setErrMsg("Unauthorized");
-      } else {
-        setErrMsg("Information is not collected");
-      }
-      errRef.current.focus();
-    }
   };
 
   // 비밀번호 변경 api 함수
   const resetHandle = async (e) => {
     e.preventDefault();
-    try {
-      const formData = new FormData();
 
-      formData.append("email", sessionStorage.getItem("Email"));
-      formData.append("phone", sessionStorage.getItem("Phone"));
-      formData.append("password", pwd);
-      // const value = [
-      //   {
-      //     email: sessionStorage.getItem("Email"),
-      //     phone: sessionStorage.getItem("Phone"),
-      //     pwd: pwd,
-      //   },
-      // ];
+    const formData = new FormData();
 
-      // const blob = new Blob([JSON.stringify(value)], {
-      //   type: "application/json",
-      // });
+    formData.append("email", sessionStorage.getItem("Email"));
+    formData.append("phone", sessionStorage.getItem("Phone"));
+    formData.append("password", pwd);
 
-      // formData.append("data", blob);
-
-      const response = await axios({
-        method: "PATCH",
-        url: `/users/password`,
-        mode: "cors",
-        headers: {
-          "Content-Type": "application/json",
-          withCredentials: true,
-        },
-        data: formData,
+    const response = await axios
+      .patch(`/users/password`, formData)
+      .then(function (response) {
+        console.log(response);
+        console.log(response?.data);
+        setPwd("");
+        setMatchPwd("");
+        sessionStorage.clear();
+        alert("Successed reset Password!!");
+        navigate("/signin");
+      })
+      .catch(function (error) {
+        console.log(error);
+        if (!error?.response) {
+          setErrMsg("No Server Response");
+        } else if (error.response?.status === 400) {
+          setErrMsg("Missing Password");
+        } else if (error.response?.status === 401) {
+          setErrMsg("Unauthorized");
+        } else {
+          setErrMsg("Failed to reset password");
+        }
+        errRef.current.focus();
       });
-      console.log(value);
-      console.log(response?.data);
-      console.log(JSON.stringify(response?.data));
-      //console.log(JSON.stringify(response));
-      setPwd("");
-      setMatchPwd("");
-      sessionStorage.clear();
-      alert("Successed reset Password!!");
-      navigate("/signin");
-    } catch (err) {
-      if (!err?.response) {
-        setErrMsg("No Server Response");
-      } else if (err.response?.status === 400) {
-        setErrMsg("Missing Name or Phonenum");
-      } else if (err.response?.status === 401) {
-        setErrMsg("Unauthorized");
-      } else {
-        setErrMsg("Failed to reset password");
-      }
-      errRef.current.focus();
-    }
   };
 
   return (

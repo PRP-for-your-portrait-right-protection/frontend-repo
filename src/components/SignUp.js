@@ -105,60 +105,39 @@ const SignUp = () => {
       setErrMsg("Please Check Your Email");
       return;
     }
-    // form data 로 받음
-    try {
-      const formData = new FormData();
 
-      formData.append("email", email);
-      formData.append("password", pwd);
-      formData.append("name", name);
-      formData.append("phone", phonenum);
-      // const value = [
-      //   {
-      //     email: email,
-      //     password: pwd,
-      //     name: name,
-      //     phone: phonenum,
-      //   },
-      // ];
+    const formData = new FormData();
 
-      // const blob = new Blob([JSON.stringify(value)], {
-      //   type: "application/json",
-      // });
+    formData.append("email", email);
+    formData.append("password", pwd);
+    formData.append("name", name);
+    formData.append("phone", phonenum);
 
-      formData.append("data", blob);
-
-      const response = await axios({
-        method: "POST",
-        url: `/users`,
-        mode: "cors",
-        headers: {
-          "Content-Type": "application/json",
-          withCredentials: true,
-        },
-        data: formData,
+    const response = await axios
+      .post(`/users`, formData)
+      .then(function (response) {
+        console.log(response);
+        console.log(response?.data);
+        setSuccess(true);
+        //   //clear state and controlled inputs
+        //   //need value attrib on inputs for this
+        setEmail("");
+        setName("");
+        setPhoneNum("");
+        setPwd("");
+        setMatchPwd("");
+      })
+      .catch(function (error) {
+        console.log(error);
+        if (!error?.response) {
+          setErrMsg("No Server Response");
+        } else if (error.response?.status === 409) {
+          setErrMsg("ID Taken");
+        } else {
+          setErrMsg("Registration Failed");
+        }
+        errRef.current.focus();
       });
-      console.log(value);
-      console.log(response?.data);
-      console.log(JSON.stringify(response));
-      setSuccess(true);
-      //clear state and controlled inputs
-      //need value attrib on inputs for this
-      setId("");
-      setName("");
-      setPhoneNum("");
-      setPwd("");
-      setMatchPwd("");
-    } catch (err) {
-      if (!err?.response) {
-        setErrMsg("No Server Response");
-      } else if (err.response?.status === 409) {
-        setErrMsg("ID Taken");
-      } else {
-        setErrMsg("Registration Failed");
-      }
-      errRef.current.focus();
-    }
   };
 
   // 아이디 체크 함수
@@ -170,50 +149,29 @@ const SignUp = () => {
       setErrMsg("Invalid Entry");
       return;
     }
-    // form data 로 받음
-    try {
-      const formData = new FormData();
+    const formData = new FormData();
 
-      formData.append("email", email);
-      // const value = [
-      //   {
-      //     email: email,
-      //   },
-      // ];
-
-      // const blob = new Blob([JSON.stringify(value)], {
-      //   type: "application/json",
-      // });
-
-      // formData.append("data", blob);
-
-      const response = await axios({
-        method: "POST",
-        url: `/users/email/validation`,
-        mode: "cors",
-        headers: {
-          "Content-Type": "application/json",
-          withCredentials: true,
-        },
-        data: formData,
-      });
-      console.log(value);
-      console.log(response?.data);
-      console.log(JSON.stringify(response));
-      if (response.status === 200) {
+    formData.append("email", email);
+    console.log(email);
+    const response = await axios
+      .post(`/users/email/validation`, formData)
+      .then(function (response) {
+        console.log(response);
+        console.log(response?.data);
         setUsableID(true);
         setCheckErrMsg("사용 가능한 Email 입니다.");
-      }
-    } catch (err) {
-      if (!err?.response) {
-        setCheckErrMsg("No Server Response");
-      } else if (err.response?.status === 409) {
-        setCheckErrMsg("이미 사용 중인 Email 입니다.");
-      } else {
-        setCheckErrMsg("사용 불가한 Email 입니다.");
-      }
-      errRef.current.focus();
-    }
+      })
+      .catch(function (error) {
+        console.log("error");
+        if (!error?.response) {
+          setCheckErrMsg("No Server Response");
+        } else if (error.response?.status === 409) {
+          setCheckErrMsg("이미 사용 중인 Email 입니다.");
+        } else {
+          setCheckErrMsg("사용 불가한 Email 입니다.");
+        }
+        errRef.current.focus();
+      });
   };
 
   return (
@@ -459,6 +417,7 @@ const SignUp = () => {
               }
               className="border-2 border-amber-900 text-2xl 
               font-Stardos text-black hover:text-white bg-amber-900 signupButton"
+              onClick={handleSubmit}
             >
               Sign Up
             </button>

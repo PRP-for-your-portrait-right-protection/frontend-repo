@@ -24,59 +24,38 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(email, pwd);
-    try {
-      const formData = new FormData();
 
-      formData.append("email", email);
-      formData.append("password", pwd);
-      // const value = [
-      //   {
-      //     email: email,
-      //     password: pwd,
-      //   },
-      // ];
+    const formData = new FormData();
 
-      // const blob = new Blob([JSON.stringify(value)], {
-      //   type: "application/json",
-      // });
+    formData.append("email", email);
+    formData.append("password", pwd);
 
-      // formData.append("data", blob);
-
-      const response = await axios({
-        method: "POST",
-        url: `/auth`,
-        mode: "cors",
-        headers: {
-          "Content-Type": "application/json",
-          withCredentials: true,
-        },
-        data: formData,
+    const response = await axios
+      .post(`/auth`, formData)
+      .then(function (response) {
+        console.log(response);
+        console.log(response?.data);
+        const accessToken = response?.data?.token;
+        localStorage.setItem("token", accessToken);
+        console.log(localStorage.getItem("token"));
+        console.log(accessToken);
+        setEmail("");
+        setPwd("");
+        navigate("/");
+      })
+      .catch(function (error) {
+        console.log(error);
+        if (!error?.response) {
+          setErrMsg("No Server Response");
+        } else if (error.response?.status === 400) {
+          setErrMsg("Missing ID or Password");
+        } else if (error.response?.status === 401) {
+          setErrMsg("Unauthorized");
+        } else {
+          setErrMsg("Login Failed");
+        }
+        errRef.current.focus();
       });
-      console.log(value);
-      console.log(response?.data);
-      console.log(JSON.stringify(response?.data));
-      //console.log(JSON.stringify(response));
-      const accessToken = response?.data?.token;
-      //const roles = response?.data?.roles;
-      localStorage.setItem("token", accessToken);
-      console.log(localStorage.getItem("token"));
-      console.log(accessToken);
-      //console.log(roles);
-      setEmail("");
-      setPwd("");
-      navigate("/");
-    } catch (err) {
-      if (!err?.response) {
-        setErrMsg("No Server Response");
-      } else if (err.response?.status === 400) {
-        setErrMsg("Missing ID or Password");
-      } else if (err.response?.status === 401) {
-        setErrMsg("Unauthorized");
-      } else {
-        setErrMsg("Login Failed");
-      }
-      errRef.current.focus();
-    }
   };
 
   return (

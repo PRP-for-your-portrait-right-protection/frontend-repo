@@ -26,7 +26,7 @@ function IdCheck() {
 
   const [errMsg, setErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
-  const [result, setResult] = useState({});
+  const [result, setResult] = useState("");
 
   useEffect(() => {
     userRef.current.focus();
@@ -64,55 +64,35 @@ function IdCheck() {
   // 아이디 찾기 함수
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const formData = new FormData();
 
-      formData.append("name", name);
-      formData.append("phone", phonenum);
-      // const value = [
-      //   {
-      //     name: name,
-      //     phone: phonenum,
-      //   },
-      // ];
+    const formData = new FormData();
 
-      // const blob = new Blob([JSON.stringify(value)], {
-      //   type: "application/json",
-      // });
+    formData.append("name", name);
+    formData.append("phone", phonenum);
 
-      // formData.append("data", blob);
-
-      const response = await axios({
-        method: "POST",
-        url: `/users/email`,
-        mode: "cors",
-        headers: {
-          "Content-Type": "application/json",
-          withCredentials: true,
-        },
-        data: formData,
+    const response = await axios
+      .post(`/users/email`, formData)
+      .then(function (response) {
+        console.log(response);
+        console.log(response?.data);
+        setName("");
+        setPhonenum("");
+        setResult(response?.data);
+        setSuccess(true);
+      })
+      .catch(function (error) {
+        console.log(error);
+        if (!error?.response) {
+          setErrMsg("No Server Response");
+        } else if (error.response?.status === 400) {
+          setErrMsg("Missing Name or Phonenum");
+        } else if (error.response?.status === 401) {
+          setErrMsg("Unauthorized");
+        } else {
+          setErrMsg("Don't find your Email");
+        }
+        errRef.current.focus();
       });
-      console.log(value);
-      console.log(response?.data);
-      console.log(JSON.stringify(response?.data));
-      //console.log(JSON.stringify(response));
-      setName("");
-      setPhonenum("");
-      setResult(response?.data);
-      console.log(result);
-      setSuccess(true);
-    } catch (err) {
-      if (!err?.response) {
-        setErrMsg("No Server Response");
-      } else if (err.response?.status === 400) {
-        setErrMsg("Missing Name or Phonenum");
-      } else if (err.response?.status === 401) {
-        setErrMsg("Unauthorized");
-      } else {
-        setErrMsg("Don't find your Email");
-      }
-      errRef.current.focus();
-    }
   };
 
   return (
@@ -123,7 +103,7 @@ function IdCheck() {
             Find Your Email!
           </div>
           <div className="text-4xl font-Stardos text-black">
-            Your Email = {result.Email}
+            Your Email = {result}
           </div>
           <br />
           <p className="mt-16 text-2xl font-Stardos text-black hover:text-amber-300">
