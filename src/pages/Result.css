@@ -7,63 +7,23 @@
     font-size: 20px;
   }
 }
-.Pictures {
-  position: absolute;
-  width: 500px;
-  height: 55px;
-  left: 20%;
-  top: 250px;
-
+.result {
   font-family: "StardosStencil-Regular", serif;
   font-style: normal;
   font-weight: 400;
-  font-size: 35px;
+  font-size: 2.5vw;
   line-height: 55px;
-
   color: #ffffff;
+  margin-right: 20%;
+  margin-left: 20%;
+  margin-top: 3%;
 }
-.Video {
-  position: absolute;
-  width: 500px;
-  height: 55px;
-  left: 20%;
-  top: 360px;
-
-  font-family: "StardosStencil-Regular", serif;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 35px;
-  line-height: 55px;
-
-  color: #ffffff;
+.result li {
+  margin-bottom: 10%;
 }
-.Effect {
-  position: absolute;
-  width: 500px;
-  height: 55px;
-  left: 20%;
-  top: 470px;
-
-  font-family: "StardosStencil-Regular", serif;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 35px;
-  line-height: 55px;
-
-  color: #ffffff;
-}
-.Estimated {
-  position: absolute;
-  width: 700px;
-  height: 55px;
-  left: 20%;
-  top: 580px;
-
-  font-family: "StardosStencil-Regular", serif;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 35px;
-  line-height: 55px;
-
-  color: #ffffff;
+.wrapResult {
+  display: flex;
+  align-items: center;
+  min-height: 10vh;
+  place-items: center;
 }

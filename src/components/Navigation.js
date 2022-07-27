@@ -11,7 +11,7 @@ import "./Navigation.css";
 
 function Navigation({ url, name }) {
   return (
-    <NavLink to={`/${url}`} className="navButton" activeclassname="active">
+    <NavLink to={`/${url}`} activeclassname="active">
       {name}
     </NavLink>
   );

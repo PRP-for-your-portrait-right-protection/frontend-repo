@@ -97,7 +97,7 @@ function CharacterImageList({
     <div className="imageList-component">
       <div>
         <div className="modalFont my-5 mb-5">CHARACTER</div>
-        <li className="inline-block flex justify-center shrink-0 flex-wraps space-x-16 mt-3 ">
+        <li className="inline-block flex justify-center space-x-16 mt-3 ">
           <button
             className="flex w-32 h-32"
             onClick={() =>
@@ -137,7 +137,7 @@ function CharacterImageList({
         </li>
       </div>
 
-      <div>
+      <div className="mycharacter">
         <div className="modalFont my-3">MY CHARACTER</div>
         <li className="inline-block flex justify-center space-x-16 mt-5 ">
           <button
@@ -158,7 +158,7 @@ function CharacterImageList({
               <img
                 src="images\addImage.png"
                 alt=""
-                className="flex shrink-0 w-40 h-40"
+                className="flex w-40 h-40"
               />
             </span>
 

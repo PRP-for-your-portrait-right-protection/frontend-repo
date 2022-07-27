@@ -29,15 +29,23 @@ ul.pagination li:last-child {
   font-size: 1.3rem;
 }
 
+.pagination li.active a {
+  color: red;
+}
+
+.pagination li.active {
+  background-color: white;
+}
+
 .pagination li a:hover,
 .pagination li a.active:active {
   color: rgb(248, 9, 9);
 }
 
-.pagination li.focus {
-  background-color: rgb(251, 251, 251);
-}
-
 .pagination li a:focus {
   color: rgb(255, 0, 0);
+}
+
+.pagination li:active {
+  background-color: white;
 }

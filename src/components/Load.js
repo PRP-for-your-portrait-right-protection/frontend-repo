@@ -5,7 +5,7 @@ function Load() {
   return (
     <Background>
       <img
-        src="images\Spinner-1s-200px.gif"
+        src="images\Ellipsis-1s-200px.gif"
         alt="로딩중"
         width="10%"
         background-color="transparent"

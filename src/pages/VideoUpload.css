@@ -49,7 +49,7 @@
   height: auto;
   text-align: center;
   font-family: "StardosStencil-Regular";
-  font-size: 3.125rem;
+  font-size: 3vw;
   color: white;
 }
 .video {
@@ -63,4 +63,11 @@
   text-align: center;
   margin-left: 13rem;
   margin-right: 13rem;
+}
+
+.wrapVideo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 20vh;
 }

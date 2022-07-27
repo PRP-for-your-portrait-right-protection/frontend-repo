@@ -165,24 +165,32 @@ function Mosaic() {
       </div>
 
       <Title textValue="Select the image Processing type"></Title>
-
-      <div className="flex justify-center mt-36 ml-15">
-        <div className="inline-block px-32">
-          <ToggleBtn onClick={clickedToggleM} toggle={toggleM}>
-            <img src="images\mosaic.png" alt="" className="p-2" />
-          </ToggleBtn>
-          <span className="caption ml-11">MOSAIC</span>
-        </div>
-        <div className="inline-block px-32">
-          <ToggleBtn onClick={clickedToggleC} toggle={toggleC}>
-            <img
-              src="images\character.png"
-              alt=""
-              className="p-2"
-              onClick={openModal}
-            />
-          </ToggleBtn>
-          <span className="caption ml-3">CHARACTER</span>
+      <div className="wrapChoice">
+        <ul>
+          <li>
+            <ToggleBtn onClick={clickedToggleM} toggle={toggleM}>
+              <img src="images\mosaic.png" alt="" className="choiceImage" />
+            </ToggleBtn>
+            <span className="caption">MOSAIC</span>
+          </li>
+          {/* <li></li> */}
+        </ul>
+        <div>
+          <ul>
+            <li>
+              <ToggleBtn onClick={clickedToggleC} toggle={toggleC}>
+                <img
+                  src="images\character.png"
+                  alt=""
+                  className="choiceImage"
+                  onClick={openModal}
+                />
+              </ToggleBtn>
+            </li>
+            <li>
+              <span className="caption ml-3">CHARACTER</span>
+            </li>
+          </ul>
 
           <Modal open={modal} close={closeModal}>
             <div>
@@ -204,9 +212,11 @@ function Mosaic() {
 
 export default Mosaic;
 const ToggleBtn = styled.button`
-  width: 13rem;
-  height: 11rem;
+  display: flex;
+  width: 15vw;
+  height: 22vh;
   border: none;
+  border-radius: 5px;
   cursor: pointer;
   background-color: ${(props) =>
     !props.toggle ? "transparent" : "rgb(231, 179, 35)"};

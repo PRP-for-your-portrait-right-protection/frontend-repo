@@ -64,8 +64,9 @@ function CharacterList({ object, changeFuc }: CharacterListProps) {
   };
 
   return (
-    <div className="characterList">
-      {/*  <button
+    <div className="wrapCharacter">
+      <div className="characterList">
+        {/*  <button
         className="showNext"
         onClick={() =>
           setPage((curPage) =>
@@ -80,34 +81,35 @@ function CharacterList({ object, changeFuc }: CharacterListProps) {
         }
       ></button>
  */}
-      <div className="grid grid-cols-4 grid-rows-2 gap-x-4 gap-y-10 mx-96">
-        <span
-          className="col-span-1 uploadButton flex justify-center"
-          onClick={() => characterInput.current.click()}
-        >
-          <img src="images\addImage.png" alt="" className="h-36 w-36" />
-        </span>
+        <div className="grid grid-cols-4 grid-rows-2 gap-x-4 gap-y-10 mx-96 row-cols-auto">
+          <span
+            className="col-span-1 uploadButton flex justify-center"
+            onClick={() => characterInput.current.click()}
+          >
+            <img src="images\addImage.png" alt="" />
+          </span>
 
-        {characterList &&
-          silceCharacter(characterList).map((img) => (
-            <CharacterBlock
-              key={img.id}
-              object={img}
-              deleteFileCharacter={deleteFileCharacter}
-            />
-          ))}
-      </div>
+          {characterList &&
+            silceCharacter(characterList).map((img) => (
+              <CharacterBlock
+                key={img.id}
+                object={img}
+                deleteFileCharacter={deleteFileCharacter}
+              />
+            ))}
+        </div>
 
-      <div>
-        <input
-          ref={characterInput}
-          id={object.name}
-          className="hidden"
-          name="characterUpload"
-          type="file"
-          accept="image/*"
-          onChange={saveFileCharacterNew}
-        />
+        <div>
+          <input
+            ref={characterInput}
+            id={object.name}
+            className="hidden"
+            name="characterUpload"
+            type="file"
+            accept="image/*"
+            onChange={saveFileCharacterNew}
+          />
+        </div>
       </div>
     </div>
   );

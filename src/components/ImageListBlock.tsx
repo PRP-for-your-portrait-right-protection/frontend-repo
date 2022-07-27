@@ -5,6 +5,8 @@ import "./ImageListBlock.css";
 import ButtonSession from "./ButtonSession";
 //import uuid from "react-uuid";
 import { v4 as uuidv4 } from "uuid";
+import { HiUserAdd } from "react-icons/hi";
+import Load from "components/Load";
 
 /**
  * @name : Teawon
@@ -217,7 +219,12 @@ function ImageListBlock() {
             className="addBtn"
             onClick={() => addImgList(null)}
           >
-            ADD
+            <HiUserAdd
+              size="50"
+              flex-direction="row"
+              justify-content="center"
+              place-content="center"
+            />
           </button>
           {totalList.file && //map을 통해 각 imgList를 출력
             totalList.file.map((imgList) => (
@@ -243,7 +250,7 @@ function ImageListBlock() {
           </div>
         </>
       ) : (
-        "Loading" //향후 민지님께서 만드신 Component 사용해야함
+        <Load />
       )}
     </>
   );

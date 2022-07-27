@@ -77,80 +77,82 @@ function VideoUpload() {
       </div>
 
       <Title textValue="Please upload your video"></Title>
-      {preFileVideo ? ( //이전 값을 사용할 때는 별도의 파일을object로 바꾸지 않고 그대로 출력하기 위해 따로 if문으로 분리
-        <div>
-          <video
-            className="flex items-center justify-center w-3/4 h-72"
-            id="video"
-            src={preFileVideo}
-            style={{ margin: "auto" }}
-            controls
-          ></video>
-          <span
-            className="uploadButton flex justify-center"
-            onClick={() => fileInput.current.click()}
-          >
-            <img src="images\videoupload.png" alt="" className="file" />
-          </span>
-        </div>
-      ) : fileVideo ? ( //입력된 비디오파일이 있다면 드롭박스를 숨기고 파일업로드 버튼이 생기도록 함
-        <div>
-          <video
-            className="w-3/4 h-64"
-            id="video"
-            src={window.URL.createObjectURL(fileVideo)}
-            style={{ margin: "auto" }}
-            controls
-          ></video>
-          <span
-            className="uploadButton flex justify-center mt-6 "
-            onClick={() => fileInput.current.click()}
-          >
-            <img src="images\videoupload.png" alt="" className="file" />
-          </span>
-        </div>
-      ) : (
-        <div className="flex cc items-center justify-center w-3/4 h-64 mt-9">
-          <label
-            htmlFor="dropzone-file"
-            className="flex flex-col justify-center items-center w-full h-64 bg-gray-50 rounded-lg border-2 border-gray-300 border-dashed cursor-pointer dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
-          >
-            <div className="flex flex-col justify-center items-center pt-5 pb-6">
-              <svg
-                aria-hidden="true"
-                className="mb-3 w-10 h-10 text-gray-400"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
-                ></path>
-              </svg>
+      <div className="wrapVideo">
+        {preFileVideo ? ( //이전 값을 사용할 때는 별도의 파일을object로 바꾸지 않고 그대로 출력하기 위해 따로 if문으로 분리
+          <div>
+            <video
+              className="flex items-center justify-center w-3/4 h-72"
+              id="video"
+              src={preFileVideo}
+              style={{ margin: "auto" }}
+              controls
+            ></video>
+            <span
+              className="uploadButton flex justify-center"
+              onClick={() => fileInput.current.click()}
+            >
+              <img src="images\videoupload.png" alt="" className="file" />
+            </span>
+          </div>
+        ) : fileVideo ? ( //입력된 비디오파일이 있다면 드롭박스를 숨기고 파일업로드 버튼이 생기도록 함
+          <div>
+            <video
+              className="w-3/4 h-64"
+              id="video"
+              src={window.URL.createObjectURL(fileVideo)}
+              style={{ margin: "auto" }}
+              controls
+            ></video>
+            <span
+              className="uploadButton flex justify-center mt-6 "
+              onClick={() => fileInput.current.click()}
+            >
+              <img src="images\videoupload.png" alt="" className="file" />
+            </span>
+          </div>
+        ) : (
+          <div className="flex cc items-center justify-center w-3/4 h-64 mt-9">
+            <label
+              htmlFor="dropzone-file"
+              className="flex flex-col justify-center items-center w-full h-64 bg-gray-50 rounded-lg border-2 border-gray-300 border-dashed cursor-pointer dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+            >
+              <div className="flex flex-col justify-center items-center pt-5 pb-6">
+                <svg
+                  aria-hidden="true"
+                  className="mb-3 w-10 h-10 text-gray-400"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+                  ></path>
+                </svg>
 
-              <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                <span className="font-semibold">Click to upload</span> or drag
-                and drop
-              </p>
-              <p className="text-xs text-gray-500 dark:text-gray-400">
-                MP4, AVI , WMV , MKV , MOV
-              </p>
-            </div>
-            <input
-              id="dropzone-file"
-              className="cursor-pointer absolute block p-20 z-50 opacity-0"
-              name="imageUpload"
-              type="file"
-              accept="video/*"
-              onChange={saveFile}
-            />
-          </label>
-        </div>
-      )}
+                <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                  <span className="font-semibold">Click to upload</span> or drag
+                  and drop
+                </p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">
+                  MP4, AVI , WMV , MKV , MOV
+                </p>
+              </div>
+              <input
+                id="dropzone-file"
+                className="cursor-pointer absolute block p-20 z-50 opacity-0"
+                name="imageUpload"
+                type="file"
+                accept="video/*"
+                onChange={saveFile}
+              />
+            </label>
+          </div>
+        )}
+      </div>
       {}
 
       <input //uploadimage클릭 시 해당 input이 Click
