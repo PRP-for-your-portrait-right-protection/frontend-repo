@@ -33,7 +33,7 @@ function Result() {
       JSON.parse(sessionStorage.getItem("images"))
     );
 
-    formData.append("video_url", JSON.parse(sessionStorage.getItem("video")));
+    formData.append("video_id", JSON.parse(sessionStorage.getItem("video").id));
     axios({
       method: "post",
       url: `https://d601a5df-dc71-481f-9ca6-f2d053dd56e7.mock.pstmn.io/video`,

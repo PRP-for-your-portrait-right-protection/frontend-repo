@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ImageList from "../components/ImageList";
-import axios from "axios";
+import axios from "../api/axios";
 import "./ImageListBlock.css";
 import ButtonSession from "./ButtonSession";
 import { HiUserAdd } from "react-icons/hi";
@@ -34,110 +34,109 @@ function ImageListBlock() {
    */
   useEffect(() => {
     const fetchData = async () => {
-      let data = [
-        {
-          whitelistFaceId: "id1",
-          whitelistFaceName: "you",
-          whitelistFaceImages: [
-            {
-              id: "img1",
-              url: "https://image.dongascience.com/Photo/2019/05/15568758367729.jpg",
-            },
-            {
-              id: "img2",
-              url: "https://rimage.gnst.jp/livejapan.com/public/article/detail/a/10/00/a1000408/img/basic/a1000408_main.jpg?20210428225326&q=80&rw=750&rh=536",
-            },
-          ],
-        },
-        {
-          whitelistFaceId: "id",
-          whitelistFaceName: "other",
-          whitelistFaceImages: [
-            {
-              id: "img3",
-              url: "https://rimage.gnst.jp/livejapan.com/public/article/detail/a/10/00/a1000408/img/basic/a1000408_main.jpg?20210428225326&q=80&rw=750&rh=536",
-            },
-            {
-              id: "img4",
-              url: "https://rimage.gnst.jp/livejapan.com/public/article/detail/a/10/00/a1000408/img/basic/a1000408_main.jpg?20210428225326&q=80&rw=750&rh=536",
-            },
-          ],
-        },
-      ];
+      // let data = [
+      //   {
+      //     whitelistFaceId: "id1",
+      //     whitelistFaceName: "you",
+      //     whitelistFaceImages: [
+      //       {
+      //         id: "img1",
+      //         url: "https://image.dongascience.com/Photo/2019/05/15568758367729.jpg",
+      //       },
+      //       {
+      //         id: "img2",
+      //         url: "https://rimage.gnst.jp/livejapan.com/public/article/detail/a/10/00/a1000408/img/basic/a1000408_main.jpg?20210428225326&q=80&rw=750&rh=536",
+      //       },
+      //     ],
+      //   },
+      //   {
+      //     whitelistFaceId: "id",
+      //     whitelistFaceName: "other",
+      //     whitelistFaceImages: [
+      //       {
+      //         id: "img3",
+      //         url: "https://rimage.gnst.jp/livejapan.com/public/article/detail/a/10/00/a1000408/img/basic/a1000408_main.jpg?20210428225326&q=80&rw=750&rh=536",
+      //       },
+      //       {
+      //         id: "img4",
+      //         url: "https://rimage.gnst.jp/livejapan.com/public/article/detail/a/10/00/a1000408/img/basic/a1000408_main.jpg?20210428225326&q=80&rw=750&rh=536",
+      //       },
+      //     ],
+      //   },
+      // ];
 
-      let initialData = {
-        //초기 설정 값
-        data: [],
-      };
+      //   let initialData = {
+      //     //초기 설정 값
+      //     data: [],
+      //   };
 
-      data.forEach((imgList) => {
-        //바깥 반복문의 리스트 및 이름 정의
-        let imgListBlock = {
-          whitelistFaceName: imgList.whitelistFaceName,
-          whitelistFaceId: imgList.whitelistFaceId,
-          whitelistFaceImages: [],
-        };
+      // data.forEach((imgList) => {
+      //   //바깥 반복문의 리스트 및 이름 정의
+      //   let imgListBlock = {
+      //     whitelistFaceName: imgList.whitelistFaceName,
+      //     whitelistFaceId: imgList.whitelistFaceId,
+      //     whitelistFaceImages: [],
+      //   };
 
-        imgList.whitelistFaceImages.forEach((image) => {
-          //내부 이미지 리스트의 각 내용 정의
-          let imgData = {
-            url: image.url,
-            id: image.id,
+      //     imgList.whitelistFaceImages.forEach((image) => {
+      //       //내부 이미지 리스트의 각 내용 정의
+      //       let imgData = {
+      //         url: image.url,
+      //         id: image.id,
+      //       };
+
+      //     imgListBlock.whitelistFaceImages =
+      //       imgListBlock.whitelistFaceImages.concat(imgData);
+      //   });
+      //   initialData.data = initialData.data.concat(imgListBlock);
+      // });
+      // setTotalList(initialData); //가져온 데이터의 가공한 최종 리스트를 totalList에 저장
+      // setIsLoading(true);
+      // };
+
+      const result = await axios
+        .get(`/whitelist-faces/images`, {
+          headers: {
+            token: localStorage.getItem("token"),
+          },
+        })
+        .then(function (response) {
+          console.log(response);
+          let initialData = {
+            //초기 설정 값
+            data: [],
           };
 
-          imgListBlock.whitelistFaceImages =
-            imgListBlock.whitelistFaceImages.concat(imgData);
+          response.data.data.forEach((imgList) => {
+            //바깥 반복문의 리스트 및 이름 정의
+            let imgListBlock = {
+              whitelistFaceName: imgList.whitelistFaceName,
+              whitelistFaceId: imgList.whitelistFaceId,
+              whitelistFaceImages: [],
+            };
+
+            imgList.pictures.forEach((image) => {
+              //내부 이미지 리스트의 각 내용 정의
+              let imgData = {
+                url: image.pictureUrl,
+
+                file: null, //버킷에서 가져왔다면 null, 그렇지 않다면 File객체 저장
+              };
+
+              imgListBlock.whitelistFaceImages =
+                imgListBlock.whitelistFaceImages.concat(imgData);
+            });
+            initialData.data = initialData.data.concat(imgListBlock);
+          });
+
+          setTotalList(initialData); //가져온 데이터의 가공한 최종 리스트를 totalList에 저장
+          setIsLoading(true);
+        })
+        .catch(function (error) {
+          console.log("error");
+          console.log(error);
         });
-        initialData.data = initialData.data.concat(imgListBlock);
-      });
-      setTotalList(initialData); //가져온 데이터의 가공한 최종 리스트를 totalList에 저장
-      setIsLoading(true);
     };
-
-    //   const result = await axios
-    //     .get(
-    //       `https://1f413be8-5eb6-428f-a4d4-492745c03b38.mock.pstmn.io/userImage`,
-    //       {
-    //         headers: {
-    //           Authorization: "Bearer " + localStorage.getItem("token"),
-    //         },
-    //       }
-    //     )
-    //     .then(function (response) {
-    //       console.log(response);
-    //       let initialData = {
-    //         //초기 설정 값
-    //         file: [],
-    //       };
-
-    //       response.data.data.forEach((imgList) => {
-    //         //바깥 반복문의 리스트 및 이름 정의
-    //         let imgListBlock = {
-    //           name: imgList.name,
-    //           pictures: [],
-    //         };
-
-    //         imgList.pictures.forEach((image) => {
-    //           //내부 이미지 리스트의 각 내용 정의
-    //           let imgData = {
-    //             url: image.pictureUrl,
-    //             id: uuid(), //식별키
-    //             file: null, //버킷에서 가져왔다면 null, 그렇지 않다면 File객체 저장
-    //           };
-
-    //           imgListBlock.pictures = imgListBlock.pictures.concat(imgData);
-    //         });
-    //         initialData.file = initialData.file.concat(imgListBlock);
-    //       });
-
-    //       setTotalList(initialData); //가져온 데이터의 가공한 최종 리스트를 totalList에 저장
-    //       setIsLoading(true);
-    //     })
-    //     .catch(function (error) {
-    //       console.log("error");
-    //       console.log(error);
-    //     });
-    // };
 
     fetchData();
   }, []);
