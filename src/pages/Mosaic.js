@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import axios from "axios";
+import axios from "../api/axios";
 import "./Mosaic.css";
 import Modal from "../components/Modal";
 import styled from "styled-components";
@@ -21,90 +21,49 @@ function Mosaic() {
    * @create-data: 2022-07-22
    *
    */
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const resultFix = await axios
-  //       .get(
-  //         `https://9bac662b-822f-45f7-854a-1d5ff7069263.mock.pstmn.io/fixCharacter`,
-  //         {
-  //           headers: {
-  //             Authorization: "Bearer " + localStorage.getItem("token"),
-  //           },
-  //         }
-  //       )
-  //       .then(function (response) {
-  //         console.log(response);
-  //         setCharacterList(response.data.faceImageUrls);
-  //         console.log(characterList);
-  //       })
-  //       .catch(function (error) {
-  //         console.log("error");
-  //         console.log(error);
-  //       });
-
-  //     const resultUser = await axios
-  //       .get(
-  //         `https://9bac662b-822f-45f7-854a-1d5ff7069263.mock.pstmn.io/userCharacter`,
-  //         {
-  //           headers: {
-  //             Authorization: "Bearer " + localStorage.getItem("token"),
-  //           },
-  //         }
-  //       )
-  //       .then(function (response) {
-  //         let personalCharacterList = [];
-  //         response.data.data.forEach((personalUrl) => {
-  //           personalCharacterList.push(personalUrl.url);
-  //         });
-  //         console.log(response);
-  //         setUserCharacterList(personalCharacterList);
-  //         console.log(userCharacterList);
-  //       })
-  //       .catch(function (error) {
-  //         console.log("error");
-  //         console.log(error);
-  //       });
-  //   };
-
-  //   fetchData();
-
-  //   const preValue = sessionStorage.getItem("character");
-  //   if (preValue != null) {
-  //     setSelectedData(preValue);
-  //     if (preValue === "M") {
-  //       clickedToggleM();
-  //     } else {
-  //       clickedToggleC();
-  //     }
-  //   }
-  // }, []);
-
   useEffect(() => {
-    //mockApi 무료사용량 초과로 고정값 가져오는 임시 함수사용중입니다.
-    const data1 = [
-      {
-        id: "user1",
-        url: "https://i.pinimg.com/originals/11/bc/3d/11bc3dd3e0f0e369e9b4613ece97fba8.gif",
-      },
-      {
-        id: "user2",
-        url: "https://i.pinimg.com/originals/11/bc/3d/11bc3dd3e0f0e369e9b4613ece97fba8.gif",
-      },
-    ];
+    const fetchData = async () => {
+      const resultFix = await axios
+        .get(`block-characters/origin`, {
+          headers: {
+            token: localStorage.getItem("token"),
+          },
+        })
+        .then(function (response) {
+          console.log(response.data);
+          setCharacterList(response.data.data);
+          console.log(characterList);
+        })
+        .catch(function (error) {
+          console.log("error");
+          console.log(error);
+        });
 
-    const data2 = [
-      {
-        id: "user3",
-        url: "https://i.pinimg.com/originals/11/bc/3d/11bc3dd3e0f0e369e9b4613ece97fba8.gif",
-      },
-      {
-        id: "user4",
-        url: "https://i.pinimg.com/originals/11/bc/3d/11bc3dd3e0f0e369e9b4613ece97fba8.gif",
-      },
-    ];
+      const resultUser = await axios
+        .get(`block-characters/user`, {
+          headers: {
+            token: localStorage.getItem("token"),
+          },
+        })
+        .then(function (response) {
+          setUserCharacterList(response.data.data);
+        })
+        .catch(function (error) {
+          console.log("error");
+          console.log(error);
+        });
+    };
 
-    setCharacterList(data1);
-    setUserCharacterList(data2);
+    fetchData();
+    const preValue = sessionStorage.getItem("character");
+    if (preValue != null) {
+      setSelectedData(preValue);
+      if (preValue === "M") {
+        clickedToggleM();
+      } else {
+        clickedToggleC();
+      }
+    }
   }, []);
 
   const openModal = () => {
@@ -158,17 +117,53 @@ function Mosaic() {
     setUserCharacterList(
       userCharacterList.filter((characterImg) => characterImg.id !== imgId)
     );
-    console.log(userCharacterList);
+    axios
+      .delete(`/block-characters/user/${imgId}`, {
+        headers: {
+          token: localStorage.getItem("token"),
+        },
+      })
+      .then(function (response) {
+        console.log(response.data);
+      })
+      .catch(function (error) {
+        console.log("error");
+        console.log(error);
+      });
   };
 
   const addImgList = (insertData) => {
+    console.log(insertData);
+    const formData = new FormData();
+    console.log(insertData);
     console.log(userCharacterList);
+    formData.append("file", insertData);
+
+    axios
+      .post(`/block-characters/user`, formData, {
+        headers: {
+          token: localStorage.getItem("token"),
+        },
+      })
+      .then(function (response) {
+        console.log(response.data);
+        let tempAxiosData = {
+          id: response.data.id,
+          url: URL.createObjectURL(insertData),
+        };
+        setUserCharacterList([...userCharacterList, tempAxiosData]);
+      })
+      .catch(function (error) {
+        console.log("error");
+        console.log(error);
+      });
     //axios insertData(file객체)보낸 후, 데이터를 받아서 아래 리스트에 추가
-    let tempAxiosData = {
-      id: "newAxiosID2",
-      url: "https://cdn.pixabay.com/photo/2022/01/11/21/48/link-6931554__340.png",
-    };
-    setUserCharacterList([...userCharacterList, tempAxiosData]);
+
+    // let tempAxiosData = {
+    //   id: "newAxiosID2",
+    //   url: "https://cdn.pixabay.com/photo/2022/01/11/21/48/link-6931554__340.png",
+    // };
+    // setUserCharacterList([...userCharacterList, tempAxiosData]);
   };
 
   const showData = () => {

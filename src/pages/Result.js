@@ -80,7 +80,7 @@ function Result() {
       <div className="Video" top="520px">
         <div>
           Uploaded video :{" "}
-          {JSON.parse(sessionStorage.getItem("test")).videoName}
+          {JSON.parse(sessionStorage.getItem("video")).videoName}
         </div>
       </div>
       <div className="Effect">
