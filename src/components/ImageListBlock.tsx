@@ -34,66 +34,6 @@ function ImageListBlock() {
    */
   useEffect(() => {
     const fetchData = async () => {
-      // let data = [
-      //   {
-      //     whitelistFaceId: "id1",
-      //     whitelistFaceName: "you",
-      //     whitelistFaceImages: [
-      //       {
-      //         id: "img1",
-      //         url: "https://image.dongascience.com/Photo/2019/05/15568758367729.jpg",
-      //       },
-      //       {
-      //         id: "img2",
-      //         url: "https://rimage.gnst.jp/livejapan.com/public/article/detail/a/10/00/a1000408/img/basic/a1000408_main.jpg?20210428225326&q=80&rw=750&rh=536",
-      //       },
-      //     ],
-      //   },
-      //   {
-      //     whitelistFaceId: "id",
-      //     whitelistFaceName: "other",
-      //     whitelistFaceImages: [
-      //       {
-      //         id: "img3",
-      //         url: "https://rimage.gnst.jp/livejapan.com/public/article/detail/a/10/00/a1000408/img/basic/a1000408_main.jpg?20210428225326&q=80&rw=750&rh=536",
-      //       },
-      //       {
-      //         id: "img4",
-      //         url: "https://rimage.gnst.jp/livejapan.com/public/article/detail/a/10/00/a1000408/img/basic/a1000408_main.jpg?20210428225326&q=80&rw=750&rh=536",
-      //       },
-      //     ],
-      //   },
-      // ];
-
-      //   let initialData = {
-      //     //초기 설정 값
-      //     data: [],
-      //   };
-
-      // data.forEach((imgList) => {
-      //   //바깥 반복문의 리스트 및 이름 정의
-      //   let imgListBlock = {
-      //     whitelistFaceName: imgList.whitelistFaceName,
-      //     whitelistFaceId: imgList.whitelistFaceId,
-      //     whitelistFaceImages: [],
-      //   };
-
-      //     imgList.whitelistFaceImages.forEach((image) => {
-      //       //내부 이미지 리스트의 각 내용 정의
-      //       let imgData = {
-      //         url: image.url,
-      //         id: image.id,
-      //       };
-
-      //     imgListBlock.whitelistFaceImages =
-      //       imgListBlock.whitelistFaceImages.concat(imgData);
-      //   });
-      //   initialData.data = initialData.data.concat(imgListBlock);
-      // });
-      // setTotalList(initialData); //가져온 데이터의 가공한 최종 리스트를 totalList에 저장
-      // setIsLoading(true);
-      // };
-
       const result = await axios
         .get(`/whitelist-faces/images`, {
           headers: {
@@ -108,6 +48,8 @@ function ImageListBlock() {
           };
 
           response.data.data.forEach((imgList) => {
+            console.log("errr");
+            console.log(imgList);
             //바깥 반복문의 리스트 및 이름 정의
             let imgListBlock = {
               whitelistFaceName: imgList.whitelistFaceName,
@@ -115,12 +57,11 @@ function ImageListBlock() {
               whitelistFaceImages: [],
             };
 
-            imgList.pictures.forEach((image) => {
+            imgList.whitelistFaceImages.forEach((image) => {
               //내부 이미지 리스트의 각 내용 정의
               let imgData = {
-                url: image.pictureUrl,
-
-                file: null, //버킷에서 가져왔다면 null, 그렇지 않다면 File객체 저장
+                url: image.url,
+                id: image.id,
               };
 
               imgListBlock.whitelistFaceImages =
@@ -128,8 +69,8 @@ function ImageListBlock() {
             });
             initialData.data = initialData.data.concat(imgListBlock);
           });
-
           setTotalList(initialData); //가져온 데이터의 가공한 최종 리스트를 totalList에 저장
+
           setIsLoading(true);
         })
         .catch(function (error) {
@@ -164,23 +105,37 @@ function ImageListBlock() {
    */
   const addImgList = (filename) => {
     window.scrollTo(0, document.body.scrollHeight);
+
     let strName = filename;
     if (filename == null) {
       strName = "other".concat(String(count));
     }
-
+    const formData = new FormData();
+    formData.append("name", strName);
     // axios를 통해 해당 strName을 보낸 후 , return값의 ID를 해당 id값으로 등록
-
-    setTotalList({
-      data: [
-        ...totalList.data,
-        {
-          whitelistFaceName: strName,
-          whitelistFaceId: "axiosId",
-          whitelistFaceImages: [],
+    axios
+      .post(`/whitelist-faces`, formData, {
+        headers: {
+          token: localStorage.getItem("token"),
         },
-      ],
-    });
+      })
+      .then(function (response) {
+        console.log(response);
+        setTotalList({
+          data: [
+            ...totalList.data,
+            {
+              whitelistFaceName: strName,
+              whitelistFaceId: "axiosId",
+              whitelistFaceImages: [],
+            },
+          ],
+        });
+      })
+      .catch(function (error) {
+        console.log("error");
+        console.log(error);
+      });
 
     setCount((count) => count + 1);
 
@@ -201,6 +156,7 @@ function ImageListBlock() {
    */
 
   const changeFuc = (object, whitelistFace, type) => {
+    const formData = new FormData();
     console.log("totalList?");
     console.log(totalList);
     let findIndex = totalList.data.findIndex(
@@ -216,11 +172,31 @@ function ImageListBlock() {
 
     switch (type) {
       case "add":
+        console.log(object);
         //axio(object.file값 넘기고 return 받아서 object.id값에 덮어씌우기)
+        formData.append("file", object.file);
+        axios
+          .post(
+            `/whitelist-faces/${whitelistFace.whitelistFaceId}/images`,
+            formData,
+            {
+              headers: {
+                token: localStorage.getItem("token"),
+              },
+            }
+          )
+          .then(function (response) {
+            console.log(response);
+            object.id = response.data.id;
+          })
+          .catch(function (error) {
+            console.log("error");
+            console.log(error);
+            object.id = 0;
+          });
 
-        object.id = "axiosId";
         delete object["file"];
-
+        console.log("여기왔어요???");
         copyArray.data[findIndex].whitelistFaceImages = [
           ...copyArray.data[findIndex].whitelistFaceImages,
           object,
@@ -228,6 +204,23 @@ function ImageListBlock() {
         setTotalList(copyArray);
         break;
       case "deleteImg":
+        axios
+          .delete(
+            `/whitelist-faces/${whitelistFace.whitelistFaceId}/images/${object}`,
+            {
+              headers: {
+                token: localStorage.getItem("token"),
+              },
+            }
+          )
+          .then(function (response) {
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log("error");
+            console.log(error);
+            object.id = 0;
+          });
         copyArray.data[findIndex].whitelistFaceImages = copyArray.data[
           findIndex
         ].whitelistFaceImages.filter((img) => img.id !== object);
@@ -236,17 +229,50 @@ function ImageListBlock() {
         break;
       case "deleteList":
         copyArray.data = copyArray.data.filter(
-          (list) => list.whitelistFaceName !== whitelistFace.whitelistFaceName
+          (list) => list.whitelistFaceId !== whitelistFace.whitelistFaceId
         );
         setTotalList(copyArray);
-        //axios로 delete아이디 값 보내기
         checkedItemHandler(whitelistFace.whitelistFaceId, false);
+
+        axios
+          .delete(`/whitelist-faces/${whitelistFace.whitelistFaceId}`, {
+            headers: {
+              token: localStorage.getItem("token"),
+            },
+          })
+          .then(function (response) {
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+
         break;
       case "reName":
         //object.whitelistFaceId 값과 data.white...값을 post로 보내기
+        console.log("asd");
+        console.log(object);
+        formData.append("face_name_after", object);
+        axios
+          .patch(
+            `/whitelist-faces/${whitelistFace.whitelistFaceId}`,
+            formData,
+            {
+              headers: {
+                token: localStorage.getItem("token"),
+              },
+            }
+          )
+          .then(function (response) {
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+
         copyArray.data.map((data) => {
-          if (data.whitelistFaceName === whitelistFace.whitelistFaccName) {
-            data.whitelistFaceName = object.whitelistFaccName;
+          if (data.whitelistFaceName === whitelistFace.whitelistFaceName) {
+            data.whitelistFaceName = object;
           }
         });
 
@@ -264,6 +290,7 @@ function ImageListBlock() {
     }
     console.log("체크값");
     console.log(checkedItems);
+    console.log(totalList);
   };
 
   return (
