@@ -1,16 +1,50 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Result.css";
 import Title from "components/Title";
 import ButtonSession from "../components/ButtonSession";
+import axios from "../api/axios";
 
 function Result() {
-  const makeFormData = () => {
-    console.log(JSON.parse(sessionStorage.getItem("images")).length);
-    JSON.parse(sessionStorage.getItem("images")).map((element) => {
-      console.log(element);
-    });
+  useEffect(() => {
+    if (sessionStorage.getItem("task") == null) {
+      sessionStorage.setItem("task", JSON.stringify([]));
+    }
+  }, []);
 
-    console.log(sessionStorage.getItem("character"));
+  const makeFormData = () => {
+    const formData = new FormData();
+    let faceType =
+      sessionStorage.getItem("character") === "M" ? "mosaic" : "character";
+    formData.append("faceType", faceType);
+
+    if (faceType === "character") {
+      formData.append(
+        "block_character_url",
+        sessionStorage.getItem("character")
+      );
+    }
+
+    formData.append(
+      "whitelist_face_image_id",
+      JSON.parse(sessionStorage.getItem("images"))
+    );
+
+    formData.append("video_id", JSON.parse(sessionStorage.getItem("video")).id);
+    axios
+      .post(`/processed-videos`, {
+        headers: {
+          token: localStorage.getItem("token"),
+        },
+      })
+      .then(function (response) {
+        console.log(response.data);
+        let temp = JSON.parse(sessionStorage.getItem("task"));
+        temp.push(response.celeryId);
+        sessionStorage.setItem("task", JSON.stringify(temp));
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
 
   return (
@@ -31,31 +65,25 @@ function Result() {
       </div>
 
       <Title textValue="Selected Result"></Title>
-      <div className="wrapResult">
-        <ul className="result">
-          <li>
-            <div>
-              Uploaded pictures :
-              {+JSON.parse(sessionStorage.getItem("images")).length}
-            </div>
-          </li>
-          <li>
-            <div>Uploaded video</div>
-          </li>
-          <li>
-            <div>
-              Processing effect :
-              {sessionStorage.getItem("character") === "M"
-                ? "Mozaic"
-                : "Character"}
-            </div>
-          </li>
-          <li>
-            <div>Estimated Processing Time</div>
-          </li>
-        </ul>
+
+      <div className="Pictures" top="403px">
+        <div>
+          Number of Mosaic Exceptions :
+          {JSON.parse(sessionStorage.getItem("faceId")).length}
+        </div>
       </div>
-      <button onClick={() => makeFormData()}>asdsad</button>
+      <div className="Video" top="520px">
+        <div>
+          Uploaded video :{" "}
+          {JSON.parse(sessionStorage.getItem("video")).videoName}
+        </div>
+      </div>
+      <div className="Effect">
+        <div>
+          Processing effect :
+          {sessionStorage.getItem("character") === "M" ? "Mozaic" : "Character"}
+        </div>
+      </div>
     </div>
   );
 }

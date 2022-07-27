@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import "./ImageList.css";
-import ImgBlock from "../components/ImageBlock";
+import ImgBlock from "components/ImageBlock";
 import uuid from "react-uuid";
 
 /**
@@ -12,28 +12,15 @@ import uuid from "react-uuid";
 interface ImageListProps {
   object: any;
   changeFuc: any;
-  checkFuc: any;
-  checked: boolean;
 }
 
-function ImageList({ object, changeFuc, checkFuc, checked }: ImageListProps) {
+function UserPagemageList({ object, changeFuc }: ImageListProps) {
   const imageInput = useRef<any>();
-  const imgList = useState(object); //특정 리스트의 이미지 데이터
+  const imgList = useState(object);
   const count: number = object.whitelistFaceImages.length; //해당 컴포넌트가 가지고있는 list개수
   const [curPage, setPage]: [number, any] = useState<number>(0); //curPage를 기점으로 curPage~curPage3까지의 요소만 보여줌
-  const [edit, setEdit] = useState(false); //텍스트 변경을 위한 inputBox 활성화 여부
-  const [text, setText] = useState(object.whitelistFaceName); //리스트 이미지 텍스트 변경을 위한 변수
-  const [bChecked, setChecked] = useState(checked); //체크박스 활성화 여부
-
-  /**
-   * @name : Teawon
-   * @function :checkHandler - 체크박스 활성화 및 변경 함수
-   * @create-data: 2022-07-27
-   */
-  const checkHandler = ({ target }) => {
-    setChecked(!bChecked);
-    checkFuc(object.whitelistFaceId, target.checked);
-  };
+  const [edit, setEdit] = useState(false);
+  const [text, setText] = useState(object.whitelistFaceName);
 
   /**
    * @name : Teawon
@@ -91,12 +78,6 @@ function ImageList({ object, changeFuc, checkFuc, checked }: ImageListProps) {
     return currentPosts;
   };
 
-  /**
-   * @name : Teawon
-   * @function :handleChange - 이름 변경 함수
-   * @param :
-   * imgList - 이미지 리스트
-   */
   const handleChange = (event) => {
     setText(event.target.value);
   };
@@ -115,11 +96,6 @@ function ImageList({ object, changeFuc, checkFuc, checked }: ImageListProps) {
   };
   return (
     <div className="pictureList">
-      <input
-        type="checkbox"
-        checked={bChecked}
-        onChange={(e) => checkHandler(e)}
-      />
       <div className="personName">
         {edit ? (
           <input
@@ -186,4 +162,4 @@ function ImageList({ object, changeFuc, checkFuc, checked }: ImageListProps) {
   );
 }
 
-export default ImageList;
+export default UserPagemageList;

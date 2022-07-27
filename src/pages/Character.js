@@ -1,7 +1,7 @@
 import React from "react";
 import "./Character.css";
 import ListButton from "../components/ListButton";
-import CharacterListBlock from "components/CharacterListBlock";
+// import UserPageCharacter from "components/UserPageCharacter";
 import CharacterLandingPage from "components/CharacterLandingPage";
 
 function Character() {
@@ -11,7 +11,7 @@ function Character() {
       <div className="gridWrap">
         <div className="font3">CHARACTER</div>
       </div>
-      <CharacterListBlock></CharacterListBlock>
+      {/* <CharacterListBlock></CharacterListBlock> */}
       <CharacterLandingPage />
     </div>
   );

@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
 import ImageList from "../components/ImageList";
-import axios from "axios";
+import axios from "../api/axios";
 import "./ImageListBlock.css";
 import ButtonSession from "./ButtonSession";
-//import uuid from "react-uuid";
-import { v4 as uuidv4 } from "uuid";
 import { HiUserAdd } from "react-icons/hi";
-import Load from "components/Load";
+import Load from "../components/Load";
 
 /**
  * @name : Teawon
@@ -16,59 +14,61 @@ import Load from "components/Load";
 
 function ImageListBlock() {
   const [count, setCount] = useState<number>(1); //other + n으로 사용하기 위한 url
+  const [isLoding, setIsLoading]: [boolean, any] = useState(false); //api통신 완료 상태 값
+  const [checkedItems, setCheckedItems] = useState(new Set<string>()); //checkBox확인
   const [totalList, setTotalList]: [any, any] = useState({
     //최종적으로 backend로 보내질 데이터 리스트 집합
-    file: [
+    data: [
       {
-        name: "you",
+        whitelistFaceId: "id",
+        whitelistFaceName: "you",
         pictures: [],
       },
     ],
   });
-  const [isLoding, setIsLoading]: [boolean, any] = useState(false); //api통신 완료 상태 값
 
   /**
    * @name : Teawon
    * @Function :fetchData - 특정 유저에게 등록된 모든 인물사진들을 가져와 설정하는 함수, 값이 정상적으로 설정되면 isLoading값을 true로 바꾼다
-   * @create-data: 2022-07-21
+   * @create-date: 2022-07-21
+   * @update-date: 2022-07-27
+   * - API연결
    */
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios
-        .get(
-          `https://e25ff998-e1ec-49c0-9e9e-0360f06e946e.mock.pstmn.io//mock-api/effect`,
-          {
-            headers: {
-              Authorization: "Bearer " + localStorage.getItem("token"),
-            },
-          }
-        )
+        .get(`/whitelist-faces/images`, {
+          headers: {
+            token: localStorage.getItem("token"),
+          },
+        })
         .then(function (response) {
+          console.log(response);
           let initialData = {
             //초기 설정 값
-            file: [],
+            data: [],
           };
 
           response.data.data.forEach((imgList) => {
             //바깥 반복문의 리스트 및 이름 정의
             let imgListBlock = {
-              name: imgList.name,
-              pictures: [],
+              whitelistFaceName: imgList.whitelistFaceName,
+              whitelistFaceId: imgList.whitelistFaceId,
+              whitelistFaceImages: [],
             };
 
-            imgList.pictures.forEach((image) => {
+            imgList.whitelistFaceImages.forEach((image) => {
               //내부 이미지 리스트의 각 내용 정의
               let imgData = {
-                url: image,
-                id: uuidv4(), //식별키
-                file: null, //버킷에서 가져왔다면 null, 그렇지 않다면 File객체 저장
+                url: image.url,
+                id: image.id,
               };
 
-              imgListBlock.pictures = imgListBlock.pictures.concat(imgData);
+              imgListBlock.whitelistFaceImages =
+                imgListBlock.whitelistFaceImages.concat(imgData);
             });
-            initialData.file = initialData.file.concat(imgListBlock);
+            initialData.data = initialData.data.concat(imgListBlock);
           });
-
           setTotalList(initialData); //가져온 데이터의 가공한 최종 리스트를 totalList에 저장
           setIsLoading(true);
         })
@@ -77,91 +77,75 @@ function ImageListBlock() {
           console.log(error);
         });
     };
-    if (localStorage.getItem("token") == null) {
-      fetchData();
-    } else {
-      setIsLoading(true); //만약 로그인이 되어있지 않다면 api를 보내지 않고 바로 로딩을 완료시킨다.
-    }
+
+    /**
+     * @name : Teawon
+     * @Function :preValueCheck - 기존에 입력된 faceId값이 있다면 해당 값을 check상태로 바꾼다.
+     * @create-date: 2022-07-27
+     */
+    const preValueCheck = () => {
+      if (sessionStorage.getItem("faceId") != null) {
+        JSON.parse(sessionStorage.getItem("faceId")).forEach((face) => {
+          checkedItemHandler(face, true);
+        });
+      }
+    };
+
+    fetchData();
+    preValueCheck();
   }, []);
 
   /**
    * @name : Teawon
    * @function :makeFormData - 사용자가 입력한 url들을 세션에 저장하고, 만약 파일이 있다면 backend로 보내 버킷에 저장된 Url로 가져와 세션에 이어서 저장한다.
-   * @create-data: 2022-07-21
+   * @create-date: 2022-07-21
+   * @update-date: 2022-07-27
+   * - 사용자가 선택한 이미지리스트(faceId)를 세션에 저장
    */
-
   const makeFormData = () => {
-    const formData = new FormData();
-
-    let imageUrlList = []; //AI에 입력될 이미지 url리스트
-
-    totalList.file.forEach((element) => {
-      //리스트들의 이름을 키값으로 정의 후 각 이름값을 키값으로 하는 formData를 만든다.
-      formData.append("name", element.name);
-
-      element.pictures.forEach((list) => {
-        //만약 해당 리스트에 파일이 없고 모두 url이라면 리스트에 저장
-        if (list.file == null) {
-          imageUrlList.push(list.url); //url
-        } else {
-          formData.append(element.name, list.file); //file
-        }
-      });
-    });
-
-    let array = formData.getAll("name"); // 특정 이름을 키 값으로하는 데이터가 만약 Null이라면 삭제후 name의 배열값도 수정한다.
-
-    totalList.file.forEach((element) => {
-      if (formData.get(element.name) == null) {
-        formData.delete(element.name);
-        array = array.filter((data) => data !== element.name);
-      }
-    });
-
-    formData.delete("name");
-    array.forEach((nameStr) => {
-      formData.append("name", nameStr);
-    });
-
-    if (formData.get("name") != null) {
-      // 동시에 보낼 파일 내용이 있다면 postApi보낸 후 응답값의 url들을 리스트에 추가
-    }
-
-    sessionStorage.setItem("images", JSON.stringify(imageUrlList)); //
-    console.log(sessionStorage.getItem("images"));
-    // for (let key of formData.keys()) {
-    //   console.log("FormData의 key를 확인합니다.");
-    //   console.log(key);
-    // }
-
-    // // FormData의 value 확인
-    // for (let value of formData.values()) {
-    //   console.log("FormData의 Values를 확인합니다.");
-    //   console.log(value);
-    // }
+    sessionStorage.setItem("faceId", JSON.stringify(Array.from(checkedItems)));
   };
 
   /**
    * @name : Teawon
    * @function :addImgList - 전체 ImgList의 개수를 늘리는 함수(컴포넌트 수 증가), 처음 이름은 other{count}로 지정하여 컴포넌트를 생성함
-   * @create-data: 2022-07-15
+   * @create-date: 2022-07-15
+   * @update-date: 2022-07-27
+   * -api 및 구조 변경
    */
   const addImgList = (filename) => {
     window.scrollTo(0, document.body.scrollHeight);
+
     let strName = filename;
     if (filename == null) {
       strName = "other".concat(String(count));
     }
-
-    setTotalList({
-      file: [...totalList.file, { name: strName, pictures: [] }],
-    });
-
+    const formData = new FormData();
+    formData.append("name", strName);
+    // axios를 통해 해당 strName을 보낸 후 , return값의 ID를 해당 id값으로 등록
+    axios
+      .post(`/whitelist-faces`, formData, {
+        headers: {
+          token: localStorage.getItem("token"),
+        },
+      })
+      .then(function (response) {
+        console.log(response);
+        setTotalList({
+          data: [
+            ...totalList.data,
+            {
+              whitelistFaceName: strName,
+              whitelistFaceId: response.data.id,
+              whitelistFaceImages: [],
+            },
+          ],
+        });
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
     setCount((count) => count + 1);
-
-    console.log("생성되었습니다. 생성된 파일은 다음과 같아요.");
-
-    console.log(totalList);
   };
 
   /**
@@ -172,42 +156,140 @@ function ImageListBlock() {
    *  object(any) - 삭제id 값 혹은 추가될 이미지 리스트 등의 Data객체
    *  name - 해당 ImgList를 식별하는 name값
    *  type - 이미지 삭체, 이미지리스트삭제, 추가 등 실행할 함수의 타입
-   * @create-data: 2022-07-15
+   * @create-date: 2022-07-15
+   * @update-date: 2022-07-22
+   * -api구조 변경에 따른 변경 및 axios설계
    */
 
-  const changeFuc = (object, name, type) => {
-    let findIndex = totalList.file.findIndex((element) => element.name == name);
+  const changeFuc = (object, whitelistFace, type) => {
+    const formData = new FormData();
+
+    let findIndex = totalList.data.findIndex(
+      (element) => element.whitelistFaceName == whitelistFace.whitelistFaceName
+    );
+
     let copyArray = { ...totalList };
 
-    console.log("changeFuc의 copyArray값 :");
-    console.log(copyArray);
-
+    //함수의 입력값에 따라 상태값 변경함수 실행 및 api호출
     switch (type) {
-      case "add":
-        copyArray.file[findIndex].pictures = [
-          ...copyArray.file[findIndex].pictures,
+      case "add": //특정 faceList중 하나의 이미지 추가
+        formData.append("file", object.file);
+        axios
+          .post(
+            `/whitelist-faces/${whitelistFace.whitelistFaceId}/images`,
+            formData,
+            {
+              headers: {
+                token: localStorage.getItem("token"),
+              },
+            }
+          )
+          .then(function (response) {
+            object.id = response.data.id;
+          })
+          .catch(function (error) {
+            console.log(error);
+            object.id = -1;
+          });
+
+        delete object["file"];
+
+        copyArray.data[findIndex].whitelistFaceImages = [
+          ...copyArray.data[findIndex].whitelistFaceImages,
           object,
         ];
         setTotalList(copyArray);
         break;
-      case "deleteImg":
-        copyArray.file[findIndex].pictures = copyArray.file[
+
+      case "deleteImg": //특정 이미지 리스트 중 하나의 이미지 삭제
+        axios
+          .delete(
+            `/whitelist-faces/${whitelistFace.whitelistFaceId}/images/${object}`,
+            {
+              headers: {
+                token: localStorage.getItem("token"),
+              },
+            }
+          )
+          .then(function (response) {
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+
+        copyArray.data[findIndex].whitelistFaceImages = copyArray.data[
           findIndex
-        ].pictures.filter((img) => img.id !== object);
+        ].whitelistFaceImages.filter((img) => img.id !== object);
         setTotalList(copyArray);
         break;
-      case "deleteList":
-        copyArray.file = copyArray.file.filter((list) => list.name !== name);
+
+      case "deleteList": //특정 faceList 삭제
+        copyArray.data = copyArray.data.filter(
+          (list) => list.whitelistFaceId !== whitelistFace.whitelistFaceId
+        );
         setTotalList(copyArray);
+        checkedItemHandler(whitelistFace.whitelistFaceId, false); //삭제된 리스트의 checkBox값 해제
+
+        axios
+          .delete(`/whitelist-faces/${whitelistFace.whitelistFaceId}`, {
+            headers: {
+              token: localStorage.getItem("token"),
+            },
+          })
+          .then(function (response) {
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
         break;
-      case "reName":
-        copyArray.file.map((data) => {
-          if (data.name === name) {
-            data.name = object;
+
+      case "reName": //특정 faceList의 이름을 변경
+        formData.append("face_name_after", object);
+        axios
+          .patch(
+            `/whitelist-faces/${whitelistFace.whitelistFaceId}`,
+            formData,
+            {
+              headers: {
+                token: localStorage.getItem("token"),
+              },
+            }
+          )
+          .then(function (response) {
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+
+        copyArray.data.map((data) => {
+          if (data.whitelistFaceName === whitelistFace.whitelistFaceName) {
+            data.whitelistFaceName = object;
           }
         });
 
         setTotalList(copyArray);
+    }
+  };
+
+  /**
+   * @name : Teawon
+   * @function :checkedItemHandler - 각 이미지리스트의 체크값 상태 변화 함수
+   * 부모컴포넌트인 ImageListBlock의 상태값 갱신 함수를 통해 전체 상태값의 변화를 관리합니다.
+   * @param :
+   *  id- 삭제할 이미지 id
+   *  isChecked - 체크 여부
+   * @create-date: 2022-07-27
+   */
+  const checkedItemHandler = (id, isChecked) => {
+    if (isChecked) {
+      checkedItems.add(id);
+      setCheckedItems(checkedItems);
+    } else if (!isChecked && checkedItems.has(id)) {
+      checkedItems.delete(id);
+      setCheckedItems(checkedItems);
     }
   };
 
@@ -226,12 +308,14 @@ function ImageListBlock() {
               place-content="center"
             />
           </button>
-          {totalList.file && //map을 통해 각 imgList를 출력
-            totalList.file.map((imgList) => (
+          {totalList.data && //map을 통해 각 imgList를 출력
+            totalList.data.map((imgList) => (
               <ImageList
-                key={imgList.name}
+                key={imgList.whitelistFaceId}
                 object={imgList}
                 changeFuc={changeFuc}
+                checkFuc={checkedItemHandler}
+                checked={checkedItems.has(imgList.whitelistFaceId)}
               />
             ))}
           <div className="fixed bottom-0 right-0 p-5">

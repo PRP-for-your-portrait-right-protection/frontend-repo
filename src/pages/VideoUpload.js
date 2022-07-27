@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
-import axios from "axios";
+import axios from "../api/axios";
 import "./VideoUpload.css";
 import ButtonSession from "../components/ButtonSession";
 import Title from "components/Title";
@@ -29,20 +29,25 @@ function VideoUpload() {
     if (!preFileVideo) {
       //만약 기존에 저장된영상이 있다면 추가로 보내지 않는다.
       const formData = new FormData();
-      formData.append("video", fileVideo);
+      formData.append("file", fileVideo);
 
-      axios({
-        method: "post",
-        url: `https://d601a5df-dc71-481f-9ca6-f2d053dd56e7.mock.pstmn.io/video`,
-        formData,
-        headers: { Authorization: "Bearer " + localStorage.token },
-      })
+      axios
+        .post(`/origin-videos`, formData, {
+          headers: {
+            token: localStorage.getItem("token"),
+          },
+        })
         .then(function (response) {
-          console.log(response.data.video);
-          sessionStorage.setItem("video", response.data.video);
+          console.log(response);
+
+          let videoObject = {
+            id: response.data.id,
+            url: response.data.url,
+            videoName: fileVideo.name,
+          };
+          sessionStorage.setItem("video", JSON.stringify(videoObject));
         })
         .catch(function (error) {
-          console.log("ERROR 발생");
           console.log(error);
         });
     }
@@ -55,7 +60,7 @@ function VideoUpload() {
    */
   useEffect(() => {
     if (sessionStorage.getItem("video") != null) {
-      setPreFileVideo(sessionStorage.getItem("video"));
+      setPreFileVideo(JSON.parse(sessionStorage.getItem("video")).url);
     }
   }, []);
 
@@ -163,8 +168,6 @@ function VideoUpload() {
         accept="video/*"
         onChange={saveFile}
       />
-
-      <button onClick={() => makeFormData()}>asdsad</button>
     </div>
   );
 }
