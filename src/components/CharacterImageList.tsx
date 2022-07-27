@@ -87,17 +87,25 @@ function CharacterImageList({
 
   return (
     <div className="imageList-component">
-      <div>
-        <div className="modalFont my-5 mb-5">CHARACTER</div>
-        <li className="inline-block flex justify-center space-x-16 mt-3 ">
-          <button
-            className="flex w-32 h-32"
-            onClick={() =>
-              setPage((curPage) => (curPage > 0 ? curPage - 1 : curPage))
-            }
-          >
-            <img src="images\iconoir_nav-arrow-left.png" alt="Previous" />
-          </button>
+      <div className="modalFont1">CHARACTER</div>
+      <button
+        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+        onClick={() =>
+          setPage((curPage) =>
+            countFix > 3 && countFix - curPage > 3 ? curPage + 1 : curPage
+          )
+        }
+      >
+        Next
+      </button>
+      <button
+        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+        onClick={() =>
+          setPage((curPage) => (curPage > 0 ? curPage - 1 : curPage))
+        }
+      >
+        Pre
+      </button>
 
       <div className="grid grid-cols-4 gap-4">
         {characterList &&
@@ -139,25 +147,13 @@ function CharacterImageList({
         Pre
       </button>
 
-            {inputCharacteList &&
-              silceImage(inputCharacteList, curPageUser).map((img) => (
-                <div className="col-span-1" key={img.name}>
-                  <label>
-                    <input
-                      type="radio"
-                      className="hidden"
-                      value={img.name}
-                      checked={selectedId == img.name}
-                      onChange={handleClickRadioButton}
-                    />
-                    <img
-                      className="h-40 w-40"
-                      alt="sample"
-                      src={URL.createObjectURL(img)}
-                    />
-                  </label>
-                </div>
-              ))}
+      <div className="grid grid-cols-4 gap-4">
+        <span
+          className="col-span-1 uploadButton flex justify-center"
+          onClick={() => imageInput.current.click()}
+        >
+          <img src="images\addImage.png" alt="" className=" h-36 w-36" />
+        </span>
 
         {/* {inputCharacteList &&
           silceImage(inputCharacteList, curPageUser).map((img) => (
@@ -203,16 +199,14 @@ function CharacterImageList({
           ))}
       </div>
 
-          <input
-            ref={imageInput}
-            className="hidden"
-            name="imageUpload"
-            type="file"
-            accept="image/*"
-            onChange={saveImage}
-          />
-        </li>
-      </div>
+      <input
+        ref={imageInput}
+        className="hidden"
+        name="imageUpload"
+        type="file"
+        accept="image/*"
+        onChange={saveImage}
+      />
     </div>
   );
 }

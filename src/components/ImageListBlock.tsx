@@ -4,7 +4,7 @@ import axios from "../api/axios";
 import "./ImageListBlock.css";
 import ButtonSession from "./ButtonSession";
 import { HiUserAdd } from "react-icons/hi";
-import Load from "components/Load";
+import Load from "../components/Load";
 
 /**
  * @name : Teawon

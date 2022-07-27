@@ -24,7 +24,7 @@ function Photo() {
       <div className="font2">PHOTO</div>
       <UserPageImageListBlock></UserPageImageListBlock>
       {/*<PhotoLandingPage />*/}
-      <ImageListBlock></ImageListBlock>
+      {/* <ImageListBlock></ImageListBlock> */}
     </div>
   );
 }

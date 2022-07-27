@@ -43,7 +43,7 @@ function ImageList({ object, changeFuc, checkFuc, checked }: ImageListProps) {
   const saveFileImageNew = (event: React.ChangeEvent<HTMLInputElement>) => {
     let data = {
       url: URL.createObjectURL(event.target.files[0]),
-      id: uuidv4(),
+      id: uuid(),
       file: event.target.files[0],
     };
 
@@ -129,44 +129,37 @@ function ImageList({ object, changeFuc, checkFuc, checked }: ImageListProps) {
             onChange={(event) => handleChange(event)}
             onKeyDown={handleKeyDown}
           />
-        </button>
-        <li className="personName">
-          {edit ? (
-            <input
-              // className="form-control text-black w-32"
-              type="text"
-              value={text}
-              onChange={(event) => handleChange(event)}
-              onKeyDown={handleKeyDown}
-            />
-          ) : (
-            <span onDoubleClick={() => changeEditMode()}>{text}</span>
-          )}
-        </li>
+        ) : (
+          <span onDoubleClick={() => changeEditMode()}>{text}</span>
+        )}
+      </div>
 
-        {/* <p className="personName"> {object.name} </p> */}
-        <li>
-          <button
-            className="show flex items-center"
-            onClick={() =>
-              setPage((curPage) => (curPage > 0 ? curPage - 1 : curPage))
-            }
-          >
-            <img
-              src="images/iconoir_nav-arrow-left.png"
-              alt=""
-              className="justify-center"
-            />
-          </button>
-        </li>
+      {/* <p className="personName"> {object.name} </p> */}
+      <button className="d" onClick={() => deleteFileImageList()}>
+        <img className="deleteBtn" alt="deleteBtn" src="images\delete.png" />
+      </button>
+      <button
+        className="showNext"
+        onClick={() =>
+          setPage((curPage) =>
+            count > 3 && count - curPage > 3 ? curPage + 1 : curPage
+          )
+        }
+      ></button>
+      <button
+        className="showPre"
+        onClick={() =>
+          setPage((curPage) => (curPage > 0 ? curPage - 1 : curPage))
+        }
+      ></button>
 
-        <li className="g grid grid-cols-4 gap-4">
-          <span
-            className="col-span-1 uploadButton flex justify-center"
-            onClick={() => imageInput.current.click()}
-          >
-            <img src="images\addImage.png" alt="" className="h-36 w-36" />
-          </span>
+      <div className="grid grid-cols-4 gap-4 mx-96">
+        <span
+          className="col-span-1 uploadButton flex justify-center"
+          onClick={() => imageInput.current.click()}
+        >
+          <img src="images\addImage.png" alt="" className="h-36 w-36" />
+        </span>
 
         {imgList[0].whitelistFaceImages &&
           silceImage(imgList[0].whitelistFaceImages).map((img) => (
@@ -175,9 +168,9 @@ function ImageList({ object, changeFuc, checkFuc, checked }: ImageListProps) {
               object={img}
               deleteFileImage={deleteFileImage}
             />
-          </button>
-        </li>
-      </ul>
+          ))}
+      </div>
+
       <div>
         <input
           ref={imageInput}
