@@ -80,28 +80,32 @@ function InfoCheck() {
     setValidMatch(pwd === matchPwd);
   }, [pwd, matchPwd]);
 
+  // 비밀번호 찾기 전 정보 검증 함수
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const formData = new FormData();
       sessionStorage.setItem("Email", email);
       sessionStorage.setItem("Phone", phonenum);
-      const value = [
-        {
-          email: email,
-          phone: phonenum,
-        },
-      ];
 
-      const blob = new Blob([JSON.stringify(value)], {
-        type: "application/json",
-      });
+      formData.append("email", email);
+      formData.append("phone", phonenum);
+      // const value = [
+      //   {
+      //     email: email,
+      //     phone: phonenum,
+      //   },
+      // ];
 
-      formData.append("data", blob);
+      // const blob = new Blob([JSON.stringify(value)], {
+      //   type: "application/json",
+      // });
+
+      // formData.append("data", blob);
 
       const response = await axios({
         method: "POST",
-        url: `/mock_api/user/reset`,
+        url: `/users/password/vaildation`,
         mode: "cors",
         headers: {
           "Content-Type": "application/json",
@@ -130,28 +134,32 @@ function InfoCheck() {
     }
   };
 
+  // 비밀번호 변경 api 함수
   const resetHandle = async (e) => {
     e.preventDefault();
     try {
       const formData = new FormData();
 
-      const value = [
-        {
-          email: sessionStorage.getItem("Email"),
-          phone: sessionStorage.getItem("Phone"),
-          pwd: pwd,
-        },
-      ];
+      formData.append("email", sessionStorage.getItem("Email"));
+      formData.append("phone", sessionStorage.getItem("Phone"));
+      formData.append("password", pwd);
+      // const value = [
+      //   {
+      //     email: sessionStorage.getItem("Email"),
+      //     phone: sessionStorage.getItem("Phone"),
+      //     pwd: pwd,
+      //   },
+      // ];
 
-      const blob = new Blob([JSON.stringify(value)], {
-        type: "application/json",
-      });
+      // const blob = new Blob([JSON.stringify(value)], {
+      //   type: "application/json",
+      // });
 
-      formData.append("data", blob);
+      // formData.append("data", blob);
 
       const response = await axios({
         method: "PATCH",
-        url: `/mock_api/user/reset`,
+        url: `/users/password`,
         mode: "cors",
         headers: {
           "Content-Type": "application/json",

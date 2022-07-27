@@ -89,6 +89,7 @@ const SignUp = () => {
     setErrMsg("");
   }, [email, name, phonenum, pwd, matchPwd]);
 
+  // 회원가입 함수
   const handleSubmit = async (e) => {
     e.preventDefault();
     // if button enabled with JS hack
@@ -108,24 +109,28 @@ const SignUp = () => {
     try {
       const formData = new FormData();
 
-      const value = [
-        {
-          email: email,
-          password: pwd,
-          name: name,
-          phone: phonenum,
-        },
-      ];
+      formData.append("email", email);
+      formData.append("password", pwd);
+      formData.append("name", name);
+      formData.append("phone", phonenum);
+      // const value = [
+      //   {
+      //     email: email,
+      //     password: pwd,
+      //     name: name,
+      //     phone: phonenum,
+      //   },
+      // ];
 
-      const blob = new Blob([JSON.stringify(value)], {
-        type: "application/json",
-      });
+      // const blob = new Blob([JSON.stringify(value)], {
+      //   type: "application/json",
+      // });
 
       formData.append("data", blob);
 
       const response = await axios({
         method: "POST",
-        url: `/mock_api/user/signup`,
+        url: `/users`,
         mode: "cors",
         headers: {
           "Content-Type": "application/json",
@@ -156,6 +161,7 @@ const SignUp = () => {
     }
   };
 
+  // 아이디 체크 함수
   const Clicksubmit = async (e) => {
     e.preventDefault();
     // if button enabled with JS hack
@@ -167,21 +173,23 @@ const SignUp = () => {
     // form data 로 받음
     try {
       const formData = new FormData();
-      const value = [
-        {
-          email: email,
-        },
-      ];
 
-      const blob = new Blob([JSON.stringify(value)], {
-        type: "application/json",
-      });
+      formData.append("email", email);
+      // const value = [
+      //   {
+      //     email: email,
+      //   },
+      // ];
 
-      formData.append("data", blob);
+      // const blob = new Blob([JSON.stringify(value)], {
+      //   type: "application/json",
+      // });
+
+      // formData.append("data", blob);
 
       const response = await axios({
         method: "POST",
-        url: `/mock_api/user/checkEm`,
+        url: `/users/email/validation`,
         mode: "cors",
         headers: {
           "Content-Type": "application/json",
@@ -397,8 +405,7 @@ const SignUp = () => {
               <FontAwesomeIcon icon={faInfoCircle} />
               8 to 24 characters.
               <br />
-              Must include uppercase and lowercase letters, a number and a
-              special character.
+              대문자, 소문자 , 숫자 , 특수문자를 포함하여 입력해주세요.
               <br />
               Allowed special characters:{" "}
               <span aria-label="exclamation mark">!</span>{" "}

@@ -61,27 +61,30 @@ function IdCheck() {
     }
   }, [phonenum]);
 
+  // 아이디 찾기 함수
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const formData = new FormData();
 
-      const value = [
-        {
-          name: name,
-          phone: phonenum,
-        },
-      ];
+      formData.append("name", name);
+      formData.append("phone", phonenum);
+      // const value = [
+      //   {
+      //     name: name,
+      //     phone: phonenum,
+      //   },
+      // ];
 
-      const blob = new Blob([JSON.stringify(value)], {
-        type: "application/json",
-      });
+      // const blob = new Blob([JSON.stringify(value)], {
+      //   type: "application/json",
+      // });
 
-      formData.append("data", blob);
+      // formData.append("data", blob);
 
       const response = await axios({
         method: "POST",
-        url: `/mock_api/user/check`,
+        url: `/users/email`,
         mode: "cors",
         headers: {
           "Content-Type": "application/json",

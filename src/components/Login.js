@@ -20,28 +20,31 @@ const Login = () => {
     setErrMsg("");
   }, [email, pwd]);
 
+  // 로그인 함수
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(email, pwd);
     try {
       const formData = new FormData();
 
-      const value = [
-        {
-          email: email,
-          password: pwd,
-        },
-      ];
+      formData.append("email", email);
+      formData.append("password", pwd);
+      // const value = [
+      //   {
+      //     email: email,
+      //     password: pwd,
+      //   },
+      // ];
 
-      const blob = new Blob([JSON.stringify(value)], {
-        type: "application/json",
-      });
+      // const blob = new Blob([JSON.stringify(value)], {
+      //   type: "application/json",
+      // });
 
-      formData.append("data", blob);
+      // formData.append("data", blob);
 
       const response = await axios({
         method: "POST",
-        url: `/mock_api/user/signin`,
+        url: `/auth`,
         mode: "cors",
         headers: {
           "Content-Type": "application/json",
