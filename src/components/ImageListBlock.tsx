@@ -79,7 +79,20 @@ function ImageListBlock() {
         });
     };
 
+    const preValueCheck = () => {
+      console.log("이전 값 함수 호출");
+      if (sessionStorage.getItem("faceId") != null) {
+        console.log("이전 값이 있어요.");
+        JSON.parse(sessionStorage.getItem("faceId")).forEach((face) => {
+          console.log("이전값:");
+          console.log(face);
+          checkedItemHandler(face, true);
+        });
+      }
+    };
+
     fetchData();
+    preValueCheck();
   }, []);
 
   /**
@@ -125,7 +138,7 @@ function ImageListBlock() {
             ...totalList.data,
             {
               whitelistFaceName: strName,
-              whitelistFaceId: "axiosId",
+              whitelistFaceId: response.data.id,
               whitelistFaceImages: [],
             },
           ],
@@ -314,6 +327,7 @@ function ImageListBlock() {
                 object={imgList}
                 changeFuc={changeFuc}
                 checkFuc={checkedItemHandler}
+                checked={checkedItems.has(imgList.whitelistFaceId)}
               />
             ))}
           <div className="fixed bottom-0 right-0 p-5">

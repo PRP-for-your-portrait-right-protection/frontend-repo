@@ -74,8 +74,8 @@ function Result() {
 
       <div className="Pictures" top="403px">
         <div>
-          Uploaded pictures :
-          {/* {+JSON.parse(sessionStorage.getItem("images")).length} */}
+          Number of Mosaic Exceptions :
+          {JSON.parse(sessionStorage.getItem("faceId")).length}
         </div>
       </div>
       <div className="Video" top="520px">
