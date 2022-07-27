@@ -48,7 +48,6 @@ function VideoUpload() {
           sessionStorage.setItem("video", JSON.stringify(videoObject));
         })
         .catch(function (error) {
-          console.log("ERROR 발생");
           console.log(error);
         });
     }
@@ -169,8 +168,6 @@ function VideoUpload() {
         accept="video/*"
         onChange={saveFile}
       />
-
-      <button onClick={() => makeFormData()}>asdsad</button>
     </div>
   );
 }

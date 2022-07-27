@@ -65,7 +65,6 @@ function CharacterImageList({
    * page - 해당 리스트가 가지는 page변수
    */
   const silceImage = (imglist, page) => {
-    console.log("!!!");
     console.log(imglist);
 
     let currentPosts = [];
@@ -76,6 +75,12 @@ function CharacterImageList({
     return currentPosts;
   };
 
+  /**
+   * @name : Teawon
+   * @function :deleteCharacterImage - 특정 이미지 삭제 함수
+   * @param :
+   * imgID - 삭제할 캐릭터 이미지 ID
+   */
   const deleteCharacterImage = (imgId) => {
     deleteFuc(imgId);
   };

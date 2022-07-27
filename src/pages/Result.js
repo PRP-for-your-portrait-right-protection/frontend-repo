@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import "./Result.css";
 import Title from "components/Title";
 import ButtonSession from "../components/ButtonSession";
-import WaitVideos from "components/WaitVideos";
 import axios from "../api/axios";
 
 function Result() {
@@ -13,10 +12,6 @@ function Result() {
   }, []);
 
   const makeFormData = () => {
-    // let temp = JSON.parse(sessionStorage.getItem("task"));
-    // temp.push("add" + Math.random());
-    // sessionStorage.setItem("task", JSON.stringify(temp));
-
     const formData = new FormData();
     let faceType =
       sessionStorage.getItem("character") === "M" ? "mosaic" : "character";
@@ -48,7 +43,6 @@ function Result() {
         sessionStorage.setItem("task", JSON.stringify(temp));
       })
       .catch(function (error) {
-        console.log("error");
         console.log(error);
       });
   };
@@ -90,9 +84,6 @@ function Result() {
           {sessionStorage.getItem("character") === "M" ? "Mozaic" : "Character"}
         </div>
       </div>
-
-      <button onClick={() => makeFormData()}>asdsad</button>
-      <WaitVideos />
     </div>
   );
 }

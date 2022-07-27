@@ -18,7 +18,9 @@ function Mosaic() {
    * @name : Teawon
    * @function :useEffect - 캐릭터의 사진 및 사용자 캐릭터를 가져와 리스트에 설정
    * 만약 세션에 이전에 선택했던 정보가 들어있다면 selectedData에 값을 설정하여 복구
-   * @create-data: 2022-07-22
+   * @create-date: 2022-07-22
+   * @update-date: 2022-07-27
+   * - api연결 및 구조 변경
    *
    */
   useEffect(() => {
@@ -32,10 +34,8 @@ function Mosaic() {
         .then(function (response) {
           console.log(response.data);
           setCharacterList(response.data.data);
-          console.log(characterList);
         })
         .catch(function (error) {
-          console.log("error");
           console.log(error);
         });
 
@@ -49,7 +49,6 @@ function Mosaic() {
           setUserCharacterList(response.data.data);
         })
         .catch(function (error) {
-          console.log("error");
           console.log(error);
         });
     };
@@ -110,10 +109,6 @@ function Mosaic() {
    */
 
   const deleteImgList = (imgId) => {
-    console.log("지웁니다.");
-    console.log(userCharacterList);
-    //axios로 delete함수 호출해서 부르기
-
     setUserCharacterList(
       userCharacterList.filter((characterImg) => characterImg.id !== imgId)
     );
@@ -127,16 +122,12 @@ function Mosaic() {
         console.log(response.data);
       })
       .catch(function (error) {
-        console.log("error");
         console.log(error);
       });
   };
 
   const addImgList = (insertData) => {
-    console.log(insertData);
     const formData = new FormData();
-    console.log(insertData);
-    console.log(userCharacterList);
     formData.append("file", insertData);
 
     axios
@@ -154,23 +145,10 @@ function Mosaic() {
         setUserCharacterList([...userCharacterList, tempAxiosData]);
       })
       .catch(function (error) {
-        console.log("error");
         console.log(error);
       });
-    //axios insertData(file객체)보낸 후, 데이터를 받아서 아래 리스트에 추가
-
-    // let tempAxiosData = {
-    //   id: "newAxiosID2",
-    //   url: "https://cdn.pixabay.com/photo/2022/01/11/21/48/link-6931554__340.png",
-    // };
-    // setUserCharacterList([...userCharacterList, tempAxiosData]);
   };
 
-  const showData = () => {
-    console.log(characterList);
-    console.log(userCharacterList);
-    console.log(inputCharacteList);
-  };
   return (
     <div>
       <div className="fixed bottom-0 right-0 p-5">
