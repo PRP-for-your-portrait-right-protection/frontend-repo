@@ -15,14 +15,14 @@ function Result() {
 
   return (
     <div>
-      <div className="absolute bottom-0 right-0 p-5">
+      <div className="fixed bottom-0 right-0 p-5">
         <ButtonSession
           img="images/rightArrow.png"
           url="/video"
           saveFuc={makeFormData}
         ></ButtonSession>
       </div>
-      <div className="absolute bottom-0 left-0 p-5">
+      <div className="fixed bottom-0 left-0 p-5">
         <ButtonSession
           img="images/leftArrow.png"
           url="/Mosaic"
@@ -31,26 +31,30 @@ function Result() {
       </div>
 
       <Title textValue="Selected Result"></Title>
-
-      <div className="Pictures" top="403px">
-        <div>
-          Uploaded pictures :
-          {+JSON.parse(sessionStorage.getItem("images")).length}
-        </div>
+      <div className="wrapResult">
+        <ul className="result">
+          <li>
+            <div>
+              Uploaded pictures :
+              {+JSON.parse(sessionStorage.getItem("images")).length}
+            </div>
+          </li>
+          <li>
+            <div>Uploaded video</div>
+          </li>
+          <li>
+            <div>
+              Processing effect :
+              {sessionStorage.getItem("character") === "M"
+                ? "Mozaic"
+                : "Character"}
+            </div>
+          </li>
+          <li>
+            <div>Estimated Processing Time</div>
+          </li>
+        </ul>
       </div>
-      <div className="Video" top="520px">
-        <div>Uploaded video</div>
-      </div>
-      <div className="Effect">
-        <div>
-          Processing effect :
-          {sessionStorage.getItem("character") === "M" ? "Mozaic" : "Character"}
-        </div>
-      </div>
-      <div className="Estimated">
-        <div>Estimated Processing Time</div>
-      </div>
-
       <button onClick={() => makeFormData()}>asdsad</button>
     </div>
   );

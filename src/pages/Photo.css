@@ -2,21 +2,33 @@
   font-family: "StardosStencil-Regular";
   src: url("../fonts/StardosStencil-Regular.ttf");
 }
-.font2 {
-  position: absolute;
-  width: 178px;
-  height: 83px;
-  left: 650px;
-  top: 200px;
+.gridWrap {
+  margin-top: 1em;
+  display: grid;
+  place-items: center;
+}
 
+.font2 {
+  position: flex;
+  width: 15%;
+  height: 83px;
   font-family: "StardosStencil-Regular", serif;
   font-style: normal;
   font-weight: 400;
-  font-size: 55px;
+  font-size: 4vw;
   line-height: 83px;
+  justify-content: center;
+  align-items: center;
+  place-items: center;
   /* identical to box height */
 
   text-align: center;
-
   color: #fffefe;
+}
+
+@media (max-width: 800px) {
+  .font2 {
+    justify-content: center;
+    align-items: center;
+  }
 }

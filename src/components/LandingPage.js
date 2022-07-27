@@ -3,6 +3,8 @@ import axios from "axios";
 import VideoPost from "components/VideoPost";
 import "rc-pagination/assets/index.css";
 import Pagination from "components/Pagination";
+import Load from "components/Load";
+
 const LandingPage = () => {
   const [videos, setVideos] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -12,38 +14,50 @@ const LandingPage = () => {
   // 랜딩 페이지에서 서버에 있는 비디오 가져오기 위한 axios 통신 보내기
   useEffect(() => {
     const fetchVideos = async () => {
-      setLoading(true);
       const res = await axios.get(
         "https://23c181be-a198-4822-99f7-4003280da2a7.mock.pstmn.io/mock-api/user/video"
       );
-      const length = res.data.length;
       setVideos(res.data);
-      setLoading(false);
+      setLoading(true);
     };
     fetchVideos();
   }, []);
-  console.log(length);
 
   //현재 동영상 가져오기
   const indexOfLastVideo = currentPage * videosPerPage;
   const indexOfFirstVideo = indexOfLastVideo - videosPerPage;
-  const currentVideos = (videos) => {
-    //let currentVideos = 0;
-    currentVideos = videos[0].file.slice(indexOfFirstVideo, indexOfLastVideo);
-    return currentVideos;
+  const currentVideos = (video) => {
+    let currentVideo = 0;
+    console.log(video.file);
+    currentVideo = video.file.slice(indexOfFirstVideo, indexOfLastVideo);
+    console.log(videos);
+    console.log(indexOfLastVideo);
+    console.log(indexOfFirstVideo);
+    console.log(videosPerPage);
+    console.log(currentVideo);
+    return currentVideo;
   };
-  console.log(indexOfLastVideo);
-  console.log(indexOfFirstVideo);
-  console.log(currentVideos);
-  console.log(videosPerPage);
-  console.log(Object.values(videos).length);
+
+  //console.log(Object.values(videos).length);
   //페이지 변환
-  //const paginate = (pageNumbers) => setCurrentPage(pageNumbers);
+  const paginate = (pageNumbers) => {
+    setCurrentPage(pageNumbers);
+  };
 
   return (
-    <div className="container">
-      <VideoPost videos={videos} loading={loading} />
-      <Pagination videosPerPage={4} totalVideos={20} />
+    <div>
+      {loading ? (
+        <>
+          <VideoPost videos={currentVideos(videos)} />
+          <Pagination
+            videosPerPage={videosPerPage}
+            totalVideos={videos.file.length}
+            paginate={setCurrentPage}
+          />
+        </>
+      ) : (
+        <Load />
+      )}
     </div>
   );
 };

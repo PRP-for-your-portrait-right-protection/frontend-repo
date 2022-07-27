@@ -1,25 +1,19 @@
-@media screen and (max-width: 700px) {
-  .navbar {
+/* @media screen and (max-width: 700px) {
+  .navButton {
     flex-direction: column;
-    align-items: flex-start;
-    margin: 0;
+    align-items: center;
+    width: 100%;
   }
 }
-/* @media를 사용하여 반응형으로 바꿈 -> screen넓이가 최대 700px까지 코드 사용 */
+/* @media를 사용하여 반응형으로 바꿈 -> screen넓이가 최대 700px까지 코드 사용 
 
 .navButton {
   position: relative;
-  top: 1.5rem;
-  left: -3rem;
-  margin: 50px;
+  padding-left: 0;
+  padding-top: 1em;
   border: none;
   cursor: pointer;
-  font-family: "StardosStencil-Regular", sans-serif;
-  font-size: var(--button-font-size, 3rem);
-  padding: var(--button-padding, 0 20px);
-  display: inline-block;
-  background-color: transparent;
-  color: var(--button-color, #ffffff);
+  display: flex;
   text-align: center;
 }
 .navButton:hover {
@@ -31,7 +25,7 @@
   -webkit-background-clip: text;
   -moz-background-clip: text;
   background-clip: text;
-}
+}*/
 .active {
   color: red;
 }

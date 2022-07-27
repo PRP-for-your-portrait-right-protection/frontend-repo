@@ -30,7 +30,7 @@
 }
 .modal > section > header {
   position: relative;
-  padding: 15px 64px 16px 16px;
+  padding: 15px 64px 20px 16px;
   background-color: rgb(233, 229, 228);
   font-weight: 700;
 }
@@ -46,12 +46,19 @@
   background-color: transparent;
 }
 .modal > section > main {
+  width: 100%;
   padding: 16px;
   border-bottom: 1px solid #dee2e6;
   border-top: 1px solid #dee2e6;
+  overflow-y: auto;
+  overflow-x: auto;
+  min-height: 50%;
+  max-height: 82%;
+  border: 0;
 }
 
 .modal > section > footer {
+  display: flex;
   padding: 5rem 10rem;
   text-align: right;
   left: 5rem;
@@ -64,7 +71,7 @@
   top: 85%;
   left: 43%;
   cursor: pointer;
-  height: 8%;
+  height: 8vh;
   width: 15%;
   text-align: center;
   font-family: "StardosStencil-Regular", serif;

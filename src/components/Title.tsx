@@ -8,7 +8,7 @@ interface TitleProps {
 function Title({ textValue }: TitleProps) {
   return (
     <div className="title-component  mt-28">
-      <p className="text-6xl"> {textValue} </p>
+      <p className="textBasic"> {textValue} </p>
     </div>
   );
 }

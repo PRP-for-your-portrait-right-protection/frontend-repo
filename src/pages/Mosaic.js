@@ -165,24 +165,32 @@ function Mosaic() {
       </div>
 
       <Title textValue="Select the image Processing type"></Title>
-
-      <div className="flex justify-center mt-36 ml-15">
-        <div className="inline-block px-32">
-          <ToggleBtn onClick={clickedToggleM} toggle={toggleM}>
-            <img src="images\mosaic.png" alt="" className="p-2" />
-          </ToggleBtn>
-          <span className="caption ml-11">MOSAIC</span>
-        </div>
-        <div className="inline-block px-32">
-          <ToggleBtn onClick={clickedToggleC} toggle={toggleC}>
-            <img
-              src="images\character.png"
-              alt=""
-              className="p-2"
-              onClick={openModal}
-            />
-          </ToggleBtn>
-          <span className="caption ml-3">CHARACTER</span>
+      <div className="wrapChoice">
+        <ul>
+          <li>
+            <ToggleBtn onClick={clickedToggleM} toggle={toggleM}>
+              <img src="images\mosaic.png" alt="" className="choiceImage" />
+            </ToggleBtn>
+            <span className="caption">MOSAIC</span>
+          </li>
+          {/* <li></li> */}
+        </ul>
+        <div>
+          <ul>
+            <li>
+              <ToggleBtn onClick={clickedToggleC} toggle={toggleC}>
+                <img
+                  src="images\character.png"
+                  alt=""
+                  className="choiceImage"
+                  onClick={openModal}
+                />
+              </ToggleBtn>
+            </li>
+            <li>
+              <span className="caption ml-3">CHARACTER</span>
+            </li>
+          </ul>
 
           <Modal open={modal} close={closeModal}>
             <div>
@@ -194,34 +202,21 @@ function Mosaic() {
                 clickFuc={setSelectedData}
                 insertFuc={addImgList}
               ></CharacterImageList>
-
-              <AppStyle>
-                <label htmlFor="ex_file">
-                  <div className="btnStart">
-                    <img src="images\download.png" alt="btnStart" />
-                  </div>
-                </label>
-                <input
-                  type="file"
-                  id="ex_file"
-                  onChange={(e) => console.log(e.target.files[0])}
-                />
-              </AppStyle>
             </div>
           </Modal>
         </div>
       </div>
-
-      <input type="checkbox" id="ch" />
     </div>
   );
 }
 
 export default Mosaic;
 const ToggleBtn = styled.button`
-  width: 13rem;
-  height: 11rem;
+  display: flex;
+  width: 15vw;
+  height: 22vh;
   border: none;
+  border-radius: 5px;
   cursor: pointer;
   background-color: ${(props) =>
     !props.toggle ? "transparent" : "rgb(231, 179, 35)"};
@@ -232,29 +227,5 @@ const ToggleBtn = styled.button`
     -moz-transform: scale(1.2);
     -ms-transform: scale(1.2);
     -o-transform: scale(1.2);
-  }
-`;
-const AppStyle = styled.div`
-  margin: 25rem 0 0 30rem;
-  img {
-    width: 3.5rem;
-    height: 3.5rem;
-  }
-  label {
-    display: absolute;
-    font-size: inherit;
-    line-height: normal;
-    vertical-align: middle;
-    cursor: pointer;
-  }
-  input[type="file"] {
-    position: absolute;
-    width: 0;
-    height: 0;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    border: 0;
   }
 `;

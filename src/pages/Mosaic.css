@@ -8,15 +8,12 @@
   height: 83px;
   left: 19%;
   top: 1.5em;
-
   font-family: "StardosStencil-Regular", serif;
   font-style: normal;
   font-weight: 400;
-  font-size: 4em;
+  font-size: 4vh;
   line-height: 83px;
-
   text-transform: capitalize;
-
   color: #ffffff;
 }
 
@@ -31,33 +28,12 @@
   font-family: "StardosStencil-Regular", serif;
   font-style: normal;
   font-weight: 400;
-  font-size: 2rem;
+  font-size: 2vw;
   color: #ffffff;
+  justify-content: center;
+  align-items: center;
 }
-.modalFont1 {
-  width: 20%;
-  height: 10%;
-  left: 14rem;
-  top: 10rem;
 
-  font-family: "StardosStencil-Regular", serif;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 1.5em;
-  color: white;
-}
-.modalFont2 {
-  width: 20%;
-  height: 10%;
-  left: 15.4rem;
-  top: 22rem;
-
-  font-family: "StardosStencil-Regular", serif;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 1.5em;
-  color: white;
-}
 .scale {
   border: 0;
   background-color: transparent;
@@ -75,35 +51,29 @@
   -ms-transform: scale(1.2);
   -o-transform: scale(1.2);
 }
-.img {
-  width: 325px;
-  height: 280px;
-  overflow: hidden;
+.choiceImage {
+  justify-content: center;
+  align-items: center;
+  margin-left: 7%;
+  margin-top: 4%;
+  width: 13vw;
+  height: 20vh;
 }
 
-/* input[id="ch"] + label {
-  top: 30rem;
-  display: inline-block;
-  width: 12rem;
-  height: 9em;
-  border: 6px solid #bcbcbc;
-  cursor: pointer;
-  background-image: url("../../public/images/mosaic.png");
-  transition: all 0.3s ease-in-out; /* 부드러운 모션을 위해 추가
+.wrapChoice {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 60vh;
 }
-input[id="ch"] + label:hover {
-  transform: scale(1.2);
-  -webkit-transform: scale(1.2);
-  -moz-transform: scale(1.2);
-  -ms-transform: scale(1.2);
-  -o-transform: scale(1.2);
+
+.wrapChoice ul {
+  padding-right: 10%;
 }
-input[id="ch"]:checked + label {
-  border: 6px solid #c6c627;
+@media (max-width: 800px) {
+  .wrapChoice {
+    margin-top: 5%;
+    align-items: center;
+    padding: 8px 24px;
+  }
 }
-input[id="ch"]:checked + label > span {
-  color: red;
-}
-input[id="ch"] {
-  display: none;
-} */

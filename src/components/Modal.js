@@ -18,7 +18,10 @@ const Modal = (props) => {
           </header>
           <main>{props.children}</main>
           <footer>
-            <button className="close" onClick={close}>
+            <button
+              className="close justify-center place-items-center"
+              onClick={close}
+            >
               COMPLETE
             </button>
           </footer>
