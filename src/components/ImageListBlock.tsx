@@ -89,13 +89,12 @@ function ImageListBlock() {
    */
 
   const makeFormData = () => {
-    const formData = new FormData();
+    // const formData = new FormData();
 
-    if (checkedItems != null) {
-      Array.from(checkedItems).forEach((faceId) => {
-        formData.append("faceId", faceId);
-      });
-    }
+    // console.log(checkedItems == null);
+    // console.log(checkedItems.size);
+
+    sessionStorage.setItem("faceId", JSON.stringify(Array.from(checkedItems)));
   };
 
   /**

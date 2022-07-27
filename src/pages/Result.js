@@ -3,6 +3,7 @@ import "./Result.css";
 import Title from "components/Title";
 import ButtonSession from "../components/ButtonSession";
 import WaitVideos from "components/WaitVideos";
+import axios from "../api/axios";
 
 function Result() {
   useEffect(() => {
@@ -24,7 +25,7 @@ function Result() {
     if (faceType === "character") {
       formData.append(
         "block_character_url",
-        JSON.parse(sessionStorage.getItem("character"))
+        sessionStorage.getItem("character")
       );
     }
 
@@ -33,21 +34,21 @@ function Result() {
       JSON.parse(sessionStorage.getItem("images"))
     );
 
-    formData.append("video_id", JSON.parse(sessionStorage.getItem("video").id));
-    axios({
-      method: "post",
-      url: `https://d601a5df-dc71-481f-9ca6-f2d053dd56e7.mock.pstmn.io/video`,
-      formData,
-      headers: { Authorization: "Bearer " + localStorage.token },
-    })
+    formData.append("video_id", JSON.parse(sessionStorage.getItem("video")).id);
+    axios
+      .post(`/processed-videos`, {
+        headers: {
+          token: localStorage.getItem("token"),
+        },
+      })
       .then(function (response) {
-        console.log(response.data.celeryId);
+        console.log(response.data);
         let temp = JSON.parse(sessionStorage.getItem("task"));
-        temp.push(response.data.celeryId);
+        temp.push(response.celeryId);
         sessionStorage.setItem("task", JSON.stringify(temp));
       })
       .catch(function (error) {
-        console.log("ERROR 발생");
+        console.log("error");
         console.log(error);
       });
   };
