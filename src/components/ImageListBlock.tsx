@@ -5,7 +5,7 @@ import "./ImageListBlock.css";
 import ButtonSession from "./ButtonSession";
 import { HiUserAdd } from "react-icons/hi";
 import Load from "../components/Load";
-
+import ReactTooltip from "react-tooltip";
 /**
  * @name : Teawon
  * @component :ImageListBlock - 각각의 ImgList컴포넌트를 추가하고 전체 데이터를 관리하는 컴포넌트
@@ -301,13 +301,26 @@ function ImageListBlock() {
             className="addBtn"
             onClick={() => addImgList(null)}
           >
-            <HiUserAdd
-              size="50"
-              flex-direction="row"
-              justify-content="center"
-              place-content="center"
-            />
+            <span data-tip data-for="tooltip">
+              <HiUserAdd
+                size="50"
+                flex-direction="row"
+                justify-content="center"
+                place-content="center"
+              />
+            </span>
           </button>
+
+          <ReactTooltip
+            id="tooltip"
+            effect="solid"
+            place="bottom"
+            type="light"
+            className="tooltip"
+          >
+            Add people
+          </ReactTooltip>
+
           {totalList.data && //map을 통해 각 imgList를 출력
             totalList.data.map((imgList) => (
               <ImageList
