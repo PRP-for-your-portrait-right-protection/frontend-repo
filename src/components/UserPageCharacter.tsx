@@ -2,9 +2,13 @@ import React, { useState, useRef, useEffect } from "react";
 import axios from "../api/axios";
 import styled from "styled-components";
 import UserPageCharacterImageList from "../components/UserPageCharacterImageList";
-import ButtonSession from "../components/ButtonSession";
+import Pagination from "../components/Pagination";
 function UserPageCharacter() {
   const [userCharacterList, setUserCharacterList] = useState([]); // 사용자 캐릭터 이미지
+  const [currentPage, setCurrentPage] = useState(1);
+  const [characterPerPage, setCharacterPerPage] = useState(4); //페이지당 원하는개수
+  const indexOfLastVideo = currentPage * characterPerPage;
+  const indexOfFirstVideo = indexOfLastVideo - characterPerPage;
 
   /**
    * @name : Teawon
@@ -57,6 +61,11 @@ function UserPageCharacter() {
    *
    */
 
+  const currentCharacters = (characterImg) => {
+    console.log(characterImg);
+    return characterImg.slice(indexOfFirstVideo, indexOfLastVideo);
+  };
+
   const deleteImgList = (imgId) => {
     setUserCharacterList(
       userCharacterList.filter((characterImg) => characterImg.id !== imgId)
@@ -100,26 +109,16 @@ function UserPageCharacter() {
 
   return (
     <div>
-      <div className="fixed bottom-0 right-0 p-5">
-        <ButtonSession
-          img="images/rightArrow.png"
-          url="/Result"
-          saveFuc={null}
-        ></ButtonSession>
-      </div>
-      <div className="fixed bottom-0 left-0 p-5">
-        <ButtonSession
-          img="images/leftArrow.png"
-          url="/VideoUpload"
-          saveFuc={null}
-        ></ButtonSession>
-      </div>
-
       <UserPageCharacterImageList
-        userCharacterList={userCharacterList}
+        userCharacterList={currentCharacters(userCharacterList)}
         insertFuc={addImgList}
         deleteFuc={deleteImgList}
       ></UserPageCharacterImageList>
+      <Pagination
+        componentsPerPage={characterPerPage}
+        totalComponents={userCharacterList.length}
+        paginate={setCurrentPage}
+      />
     </div>
   );
 }

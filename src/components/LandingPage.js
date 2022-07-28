@@ -12,7 +12,6 @@ function LandingPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [videosPerPage, setVideosPerPage] = useState(4); //페이지당 원하는개수
 
-  // 랜딩 페이지에서 서버에 있는 비디오 가져오기 위한 axios 통신 보내기
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios
@@ -67,8 +66,8 @@ function LandingPage() {
         <>
           <VideoPost videos={currentVideos(videos)} deleteFuc={deleteVideo} />
           <Pagination
-            videosPerPage={videosPerPage}
-            totalVideos={videos.length}
+            componentsPerPage={videosPerPage}
+            totalComponents={videos.length}
             paginate={setCurrentPage}
           />
         </>
