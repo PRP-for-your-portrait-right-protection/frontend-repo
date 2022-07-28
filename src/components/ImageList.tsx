@@ -43,7 +43,7 @@ function ImageList({ object, changeFuc, checkFuc, checked }: ImageListProps) {
   const saveFileImageNew = (event: React.ChangeEvent<HTMLInputElement>) => {
     let data = {
       url: URL.createObjectURL(event.target.files[0]),
-      id: uuidv4(),
+
       file: event.target.files[0],
     };
 

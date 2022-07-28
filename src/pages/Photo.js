@@ -8,24 +8,13 @@ import UserPageImageListBlock from "components/UserPageImageListBlock";
 import PhotoLandingPage from "components/PhotoLandingPage";
 function Photo() {
   return (
-    <div>
+    <ul>
       <ListButton></ListButton>
       <div className="gridWrap">
-        <div className="font2">PHOTO</div>
+        <div className="font1">PHOTO</div>
       </div>
-      <div className="absolute top-0 right-20 p-5 w-24 h-16">
-        <img src="images\admin.png" alt="userName" />
-      </div>
-      <div className="absolute top-0 right-0 p-5 w-28 h-16">
-        <Button img="images\signout.png" url="/"></Button>
-      </div>
-
-      <ListButton></ListButton>
-      <div className="font2">PHOTO</div>
       <UserPageImageListBlock></UserPageImageListBlock>
-      {/*<PhotoLandingPage />*/}
-      {/* <ImageListBlock></ImageListBlock> */}
-    </div>
+    </ul>
   );
 }
 

@@ -14,7 +14,7 @@ import { HiOutlineUser } from "react-icons/hi";
 function ListButton() {
   const [menuToggle, setMenuToggle] = useState(false);
   const menu = [
-    { name: "HOME", address: "/home" },
+    { name: "HOME", address: "/" },
     { name: "PHOTO", address: "/photo" },
     { name: "VIDEO", address: "/video" },
     { name: "CHARACTER", address: "/character" },
@@ -42,7 +42,7 @@ function ListButton() {
         ].join(" ")}
       >
         <ul className="menu__list">
-          <Navigation url="Home" name="HOME" />
+          <Navigation url="/" name="HOME" />
           <Navigation url="Photo" name="PHOTO" />
           <Navigation url="Video" name="VIDEO" />
           <Navigation url="Character" name="CHARACTER" />
