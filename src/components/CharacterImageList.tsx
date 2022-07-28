@@ -1,5 +1,7 @@
 import React, { useRef, useState } from "react";
 import "./CharacterImageList.css";
+import { HiOutlineX } from "react-icons/hi";
+
 /**
  * @name : Teawon
  * @component :CharacterImageList - 기존 이미지리스트, 사용자 이미지 리스트 변수를 받아
@@ -125,6 +127,30 @@ function CharacterImageList({
             </div>
           ))}
       </div>
+      <div className="mycharacter">
+        <div className="modalFont my-3">MY CHARACTER</div>
+        <li className="inline-block flex justify-center space-x-16 mt-5 ">
+          <button
+            className="flex w-32 h-32 mt-3"
+            onClick={() =>
+              setPageUser((curPageUser) =>
+                curPageUser > 0 ? curPageUser - 1 : curPageUser
+              )
+            }
+          >
+            <img src="images\iconoir_nav-arrow-left.png" alt="Previous" />
+          </button>
+          <div className="grid grid-cols-4 gap-4">
+            <span
+              className="col-span-1 uploadButton flex justify-center"
+              onClick={() => imageInput.current.click()}
+            >
+              <img
+                src="images\addImage.png"
+                alt=""
+                className="flex h-36 w-36"
+              />
+            </span>
 
       <div className="modalFont2">MY CHARACTER</div>
       <button
@@ -150,13 +176,21 @@ function CharacterImageList({
         Pre
       </button>
 
-      <div className="grid grid-cols-4 gap-4">
-        <span
-          className="col-span-1 uploadButton flex justify-center"
-          onClick={() => imageInput.current.click()}
-        >
-          <img src="images\addImage.png" alt="" className=" h-36 w-36" />
-        </span>
+                    <img
+                      className="h-36 w-36 z-10"
+                      alt="sample"
+                      src={img.url}
+                    />
+                  </label>
+                  <button
+                    onClick={() => deleteCharacterImage(img.id)}
+                    className="absolute z-1 place-items-start w-36"
+                  >
+                    <HiOutlineX size="30" color="red" />
+                  </button>
+                </div>
+              ))}
+          </div>
 
         {userCharacterList &&
           silceImage(userCharacterList, curPageUser, 3).map((img) => (
@@ -181,7 +215,6 @@ function CharacterImageList({
             </div>
           ))}
       </div>
-
       <input
         ref={imageInput}
         className="hidden"
@@ -189,7 +222,7 @@ function CharacterImageList({
         type="file"
         accept="image/*"
         onChange={saveImage}
-      />
+      />{" "}
     </div>
   );
 }

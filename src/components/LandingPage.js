@@ -32,6 +32,8 @@ function LandingPage() {
     fetchData();
   }, []);
 
+  console.log(videos);
+
   //현재 동영상 가져오기
   const indexOfLastVideo = currentPage * videosPerPage;
   const indexOfFirstVideo = indexOfLastVideo - videosPerPage;

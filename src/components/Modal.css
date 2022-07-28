@@ -114,3 +114,10 @@
     opacity: 1;
   }
 }
+
+@media (max-width: 1000px) {
+  .modal > section > footer button {
+    width: 6em;
+    height: 3em;
+  }
+}
