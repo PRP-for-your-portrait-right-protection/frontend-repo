@@ -13,7 +13,7 @@ import "./CharacterImageList.css";
  */
 
 interface ImageListProps {
-  userCharacterList: string[]; //사용자 이미지 리스트
+  userCharacterList: any; //사용자 이미지 리스트
   insertFuc: any; //상태값 변경 함수(부모), 이미지의 정보를 리스트에 추가
   deleteFuc: any;
 }
@@ -39,25 +39,6 @@ function UserPageCharacterImageList({
 
   /**
    * @name : Teawon
-   * @function :silceImage - 해당 리스트컴포넌트에서 총 3개의 이미지만 보여주도록 slice하는 함수
-   * @param :
-   * imgList - 이미지 리스트
-   * page - 해당 리스트가 가지는 page변수
-   * count - 해당 리스트에서 보여줄 개수
-   * @update-date 2022.7.28
-   * - 보여줄 개수 Param추가
-   */
-  const silceImage = (imglist, page, count) => {
-    let currentPosts = [];
-
-    let reverse = [...imglist].reverse();
-
-    currentPosts = reverse.slice(page, page + count);
-    return currentPosts;
-  };
-
-  /**
-   * @name : Teawon
    * @function :deleteCharacterImage - 특정 이미지 삭제 함수
    * @param :
    * imgID - 삭제할 캐릭터 이미지 ID
@@ -68,29 +49,6 @@ function UserPageCharacterImageList({
 
   return (
     <div className="imageList-component">
-      <button
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
-        onClick={() =>
-          setPageUser((curPageUser) =>
-            countUser > 3 && countUser - curPageUser > 3
-              ? curPageUser + 1
-              : curPageUser
-          )
-        }
-      >
-        Next
-      </button>
-      <button
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
-        onClick={() =>
-          setPageUser((curPageUser) =>
-            curPageUser > 0 ? curPageUser - 1 : curPageUser
-          )
-        }
-      >
-        Pre
-      </button>
-
       <div className="grid grid-cols-4 gap-4">
         <span
           className="col-span-1 uploadButton flex justify-center"
@@ -100,7 +58,7 @@ function UserPageCharacterImageList({
         </span>
 
         {userCharacterList &&
-          silceImage(userCharacterList, curPageUser, 3).map((img) => (
+          userCharacterList.map((img) => (
             <div className="col-span-1 " key={img.id}>
               <img className="h-60 w-60" alt="sample" src={img.url} />
 
