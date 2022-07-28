@@ -19,11 +19,12 @@
   margin-top: 3%;
 }
 .result li {
-  margin-bottom: 10%;
+  margin-bottom: 15%;
 }
 .wrapResult {
   display: flex;
   align-items: center;
   min-height: 10vh;
   place-items: center;
+  margin-top: 2rem;
 }

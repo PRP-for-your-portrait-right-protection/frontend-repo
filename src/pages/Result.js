@@ -65,24 +65,29 @@ function Result() {
       </div>
 
       <Title textValue="Selected Result"></Title>
-
-      <div className="Pictures" top="403px">
-        <div>
-          Number of Mosaic Exceptions :
-          {JSON.parse(sessionStorage.getItem("faceId")).length}
-        </div>
-      </div>
-      <div className="Video" top="520px">
-        <div>
-          Uploaded video :{" "}
-          {JSON.parse(sessionStorage.getItem("video")).videoName}
-        </div>
-      </div>
-      <div className="Effect">
-        <div>
-          Processing effect :
-          {sessionStorage.getItem("character") === "M" ? "Mozaic" : "Character"}
-        </div>
+      <div className="wrapResult">
+        <ul className="result">
+          <li>
+            <div>
+              Uploaded pictures :
+              {JSON.parse(sessionStorage.getItem("faceId")).length}
+            </div>
+          </li>
+          <li>
+            <div>
+              Uploaded video :{" "}
+              {JSON.parse(sessionStorage.getItem("video")).videoName}
+            </div>
+          </li>
+          <li>
+            <div>
+              Processing effect :
+              {sessionStorage.getItem("character") === "M"
+                ? "Mozaic"
+                : "Character"}
+            </div>
+          </li>
+        </ul>
       </div>
     </div>
   );
