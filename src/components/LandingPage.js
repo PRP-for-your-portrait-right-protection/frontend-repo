@@ -21,6 +21,8 @@ function LandingPage() {
           },
         })
         .then(function (response) {
+          console.log("결과값은?");
+          console.log(response);
           setVideos(response.data.data);
           setLoading(true);
         })
@@ -66,12 +68,19 @@ function LandingPage() {
       <WaitVideos />
       {loading ? (
         <>
-          <VideoPost videos={currentVideos(videos)} deleteFuc={deleteVideo} />
-          <Pagination
-            componentsPerPage={videosPerPage}
-            totalComponents={videos.length}
-            paginate={setCurrentPage}
-          />
+          {videos ? (
+            <>
+              <VideoPost
+                videos={currentVideos(videos)}
+                deleteFuc={deleteVideo}
+              />
+              <Pagination
+                componentsPerPage={videosPerPage}
+                totalComponents={videos.length}
+                paginate={setCurrentPage}
+              />
+            </>
+          ) : null}
         </>
       ) : (
         <Load />

@@ -29,15 +29,21 @@ function WaitVideos() {
       // console.log(celeryId);
       // return Math.random() > 0.1;
       axios
-        .post(`/processed-videos/status/${celeryId}`, {
+        .get(`/processed-videos/status/${celeryId}`, {
           headers: {
             token: localStorage.getItem("token"),
           },
         })
         .then(function (response) {
+          console.log("celery");
+          console.log(response);
+          console.log(response.data.status);
           if (response.data.status === "SUCESS") {
+            console.log("false를 리턴합니다.");
             return false;
-          } else return true;
+          }
+          console.log("true 리턴합니다.");
+          return true;
         })
         .catch(function (error) {
           console.log("ERROR 발생");
@@ -50,9 +56,17 @@ function WaitVideos() {
       //만약 taskList에 값이 있다면 해당 개수를 지정하여 화면에 보여준다.
       setTaskNum(taskList.length);
       let preTaskList = taskList;
-      preTaskList = preTaskList.filter((task) => checkStatus(task)); //응답이 false인 id는 현재 리스트값에서 삭제한다.
+      console.log("teskList");
+      console.log(taskList);
 
-      sessionStorage.setItem("task", JSON.stringify(preTaskList));
+      console.log("이전 값");
+      console.log(preTaskList);
+
+      const result = preTaskList.filter((task) => checkStatus(task)); //응답이 false인 id는 현재 리스트값에서 삭제한다.
+      console.log("이후 값");
+      console.log(result);
+
+      sessionStorage.setItem("task", JSON.stringify(result));
     }
   }, []);
 

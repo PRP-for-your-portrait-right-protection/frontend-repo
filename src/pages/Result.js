@@ -15,23 +15,28 @@ function Result() {
     const formData = new FormData();
     let faceType =
       sessionStorage.getItem("character") === "M" ? "mosaic" : "character";
-    formData.append("faceType", faceType);
+    formData.append("face_type", faceType);
+    console.log(faceType);
 
     if (faceType === "character") {
       formData.append(
-        "block_character_url",
+        "block_character_id",
         sessionStorage.getItem("character")
       );
     }
 
-    formData.append(
-      "whitelist_face_image_id",
-      JSON.parse(sessionStorage.getItem("images"))
-    );
+    JSON.parse(sessionStorage.getItem("faceId")).map((id) => {
+      console.log(id);
+      formData.append("whitelist_face_id", id);
+    });
+
+    console.log(JSON.parse(sessionStorage.getItem("faceId")));
 
     formData.append("video_id", JSON.parse(sessionStorage.getItem("video")).id);
+
+    console.log(JSON.parse(sessionStorage.getItem("video")).id);
     axios
-      .post(`/processed-videos`, {
+      .post(`/processed-videos`, formData, {
         headers: {
           token: localStorage.getItem("token"),
         },
@@ -39,7 +44,7 @@ function Result() {
       .then(function (response) {
         console.log(response.data);
         let temp = JSON.parse(sessionStorage.getItem("task"));
-        temp.push(response.celeryId);
+        temp.push(response.data.id);
         sessionStorage.setItem("task", JSON.stringify(temp));
       })
       .catch(function (error) {
@@ -65,6 +70,7 @@ function Result() {
       </div>
 
       <Title textValue="Selected Result"></Title>
+      <button onClick={makeFormData}>ad</button>
       <div className="wrapResult">
         <ul className="result">
           <li>
