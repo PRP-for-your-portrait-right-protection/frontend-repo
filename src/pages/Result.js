@@ -69,7 +69,7 @@ function Result() {
         <ul className="result">
           <li>
             <div>
-              Uploaded pictures :
+              WhiteList Number :
               {JSON.parse(sessionStorage.getItem("faceId")).length}
             </div>
           </li>
@@ -83,7 +83,7 @@ function Result() {
             <div>
               Processing effect :
               {sessionStorage.getItem("character") === "M"
-                ? "Mozaic"
+                ? "Mosaic"
                 : "Character"}
             </div>
           </li>

@@ -31,8 +31,10 @@ function ImageList({ object, changeFuc, checkFuc, checked }: ImageListProps) {
    * @create-data: 2022-07-27
    */
   const checkHandler = ({ target }) => {
-    setChecked(!bChecked);
-    checkFuc(object.whitelistFaceId, target.checked);
+    if (count != 0) {
+      setChecked(!bChecked);
+      checkFuc(object.whitelistFaceId, target.checked);
+    }
   };
 
   /**
@@ -58,6 +60,12 @@ function ImageList({ object, changeFuc, checkFuc, checked }: ImageListProps) {
    * @create-data: 2022-07-15
    */
   const deleteFileImage = (id) => {
+    if (count == 1) {
+      if (bChecked == true) {
+        setChecked(false);
+        checkFuc(object.whitelistFaceId, false);
+      }
+    }
     changeFuc(id, object, "deleteImg");
     if (curPage > 0) {
       setPage((curPage) => curPage - 1);
