@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Signup.css";
 import axios from "../api/axios";
+import GoogleButton from "./GoogleButton";
 
 const Login = () => {
   const userRef = useRef();
@@ -112,6 +113,7 @@ const Login = () => {
         >
           Sign In
         </button>
+        <GoogleButton />
       </form>
       <p className="text-xl font-Stardos text-black">
         Need an Account?
