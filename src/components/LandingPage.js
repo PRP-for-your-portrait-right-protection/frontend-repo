@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React, { useEffect, useState, version } from "react";
+import axios from "../api/axios";
 import VideoPost from "components/VideoPost";
 import "rc-pagination/assets/index.css";
 import Pagination from "components/Pagination";
 import Load from "components/Load";
 
-const LandingPage = () => {
+function LandingPage() {
   const [videos, setVideos] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -13,45 +13,60 @@ const LandingPage = () => {
 
   // 랜딩 페이지에서 서버에 있는 비디오 가져오기 위한 axios 통신 보내기
   useEffect(() => {
-    const fetchVideos = async () => {
-      const res = await axios.get(
-        "https://23c181be-a198-4822-99f7-4003280da2a7.mock.pstmn.io/mock-api/user/video"
-      );
-      setVideos(res.data);
-      setLoading(true);
+    const fetchData = async () => {
+      const result = await axios
+        .get(`/processed-videos`, {
+          headers: {
+            token: localStorage.getItem("token"),
+          },
+        })
+        .then(function (response) {
+          setVideos(response.data.data);
+          setLoading(true);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
     };
-    fetchVideos();
+
+    fetchData();
   }, []);
 
   //현재 동영상 가져오기
   const indexOfLastVideo = currentPage * videosPerPage;
   const indexOfFirstVideo = indexOfLastVideo - videosPerPage;
+
   const currentVideos = (video) => {
-    let currentVideo = 0;
-    console.log(video.file);
-    currentVideo = video.file.slice(indexOfFirstVideo, indexOfLastVideo);
-    console.log(videos);
-    console.log(indexOfLastVideo);
-    console.log(indexOfFirstVideo);
-    console.log(videosPerPage);
-    console.log(currentVideo);
-    return currentVideo;
+    console.log(video);
+    return video.slice(indexOfFirstVideo, indexOfLastVideo);
   };
 
-  //console.log(Object.values(videos).length);
-  //페이지 변환
-  const paginate = (pageNumbers) => {
-    setCurrentPage(pageNumbers);
+  const deleteVideo = (videoId) => {
+    setVideos(videos.filter((video) => video.id !== videoId));
+    setCurrentPage(1);
+    axios
+      .delete(`/processed-videos/${videoId}`, {
+        headers: {
+          token: localStorage.getItem("token"),
+        },
+      })
+      .then(function (response) {
+        setVideos(response.data.data);
+        setLoading(true);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
 
   return (
     <div>
       {loading ? (
         <>
-          <VideoPost videos={currentVideos(videos)} />
+          <VideoPost videos={currentVideos(videos)} deleteFuc={deleteVideo} />
           <Pagination
             videosPerPage={videosPerPage}
-            totalVideos={videos.file.length}
+            totalVideos={videos.length}
             paginate={setCurrentPage}
           />
         </>
@@ -60,6 +75,6 @@ const LandingPage = () => {
       )}
     </div>
   );
-};
+}
 
 export default LandingPage;

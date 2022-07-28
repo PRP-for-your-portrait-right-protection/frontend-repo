@@ -63,6 +63,9 @@ function CharacterImageList({
    * @param :
    * imgList - 이미지 리스트
    * page - 해당 리스트가 가지는 page변수
+   * count - 해당 리스트에서 보여줄 개수
+   * @update-date 2022.7.28
+   * - 보여줄 개수 Param추가
    */
   const silceImage = (imglist, page, count) => {
     let currentPosts = [];
