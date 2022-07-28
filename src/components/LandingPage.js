@@ -4,6 +4,7 @@ import VideoPost from "components/VideoPost";
 import "rc-pagination/assets/index.css";
 import Pagination from "components/Pagination";
 import Load from "components/Load";
+import WaitVideos from "../components/WaitVideos";
 
 function LandingPage() {
   const [videos, setVideos] = useState([]);
@@ -61,6 +62,7 @@ function LandingPage() {
 
   return (
     <div>
+      <WaitVideos />
       {loading ? (
         <>
           <VideoPost videos={currentVideos(videos)} deleteFuc={deleteVideo} />

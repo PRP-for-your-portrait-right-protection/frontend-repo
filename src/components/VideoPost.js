@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import "./VideoPost.css";
-import axios from "axios";
+
 const VideoPost = ({ videos, deleteFuc }) => {
   const useConfirm = (message = null, onConfirm, onCancel, videoId) => {
     if (!onConfirm || typeof onConfirm !== "function") {

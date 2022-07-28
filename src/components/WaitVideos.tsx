@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import axios from "../api/axios";
 import "./WaitVideos.css";
 /**
  * @name : Teawon
@@ -26,13 +26,14 @@ function WaitVideos() {
      */
     const checkStatus = (celeryId) => {
       //현재는 api미완성으로 10%로 완료되었음을 테스트
-      console.log(celeryId);
-      return Math.random() > 0.1;
-      axios({
-        method: "post",
-        url: `https:///......processed-videos/status/${celeryId}`,
-        headers: { Authorization: "Bearer " + localStorage.token },
-      })
+      // console.log(celeryId);
+      // return Math.random() > 0.1;
+      axios
+        .post(`/processed-videos/status/${celeryId}`, {
+          headers: {
+            token: localStorage.getItem("token"),
+          },
+        })
         .then(function (response) {
           if (response.data.status === "SUCESS") {
             return false;
