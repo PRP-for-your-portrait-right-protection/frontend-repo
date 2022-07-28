@@ -175,7 +175,6 @@ function Mosaic() {
             </ToggleBtn>
             <span className="caption">MOSAIC</span>
           </li>
-          {/* <li></li> */}
         </ul>
         <div>
           <ul>

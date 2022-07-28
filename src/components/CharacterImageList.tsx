@@ -1,5 +1,7 @@
 import React, { useRef, useState } from "react";
 import "./CharacterImageList.css";
+import { HiOutlineX } from "react-icons/hi";
+
 /**
  * @name : Teawon
  * @component :CharacterImageList - 기존 이미지리스트, 사용자 이미지 리스트 변수를 받아
@@ -63,15 +65,16 @@ function CharacterImageList({
    * @param :
    * imgList - 이미지 리스트
    * page - 해당 리스트가 가지는 page변수
+   * count - 해당 리스트에서 보여줄 개수
+   * @update-date 2022.7.28
+   * - 보여줄 개수 Param추가
    */
-  const silceImage = (imglist, page) => {
-    console.log(imglist);
-
+  const silceImage = (imglist, page, count) => {
     let currentPosts = [];
 
     let reverse = [...imglist].reverse();
 
-    currentPosts = reverse.slice(page, page + 4);
+    currentPosts = reverse.slice(page, page + count);
     return currentPosts;
   };
 
@@ -87,118 +90,117 @@ function CharacterImageList({
 
   return (
     <div className="imageList-component">
-      <div className="modalFont1">CHARACTER</div>
-      <button
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
-        onClick={() =>
-          setPage((curPage) =>
-            countFix > 3 && countFix - curPage > 3 ? curPage + 1 : curPage
-          )
-        }
-      >
-        Next
-      </button>
-      <button
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
-        onClick={() =>
-          setPage((curPage) => (curPage > 0 ? curPage - 1 : curPage))
-        }
-      >
-        Pre
-      </button>
+      <div>
+        <div className="modalFont my-5 mb-5">CHARACTER</div>
+        <li className="inline-block flex justify-center space-x-16 mt-3 ">
+          <button
+            className="flex w-32 h-32"
+            onClick={() =>
+              setPage((curPage) => (curPage > 0 ? curPage - 1 : curPage))
+            }
+          >
+            <img src="images\iconoir_nav-arrow-left.png" alt="Previous" />
+          </button>
 
-      <div className="grid grid-cols-4 gap-4">
-        {characterList &&
-          silceImage(characterList, curPage).map((img) => (
-            <div className="col-span-1" key={img.id}>
-              <label>
-                <input
-                  type="radio"
-                  className="hidden"
-                  value={img.id}
-                  checked={selectedId == img.id}
-                  onChange={handleClickRadioButton}
-                />
-                <img className="h-60 w-60" alt="sample" src={img.url} />
-              </label>
-            </div>
-          ))}
+          <div className="grid grid-cols-4 gap-4">
+            {characterList &&
+              silceImage(characterList, curPage, 4).map((img) => (
+                <div className="col-span-1" key={img.id}>
+                  <label>
+                    <input
+                      type="radio"
+                      className="hidden"
+                      value={img.id}
+                      checked={selectedId == img.id}
+                      onChange={handleClickRadioButton}
+                    />
+                    <img className="h-40 w-40" alt="sample" src={img.url} />
+                  </label>
+                </div>
+              ))}
+          </div>
+          <button
+            className="flex w-32 h-32"
+            onClick={() =>
+              setPage((curPage) =>
+                countFix > 4 && countFix - curPage > 4 ? curPage + 1 : curPage
+              )
+            }
+          >
+            <img src="images\iconoir_nav-arrow-right.png" alt="Next" />
+          </button>
+        </li>
       </div>
+      <div className="mycharacter">
+        <div className="modalFont my-3">MY CHARACTER</div>
+        <li className="inline-block flex justify-center space-x-16 mt-5 ">
+          <button
+            className="flex w-32 h-32 mt-3"
+            onClick={() =>
+              setPageUser((curPageUser) =>
+                curPageUser > 0 ? curPageUser - 1 : curPageUser
+              )
+            }
+          >
+            <img src="images\iconoir_nav-arrow-left.png" alt="Previous" />
+          </button>
+          <div className="grid grid-cols-4 gap-4">
+            <span
+              className="col-span-1 uploadButton flex justify-center"
+              onClick={() => imageInput.current.click()}
+            >
+              <img
+                src="images\addImage.png"
+                alt=""
+                className="flex h-36 w-36"
+              />
+            </span>
 
-      <div className="modalFont2">MY CHARACTER</div>
-      <button
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
-        onClick={() =>
-          setPageUser((curPageUser) =>
-            curPageUser > 0 ? curPageUser - 1 : curPageUser
-          )
-        }
-      >
-        Next
-      </button>
-      <button
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
-        onClick={() =>
-          setPageUser((curPageUser) =>
-            curPageUser > 0 ? curPageUser - 1 : curPageUser
-          )
-        }
-      >
-        Pre
-      </button>
+            {userCharacterList &&
+              silceImage(userCharacterList, curPageUser, 3).map((img) => (
+                <div
+                  className="col-span-1 relative justify-center"
+                  key={img.id}
+                >
+                  <label>
+                    <input
+                      type="radio"
+                      className="hidden"
+                      value={img.id}
+                      checked={selectedId == img.id}
+                      onChange={handleClickRadioButton}
+                    />
 
-      <div className="grid grid-cols-4 gap-4">
-        <span
-          className="col-span-1 uploadButton flex justify-center"
-          onClick={() => imageInput.current.click()}
-        >
-          <img src="images\addImage.png" alt="" className=" h-36 w-36" />
-        </span>
+                    <img
+                      className="h-36 w-36 z-10"
+                      alt="sample"
+                      src={img.url}
+                    />
+                  </label>
+                  <button
+                    onClick={() => deleteCharacterImage(img.id)}
+                    className="absolute z-1 place-items-start w-36"
+                  >
+                    <HiOutlineX size="30" color="red" />
+                  </button>
+                </div>
+              ))}
+          </div>
 
-        {/* {inputCharacteList &&
-          silceImage(inputCharacteList, curPageUser).map((img) => (
-            <div className="col-span-1" key={img.name}>
-              <label>
-                <input
-                  type="radio"
-                  className="hidden"
-                  value={img.name}
-                  checked={selectedId == img.name}
-                  onChange={handleClickRadioButton}
-                />
-                <img
-                  className="h-60 w-60"
-                  alt="sample"
-                  src={URL.createObjectURL(img)}
-                />
-              </label>
-            </div>
-          ))} */}
-
-        {userCharacterList &&
-          silceImage(userCharacterList, curPageUser).map((img) => (
-            <div className="col-span-1 " key={img.id}>
-              <label>
-                <input
-                  type="radio"
-                  className="hidden"
-                  value={img.id}
-                  checked={selectedId == img.id}
-                  onChange={handleClickRadioButton}
-                />
-                <img className="h-60 w-60" alt="sample" src={img.url} />
-              </label>
-              <button onClick={() => deleteCharacterImage(img.id)}>
-                <img
-                  className="relative w-8 h-8 z-1 -top-14 -left-14"
-                  alt="deleteBtn"
-                  src="images/deleteButton.png"
-                />
-              </button>
-            </div>
-          ))}
+          <button
+            className="flex w-32 h-32 mt-3"
+            onClick={() =>
+              setPageUser((curPageUser) =>
+                countUser > 3 && countUser - curPageUser > 3
+                  ? curPageUser + 1
+                  : curPageUser
+              )
+            }
+          >
+            <img src="images\iconoir_nav-arrow-right.png" alt="Next" />
+          </button>
+        </li>
       </div>
-
       <input
         ref={imageInput}
         className="hidden"
@@ -206,7 +208,7 @@ function CharacterImageList({
         type="file"
         accept="image/*"
         onChange={saveImage}
-      />
+      />{" "}
     </div>
   );
 }
