@@ -13,26 +13,20 @@ import "./CharacterImageList.css";
  */
 
 interface ImageListProps {
-  userCharacterList: string[]; //사용자 이미지 리스
+  userCharacterList: string[]; //사용자 이미지 리스트
   insertFuc: any; //상태값 변경 함수(부모), 이미지의 정보를 리스트에 추가
   deleteFuc: any;
 }
 
 function UserPageCharacterImageList({
   userCharacterList,
+
   insertFuc,
   deleteFuc,
 }: ImageListProps) {
   const countUser: number = userCharacterList.length; //사용자 이미지 리스트의 개수
-
   const [curPageUser, setPageUser]: [number, any] = useState<number>(0); //curPage를 기점으로 curPage~curPage3까지의 요소만 보여줌
   const imageInput = useRef<any>();
-
-  /**
-   * @name : Teawon
-   * @function :handleClickRadioButton - 선택된 이미지의 URL정보를 상태변화함수에 저장 및 해당 정보가 선택되었음을 변수에 저장
-   * @create-data: 2022-07-18
-   */
 
   /**
    * @name : Teawon
@@ -40,7 +34,6 @@ function UserPageCharacterImageList({
    * @create-data: 2022-07-18
    */
   const saveImage = (event) => {
-    console.log(event.target.files[0]);
     insertFuc(event.target.files[0]);
   };
 
@@ -50,19 +43,25 @@ function UserPageCharacterImageList({
    * @param :
    * imgList - 이미지 리스트
    * page - 해당 리스트가 가지는 page변수
+   * count - 해당 리스트에서 보여줄 개수
+   * @update-date 2022.7.28
+   * - 보여줄 개수 Param추가
    */
-  const silceImage = (imglist, page) => {
-    console.log("!!!");
-    console.log(imglist);
-
+  const silceImage = (imglist, page, count) => {
     let currentPosts = [];
 
     let reverse = [...imglist].reverse();
 
-    currentPosts = reverse.slice(page, page + 4);
+    currentPosts = reverse.slice(page, page + count);
     return currentPosts;
   };
 
+  /**
+   * @name : Teawon
+   * @function :deleteCharacterImage - 특정 이미지 삭제 함수
+   * @param :
+   * imgID - 삭제할 캐릭터 이미지 ID
+   */
   const deleteCharacterImage = (imgId) => {
     deleteFuc(imgId);
   };
@@ -73,7 +72,9 @@ function UserPageCharacterImageList({
         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
         onClick={() =>
           setPageUser((curPageUser) =>
-            curPageUser > 0 ? curPageUser - 1 : curPageUser
+            countUser > 3 && countUser - curPageUser > 3
+              ? curPageUser + 1
+              : curPageUser
           )
         }
       >
@@ -98,28 +99,8 @@ function UserPageCharacterImageList({
           <img src="images\addImage.png" alt="" className=" h-36 w-36" />
         </span>
 
-        {/* {inputCharacteList &&
-          silceImage(inputCharacteList, curPageUser).map((img) => (
-            <div className="col-span-1" key={img.name}>
-              <label>
-                <input
-                  type="radio"
-                  className="hidden"
-                  value={img.name}
-                  checked={selectedId == img.name}
-                  onChange={handleClickRadioButton}
-                />
-                <img
-                  className="h-60 w-60"
-                  alt="sample"
-                  src={URL.createObjectURL(img)}
-                />
-              </label>
-            </div>
-          ))} */}
-
         {userCharacterList &&
-          silceImage(userCharacterList, curPageUser).map((img) => (
+          silceImage(userCharacterList, curPageUser, 3).map((img) => (
             <div className="col-span-1 " key={img.id}>
               <img className="h-60 w-60" alt="sample" src={img.url} />
 

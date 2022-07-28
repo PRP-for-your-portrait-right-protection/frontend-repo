@@ -42,7 +42,7 @@ function ListButton() {
         ].join(" ")}
       >
         <ul className="menu__list">
-          <Navigation url="/" name="HOME" />
+          <Navigation url="" name="HOME" />
           <Navigation url="Photo" name="PHOTO" />
           <Navigation url="Video" name="VIDEO" />
           <Navigation url="Character" name="CHARACTER" />
