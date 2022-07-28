@@ -36,7 +36,7 @@
   font-size: 2vw;
   color: white;
   font-family: "StardosStencil-Regular", serif;
-  text-transform: uppercase;
+
   text-align: center;
   align-items: center;
 }
@@ -45,6 +45,15 @@
   width: 7vw;
   height: 7vw;
 }
+
+.checkbox {
+  padding-right: 1rem;
+}
+.checkbox input.checkbox1 {
+  width: 1.25em;
+  height: 1.25em;
+}
+
 @media screen and (max-width: 800px) {
   /*  .show {
     display: none;

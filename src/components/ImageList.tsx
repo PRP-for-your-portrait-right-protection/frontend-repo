@@ -114,62 +114,90 @@ function ImageList({ object, changeFuc, checkFuc, checked }: ImageListProps) {
     setEdit((edit) => !edit);
   };
   return (
-    <div className="pictureList">
-      <input
-        type="checkbox"
-        checked={bChecked}
-        onChange={(e) => checkHandler(e)}
-      />
-      <div className="personName">
-        {edit ? (
+    <div className="wrapImage">
+      <ul className="pictureList">
+        <li className="checkbox">
           <input
-            className="form-control text-black w-32"
-            type="text"
-            value={text}
-            onChange={(event) => handleChange(event)}
-            onKeyDown={handleKeyDown}
+            type="checkbox"
+            name="check"
+            id="check"
+            value="1"
+            className="checkbox1"
+            checked={bChecked}
+            onChange={(e) => checkHandler(e)}
           />
-        ) : (
-          <span onDoubleClick={() => changeEditMode()}>{text}</span>
-        )}
-      </div>
+        </li>
 
-      {/* <p className="personName"> {object.name} </p> */}
-      <button className="d" onClick={() => deleteFileImageList()}>
-        <img className="deleteBtn" alt="deleteBtn" src="images\delete.png" />
-      </button>
-      <button
-        className="showNext"
-        onClick={() =>
-          setPage((curPage) =>
-            count > 3 && count - curPage > 3 ? curPage + 1 : curPage
-          )
-        }
-      ></button>
-      <button
-        className="showPre"
-        onClick={() =>
-          setPage((curPage) => (curPage > 0 ? curPage - 1 : curPage))
-        }
-      ></button>
-
-      <div className="grid grid-cols-4 gap-4 mx-96">
-        <span
-          className="col-span-1 uploadButton flex justify-center"
-          onClick={() => imageInput.current.click()}
-        >
-          <img src="images\addImage.png" alt="" className="h-36 w-36" />
-        </span>
-
-        {imgList[0].whitelistFaceImages &&
-          silceImage(imgList[0].whitelistFaceImages).map((img) => (
-            <ImgBlock
-              key={img.id}
-              object={img}
-              deleteFileImage={deleteFileImage}
+        <li className="personName">
+          {edit ? (
+            <input
+              type="text"
+              value={text}
+              onChange={(event) => handleChange(event)}
+              onKeyDown={handleKeyDown}
             />
-          ))}
-      </div>
+          ) : (
+            <span onDoubleClick={() => changeEditMode()}>{text}</span>
+          )}
+        </li>
+        <button className="p-2" onClick={() => deleteFileImageList()}>
+          <img
+            className="w-8 justify-center items-center"
+            alt="deleteBtn"
+            src="images\delete.png"
+          />
+        </button>
+
+        {/* <p className="personName"> {object.name} </p> */}
+        <li>
+          <button
+            className="show flex items-center"
+            onClick={() =>
+              setPage((curPage) => (curPage > 0 ? curPage - 1 : curPage))
+            }
+          >
+            <img
+              src="images/iconoir_nav-arrow-left.png"
+              alt=""
+              className="justify-center"
+            />
+          </button>
+        </li>
+
+        <li className="g grid grid-cols-4 gap-4">
+          <span
+            className="col-span-1 uploadButton flex justify-center"
+            onClick={() => imageInput.current.click()}
+          >
+            <img src="images\addImage.png" alt="" className="h-36 w-36" />
+          </span>
+
+          {imgList[0].whitelistFaceImages &&
+            silceImage(imgList[0].whitelistFaceImages).map((img) => (
+              <ImgBlock
+                key={img.id}
+                object={img}
+                deleteFileImage={deleteFileImage}
+              />
+            ))}
+        </li>
+        <li>
+          <button
+            className="show flex items-center"
+            onClick={() =>
+              setPage((curPage) =>
+                count > 3 && count - curPage > 3 ? curPage + 1 : curPage
+              )
+            }
+          >
+            <img
+              src="images/iconoir_nav-arrow-right.png"
+              alt=""
+              className="justify-center"
+            />
+          </button>
+        </li>
+      </ul>
 
       <div>
         <input
