@@ -1,15 +1,3 @@
-.signupSection {
-  width: 100%;
-  max-width: 640px;
-  min-height: 400px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  padding: 2rem;
-  background-color: #ffffff;
-  background-color: rgba(255, 255, 255, 0.5);
-  border-radius: 25px;
-}
 .signupForm {
   display: flex;
   flex-direction: column;
@@ -20,6 +8,9 @@
 .signupA,
 .signupA:visited {
   color: #92400e;
+}
+.signupA:hover {
+  color: #fff;
 }
 
 .signupInput[type="text"],
@@ -40,8 +31,16 @@ textarea {
   font-size: 22px;
   padding: 0.25rem;
   border-radius: 0.5rem;
-  margin-top: 1rem;
-  padding: 1rem;
+  margin-top: 3rem;
+  padding: 0.5rem;
+}
+
+.checkButton {
+  width: 20%;
+  height: 10%;
+  font-size: 1rem;
+  margin-top: 0.3rem;
+  border-radius: 0.5rem;
 }
 
 .instructions {
@@ -84,7 +83,81 @@ textarea {
   padding: 0.5rem;
   margin-bottom: 0.5rem;
 }
+.checkmsg {
+  font-family: "StardosStencil-Regular";
+  color: black;
+  font-weight: bold;
+}
 
 .line {
   display: inline-block;
+}
+@media all and (min-width: 1200px) {
+  /*가로 너비가 1200px 이상일 때 아래 스타일 적용*/
+  .signupSection {
+    position: absolute;
+    top: 15%;
+    right: 5%;
+    width: 100%;
+    max-width: 480px;
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 2rem;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 25px;
+  }
+}
+@media all and (min-width: 1024px) and (max-width: 1199px) {
+  /*가로 너비가 1024px 이상일 때 아래 스타일 적용*/
+
+  .signupSection {
+    position: absolute;
+    top: 15%;
+    right: 5%;
+    width: 100%;
+    max-width: 400px;
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 2rem;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 25px;
+  }
+}
+@media all and (min-width: 768px) and (max-width: 1023px) {
+  /*가로 너비가 768~1023px일 때 아래 스타일 적용*/
+
+  .signupSection {
+    position: absolute;
+    top: 15%;
+    right: 5%;
+    width: 100%;
+    max-width: 320px;
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 2rem;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 25px;
+  }
+}
+
+@media all and (max-width: 767px) {
+  /*가로 너비가 767px 이하일 때 아래 스타일 적용*/
+  .signupSection {
+    width: 100%;
+    margin: 5% auto;
+    max-width: 640px;
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 2rem;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 25px;
+  }
 }

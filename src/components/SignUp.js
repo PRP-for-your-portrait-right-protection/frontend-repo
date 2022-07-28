@@ -9,19 +9,20 @@ import { Link } from "react-router-dom";
 import axios from "../api/axios";
 import "./Signup.css";
 
-const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
+const EMAIL_REGEX =
+  /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 const NAME_REGEX = /^[가-힣]{2,4}|[a-zA-Z]{2,10}\s[a-zA-Z]{2,10}$/;
-const PHNUM_REGEX = /^[0-9\b -]{1,13}$/;
+const PHNUM_REGEX = /^[0-9\b -]{11,13}$/;
 //const REGISTER_URL = "/signup";
 
 const SignUp = () => {
   const userRef = useRef();
   const errRef = useRef();
 
-  const [id, setId] = useState("");
-  const [validId, setValidId] = useState(false);
-  const [idFocus, setIdFocus] = useState(false);
+  const [email, setEmail] = useState("");
+  const [validEmail, setValidEmail] = useState(false);
+  const [EmailFocus, setEmailFocus] = useState(false);
 
   const [name, setName] = useState("");
   const [validName, setValidName] = useState(false);
@@ -40,15 +41,19 @@ const SignUp = () => {
   const [matchFocus, setMatchFocus] = useState(false);
 
   const [errMsg, setErrMsg] = useState("");
+  const [checkErrMsg, setCheckErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
+  const [usableId, setUsableID] = useState(false);
 
   useEffect(() => {
     userRef.current.focus();
   }, []);
 
   useEffect(() => {
-    setValidId(USER_REGEX.test(id));
-  }, [id]);
+    setValidEmail(EMAIL_REGEX.test(email));
+    setUsableID(false);
+    setCheckErrMsg("");
+  }, [email]);
 
   useEffect(() => {
     setValidName(NAME_REGEX.test(name));
@@ -82,12 +87,13 @@ const SignUp = () => {
 
   useEffect(() => {
     setErrMsg("");
-  }, [id, name, phonenum, pwd, matchPwd]);
+  }, [email, name, phonenum, pwd, matchPwd]);
 
+  // 회원가입 함수
   const handleSubmit = async (e) => {
     e.preventDefault();
     // if button enabled with JS hack
-    const v1 = USER_REGEX.test(id);
+    const v1 = EMAIL_REGEX.test(email);
     const v2 = PWD_REGEX.test(pwd);
     const v3 = NAME_REGEX.test(name);
     const v4 = PHNUM_REGEX.test(phonenum);
@@ -95,75 +101,77 @@ const SignUp = () => {
       setErrMsg("Invalid Entry");
       return;
     }
-    // form data 로 받음
-    try {
-      const formData = new FormData();
-
-      const value = [
-        {
-          user_id: id,
-          password: pwd,
-          name: name,
-          phone: phonenum,
-        },
-      ];
-
-      const blob = new Blob([JSON.stringify(value)], {
-        type: "application/json",
-      });
-
-      formData.append("data", blob);
-
-      const response = await axios({
-        method: "POST",
-        url: `/mock_api/user/signup`,
-        mode: "cors",
-        headers: {
-          "Content-Type": "application/json",
-          withCredentials: true,
-        },
-        data: formData,
-      });
-      console.log(value);
-      console.log(response?.data);
-      console.log(JSON.stringify(response));
-      setSuccess(true);
-      //clear state and controlled inputs
-      //need value attrib on inputs for this
-      setId("");
-      setName("");
-      setPhoneNum("");
-      setPwd("");
-      setMatchPwd("");
-    } catch (err) {
-      if (!err?.response) {
-        setErrMsg("No Server Response");
-      } else if (err.response?.status === 409) {
-        setErrMsg("ID Taken");
-      } else {
-        setErrMsg("Registration Failed");
-      }
-      errRef.current.focus();
+    if (usableId === false) {
+      setErrMsg("Please Check Your Email");
+      return;
     }
-    // const response = await axios.post(
-    //   REGISTER_URL,
-    //   JSON.stringify({ id, name, phonenum, pwd }),
-    //   {
-    //     headers: { "Content-Type": "application/json" },
-    //     withCredentials: true,
-    //   }
-    // );
-    // console.log(response?.data);
-    // console.log(response?.accessToken);
-    // console.log(JSON.stringify(response));
-    // setSuccess(true);
-    // //clear state and controlled inputs
-    // //need value attrib on inputs for this
-    // setId("");
-    // setName("");
-    // setPhoneNum("");
-    // setPwd("");
-    // setMatchPwd("");
+
+    const formData = new FormData();
+
+    formData.append("email", email);
+    formData.append("password", pwd);
+    formData.append("name", name);
+    formData.append("phone", phonenum);
+
+    const response = await axios
+      .post(`/users`, formData)
+      .then(function (response) {
+        console.log(response);
+        console.log(response?.data);
+        setSuccess(true);
+        //   //clear state and controlled inputs
+        //   //need value attrib on inputs for this
+        setEmail("");
+        setName("");
+        setPhoneNum("");
+        setPwd("");
+        setMatchPwd("");
+      })
+      .catch(function (error) {
+        console.log(error);
+        if (!error?.response) {
+          setErrMsg("No Server Response");
+        } else if (error.response?.status === 409) {
+          setErrMsg("ID Taken");
+        } else {
+          setErrMsg("Registration Failed");
+        }
+        errRef.current.focus();
+      });
+  };
+
+  // 아이디 체크 함수
+  const Clicksubmit = async (e) => {
+    e.preventDefault();
+    // if button enabled with JS hack
+    const v1 = EMAIL_REGEX.test(email);
+    if (!v1) {
+      setErrMsg("Invalid Entry");
+      return;
+    }
+    const formData = new FormData();
+
+    formData.append("email", email);
+    console.log(email);
+    const response = await axios
+      .post(`/users/email/validation`, formData)
+      .then(function (response) {
+        console.log(response);
+        console.log(response?.data);
+        setUsableID(true);
+        setCheckErrMsg("사용 가능한 Email 입니다.");
+      })
+      .catch(function (error) {
+        console.log("error");
+        if (!error?.response) {
+          setCheckErrMsg("No Server Response");
+        } else if (error.response?.status === 409) {
+          setCheckErrMsg("이미 사용 중인 Email 입니다.");
+        } else {
+          setCheckErrMsg("사용 불가한 Email 입니다.");
+        }
+        errRef.current.focus();
+      });
   };
 
   return (
@@ -189,50 +197,62 @@ const SignUp = () => {
           <h1 className="text-2xl font-Stardos text-black">Create Account</h1>
           <form className="signupForm" onSubmit={handleSubmit}>
             <label
-              htmlFor="userid"
-              className="text-xl font-Stardos text-black signupLabel"
+              htmlFor="email"
+              className="text-base font-Stardos text-black signupLabel"
             >
-              ID:
+              Email:
               <FontAwesomeIcon
                 icon={faCheck}
-                className={validId ? "valid" : "hide"}
+                className={validEmail ? "valid" : "hide"}
               />
               <FontAwesomeIcon
                 icon={faTimes}
-                className={validId || !id ? "hide" : "invalid"}
+                className={validEmail || !email ? "hide" : "invalid"}
               />
             </label>
             <input
               className="signupInput"
               type="text"
-              id="userid"
+              id="email"
               ref={userRef}
               autoComplete="off"
-              onChange={(e) => setId(e.target.value)}
-              value={id}
+              onChange={(e) => setEmail(e.target.value)}
+              value={email}
               required
-              aria-invalid={validId ? "false" : "true"}
+              aria-invalid={validEmail ? "false" : "true"}
               aria-describedby="uidnote"
-              onFocus={() => setIdFocus(true)}
-              onBlur={() => setIdFocus(false)}
+              onFocus={() => setEmailFocus(true)}
+              onBlur={() => setEmailFocus(false)}
             />
+            <button
+              className="border-2 border-amber-900 font-Stardos
+            text-orange-300 hover:text-white bg-amber-900 checkButton"
+              onClick={Clicksubmit}
+            >
+              Check ID
+            </button>
+            <p
+              ref={errRef}
+              className={checkErrMsg ? "checkmsg" : "hide"}
+              aria-live="assertive"
+            >
+              {checkErrMsg}
+            </p>
             <p
               id="uidnote"
               className={
-                idFocus && id && !validId ? "instructions" : "offscreen"
+                EmailFocus && email && !validEmail
+                  ? "instructions"
+                  : "offscreen"
               }
             >
               <FontAwesomeIcon icon={faInfoCircle} />
-              4 to 24 characters.
-              <br />
-              Must begin with a letter.
-              <br />
-              Letters, numbers, underscores, hyphens allowed.
+              Must input your Email
             </p>
 
             <label
               htmlFor="username"
-              className="text-xl font-Stardos text-black signupLabel"
+              className="text-base font-Stardos text-black signupLabel"
             >
               User Name:
               <FontAwesomeIcon
@@ -272,7 +292,7 @@ const SignUp = () => {
 
             <label
               htmlFor="phnum"
-              className="text-xl font-Stardos text-black signupLabel"
+              className="text-base font-Stardos text-black signupLabel"
             >
               Phone Number:
               <FontAwesomeIcon
@@ -312,7 +332,7 @@ const SignUp = () => {
 
             <label
               htmlFor="password"
-              className="text-xl font-Stardos text-black signupLabel"
+              className="text-base font-Stardos text-black signupLabel"
             >
               Password:
               <FontAwesomeIcon
@@ -343,8 +363,7 @@ const SignUp = () => {
               <FontAwesomeIcon icon={faInfoCircle} />
               8 to 24 characters.
               <br />
-              Must include uppercase and lowercase letters, a number and a
-              special character.
+              대문자, 소문자 , 숫자 , 특수문자를 포함하여 입력해주세요.
               <br />
               Allowed special characters:{" "}
               <span aria-label="exclamation mark">!</span>{" "}
@@ -356,7 +375,7 @@ const SignUp = () => {
 
             <label
               htmlFor="confirm_pwd"
-              className="text-xl font-Stardos text-black signupLabel"
+              className="text-base font-Stardos text-black signupLabel"
             >
               Confirm Password:
               <FontAwesomeIcon
@@ -392,17 +411,18 @@ const SignUp = () => {
 
             <button
               disabled={
-                !validId || !validName || !validPwd || !validMatch
+                !validEmail || !validName || !validPwd || !validMatch
                   ? true
                   : false
               }
               className="border-2 border-amber-900 text-2xl 
               font-Stardos text-black hover:text-white bg-amber-900 signupButton"
+              onClick={handleSubmit}
             >
               Sign Up
             </button>
           </form>
-          <p className="text-xl font-Stardos text-black">
+          <p className="text-base font-Stardos text-black">
             Already registered?
             <br />
             <span className="line">
@@ -418,9 +438,3 @@ const SignUp = () => {
 };
 
 export default SignUp;
-
-/*
-agllwy116
-12345678
-
-*/

@@ -1,16 +1,16 @@
 import React, { useRef, useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-
+import { Link, useNavigate } from "react-router-dom";
+import "./Signup.css";
 import axios from "../api/axios";
 
 const Login = () => {
   const userRef = useRef();
   const errRef = useRef();
+  const navigate = useNavigate();
 
-  const [id, setId] = useState("");
+  const [email, setEmail] = useState("");
   const [pwd, setPwd] = useState("");
   const [errMsg, setErrMsg] = useState("");
-  const [success, setSuccess] = useState(false);
 
   useEffect(() => {
     userRef.current.focus();
@@ -18,136 +18,109 @@ const Login = () => {
 
   useEffect(() => {
     setErrMsg("");
-  }, [id, pwd]);
+  }, [email, pwd]);
 
+  // 로그인 함수
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(id, pwd);
-    try {
-      const formData = new FormData();
+    console.log(email, pwd);
 
-      const value = [
-        {
-          user_id: id,
-          password: pwd,
-        },
-      ];
+    const formData = new FormData();
 
-      const blob = new Blob([JSON.stringify(value)], {
-        type: "application/json",
+    formData.append("email", email);
+    formData.append("password", pwd);
+
+    const response = await axios
+      .post(`/auth`, formData)
+      .then(function (response) {
+        console.log(response);
+        console.log(response?.data);
+        const accessToken = response?.data?.token;
+        localStorage.setItem("token", accessToken);
+        console.log(localStorage.getItem("token"));
+        console.log(accessToken);
+        setEmail("");
+        setPwd("");
+        navigate("/");
+      })
+      .catch(function (error) {
+        console.log(error);
+        if (!error?.response) {
+          setErrMsg("No Server Response");
+        } else if (error.response?.status === 400) {
+          setErrMsg("Missing ID or Password");
+        } else if (error.response?.status === 401) {
+          setErrMsg("Unauthorized");
+        } else {
+          setErrMsg("Login Failed");
+        }
+        errRef.current.focus();
       });
-
-      formData.append("data", blob);
-
-      const response = await axios({
-        method: "POST",
-        url: `/mock_api/user/signin`,
-        mode: "cors",
-        headers: {
-          "Content-Type": "application/json",
-          withCredentials: true,
-        },
-        data: formData,
-      });
-      console.log(value);
-      console.log(response?.data);
-      console.log(JSON.stringify(response?.data));
-      //console.log(JSON.stringify(response));
-      const accessToken = response?.data?.token;
-      //const roles = response?.data?.roles;
-      localStorage.setItem("token", accessToken);
-      console.log(localStorage.getItem("token"));
-      console.log(accessToken);
-      //console.log(roles);
-      setId("");
-      setPwd("");
-      setSuccess(true);
-    } catch (err) {
-      if (!err?.response) {
-        setErrMsg("No Server Response");
-      } else if (err.response?.status === 400) {
-        setErrMsg("Missing ID or Password");
-      } else if (err.response?.status === 401) {
-        setErrMsg("Unauthorized");
-      } else {
-        setErrMsg("Login Failed");
-      }
-      errRef.current.focus();
-    }
   };
 
   return (
-    <>
-      {success ? (
-        <section>
-          <h1 className="text-4xl font-Stardos text-black">
-            You are logged in!
-          </h1>
-          <br />
-          <p className="mt-16 text-2xl font-Stardos text-black">
-            <Link to="/main">Go to Home</Link>
-          </p>
-        </section>
-      ) : (
-        <section>
-          <p
-            ref={errRef}
-            className={errMsg ? "errmsg" : "offscreen"}
-            aria-live="assertive"
-          >
-            {errMsg}
-          </p>
-          <h1 className="text-3xl font-Stardos text-black">Sign In</h1>
-          <form onSubmit={handleSubmit}>
-            <label
-              htmlFor="userid"
-              className="mt-16 text-xl font-Stardos text-black"
-            >
-              ID:
-            </label>
-            <input
-              type="text"
-              id="userid"
-              ref={userRef}
-              autoComplete="off"
-              onChange={(e) => setId(e.target.value)}
-              value={id}
-              required
-            />
+    <section className="signupSection">
+      <p
+        ref={errRef}
+        className={errMsg ? "errmsg" : "offscreen"}
+        aria-live="assertive"
+      >
+        {errMsg}
+      </p>
+      <h1 className="text-3xl font-Stardos text-black">Sign In</h1>
+      <form className="signupForm" onSubmit={handleSubmit}>
+        <label
+          htmlFor="useremail"
+          className="text-xl font-Stardos text-black signupLabel"
+        >
+          Email:
+        </label>
+        <input
+          className="signupInput"
+          type="text"
+          id="useremail"
+          ref={userRef}
+          autoComplete="off"
+          onChange={(e) => setEmail(e.target.value)}
+          value={email}
+          required
+        />
 
-            <label
-              htmlFor="password"
-              className="mt-16 text-xl font-Stardos text-black"
-            >
-              Password:
-            </label>
-            <input
-              type="password"
-              id="password"
-              onChange={(e) => setPwd(e.target.value)}
-              value={pwd}
-              required
-            />
-            <span className="line text-xl font-Stardos text-black">
-              <Link to="/check">Forget password?</Link>
-            </span>
-            <button
-              className="mt-20 border-2 border-amber-900 
-            text-2xl font-Stardos text-black hover:text-white bg-amber-900"
-            >
-              Sign In
-            </button>
-          </form>
-          <p className="text-xl font-Stardos text-black">
-            Need an Account?
-            <br />
-            <span className="line">
-              <Link to="/signup">Sign Up</Link>
-            </span>
-          </p>
-        </section>
-      )}
-    </>
+        <label
+          htmlFor="password"
+          className="text-xl font-Stardos text-black signupLabel"
+        >
+          Password:
+        </label>
+        <input
+          className="signupInput"
+          type="password"
+          id="password"
+          onChange={(e) => setPwd(e.target.value)}
+          value={pwd}
+          required
+        />
+        <span className="line mt-4 text-xl font-Stardos text-black hover:text-white">
+          <Link to="/email">Forget Email?</Link>
+        </span>
+        <span className="line text-xl font-Stardos text-black hover:text-white">
+          <Link to="/reset">Forget password?</Link>
+        </span>
+        <button
+          className="border-2 border-amber-900 
+            text-2xl font-Stardos text-black hover:text-white bg-amber-900 signupButton"
+        >
+          Sign In
+        </button>
+      </form>
+      <p className="text-xl font-Stardos text-black">
+        Need an Account?
+        <br />
+        <span className="line hover:text-white">
+          <Link to="/signup">Sign Up</Link>
+        </span>
+      </p>
+    </section>
   );
 };
 

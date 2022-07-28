@@ -1,8 +1,8 @@
 import React from "react";
 import styles from "./Loginpage.module.css";
+import IdCheck from "../components/IdCheck";
 import { Link } from "react-router-dom";
-import SignUp from "../components/SignUp";
-function SignUppage() {
+function ForgetEmailpage() {
   return (
     //실제 화면에 출력할 내용들 설정 해주는 곳
     <div className={styles.img_1}>
@@ -18,9 +18,9 @@ function SignUppage() {
           </div>
         </div>
       </div>
-      <SignUp />
+      <IdCheck />
     </div>
   );
 }
 
-export default SignUppage;
+export default ForgetEmailpage;
