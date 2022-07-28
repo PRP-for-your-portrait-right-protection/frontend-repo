@@ -64,14 +64,12 @@ function CharacterImageList({
    * imgList - 이미지 리스트
    * page - 해당 리스트가 가지는 page변수
    */
-  const silceImage = (imglist, page) => {
-    console.log(imglist);
-
+  const silceImage = (imglist, page, count) => {
     let currentPosts = [];
 
     let reverse = [...imglist].reverse();
 
-    currentPosts = reverse.slice(page, page + 4);
+    currentPosts = reverse.slice(page, page + count);
     return currentPosts;
   };
 
@@ -92,7 +90,7 @@ function CharacterImageList({
         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
         onClick={() =>
           setPage((curPage) =>
-            countFix > 3 && countFix - curPage > 3 ? curPage + 1 : curPage
+            countFix > 4 && countFix - curPage > 4 ? curPage + 1 : curPage
           )
         }
       >
@@ -109,7 +107,7 @@ function CharacterImageList({
 
       <div className="grid grid-cols-4 gap-4">
         {characterList &&
-          silceImage(characterList, curPage).map((img) => (
+          silceImage(characterList, curPage, 4).map((img) => (
             <div className="col-span-1" key={img.id}>
               <label>
                 <input
@@ -130,7 +128,9 @@ function CharacterImageList({
         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
         onClick={() =>
           setPageUser((curPageUser) =>
-            curPageUser > 0 ? curPageUser - 1 : curPageUser
+            countUser > 3 && countUser - curPageUser > 3
+              ? curPageUser + 1
+              : curPageUser
           )
         }
       >
@@ -155,28 +155,8 @@ function CharacterImageList({
           <img src="images\addImage.png" alt="" className=" h-36 w-36" />
         </span>
 
-        {/* {inputCharacteList &&
-          silceImage(inputCharacteList, curPageUser).map((img) => (
-            <div className="col-span-1" key={img.name}>
-              <label>
-                <input
-                  type="radio"
-                  className="hidden"
-                  value={img.name}
-                  checked={selectedId == img.name}
-                  onChange={handleClickRadioButton}
-                />
-                <img
-                  className="h-60 w-60"
-                  alt="sample"
-                  src={URL.createObjectURL(img)}
-                />
-              </label>
-            </div>
-          ))} */}
-
         {userCharacterList &&
-          silceImage(userCharacterList, curPageUser).map((img) => (
+          silceImage(userCharacterList, curPageUser, 3).map((img) => (
             <div className="col-span-1 " key={img.id}>
               <label>
                 <input
