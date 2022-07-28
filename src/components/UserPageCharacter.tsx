@@ -63,7 +63,10 @@ function UserPageCharacter() {
 
   const currentCharacters = (characterImg) => {
     console.log(characterImg);
-    return characterImg.slice(indexOfFirstVideo, indexOfLastVideo);
+    let currentPosts = [];
+    let reverse = [...characterImg].reverse();
+
+    return reverse.slice(indexOfFirstVideo, indexOfLastVideo);
   };
 
   const deleteImgList = (imgId) => {
