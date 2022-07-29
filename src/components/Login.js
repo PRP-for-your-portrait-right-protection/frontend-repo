@@ -36,9 +36,11 @@ const Login = () => {
         console.log(response);
         console.log(response?.data);
         const accessToken = response?.data?.token;
+        const userName = response?.data?.user_name;
         localStorage.setItem("token", accessToken);
+        localStorage.setItem("name", userName);
         console.log(localStorage.getItem("token"));
-        console.log(accessToken);
+        console.log(localStorage.getItem("name"));
         setEmail("");
         setPwd("");
         navigate("/");
