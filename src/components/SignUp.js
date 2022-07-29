@@ -5,7 +5,7 @@ import {
   faInfoCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "../api/axios";
 import "./Signup.css";
 
@@ -44,6 +44,8 @@ const SignUp = () => {
   const [checkErrMsg, setCheckErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
   const [usableId, setUsableID] = useState(false);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     userRef.current.focus();
@@ -118,7 +120,6 @@ const SignUp = () => {
       .then(function (response) {
         console.log(response);
         console.log(response?.data);
-        setSuccess(true);
         //   //clear state and controlled inputs
         //   //need value attrib on inputs for this
         setEmail("");
@@ -126,6 +127,7 @@ const SignUp = () => {
         setPhoneNum("");
         setPwd("");
         setMatchPwd("");
+        navigate("/signin");
       })
       .catch(function (error) {
         console.log(error);

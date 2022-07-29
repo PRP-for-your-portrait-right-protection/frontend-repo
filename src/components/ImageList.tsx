@@ -139,13 +139,17 @@ function ImageList({ object, changeFuc, checkFuc, checked }: ImageListProps) {
         <li className="personName">
           {edit ? (
             <input
+              className="text-black text-center text-4xl w-40"
               type="text"
               value={text}
               onChange={(event) => handleChange(event)}
               onKeyDown={handleKeyDown}
+              maxLength={50}
             />
           ) : (
-            <span onDoubleClick={() => changeEditMode()}>{text}</span>
+            <span className="text-4xl" onDoubleClick={() => changeEditMode()}>
+              {text}
+            </span>
           )}
         </li>
         <button className="p-2" onClick={() => deleteFileImageList()}>

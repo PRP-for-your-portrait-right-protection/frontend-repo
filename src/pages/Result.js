@@ -19,6 +19,7 @@ function Result() {
     console.log(faceType);
 
     if (faceType === "character") {
+      console.log("캐릭터 정보를 폼에 추가합니다.");
       formData.append(
         "block_character_id",
         sessionStorage.getItem("character")
@@ -68,9 +69,8 @@ function Result() {
           saveFuc={null}
         ></ButtonSession>
       </div>
-
+      <button onClick={makeFormData}>dadaddssadasdasdsad</button>
       <Title textValue="Selected Result"></Title>
-      <button onClick={makeFormData}>ad</button>
       <div className="wrapResult">
         <ul className="result">
           <li>

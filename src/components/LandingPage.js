@@ -34,8 +34,6 @@ function LandingPage() {
     fetchData();
   }, []);
 
-  console.log(videos);
-
   //현재 동영상 가져오기
   const indexOfLastVideo = currentPage * videosPerPage;
   const indexOfFirstVideo = indexOfLastVideo - videosPerPage;
@@ -46,8 +44,6 @@ function LandingPage() {
   };
 
   const deleteVideo = (videoId) => {
-    setVideos(videos.filter((video) => video.id !== videoId));
-    setCurrentPage(1);
     axios
       .delete(`/processed-videos/${videoId}`, {
         headers: {
@@ -55,12 +51,18 @@ function LandingPage() {
         },
       })
       .then(function (response) {
-        setVideos(response.data.data);
         setLoading(true);
       })
       .catch(function (error) {
         console.log(error);
       });
+    console.log("전");
+    console.log(videos);
+    console.log("후");
+
+    setVideos(videos.filter((video) => video.id !== videoId));
+    setCurrentPage(1);
+    console.log(videos);
   };
 
   return (
