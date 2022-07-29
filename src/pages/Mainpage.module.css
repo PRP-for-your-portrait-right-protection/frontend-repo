@@ -131,4 +131,7 @@
     font-size: 24px;
     padding-left: 0;
   }
+  .navbar__menu__active li {
+    padding: 20px;
+  }
 }

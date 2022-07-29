@@ -69,11 +69,11 @@ const Login = () => {
       >
         {errMsg}
       </p>
-      <h1 className="text-3xl font-Stardos text-black">Sign In</h1>
+      <h1 className="text-3xl font-Ubuntu text-blue-900">Sign In</h1>
       <form className="signupForm" onSubmit={handleSubmit}>
         <label
           htmlFor="useremail"
-          className="text-xl font-Stardos text-black signupLabel"
+          className="text-xl font-Ubuntu text-blue-900 signupLabel"
         >
           Email:
         </label>
@@ -90,7 +90,7 @@ const Login = () => {
 
         <label
           htmlFor="password"
-          className="text-xl font-Stardos text-black signupLabel"
+          className="text-xl font-Ubuntu text-blue-900 signupLabel"
         >
           Password:
         </label>
@@ -102,23 +102,24 @@ const Login = () => {
           value={pwd}
           required
         />
-        <span className="line mt-4 text-xl font-Stardos text-black hover:text-white">
+        <span className="line mt-4 text-xl  text-blue-900 hover:text-sky-400">
           <Link to="/email">Forget Email?</Link>
         </span>
-        <span className="line text-xl font-Stardos text-black hover:text-white">
+        <span className="line text-xl  text-blue-900 hover:text-sky-400">
           <Link to="/reset">Forget password?</Link>
         </span>
         <button
-          className="border-2 border-amber-900 
-            text-2xl font-Stardos text-black hover:text-white bg-amber-900 signupButton"
+          className="border-2 border-sky-400 
+            text-2xl font-Ubuntu text-white 
+            hover:text-blue-900 bg-sky-400 signupButton"
         >
           Sign In
         </button>
       </form>
-      <p className="text-xl font-Stardos text-black">
+      <p className="text-xl text-blue-900">
         Need an Account?
         <br />
-        <span className="line hover:text-white">
+        <span className="line hover:text-sky-400">
           <Link to="/signup">Sign Up</Link>
         </span>
       </p>
