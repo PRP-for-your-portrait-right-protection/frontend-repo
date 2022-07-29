@@ -16,7 +16,7 @@
 }
 .signupA,
 .signupA:visited {
-  color: #92400e;
+  color: #03045e;
 }
 .signupA:hover {
   color: rgb(56 189 248);
@@ -106,7 +106,7 @@ textarea {
   /*가로 너비가 1200px 이상일 때 아래 스타일 적용*/
   .signupSection {
     position: absolute;
-    top: 20%;
+    top: 15%;
     right: 10%;
     width: 100%;
     max-width: 480px;

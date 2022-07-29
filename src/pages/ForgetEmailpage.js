@@ -1,22 +1,28 @@
 import React from "react";
 import styles from "./Loginpage.module.css";
 import IdCheck from "../components/IdCheck";
-import { Link } from "react-router-dom";
 function ForgetEmailpage() {
   return (
     //실제 화면에 출력할 내용들 설정 해주는 곳
-    <div className={styles.img_1}>
-      <Link to="/">
-        <img src="images\iconoir_home.png" className={styles.home} />
-      </Link>
+    <div>
       <div>
-        <div className={styles.For_Your_Login}>
-          For Your
-          <div className={styles.text_style_1}>PRP</div>
-          <div className={styles.portrait_right_protection_Login}>
+        <nav className={styles.navbarbefore}>
+          <div className={styles.navbar__logo}>
+            <img src="images\path28.png" className="inline"></img>
+            <a href="/">PRP</a>
+          </div>
+        </nav>
+        <div className={styles.For_Your_PRP}>
+          For Your PRP
+          <div className={styles.PRP}>
             portrait right protection
+            <div>Are you want to make mosaic videos?</div>
           </div>
         </div>
+        <img
+          src="images/casual-life-3d-excited-young-woman.png"
+          className={styles.img}
+        ></img>
       </div>
       <IdCheck />
     </div>

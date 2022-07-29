@@ -184,11 +184,11 @@ const SignUp = () => {
       >
         {errMsg}
       </p>
-      <h1 className="text-2xl font-Stardos text-black">Create Account</h1>
+      <h1 className="text-2xl font-Ubuntu text-blue-900">Create Account</h1>
       <form className="signupForm" onSubmit={handleSubmit}>
         <label
           htmlFor="email"
-          className="text-base font-Stardos text-black signupLabel"
+          className="text-base font-Ubuntu text-blue-900 signupLabel"
         >
           Email:
           <FontAwesomeIcon
@@ -215,8 +215,8 @@ const SignUp = () => {
           onBlur={() => setEmailFocus(false)}
         />
         <button
-          className="border-2 border-amber-900 font-Stardos
-            text-orange-300 hover:text-white bg-amber-900 checkButton"
+          className="border-2 border-sky-400 font-Ubuntu
+            text-white hover:text-blue-900 bg-sky-400 checkButton"
           onClick={Clicksubmit}
         >
           Check ID
@@ -240,7 +240,7 @@ const SignUp = () => {
 
         <label
           htmlFor="username"
-          className="text-base font-Stardos text-black signupLabel"
+          className="text-base font-Ubuntu text-blue-900 signupLabel"
         >
           User Name:
           <FontAwesomeIcon
@@ -280,7 +280,7 @@ const SignUp = () => {
 
         <label
           htmlFor="phnum"
-          className="text-base font-Stardos text-black signupLabel"
+          className="text-base font-Ubuntu text-blue-900 signupLabel"
         >
           Phone Number:
           <FontAwesomeIcon
@@ -320,7 +320,7 @@ const SignUp = () => {
 
         <label
           htmlFor="password"
-          className="text-base font-Stardos text-black signupLabel"
+          className="text-base font-Ubuntu text-blue-900 signupLabel"
         >
           Password:
           <FontAwesomeIcon
@@ -363,7 +363,7 @@ const SignUp = () => {
 
         <label
           htmlFor="confirm_pwd"
-          className="text-base font-Stardos text-black signupLabel"
+          className="text-base font-Ubuntu text-blue-900 signupLabel"
         >
           Confirm Password:
           <FontAwesomeIcon
@@ -399,14 +399,14 @@ const SignUp = () => {
           disabled={
             !validEmail || !validName || !validPwd || !validMatch ? true : false
           }
-          className="border-2 border-amber-900 text-2xl 
-              font-Stardos text-black hover:text-white bg-amber-900 signupButton"
+          className="border-2 border-sky-400 text-2xl 
+              font-Ubuntu text-white hover:text-blue-900 bg-sky-400 signupButton"
           onClick={handleSubmit}
         >
           Sign Up
         </button>
       </form>
-      <p className="text-base font-Stardos text-black">
+      <p className="text-base font-Ubuntu text-blue-900">
         Already registered?
         <br />
         <span className="line">
