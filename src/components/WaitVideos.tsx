@@ -25,34 +25,53 @@ function WaitVideos() {
      *
      */
     const checkStatus = (celeryId) => {
-      //현재는 api미완성으로 10%로 완료되었음을 테스트
-      // console.log(celeryId);
-      // return Math.random() > 0.1;
+      console.log("통신을 시작합니다.");
       axios
-        .post(`/processed-videos/status/${celeryId}`, {
+        .get(`/processed-videos/status/${celeryId}`, {
           headers: {
             token: localStorage.getItem("token"),
           },
         })
         .then(function (response) {
-          if (response.data.status === "SUCESS") {
-            return false;
-          } else return true;
+          if (response.data.status === "SUCCESS") {
+            let temp = [...taskList];
+            temp = temp.filter((taskId) => celeryId !== taskId);
+            console.log(
+              "배열 값에 sucess가 들어왔습니다. 해당 값을 배열에서 삭제합니다. 바뀐값 : "
+            );
+            console.log(temp);
+            sessionStorage.setItem("task", JSON.stringify(temp));
+          }
+          console.log("peding이므로 삭제하지 않습니다.");
         })
         .catch(function (error) {
+          let temp = [...taskList];
+          temp = temp.filter((taskId) => celeryId !== taskId);
+          console.log(
+            "배열 값에 에러가 들어왔습니다. 해당 값을 배열에서 삭제합니다. 바뀐값 : "
+          );
+          console.log(temp);
+          sessionStorage.setItem("task", JSON.stringify(temp));
           console.log("ERROR 발생");
           console.log(error);
-          return false;
         });
     };
 
     if (taskList != null) {
       //만약 taskList에 값이 있다면 해당 개수를 지정하여 화면에 보여준다.
       setTaskNum(taskList.length);
-      let preTaskList = taskList;
-      preTaskList = preTaskList.filter((task) => checkStatus(task)); //응답이 false인 id는 현재 리스트값에서 삭제한다.
+      // let preTaskList = taskList;
+      // console.log("teskList");
+      // console.log(taskList);
 
-      sessionStorage.setItem("task", JSON.stringify(preTaskList));
+      // console.log("이전 값");
+      // console.log(preTaskList);
+
+      const result = taskList.filter((task) => checkStatus(task)); //응답이 false인 id는 현재 리스트값에서 삭제한다.
+      // console.log("이후 값");
+      // console.log(result);
+
+      // sessionStorage.setItem("task", JSON.stringify(result));
     }
   }, []);
 

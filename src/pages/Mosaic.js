@@ -13,6 +13,7 @@ function Mosaic() {
   const [selectedData, setSelectedData] = useState(""); //최종으로 선택된 하나의 이미지
   const [characterList, setCharacterList] = useState([]); //기존 캐릭터 이미지
   const [userCharacterList, setUserCharacterList] = useState([]); // 사용자 캐릭터 이미지
+  const [isNull, setisNull] = useState(true); //어떠한 동영상도 입력되지 않았다면 다음 페이지로 가지 않기
 
   /**
    * @name : Teawon
@@ -56,7 +57,7 @@ function Mosaic() {
     fetchData();
     const preValue = sessionStorage.getItem("character");
     if (preValue != null) {
-      setSelectedData(preValue);
+      selectedFuc(preValue);
       if (preValue === "M") {
         clickedToggleM();
       } else {
@@ -90,10 +91,16 @@ function Mosaic() {
    * @create-data: 2022-07-18
    * @개선사항 : 향후 Radio버튼으로 변경하여 코드의 가독성을 높일 필요가 있을 것 같습니다.
    */
+
+  const selectedFuc = (Characterid) => {
+    setSelectedData(Characterid);
+    setisNull(false);
+  };
+
   const clickedToggleM = () => {
     setToggleM(true);
     setToggleC(false);
-    setSelectedData("M");
+    selectedFuc("M");
   };
 
   const clickedToggleC = () => {
@@ -151,13 +158,20 @@ function Mosaic() {
 
   return (
     <div>
-      <div className="fixed bottom-0 right-0 p-5">
-        <ButtonSession
-          img="images/rightArrow.png"
-          url="/Result"
-          saveFuc={makeFormData}
-        ></ButtonSession>
-      </div>
+      {isNull ? (
+        <div className="fixed bottom-0 right-0 p-5 opacity-30">
+          <img src="images/rightArrow.png" />
+        </div>
+      ) : (
+        <div className="fixed bottom-0 right-0 p-5">
+          <ButtonSession
+            img="images/rightArrow.png"
+            url="/Result"
+            saveFuc={makeFormData}
+          ></ButtonSession>
+        </div>
+      )}
+
       <div className="fixed bottom-0 left-0 p-5">
         <ButtonSession
           img="images/leftArrow.png"
@@ -199,7 +213,7 @@ function Mosaic() {
                 characterList={characterList}
                 userCharacterList={userCharacterList}
                 preSelectedImage={selectedData}
-                clickFuc={setSelectedData}
+                clickFuc={selectedFuc}
                 insertFuc={addImgList}
                 deleteFuc={deleteImgList}
               ></CharacterImageList>

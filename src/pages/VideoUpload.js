@@ -7,6 +7,7 @@ function VideoUpload() {
   const fileInput = useRef(); // 외부 이미지 클릭 시  <input>가 눌리도록 설정하기 위한 변수
   const [fileVideo, setFileVideo] = useState(); //화면에 보여 줄 비디오 오브젝트
   const [preFileVideo, setPreFileVideo] = useState(); //기존에 넣었던 데이터가 있는 지
+  const [isNull, setisNull] = useState(true); //어떠한 동영상도 입력되지 않았다면 다음 페이지로 가지 않기
 
   /**
    * @name : Teawon
@@ -18,6 +19,7 @@ function VideoUpload() {
   const saveFile = (event) => {
     setPreFileVideo();
     setFileVideo(event.target.files[0]);
+    setisNull(false);
   };
 
   /**
@@ -61,18 +63,26 @@ function VideoUpload() {
   useEffect(() => {
     if (sessionStorage.getItem("video") != null) {
       setPreFileVideo(JSON.parse(sessionStorage.getItem("video")).url);
+      setisNull(false);
     }
   }, []);
 
   return (
     <div>
-      <div className="fixed bottom-0 right-0 p-5">
-        <ButtonSession
-          img="images/rightArrow.png"
-          url="/Mosaic"
-          saveFuc={makeFormData}
-        ></ButtonSession>
-      </div>
+      {isNull ? (
+        <div className="fixed bottom-0 right-0 p-5 opacity-30">
+          <img src="images/rightArrow.png" />
+        </div>
+      ) : (
+        <div className="fixed bottom-0 right-0 p-5">
+          <ButtonSession
+            img="images/rightArrow.png"
+            url="/Mosaic"
+            saveFuc={makeFormData}
+          ></ButtonSession>
+        </div>
+      )}
+
       <div className="fixed bottom-0 left-0 p-5">
         <ButtonSession
           img="images/leftArrow.png"
