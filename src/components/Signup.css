@@ -16,10 +16,10 @@
 }
 .signupA,
 .signupA:visited {
-  color: #03045e;
+  color: rgb(56 189 248);
 }
 .signupA:hover {
-  color: rgb(56 189 248);
+  color: rgb(125 211 252);
 }
 
 .signupInput[type="text"],
@@ -61,6 +61,7 @@ textarea {
   padding: 0.25rem;
   position: relative;
   bottom: -10px;
+  background-color: rgb(56 189 248);
 }
 
 .instructions > svg {

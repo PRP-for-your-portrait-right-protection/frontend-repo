@@ -267,7 +267,7 @@ function InfoCheck() {
           </p>
           <h1 className="mt-12 text-3xl font-Ubuntu text-blue-900">
             Forget Password?
-            <div className="text-2xl">check your Infomation</div>
+            <div className="text-2xl">check your Information</div>
           </h1>
           <form className="signupForm" onSubmit={handleSubmit}>
             <label

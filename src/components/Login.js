@@ -102,11 +102,11 @@ const Login = () => {
           value={pwd}
           required
         />
-        <span className="line mt-4 text-xl font-Ubuntu text-blue-900 hover:text-sky-400">
-          <Link to="/email">Forget Email?</Link>
+        <span className="line mt-4 text-xl font-Ubuntu text-sky-400 hover:text-sky-300">
+          <Link to="/email">Forgot Email?</Link>
         </span>
-        <span className="line text-xl font-Ubuntu text-blue-900 hover:text-sky-400">
-          <Link to="/reset">Forget password?</Link>
+        <span className="line text-xl font-Ubuntu text-sky-400 hover:text-sky-300">
+          <Link to="/reset">Forgot password?</Link>
         </span>
         <button
           className="border-2 border-sky-400 
@@ -119,7 +119,7 @@ const Login = () => {
       <p className="text-xl font-Ubuntu text-blue-900">
         Need an Account?
         <br />
-        <span className="line hover:text-sky-400">
+        <span className="line text-sky-400 hover:text-sky-300">
           <Link to="/signup">Sign Up</Link>
         </span>
       </p>
