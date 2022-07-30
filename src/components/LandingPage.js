@@ -56,12 +56,12 @@ function LandingPage() {
       .catch(function (error) {
         console.log(error);
       });
-    console.log("전");
-    console.log(videos);
-    console.log("후");
 
     setVideos(videos.filter((video) => video.id !== videoId));
-    setCurrentPage(1);
+    if (videos.length % (characterPerPage + 1) == 0) {
+      //페이지 삭제 예외처리
+      setCurrentPage((currentPage) => currentPage - 1);
+    }
     console.log(videos);
   };
 
