@@ -8,39 +8,23 @@ import "../components/Step.css";
 import { AiOutlineCheck } from "react-icons/ai";
 
 function Result() {
-  const { faceId, video, character, task, setTask } = useStore(); //zustand 전역변수 관리
-  useEffect(() => {
-    console.log("최종 점검 페이지입니다. 값들을 확인하겠습니다.");
-    console.log(faceId);
-    console.log(video);
-    console.log(character);
-
-    // if (sessionStorage.getItem("task") == null) {
-    //   sessionStorage.setItem("task", JSON.stringify([]));
-    // }
-  }, []);
+  const { faceId, video, character, task, setTask, removeAllData } = useStore(); //zustand 전역변수
 
   const makeFormData = () => {
     const formData = new FormData();
     let faceType = character === "M" ? "mosaic" : "character";
     formData.append("face_type", faceType);
-    console.log(faceType);
 
     if (faceType === "character") {
-      console.log("캐릭터 정보를 폼에 추가합니다.");
       formData.append("block_character_id", character);
     }
 
     faceId.map((id) => {
-      console.log(id);
       formData.append("whitelist_face_id", id);
     });
 
-    // console.log(JSON.parse(sessionStorage.getItem("faceId")));
-
     formData.append("video_id", video.id);
 
-    // console.log(JSON.parse(sessionStorage.getItem("video")).id);
     axios
       .post(`/processed-videos`, formData, {
         headers: {
@@ -48,12 +32,11 @@ function Result() {
         },
       })
       .then(function (response) {
-        console.log(response.data);
+        console.log(response);
         let temp = task;
         temp.push(response.data.id);
         setTask(temp);
-        console.log("task값은??");
-        console.log(task);
+        removeAllData();
       })
       .catch(function (error) {
         console.log(error);
