@@ -9,6 +9,8 @@ interface SelectContentState {
   setVideo: (select: any) => void;
   character: string;
   setCharacter: (select: string) => void;
+  task: string[];
+  setTask: (select: string[]) => void;
 }
 
 export const useStore = create<SelectContentState>((set) => ({
@@ -26,5 +28,10 @@ export const useStore = create<SelectContentState>((set) => ({
   character: null,
   setCharacter: (select) => {
     set((state) => ({ ...state, character: select }));
+  },
+
+  task: [],
+  setTask: (select) => {
+    set((state) => ({ ...state, task: select }));
   },
 }));

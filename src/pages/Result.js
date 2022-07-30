@@ -3,41 +3,44 @@ import "./Result.css";
 import Title from "components/Title";
 import ButtonSession from "../components/ButtonSession";
 import axios from "../api/axios";
+import { useStore } from "../components/store";
 import "../components/Step.css";
 import { AiOutlineCheck } from "react-icons/ai";
 
 function Result() {
+  const { faceId, video, character, task, setTask } = useStore(); //zustand 전역변수 관리
   useEffect(() => {
-    if (sessionStorage.getItem("task") == null) {
-      sessionStorage.setItem("task", JSON.stringify([]));
-    }
+    console.log("최종 점검 페이지입니다. 값들을 확인하겠습니다.");
+    console.log(faceId);
+    console.log(video);
+    console.log(character);
+
+    // if (sessionStorage.getItem("task") == null) {
+    //   sessionStorage.setItem("task", JSON.stringify([]));
+    // }
   }, []);
 
   const makeFormData = () => {
     const formData = new FormData();
-    let faceType =
-      sessionStorage.getItem("character") === "M" ? "mosaic" : "character";
+    let faceType = character === "M" ? "mosaic" : "character";
     formData.append("face_type", faceType);
     console.log(faceType);
 
     if (faceType === "character") {
       console.log("캐릭터 정보를 폼에 추가합니다.");
-      formData.append(
-        "block_character_id",
-        sessionStorage.getItem("character")
-      );
+      formData.append("block_character_id", character);
     }
 
-    JSON.parse(sessionStorage.getItem("faceId")).map((id) => {
+    faceId.map((id) => {
       console.log(id);
       formData.append("whitelist_face_id", id);
     });
 
-    console.log(JSON.parse(sessionStorage.getItem("faceId")));
+    // console.log(JSON.parse(sessionStorage.getItem("faceId")));
 
-    formData.append("video_id", JSON.parse(sessionStorage.getItem("video")).id);
+    formData.append("video_id", video.id);
 
-    console.log(JSON.parse(sessionStorage.getItem("video")).id);
+    // console.log(JSON.parse(sessionStorage.getItem("video")).id);
     axios
       .post(`/processed-videos`, formData, {
         headers: {
@@ -46,9 +49,11 @@ function Result() {
       })
       .then(function (response) {
         console.log(response.data);
-        let temp = JSON.parse(sessionStorage.getItem("task"));
+        let temp = task;
         temp.push(response.data.id);
-        sessionStorage.setItem("task", JSON.stringify(temp));
+        setTask(temp);
+        console.log("task값은??");
+        console.log(task);
       })
       .catch(function (error) {
         console.log(error);
@@ -104,23 +109,14 @@ function Result() {
       <div className="wrapResult">
         <ul className="result">
           <li>
-            <div>
-              WhiteList Number :
-              {JSON.parse(sessionStorage.getItem("faceId")).length}
-            </div>
+            <div>WhiteList Number :{faceId.length}</div>
+          </li>
+          <li>
+            <div>Uploaded video : {video.videoName}</div>
           </li>
           <li>
             <div>
-              Uploaded video :{" "}
-              {JSON.parse(sessionStorage.getItem("video")).videoName}
-            </div>
-          </li>
-          <li>
-            <div>
-              Processing effect :
-              {sessionStorage.getItem("character") === "M"
-                ? "Mosaic"
-                : "Character"}
+              Processing effect :{character === "M" ? "Mosaic" : "Character"}
             </div>
           </li>
         </ul>
