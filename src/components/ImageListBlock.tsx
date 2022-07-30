@@ -5,6 +5,10 @@ import "./ImageListBlock.css";
 import ButtonSession from "./ButtonSession";
 import { HiUserAdd } from "react-icons/hi";
 import Load from "../components/Load";
+import ReactTooltip from "react-tooltip";
+import { useStore } from "../components/store";
+import { faCreditCard } from "@fortawesome/free-solid-svg-icons";
+
 /**
  * @name : Teawon
  * @component :ImageListBlock - 각각의 ImgList컴포넌트를 추가하고 전체 데이터를 관리하는 컴포넌트
@@ -12,6 +16,7 @@ import Load from "../components/Load";
  */
 
 function ImageListBlock() {
+  const { faceId, setFaceId } = useStore(); //zustand 전역변수
   const [count, setCount] = useState<number>(1); //other + n으로 사용하기 위한 url
   const [isLoding, setIsLoading]: [boolean, any] = useState(false); //api통신 완료 상태 값
   const [checkedItems, setCheckedItems] = useState(new Set<string>()); //checkBox확인
@@ -84,8 +89,8 @@ function ImageListBlock() {
      * @create-date: 2022-07-27
      */
     const preValueCheck = () => {
-      if (sessionStorage.getItem("faceId") != null) {
-        JSON.parse(sessionStorage.getItem("faceId")).forEach((face) => {
+      if (faceId != null) {
+        faceId.forEach((face) => {
           checkedItemHandler(face, true);
         });
       }
@@ -103,7 +108,7 @@ function ImageListBlock() {
    * - 사용자가 선택한 이미지리스트(faceId)를 세션에 저장
    */
   const makeFormData = () => {
-    sessionStorage.setItem("faceId", JSON.stringify(Array.from(checkedItems)));
+    setFaceId(Array.from(checkedItems));
   };
 
   /**

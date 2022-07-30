@@ -5,11 +5,14 @@ import ButtonSession from "../components/ButtonSession";
 import Title from "components/Title";
 import "../components/Step.css";
 import { AiOutlineCheck } from "react-icons/ai";
+import { useStore } from "../components/store";
+
 function VideoUpload() {
   const fileInput = useRef(); // 외부 이미지 클릭 시  <input>가 눌리도록 설정하기 위한 변수
   const [fileVideo, setFileVideo] = useState(); //화면에 보여 줄 비디오 오브젝트
   const [preFileVideo, setPreFileVideo] = useState(); //기존에 넣었던 데이터가 있는 지
   const [isNull, setisNull] = useState(true); //어떠한 동영상도 입력되지 않았다면 다음 페이지로 가지 않기
+  const { video, setVideo } = useStore(); //zustand 전역변수
 
   /**
    * @name : Teawon
@@ -49,7 +52,7 @@ function VideoUpload() {
             url: response.data.url,
             videoName: fileVideo.name,
           };
-          sessionStorage.setItem("video", JSON.stringify(videoObject));
+          setVideo(videoObject);
         })
         .catch(function (error) {
           console.log(error);
@@ -63,8 +66,8 @@ function VideoUpload() {
    * @create-data: 2022-07-21
    */
   useEffect(() => {
-    if (sessionStorage.getItem("video") != null) {
-      setPreFileVideo(JSON.parse(sessionStorage.getItem("video")).url);
+    if (video != null) {
+      setPreFileVideo(video.url);
       setisNull(false);
     }
   }, []);

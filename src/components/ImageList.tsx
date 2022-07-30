@@ -1,7 +1,6 @@
 import React, { useRef, useState } from "react";
 import "./ImageList.css";
 import ImgBlock from "../components/ImageBlock";
-import uuid from "react-uuid";
 import { AiOutlineRight } from "react-icons/ai";
 import { AiOutlineLeft } from "react-icons/ai";
 import { HiOutlineX } from "react-icons/hi";
