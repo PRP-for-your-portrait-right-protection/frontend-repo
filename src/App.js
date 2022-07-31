@@ -1,5 +1,5 @@
 import UploadImagePage from "./pages/UploadImagePage";
-import React from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Mainpage from "./pages/Mainpage";
 import Loginpage from "./pages/Loginpage";
@@ -13,7 +13,16 @@ import Photo from "./pages/Photo";
 import Character from "./pages/Character";
 import VideoUpload from "./pages/VideoUpload";
 import SignUppage from "./pages/SignUppage";
+import ReactGA from "react-ga";
+
+const TRACKING_ID = process.env.REACT_APP_GOOGLE_ANALYTICS_TRACKING_ID;
+ReactGA.initialize(TRACKING_ID);
+
 function App() {
+  useEffect(() => {
+    ReactGA.pageview(window.location.pathname + window.location.search);
+  }, []);
+
   return (
     <BrowserRouter>
       <Routes>
