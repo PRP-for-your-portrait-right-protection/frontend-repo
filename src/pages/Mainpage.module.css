@@ -9,19 +9,23 @@
 .navbarbefore {
   display: flex;
   justify-content: flex-start;
-  padding-top: 2.5rem;
-  padding-bottom: 2.5rem;
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
   padding-left: 11.1%;
   align-items: center;
-  background-color: rgb(125 211 252);
+  background-color: white;
+  border-bottom: 3px solid rgba(253, 253, 253, 0.81);
+  box-shadow: 0px 2px 3px rgba(44, 44, 44, 0.137);
 }
 .navbarafter {
   display: flex;
   justify-content: space-evenly;
-  padding-top: 2.5rem;
-  padding-bottom: 2.5rem;
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
   align-items: center;
-  background-color: rgb(125 211 252);
+  background-color: white;
+  border-bottom: 3px solid rgba(253, 253, 253, 0.81);
+  box-shadow: 0px 2px 3px rgba(44, 44, 44, 0.137);
 }
 .navbar__logo {
   font-size: 40px;
@@ -56,7 +60,7 @@
 .navbar__toggleBtn {
   display: none;
   position: absolute;
-  top: 4%;
+  top: 3.5%;
   right: 5%;
 }
 .img {
@@ -67,7 +71,7 @@
   max-height: 480px;
 }
 .For_Your_PRP {
-  margin-top: 12rem;
+  margin-top: 18rem;
   margin-left: 12%;
   font-family: "Ubuntu-Bold";
   font-size: 48px;

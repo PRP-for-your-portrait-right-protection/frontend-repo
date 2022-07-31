@@ -1,4 +1,9 @@
 import React, { useRef, useState } from "react";
+import {
+  faChevronLeft,
+  faChevronRight,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./CharacterImageList.css";
 import { HiOutlineX } from "react-icons/hi";
 
@@ -99,7 +104,10 @@ function CharacterImageList({
               setPage((curPage) => (curPage > 0 ? curPage - 1 : curPage))
             }
           >
-            <img src="images\iconoir_nav-arrow-left.png" alt="Previous" />
+            <FontAwesomeIcon
+              icon={faChevronLeft}
+              className="w-32 h-32 text-blue-900"
+            />
           </button>
 
           <div className="grid grid-cols-4 gap-4">
@@ -127,7 +135,10 @@ function CharacterImageList({
               )
             }
           >
-            <img src="images\iconoir_nav-arrow-right.png" alt="Next" />
+            <FontAwesomeIcon
+              icon={faChevronRight}
+              className="w-32 h-32 text-blue-900"
+            />
           </button>
         </li>
       </div>
@@ -142,7 +153,10 @@ function CharacterImageList({
               )
             }
           >
-            <img src="images\iconoir_nav-arrow-left.png" alt="Previous" />
+            <FontAwesomeIcon
+              icon={faChevronLeft}
+              className="w-32 h-32 text-blue-900"
+            />
           </button>
           <div className="grid grid-cols-4 gap-4">
             <span
@@ -197,7 +211,10 @@ function CharacterImageList({
               )
             }
           >
-            <img src="images\iconoir_nav-arrow-right.png" alt="Next" />
+            <FontAwesomeIcon
+              icon={faChevronRight}
+              className="w-32 h-32 text-blue-900"
+            />
           </button>
         </li>
       </div>

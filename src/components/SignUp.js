@@ -177,7 +177,7 @@ const SignUp = () => {
   };
 
   return (
-    <section className="signupSection">
+    <section className="signupSection2">
       <p
         ref={errRef}
         className={errMsg ? "errmsg" : "offscreen"}
@@ -185,9 +185,6 @@ const SignUp = () => {
       >
         {errMsg}
       </p>
-      <Link to="/signin" className="w-12 h-8">
-        <FontAwesomeIcon icon={faArrowLeftLong} className="text-blue-900" />
-      </Link>
       <h1 className="text-2xl font-Ubuntu text-blue-900">Create Account</h1>
       <form className="signupForm" onSubmit={handleSubmit}>
         <label

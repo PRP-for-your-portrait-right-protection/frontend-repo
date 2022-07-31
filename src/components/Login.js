@@ -71,9 +71,6 @@ const Login = () => {
       >
         {errMsg}
       </p>
-      <Link to="/" className="w-12 h-8">
-        <FontAwesomeIcon icon={faArrowLeftLong} className="text-blue-900" />
-      </Link>
       <h1 className="text-3xl font-Ubuntu text-blue-900">Sign In</h1>
       <form className="signupForm" onSubmit={handleSubmit}>
         <label

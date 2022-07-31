@@ -107,8 +107,8 @@ textarea {
   /*가로 너비가 1200px 이상일 때 아래 스타일 적용*/
   .signupSection {
     position: absolute;
-    top: 15%;
-    right: 10%;
+    top: 28%;
+    right: 15%;
     width: 100%;
     max-width: 480px;
     min-height: 400px;
@@ -116,7 +116,22 @@ textarea {
     flex-direction: column;
     justify-content: flex-start;
     padding: 2rem;
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0.85);
+    border-radius: 25px;
+    border: 4px solid #03045e;
+  }
+  .signupSection2 {
+    position: absolute;
+    top: 18%;
+    right: 15%;
+    width: 100%;
+    max-width: 480px;
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 2rem;
+    background-color: rgba(255, 255, 255, 0.85);
     border-radius: 25px;
     border: 4px solid #03045e;
   }
@@ -138,6 +153,21 @@ textarea {
     background-color: rgba(255, 255, 255, 0.5);
     border-radius: 25px;
   }
+  .signupSection2 {
+    position: absolute;
+    top: 18%;
+    right: 5%;
+    width: 100%;
+    max-width: 400px;
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 2rem;
+    background-color: rgba(255, 255, 255, 0.85);
+    border-radius: 25px;
+    border: 4px solid #03045e;
+  }
 }
 @media all and (min-width: 768px) and (max-width: 1023px) {
   /*가로 너비가 768~1023px일 때 아래 스타일 적용*/
@@ -156,6 +186,21 @@ textarea {
     background-color: rgba(255, 255, 255, 0.5);
     border-radius: 25px;
   }
+  .signupSection2 {
+    position: absolute;
+    top: 18%;
+    right: 5%;
+    width: 100%;
+    max-width: 320px;
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 2rem;
+    background-color: rgba(255, 255, 255, 0.85);
+    border-radius: 25px;
+    border: 4px solid #03045e;
+  }
 }
 
 @media all and (max-width: 767px) {
@@ -171,5 +216,18 @@ textarea {
     padding: 2rem;
     background-color: rgba(255, 255, 255, 0.5);
     border-radius: 25px;
+  }
+  .signupSection2 {
+    width: 100%;
+    margin: 5% auto;
+    max-width: 640px;
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 2rem;
+    background-color: rgba(255, 255, 255, 0.85);
+    border-radius: 25px;
+    border: 4px solid #03045e;
   }
 }

@@ -266,9 +266,6 @@ function InfoCheck() {
           >
             {errMsg}
           </p>
-          <Link to="/signin" className="w-12 h-8">
-            <FontAwesomeIcon icon={faArrowLeftLong} className="text-blue-900" />
-          </Link>
           <h1 className="mt-12 text-3xl font-Ubuntu text-blue-900">
             Forget Password?
             <div className="text-2xl">check your Information</div>

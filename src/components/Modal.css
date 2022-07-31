@@ -23,7 +23,7 @@
   margin: 0 auto;
   height: 90%;
   border-radius: 0.3rem;
-  background-color: rgb(55, 42, 42);
+  background-color: #f7f8fd;
   /* 팝업이 열릴때 스르륵 열리는 효과 */
   animation: modal-show 0.3s;
   overflow: hidden;
@@ -74,11 +74,12 @@
   height: 8vh;
   width: 15%;
   text-align: center;
-  font-family: "StardosStencil-Regular", serif;
+  font-family: "Poppins_ExtraLight", serif;
   font-style: normal;
   font-weight: 400;
   font-size: 2vw;
-  background-color: transparent;
+  background-color: rgb(56 189 248);
+  border-radius: 8px;
   box-shadow: white 0 0px 0px 2px inset;
 }
 .modal > section > footer button:hover {

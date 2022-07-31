@@ -1,8 +1,7 @@
 .title-component {
-  color: #ffffff;
-  font-family: "StardosStencil-Regular", serif;
+  color: #03045e;
+  font-family: "Ubuntu-Bold", serif;
   text-align: center;
-  text-decoration: overline underline;
   text-underline-position: under;
   font-size: 4vw;
 }
