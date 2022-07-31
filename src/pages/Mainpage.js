@@ -3,83 +3,107 @@ import styles from "./Mainpage.module.css";
 import { Link } from "react-router-dom";
 function Mainpage() {
   const [token, setToken] = useState(false);
+  const [email, setEmail] = useState("");
+  const [isactive, setActive] = useState(false);
 
   const Checktoken = localStorage.getItem("token");
+
+  const HandleToggle = () => {
+    setActive(!isactive);
+    console.log(isactive);
+  };
 
   useEffect(() => {
     if (Checktoken !== null) {
       setToken(true);
+      setEmail(localStorage.getItem("email"));
     }
     console.log(token);
-  }, [token]);
+  }, [email, token]);
 
   // 토큰이 존재할 경우 메인페이지(회원)
   // 아닐 경우 메인페이지(로그인 전) 보여줍니다.
   return (
     <>
       {token ? (
-        <div className={styles.img_1}>
-          <div>
-            <img src="images\admin.png" className={styles.admin} />
-            <Link to="/">
-              <button
-                className={styles.signOut}
-                onClick={() => {
-                  localStorage.clear();
-                  setToken(false);
-                }}
-              >
-                <img src="images\signout.png" />
-              </button>
-            </Link>
-          </div>
-          <div className={styles.section}>
-            <div className={styles.For_Your_Login}>
-              For Your
-              <div className={styles.text_style_1}>PRP</div>
-              <div className={styles.portrait_right_protection_Login}>
-                portrait right protection
-              </div>
+        <div>
+          <nav className={styles.navbarafter}>
+            <div className={styles.navbar__logo}>
+              <img src="images\path28.png" className="inline"></img>
+              <Link to="/">PRP</Link>
             </div>
-          </div>
-          <div>
-            <Link to={"/upload"}>
-              <button className={styles.button1}>START</button>
+            <ul
+              className={
+                isactive ? styles.navbar__menu__active : styles.navbar__menu
+              }
+            >
+              <li>
+                <Link to="/photo">PHOTO</Link>
+              </li>
+              <li>
+                <Link to="/video">VIDEO</Link>
+              </li>
+              <li>
+                <Link to="/character">CHARACTER</Link>
+              </li>
+            </ul>
+            <ul className={styles.navbar__info}>
+              <li> {email}</li>
+              <Link to="/">
+                <button
+                  className={styles.navbar__button}
+                  onClick={() => {
+                    localStorage.clear();
+                    setToken(false);
+                  }}
+                >
+                  Sign Out
+                </button>
+              </Link>
+            </ul>
+            <Link
+              to="#"
+              className={styles.navbar__toggleBtn}
+              onClick={HandleToggle}
+            >
+              <i className="fa-solid fa-bars"></i>
             </Link>
-          </div>
-          <div>
-            <Link to={"/photo"}>
-              <button className={styles.button2}>PHOTO</button>
+          </nav>
+          <div className={styles.For_Your_PRP}>
+            For Your PRP
+            <div className={styles.PRP}>
+              portrait right protection
+              <div>Are you want to make mosaic videos?</div>
+            </div>
+            <Link to="/upload">
+              <button className={styles.For_Your_PRP_button}>Start!</button>
             </Link>
-          </div>
-          <div>
-            <Link to={"/video"}>
-              <button className={styles.button3}>VIDEO</button>
-            </Link>
-          </div>
-          <div>
-            <Link to={"/character"}>
-              <button className={styles.button4}>CHARACTER</button>
-            </Link>
+            <img
+              src="images/casual-life-3d-excited-young-woman.png"
+              className={styles.img}
+            ></img>
           </div>
         </div>
       ) : (
-        <div className={styles.img_1}>
-          <div className={styles.section}>
-            <div className={styles.For_Your_Login}>
-              For Your
-              <div className={styles.text_style_1}>PRP</div>
-              <div className={styles.portrait_right_protection_Login}>
-                portrait right protection
-              </div>
+        <div>
+          <img
+            src="images/casual-life-3d-excited-young-woman.png"
+            className={styles.img}
+          ></img>
+          <nav className={styles.navbarbefore}>
+            <div className={styles.navbar__logo}>
+              <img src="images\path28.png" className="inline"></img>
+              <Link to="/">PRP</Link>
             </div>
-          </div>
-          <div>
-            <Link to={"/signin"}>
-              <button className={styles.button1}>SIGH IN</button>
-            </Link>
-            <Link to={"/signup"}>
-              <button className={styles.button2}>SIGH UP</button>
+          </nav>
+          <div className={styles.For_Your_PRP}>
+            For Your PRP
+            <div className={styles.PRP}>
+              portrait right protection
+              <div>Are you want to make mosaic videos?</div>
+            </div>
+            <Link to="/signin">
+              <button className={styles.For_Your_PRP_button}>Sign in</button>
             </Link>
           </div>
         </div>

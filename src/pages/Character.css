@@ -12,7 +12,7 @@
   position: flex;
   width: 20%;
   height: 83px;
-  font-family: "StardosStencil-Regular", serif;
+  font-family: "Ubuntu-Bold";
   font-style: normal;
   font-weight: 400;
   font-size: 4vw;
@@ -23,7 +23,7 @@
   /* identical to box height */
 
   text-align: center;
-  color: #fffefe;
+  color: #03045e;
 }
 
 @media (max-width: 800px) {

@@ -3,6 +3,7 @@ import {
   faCheck,
   faTimes,
   faInfoCircle,
+  faArrowLeftLong,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link, useNavigate } from "react-router-dom";
@@ -42,7 +43,6 @@ const SignUp = () => {
 
   const [errMsg, setErrMsg] = useState("");
   const [checkErrMsg, setCheckErrMsg] = useState("");
-  const [success, setSuccess] = useState(false);
   const [usableId, setUsableID] = useState(false);
 
   const navigate = useNavigate();
@@ -177,265 +177,246 @@ const SignUp = () => {
   };
 
   return (
-    <>
-      {success ? (
-        <section className="signupSection">
-          <h1 className="text-4xl font-Stardos text-black">Success!</h1>
-          <p className="mt-12 text-3xl font-Stardos text-black">
-            <Link to="/signin" className="signupA">
-              Sign In
-            </Link>
-          </p>
-        </section>
-      ) : (
-        <section className="signupSection">
-          <p
-            ref={errRef}
-            className={errMsg ? "errmsg" : "offscreen"}
-            aria-live="assertive"
-          >
-            {errMsg}
-          </p>
-          <h1 className="text-2xl font-Stardos text-black">Create Account</h1>
-          <form className="signupForm" onSubmit={handleSubmit}>
-            <label
-              htmlFor="email"
-              className="text-base font-Stardos text-black signupLabel"
-            >
-              Email:
-              <FontAwesomeIcon
-                icon={faCheck}
-                className={validEmail ? "valid" : "hide"}
-              />
-              <FontAwesomeIcon
-                icon={faTimes}
-                className={validEmail || !email ? "hide" : "invalid"}
-              />
-            </label>
-            <input
-              className="signupInput"
-              type="text"
-              id="email"
-              ref={userRef}
-              autoComplete="off"
-              onChange={(e) => setEmail(e.target.value)}
-              value={email}
-              required
-              aria-invalid={validEmail ? "false" : "true"}
-              aria-describedby="uidnote"
-              onFocus={() => setEmailFocus(true)}
-              onBlur={() => setEmailFocus(false)}
-            />
-            <button
-              className="border-2 border-amber-900 font-Stardos
-            text-orange-300 hover:text-white bg-amber-900 checkButton"
-              onClick={Clicksubmit}
-            >
-              Check ID
-            </button>
-            <p
-              ref={errRef}
-              className={checkErrMsg ? "checkmsg" : "hide"}
-              aria-live="assertive"
-            >
-              {checkErrMsg}
-            </p>
-            <p
-              id="uidnote"
-              className={
-                EmailFocus && email && !validEmail
-                  ? "instructions"
-                  : "offscreen"
-              }
-            >
-              <FontAwesomeIcon icon={faInfoCircle} />
-              Must input your Email
-            </p>
+    <section className="signupSection2">
+      <p
+        ref={errRef}
+        className={errMsg ? "errmsg" : "offscreen"}
+        aria-live="assertive"
+      >
+        {errMsg}
+      </p>
+      <h1 className="text-2xl font-Ubuntu text-blue-900">Create Account</h1>
+      <form className="signupForm" onSubmit={handleSubmit}>
+        <label
+          htmlFor="email"
+          className="text-base font-Ubuntu text-blue-900 signupLabel"
+        >
+          Email:
+          <FontAwesomeIcon
+            icon={faCheck}
+            className={validEmail ? "valid" : "hide"}
+          />
+          <FontAwesomeIcon
+            icon={faTimes}
+            className={validEmail || !email ? "hide" : "invalid"}
+          />
+        </label>
+        <input
+          className="signupInput"
+          type="text"
+          id="email"
+          ref={userRef}
+          autoComplete="off"
+          onChange={(e) => setEmail(e.target.value)}
+          value={email}
+          required
+          aria-invalid={validEmail ? "false" : "true"}
+          aria-describedby="uidnote"
+          onFocus={() => setEmailFocus(true)}
+          onBlur={() => setEmailFocus(false)}
+        />
+        <button
+          className="border-2 border-sky-400 font-Ubuntu
+            text-white hover:text-blue-900 bg-sky-400 checkButton"
+          onClick={Clicksubmit}
+        >
+          Check ID
+        </button>
+        <p
+          ref={errRef}
+          className={checkErrMsg ? "checkmsg" : "hide"}
+          aria-live="assertive"
+        >
+          {checkErrMsg}
+        </p>
+        <p
+          id="uidnote"
+          className={
+            EmailFocus && email && !validEmail ? "instructions" : "offscreen"
+          }
+        >
+          <FontAwesomeIcon icon={faInfoCircle} />
+          Must input your Email
+        </p>
 
-            <label
-              htmlFor="username"
-              className="text-base font-Stardos text-black signupLabel"
-            >
-              User Name:
-              <FontAwesomeIcon
-                icon={faCheck}
-                className={validName ? "valid" : "hide"}
-              />
-              <FontAwesomeIcon
-                icon={faTimes}
-                className={validName || !name ? "hide" : "invalid"}
-              />
-            </label>
-            <input
-              className="signupInput"
-              type="text"
-              id="username"
-              ref={userRef}
-              autoComplete="off"
-              onChange={(e) => setName(e.target.value)}
-              value={name}
-              required
-              aria-invalid={validName ? "false" : "true"}
-              aria-describedby="unamenote"
-              onFocus={() => setNameFocus(true)}
-              onBlur={() => setNameFocus(false)}
-            />
-            <p
-              id="unamenote"
-              className={
-                nameFocus && name && !validName ? "instructions" : "offscreen"
-              }
-            >
-              <FontAwesomeIcon icon={faInfoCircle} />
-              Must input Korean 2 to 4 characters.
-              <br />
-              or Must input First Name(3~11) and Last Name(3~11)
-            </p>
+        <label
+          htmlFor="username"
+          className="text-base font-Ubuntu text-blue-900 signupLabel"
+        >
+          User Name:
+          <FontAwesomeIcon
+            icon={faCheck}
+            className={validName ? "valid" : "hide"}
+          />
+          <FontAwesomeIcon
+            icon={faTimes}
+            className={validName || !name ? "hide" : "invalid"}
+          />
+        </label>
+        <input
+          className="signupInput"
+          type="text"
+          id="username"
+          ref={userRef}
+          autoComplete="off"
+          onChange={(e) => setName(e.target.value)}
+          value={name}
+          required
+          aria-invalid={validName ? "false" : "true"}
+          aria-describedby="unamenote"
+          onFocus={() => setNameFocus(true)}
+          onBlur={() => setNameFocus(false)}
+        />
+        <p
+          id="unamenote"
+          className={
+            nameFocus && name && !validName ? "instructions" : "offscreen"
+          }
+        >
+          <FontAwesomeIcon icon={faInfoCircle} />
+          Must input Korean 2 to 4 characters.
+          <br />
+          or Must input First Name(3~11) and Last Name(3~11)
+        </p>
 
-            <label
-              htmlFor="phnum"
-              className="text-base font-Stardos text-black signupLabel"
-            >
-              Phone Number:
-              <FontAwesomeIcon
-                icon={faCheck}
-                className={validPhoneNum ? "valid" : "hide"}
-              />
-              <FontAwesomeIcon
-                icon={faTimes}
-                className={validPhoneNum || !phonenum ? "hide" : "invalid"}
-              />
-            </label>
-            <input
-              className="signupInput"
-              type="text"
-              id="phnum"
-              ref={userRef}
-              autoComplete="off"
-              onChange={(e) => setPhoneNum(e.target.value)}
-              value={phonenum}
-              required
-              aria-invalid={validPhoneNum ? "false" : "true"}
-              aria-describedby="phnumnote"
-              onFocus={() => setPhoneFocus(true)}
-              onBlur={() => setPhoneFocus(false)}
-            />
-            <p
-              id="phnumnote"
-              className={
-                phoneNumFocus && phonenum && !validPhoneNum
-                  ? "instructions"
-                  : "offscreen"
-              }
-            >
-              <FontAwesomeIcon icon={faInfoCircle} />
-              Must input 10 or 11 characters
-            </p>
+        <label
+          htmlFor="phnum"
+          className="text-base font-Ubuntu text-blue-900 signupLabel"
+        >
+          Phone Number:
+          <FontAwesomeIcon
+            icon={faCheck}
+            className={validPhoneNum ? "valid" : "hide"}
+          />
+          <FontAwesomeIcon
+            icon={faTimes}
+            className={validPhoneNum || !phonenum ? "hide" : "invalid"}
+          />
+        </label>
+        <input
+          className="signupInput"
+          type="text"
+          id="phnum"
+          ref={userRef}
+          autoComplete="off"
+          onChange={(e) => setPhoneNum(e.target.value)}
+          value={phonenum}
+          required
+          aria-invalid={validPhoneNum ? "false" : "true"}
+          aria-describedby="phnumnote"
+          onFocus={() => setPhoneFocus(true)}
+          onBlur={() => setPhoneFocus(false)}
+        />
+        <p
+          id="phnumnote"
+          className={
+            phoneNumFocus && phonenum && !validPhoneNum
+              ? "instructions"
+              : "offscreen"
+          }
+        >
+          <FontAwesomeIcon icon={faInfoCircle} />
+          Must input 10 or 11 characters
+        </p>
 
-            <label
-              htmlFor="password"
-              className="text-base font-Stardos text-black signupLabel"
-            >
-              Password:
-              <FontAwesomeIcon
-                icon={faCheck}
-                className={validPwd ? "valid" : "hide"}
-              />
-              <FontAwesomeIcon
-                icon={faTimes}
-                className={validPwd || !pwd ? "hide" : "invalid"}
-              />
-            </label>
-            <input
-              className="signupInput"
-              type="password"
-              id="password"
-              onChange={(e) => setPwd(e.target.value)}
-              value={pwd}
-              required
-              aria-invalid={validPwd ? "false" : "true"}
-              aria-describedby="pwdnote"
-              onFocus={() => setPwdFocus(true)}
-              onBlur={() => setPwdFocus(false)}
-            />
-            <p
-              id="pwdnote"
-              className={pwdFocus && !validPwd ? "instructions" : "offscreen"}
-            >
-              <FontAwesomeIcon icon={faInfoCircle} />
-              8 to 24 characters.
-              <br />
-              대문자, 소문자 , 숫자 , 특수문자를 포함하여 입력해주세요.
-              <br />
-              Allowed special characters:{" "}
-              <span aria-label="exclamation mark">!</span>{" "}
-              <span aria-label="at symbol">@</span>{" "}
-              <span aria-label="hashtag">#</span>{" "}
-              <span aria-label="dollar sign">$</span>{" "}
-              <span aria-label="percent">%</span>
-            </p>
+        <label
+          htmlFor="password"
+          className="text-base font-Ubuntu text-blue-900 signupLabel"
+        >
+          Password:
+          <FontAwesomeIcon
+            icon={faCheck}
+            className={validPwd ? "valid" : "hide"}
+          />
+          <FontAwesomeIcon
+            icon={faTimes}
+            className={validPwd || !pwd ? "hide" : "invalid"}
+          />
+        </label>
+        <input
+          className="signupInput"
+          type="password"
+          id="password"
+          onChange={(e) => setPwd(e.target.value)}
+          value={pwd}
+          required
+          aria-invalid={validPwd ? "false" : "true"}
+          aria-describedby="pwdnote"
+          onFocus={() => setPwdFocus(true)}
+          onBlur={() => setPwdFocus(false)}
+        />
+        <p
+          id="pwdnote"
+          className={pwdFocus && !validPwd ? "instructions" : "offscreen"}
+        >
+          <FontAwesomeIcon icon={faInfoCircle} />
+          8 to 24 characters.
+          <br />
+          대문자, 소문자 , 숫자 , 특수문자를 포함하여 입력해주세요.
+          <br />
+          Allowed special characters:{" "}
+          <span aria-label="exclamation mark">!</span>{" "}
+          <span aria-label="at symbol">@</span>{" "}
+          <span aria-label="hashtag">#</span>{" "}
+          <span aria-label="dollar sign">$</span>{" "}
+          <span aria-label="percent">%</span>
+        </p>
 
-            <label
-              htmlFor="confirm_pwd"
-              className="text-base font-Stardos text-black signupLabel"
-            >
-              Confirm Password:
-              <FontAwesomeIcon
-                icon={faCheck}
-                className={validMatch && matchPwd ? "valid" : "hide"}
-              />
-              <FontAwesomeIcon
-                icon={faTimes}
-                className={validMatch || !matchPwd ? "hide" : "invalid"}
-              />
-            </label>
-            <input
-              className="signupInput"
-              type="password"
-              id="confirm_pwd"
-              onChange={(e) => setMatchPwd(e.target.value)}
-              value={matchPwd}
-              required
-              aria-invalid={validMatch ? "false" : "true"}
-              aria-describedby="confirmnote"
-              onFocus={() => setMatchFocus(true)}
-              onBlur={() => setMatchFocus(false)}
-            />
-            <p
-              id="confirmnote"
-              className={
-                matchFocus && !validMatch ? "instructions" : "offscreen"
-              }
-            >
-              <FontAwesomeIcon icon={faInfoCircle} />
-              Must match the first password input field.
-            </p>
+        <label
+          htmlFor="confirm_pwd"
+          className="text-base font-Ubuntu text-blue-900 signupLabel"
+        >
+          Confirm Password:
+          <FontAwesomeIcon
+            icon={faCheck}
+            className={validMatch && matchPwd ? "valid" : "hide"}
+          />
+          <FontAwesomeIcon
+            icon={faTimes}
+            className={validMatch || !matchPwd ? "hide" : "invalid"}
+          />
+        </label>
+        <input
+          className="signupInput"
+          type="password"
+          id="confirm_pwd"
+          onChange={(e) => setMatchPwd(e.target.value)}
+          value={matchPwd}
+          required
+          aria-invalid={validMatch ? "false" : "true"}
+          aria-describedby="confirmnote"
+          onFocus={() => setMatchFocus(true)}
+          onBlur={() => setMatchFocus(false)}
+        />
+        <p
+          id="confirmnote"
+          className={matchFocus && !validMatch ? "instructions" : "offscreen"}
+        >
+          <FontAwesomeIcon icon={faInfoCircle} />
+          Must match the first password input field.
+        </p>
 
-            <button
-              disabled={
-                !validEmail || !validName || !validPwd || !validMatch
-                  ? true
-                  : false
-              }
-              className="border-2 border-amber-900 text-2xl 
-              font-Stardos text-black hover:text-white bg-amber-900 signupButton"
-              onClick={handleSubmit}
-            >
-              Sign Up
-            </button>
-          </form>
-          <p className="text-base font-Stardos text-black">
-            Already registered?
-            <br />
-            <span className="line">
-              <Link to="/signin" className="signupA">
-                Sign In
-              </Link>
-            </span>
-          </p>
-        </section>
-      )}
-    </>
+        <button
+          disabled={
+            !validEmail || !validName || !validPwd || !validMatch ? true : false
+          }
+          className="border-2 border-sky-400 text-2xl 
+              font-Ubuntu text-white hover:text-blue-900 bg-sky-400 signupButton"
+          onClick={handleSubmit}
+        >
+          Sign Up
+        </button>
+      </form>
+      <p className="text-base font-Ubuntu text-blue-900">
+        Already registered?
+        <br />
+        <span className="line">
+          <Link to="/signin" className="signupA">
+            Sign In
+          </Link>
+        </span>
+      </p>
+    </section>
   );
 };
 

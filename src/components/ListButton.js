@@ -50,11 +50,11 @@ function ListButton() {
       </div>
       <div className="navbar__icons">
         <li>
-          <HiOutlineUser size="2em" color="white" />
+          <HiOutlineUser size="2em" color="#03045e" />
         </li>
         <li>
           <a href="/">
-            <IoLogOutSharp size="2em" color="white" />
+            <IoLogOutSharp size="2em" color="#03045e" />
           </a>
         </li>
       </div>
