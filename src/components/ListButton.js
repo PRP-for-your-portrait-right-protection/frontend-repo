@@ -1,62 +1,61 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./ListButton.css";
-import Navigation from "./Navigation";
-import { HiFilm } from "react-icons/hi";
-import { IoLogOutSharp } from "react-icons/io5";
-import { HiOutlineUser } from "react-icons/hi";
-/**
- * @name : minji
- * @component :ListButton - Navigation컴포넌트 이용하여 페이지 이동
- * @create-data: 2022-07-15
- */
+import { Link } from "react-router-dom";
 
 function ListButton() {
-  const [menuToggle, setMenuToggle] = useState(false);
-  const menu = [
-    { name: "HOME", address: "/" },
-    { name: "PHOTO", address: "/photo" },
-    { name: "VIDEO", address: "/video" },
-    { name: "CHARACTER", address: "/character" },
-  ];
+  const [token, setToken] = useState(false);
+  const [email, setEmail] = useState("");
+  const [isactive, setActive] = useState(false);
+
+  const Checktoken = localStorage.getItem("token");
+
+  const HandleToggle = () => {
+    setActive(!isactive);
+    console.log(isactive);
+  };
+
+  useEffect(() => {
+    if (Checktoken !== null) {
+      setToken(true);
+      setEmail(localStorage.getItem("email"));
+    }
+    console.log(token);
+  }, [email, token]);
+
   return (
     <nav className="navigation__wrapper">
       <div className="navbar__logo">
-        <HiFilm className="mr-3" />
-        PRP
+        <img src="images\path28.png" className="inline"></img>
+        <Link to="/">PRP</Link>
       </div>
-      <div
-        className={!menuToggle ? "burger__menu" : "x__menu"}
-        onClick={() =>
-          menuToggle ? setMenuToggle(false) : setMenuToggle(true)
-        }
-      >
-        <div className="burger_line1"></div>
-        <div className="burger_line2"></div>
-        <div className="burger_line3"></div>
-      </div>
-      <div
-        className={[
-          "menu__box",
-          !menuToggle ? "menu__box__hidden" : "menu__box__visible",
-        ].join(" ")}
-      >
-        <ul className="menu__list">
-          <Navigation url="" name="HOME" />
-          <Navigation url="Photo" name="PHOTO" />
-          <Navigation url="Video" name="VIDEO" />
-          <Navigation url="Character" name="CHARACTER" />
-        </ul>
-      </div>
-      <div className="navbar__icons">
+      <ul className={isactive ? "navbar__menu__active" : "navbar__menu"}>
         <li>
-          <HiOutlineUser size="2em" color="#03045e" />
+          <Link to="/photo">PHOTO</Link>
         </li>
         <li>
-          <a href="/">
-            <IoLogOutSharp size="2em" color="#03045e" />
-          </a>
+          <Link to="/video">VIDEO</Link>
         </li>
-      </div>
+        <li>
+          <Link to="/character">CHARACTER</Link>
+        </li>
+      </ul>
+      <ul className="navbar__info">
+        <li> {email}</li>
+        <Link to="/">
+          <button
+            className="navbar__button"
+            onClick={() => {
+              localStorage.clear();
+              setToken(false);
+            }}
+          >
+            Sign Out
+          </button>
+        </Link>
+      </ul>
+      <Link to="#" className="navbar__toggleBtn" onClick={HandleToggle}>
+        <i className="fa-solid fa-bars"></i>
+      </Link>
     </nav>
   );
 }
