@@ -9,6 +9,7 @@ import ButtonSession from "../components/ButtonSession";
 import "../components/Step.css";
 import { AiOutlineCheck } from "react-icons/ai";
 
+import { useStore } from "../components/store";
 function Mosaic() {
   const [modal, setModal] = useState(false); //스위치 역할
   const [toggleM, setToggleM] = useState(false); //Mosaic토글
@@ -17,6 +18,7 @@ function Mosaic() {
   const [characterList, setCharacterList] = useState([]); //기존 캐릭터 이미지
   const [userCharacterList, setUserCharacterList] = useState([]); // 사용자 캐릭터 이미지
   const [isNull, setisNull] = useState(true); //어떠한 동영상도 입력되지 않았다면 다음 페이지로 가지 않기
+  const { character, setCharacter } = useStore(); //zustand 전역변수
 
   /**
    * @name : Teawon
@@ -58,7 +60,7 @@ function Mosaic() {
     };
 
     fetchData();
-    const preValue = sessionStorage.getItem("character");
+    const preValue = character;
     if (preValue != null) {
       selectedFuc(preValue);
       if (preValue === "M") {
@@ -82,10 +84,10 @@ function Mosaic() {
    * @create-date: 2022-07-22
    * @update-date :2022-07-24
    * - 파일의 선택여부에 따라 백엔드로 파일객체값을 두 필드값으로 분리하여 보냄
-   * - 응답값을 받아 session에 저장
+   * - 응답값을 받아 store에 저장
    */
   const makeFormData = () => {
-    sessionStorage.setItem("character", selectedData);
+    setCharacter(selectedData);
   };
 
   /**
@@ -95,8 +97,8 @@ function Mosaic() {
    * @개선사항 : 향후 Radio버튼으로 변경하여 코드의 가독성을 높일 필요가 있을 것 같습니다.
    */
 
-  const selectedFuc = (Characterid) => {
-    setSelectedData(Characterid);
+  const selectedFuc = (CharacterObject) => {
+    setSelectedData(CharacterObject);
     setisNull(false);
   };
 

@@ -5,6 +5,7 @@ import "./ImageListBlock.css";
 import ButtonSession from "./ButtonSession";
 import { HiUserAdd } from "react-icons/hi";
 import Load from "../components/Load";
+import Pagination from "../components/Pagination";
 
 /**
  * @name : Teawon
@@ -15,6 +16,11 @@ import Load from "../components/Load";
 function UserPageImageListBlock() {
   const [count, setCount] = useState<number>(1); //other + n으로 사용하기 위한 url
   const [isLoding, setIsLoading]: [boolean, any] = useState(false); //api통신 완료 상태 값
+  const [currentPage, setCurrentPage] = useState(1);
+  const [characterPerPage, setCharacterPerPage] = useState(3); //페이지당 원하는개수
+  const indexOfLastVideo = currentPage * characterPerPage;
+  const indexOfFirstVideo = indexOfLastVideo - characterPerPage;
+
   const [totalList, setTotalList]: [any, any] = useState({
     //최종적으로 backend로 보내질 데이터 리스트 집합
     data: [
@@ -216,6 +222,10 @@ function UserPageImageListBlock() {
         copyArray.data = copyArray.data.filter(
           (list) => list.whitelistFaceId !== whitelistFace.whitelistFaceId
         );
+        if (totalList.data.length % (characterPerPage + 1) == 0) {
+          //페이지 삭제 예외처리
+          setCurrentPage((currentPage) => currentPage - 1);
+        }
         setTotalList(copyArray);
 
         axios
@@ -261,15 +271,11 @@ function UserPageImageListBlock() {
     }
   };
 
-  /**
-   * @name : Teawon
-   * @function :checkedItemHandler - 각 이미지리스트의 체크값 상태 변화 함수
-   * 부모컴포넌트인 ImageListBlock의 상태값 갱신 함수를 통해 전체 상태값의 변화를 관리합니다.
-   * @param :
-   *  id- 삭제할 이미지 id
-   *  isChecked - 체크 여부
-   * @create-date: 2022-07-27
-   */
+  const currentImageList = (characterImg) => {
+    console.log(characterImg);
+
+    return characterImg.slice(indexOfFirstVideo, indexOfLastVideo);
+  };
 
   return (
     <>
@@ -287,13 +293,19 @@ function UserPageImageListBlock() {
             />
           </button>
           {totalList.data && //map을 통해 각 imgList를 출력
-            totalList.data.map((imgList) => (
+            currentImageList(totalList.data).map((imgList) => (
               <UserPageImageList
                 key={imgList.whitelistFaceId}
                 object={imgList}
                 changeFuc={changeFuc}
               />
             ))}
+
+          <Pagination
+            componentsPerPage={characterPerPage}
+            totalComponents={totalList.data.length}
+            paginate={setCurrentPage}
+          />
         </>
       ) : (
         <Load />

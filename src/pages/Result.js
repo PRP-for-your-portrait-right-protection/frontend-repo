@@ -2,42 +2,30 @@ import React, { useEffect } from "react";
 import "./Result.css";
 import Title from "components/Title";
 import ButtonSession from "../components/ButtonSession";
+import ResultImageList from "../components/ResultImageList";
 import axios from "../api/axios";
+import { useStore } from "../components/store";
 import "../components/Step.css";
 import { AiOutlineCheck } from "react-icons/ai";
 
 function Result() {
-  useEffect(() => {
-    if (sessionStorage.getItem("task") == null) {
-      sessionStorage.setItem("task", JSON.stringify([]));
-    }
-  }, []);
+  const { faceId, video, character, task, setTask, removeAllData } = useStore(); //zustand 전역변수
 
   const makeFormData = () => {
     const formData = new FormData();
-    let faceType =
-      sessionStorage.getItem("character") === "M" ? "mosaic" : "character";
+    let faceType = character === "M" ? "mosaic" : "character";
     formData.append("face_type", faceType);
-    console.log(faceType);
 
     if (faceType === "character") {
-      console.log("캐릭터 정보를 폼에 추가합니다.");
-      formData.append(
-        "block_character_id",
-        sessionStorage.getItem("character")
-      );
+      formData.append("block_character_id", character.id);
     }
 
-    JSON.parse(sessionStorage.getItem("faceId")).map((id) => {
-      console.log(id);
-      formData.append("whitelist_face_id", id);
+    faceId.map((data) => {
+      formData.append("whitelist_face_id", data.id);
     });
 
-    console.log(JSON.parse(sessionStorage.getItem("faceId")));
+    formData.append("video_id", video.id);
 
-    formData.append("video_id", JSON.parse(sessionStorage.getItem("video")).id);
-
-    console.log(JSON.parse(sessionStorage.getItem("video")).id);
     axios
       .post(`/processed-videos`, formData, {
         headers: {
@@ -45,10 +33,11 @@ function Result() {
         },
       })
       .then(function (response) {
-        console.log(response.data);
-        let temp = JSON.parse(sessionStorage.getItem("task"));
+        console.log(response);
+        let temp = task;
         temp.push(response.data.id);
-        sessionStorage.setItem("task", JSON.stringify(temp));
+        setTask(temp);
+        removeAllData();
       })
       .catch(function (error) {
         console.log(error);
@@ -104,25 +93,35 @@ function Result() {
       <div className="wrapResult">
         <ul className="result">
           <li>
-            <div>
-              WhiteList Number :
-              {JSON.parse(sessionStorage.getItem("faceId")).length}
-            </div>
+            <div>WhiteList Number :{faceId.length}</div>
           </li>
+          <ResultImageList object={faceId} />
           <li>
-            <div>
-              Uploaded video :{" "}
-              {JSON.parse(sessionStorage.getItem("video")).videoName}
+            <div className="mt-10">
+              <p className="w-96 truncate">
+                Uploaded video : {video.videoName}{" "}
+              </p>
+              <video
+                className="flex items-center justify-center w-3/4 h-72"
+                id="video"
+                src={video.url}
+                style={{ margin: "auto" }}
+                controls
+              ></video>
             </div>
           </li>
-          <li>
-            <div>
-              Processing effect :
-              {sessionStorage.getItem("character") === "M"
-                ? "Mosaic"
-                : "Character"}
-            </div>
-          </li>
+          {character === "M" ? (
+            <li>
+              <div>Processing effect :{"Mosaic"}</div>
+            </li>
+          ) : (
+            <li>
+              <div>
+                Processing effect :{"Character"}
+                <img className="h-40 w-40" alt="sample" src={character.url} />
+              </div>
+            </li>
+          )}
         </ul>
       </div>
     </div>

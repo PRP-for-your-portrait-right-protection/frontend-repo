@@ -73,6 +73,10 @@ function UserPageCharacter() {
     setUserCharacterList(
       userCharacterList.filter((characterImg) => characterImg.id !== imgId)
     );
+    if (userCharacterList.length % (characterPerPage + 1) == 0) {
+      //페이지 삭제 예외처리
+      setCurrentPage((currentPage) => currentPage - 1);
+    }
     axios
       .delete(`/block-characters/user/${imgId}`, {
         headers: {
