@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import ImageList from "../components/ImageList";
 import axios from "../api/axios";
 import "./ImageListBlock.css";
 import ButtonSession from "./ButtonSession";
 import { HiUserAdd } from "react-icons/hi";
 import Load from "../components/Load";
-import ReactTooltip from "react-tooltip";
 /**
  * @name : Teawon
  * @component :ImageListBlock - 각각의 ImgList컴포넌트를 추가하고 전체 데이터를 관리하는 컴포넌트
@@ -16,6 +15,7 @@ function ImageListBlock() {
   const [count, setCount] = useState<number>(1); //other + n으로 사용하기 위한 url
   const [isLoding, setIsLoading]: [boolean, any] = useState(false); //api통신 완료 상태 값
   const [checkedItems, setCheckedItems] = useState(new Set<string>()); //checkBox확인
+  const [checkedList, setCheckedList]: [any, any] = useState([]);
   const [totalList, setTotalList]: [any, any] = useState({
     //최종적으로 backend로 보내질 데이터 리스트 집합
     data: [
@@ -163,7 +163,6 @@ function ImageListBlock() {
 
   const changeFuc = (object, whitelistFace, type) => {
     const formData = new FormData();
-
     let findIndex = totalList.data.findIndex(
       (element) => element.whitelistFaceName == whitelistFace.whitelistFaceName
     );
@@ -293,10 +292,61 @@ function ImageListBlock() {
     }
   };
 
+  const onCheckedAll = useCallback(
+    (checked) => {
+      if (checked) {
+        const checkedListArray = [];
+        totalList.forEach((list) => checkedListArray.push(list));
+        setCheckedList(checkedListArray);
+      } else {
+        setCheckedList([]);
+      }
+    },
+    [totalList]
+  );
+
   return (
     <>
       {isLoding ? (
         <>
+          <div className="wrapImage2">
+            <ol className="box2">
+              <ul className="pictureList2">
+                <li className="flex items-center float-left">
+                  <div className="checkbox2">
+                    <input
+                      type="checkbox"
+                      name="check"
+                      id="check"
+                      value="1"
+                      className="checkbox2"
+                      onChange={(e) => onCheckedAll(e.target.checked)}
+                      checked={
+                        checkedList.length === 0
+                          ? false
+                          : checkedList.length === totalList.length
+                          ? true
+                          : false
+                      }
+                    />
+                  </div>
+                </li>
+                <li className="personName2">
+                  <div>Select All</div>
+                </li>
+              </ul>
+            </ol>
+          </div>
+          {totalList.data && //map을 통해 각 imgList를 출력
+            totalList.data.map((imgList) => (
+              <ImageList
+                key={imgList.whitelistFaceId}
+                object={imgList}
+                changeFuc={changeFuc}
+                checkFuc={checkedItemHandler}
+                checked={checkedItems.has(imgList.whitelistFaceId)}
+              />
+            ))}
           <button //ImgList추가 버튼
             className="addBtn"
             onClick={() => addImgList(null)}
@@ -310,38 +360,19 @@ function ImageListBlock() {
               />
             </span>
           </button>
-
-          <ReactTooltip
-            id="tooltip"
-            effect="solid"
-            place="bottom"
-            type="light"
-            className="tooltip"
-          >
-            Add people
-          </ReactTooltip>
-
-          {totalList.data && //map을 통해 각 imgList를 출력
-            totalList.data.map((imgList) => (
-              <ImageList
-                key={imgList.whitelistFaceId}
-                object={imgList}
-                changeFuc={changeFuc}
-                checkFuc={checkedItemHandler}
-                checked={checkedItems.has(imgList.whitelistFaceId)}
-              />
-            ))}
           <div className="fixed bottom-0 right-0 p-5">
             <ButtonSession
-              img="images/rightArrow.png"
+              img="images/right.png"
               url="/VideoUpload"
+              text="next"
               saveFuc={makeFormData}
             ></ButtonSession>
           </div>
           <div className="fixed bottom-0 left-0 p-5">
             <ButtonSession
-              img="images/leftArrow.png"
+              img="images/left.png"
               url="/"
+              text="previous"
               saveFuc={null}
             ></ButtonSession>
           </div>

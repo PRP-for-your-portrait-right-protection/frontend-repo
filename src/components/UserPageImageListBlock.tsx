@@ -294,20 +294,6 @@ function UserPageImageListBlock() {
                 changeFuc={changeFuc}
               />
             ))}
-          <div className="fixed bottom-0 right-0 p-5">
-            <ButtonSession
-              img="images/rightArrow.png"
-              url="/VideoUpload"
-              saveFuc={null}
-            ></ButtonSession>
-          </div>
-          <div className="fixed bottom-0 left-0 p-5">
-            <ButtonSession
-              img="images/leftArrow.png"
-              url="/"
-              saveFuc={null}
-            ></ButtonSession>
-          </div>
         </>
       ) : (
         <Load />

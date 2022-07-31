@@ -6,6 +6,9 @@ import styled from "styled-components";
 import Title from "components/Title";
 import CharacterImageList from "components/CharacterImageList";
 import ButtonSession from "../components/ButtonSession";
+import "../components/Step.css";
+import { AiOutlineCheck } from "react-icons/ai";
+
 function Mosaic() {
   const [modal, setModal] = useState(false); //스위치 역할
   const [toggleM, setToggleM] = useState(false); //Mosaic토글
@@ -180,7 +183,35 @@ function Mosaic() {
         ></ButtonSession>
       </div>
 
-      <Title textValue="Select the image Processing type"></Title>
+      <Title
+        textValue="Select the image Processing type"
+        textTooltip="After selecting the target to be excluded from the mosaic, please upload the face image of the person."
+      ></Title>
+
+      <div className="stepper-wrapper">
+        <div className="stepper-item completed">
+          <div className="step-counter">
+            {" "}
+            <AiOutlineCheck size="20" color="white" />
+          </div>
+          <div className="step-name">Whitelist Picture</div>
+        </div>
+        <div className="stepper-item completed">
+          <div className="step-counter">
+            {" "}
+            <AiOutlineCheck size="20" color="white" />
+          </div>
+          <div className="step-name">Video</div>
+        </div>
+        <div className="stepper-item active">
+          <div className="step-counter">3</div>
+          <div className="step-name">Effect</div>
+        </div>
+        <div className="stepper-item ">
+          <div className="step-counter">4</div>
+          <div className="step-name">Result</div>
+        </div>
+      </div>
       <div className="wrapChoice">
         <ul>
           <li>

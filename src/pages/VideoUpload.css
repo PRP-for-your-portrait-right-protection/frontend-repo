@@ -1,6 +1,10 @@
 @font-face {
-  font-family: "StardosStencil-Regular";
-  src: url("../fonts/StardosStencil-Regular.ttf");
+  font-family: "Ubuntu-Bold";
+  src: url("../fonts/Ubuntu-Bold.ttf");
+}
+@font-face {
+  font-family: "Poppins_ExtraLight";
+  src: url("../fonts/Poppins-ExtraLight.ttf");
 }
 
 /* .uploadFont {
@@ -48,7 +52,7 @@
   width: 100%;
   height: auto;
   text-align: center;
-  font-family: "StardosStencil-Regular";
+  font-family: "Ubuntu-Bold", serif;
   font-size: 3vw;
   color: white;
 }

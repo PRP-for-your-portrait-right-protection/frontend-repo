@@ -1,15 +1,18 @@
 import React, { useState } from "react";
 import "./Title.css";
+import Tooltip from "../components/Tooltip";
 
 interface TitleProps {
   textValue: string;
+  textTooltip: string;
 }
 
-function Title({ textValue }: TitleProps) {
+function Title({ textValue, textTooltip }: TitleProps) {
   return (
-    <div className="title-component  mt-28">
-      <p className="textBasic"> {textValue} </p>
-    </div>
+    <li className="title-component flex mt-7">
+      <span className="textBasic"> {textValue} </span>
+      <Tooltip tooltipText={textTooltip}></Tooltip>
+    </li>
   );
 }
 
