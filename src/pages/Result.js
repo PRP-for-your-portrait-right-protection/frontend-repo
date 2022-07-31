@@ -95,13 +95,33 @@ function Result() {
             <div>WhiteList Number :{faceId.length}</div>
           </li>
           <li>
-            <div>Uploaded video : {video.videoName}</div>
-          </li>
-          <li>
             <div>
-              Processing effect :{character === "M" ? "Mosaic" : "Character"}
+              Uploaded video : {video.videoName}
+              <video
+                className="flex items-center justify-center w-3/4 h-72"
+                id="video"
+                src={video.url}
+                style={{ margin: "auto" }}
+                controls
+              ></video>
             </div>
           </li>
+          {character === "M" ? (
+            <li>
+              <div>
+                Processing effect :
+                {character.id === "M" ? "Mosaic" : "Character"}
+              </div>
+            </li>
+          ) : (
+            <li>
+              <div>
+                Processing effect :
+                {character.id === "M" ? "Mosaic" : "Character"}
+                <img className="h-40 w-40" alt="sample" src={character.url} />
+              </div>
+            </li>
+          )}
         </ul>
       </div>
     </div>

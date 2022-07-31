@@ -38,7 +38,7 @@ function CharacterImageList({
 }: ImageListProps) {
   const countFix: number = characterList.length; // 기존 이미지 리스트의 개수
   const countUser: number = userCharacterList.length; //사용자 이미지 리스트의 개수
-  const [selectedId, setSeselectedId] = useState<string>(preSelectedImage); //선택된 이미지 id
+  const [selectedObject, setSelectedObject] = useState<any>(preSelectedImage); //선택된 이미지 id
   const [curPage, setPage]: [number, any] = useState<number>(0); //curPage를 기점으로 curPage~curPage3까지의 요소만 보여줌
   const [curPageUser, setPageUser]: [number, any] = useState<number>(0); //curPage를 기점으로 curPage~curPage3까지의 요소만 보여줌
   const imageInput = useRef<any>();
@@ -50,8 +50,9 @@ function CharacterImageList({
    */
 
   const handleClickRadioButton = (e) => {
-    setSeselectedId(e.target.value);
-    clickFuc(e.target.value);
+    console.log(JSON.parse(e.target.value));
+    setSelectedObject(JSON.parse(e.target.value));
+    clickFuc(JSON.parse(e.target.value));
   };
 
   /**
@@ -118,8 +119,8 @@ function CharacterImageList({
                     <input
                       type="radio"
                       className="hidden"
-                      value={img.id}
-                      checked={selectedId == img.id}
+                      value={JSON.stringify(img)}
+                      checked={selectedObject.id == img.id}
                       onChange={handleClickRadioButton}
                     />
                     <img className="h-40 w-40" alt="sample" src={img.url} />
@@ -180,8 +181,8 @@ function CharacterImageList({
                     <input
                       type="radio"
                       className="hidden"
-                      value={img.id}
-                      checked={selectedId == img.id}
+                      value={JSON.stringify(img)}
+                      checked={selectedObject.id == img.id}
                       onChange={handleClickRadioButton}
                     />
 

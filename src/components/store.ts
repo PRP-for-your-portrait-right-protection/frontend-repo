@@ -7,8 +7,8 @@ interface SelectContentState {
   removeAllData: () => void;
   video: any;
   setVideo: (select: any) => void;
-  character: string;
-  setCharacter: (select: string) => void;
+  character: any;
+  setCharacter: (select: any) => void;
   task: string[];
   setTask: (select: string[]) => void;
 }

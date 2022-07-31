@@ -97,8 +97,8 @@ function Mosaic() {
    * @개선사항 : 향후 Radio버튼으로 변경하여 코드의 가독성을 높일 필요가 있을 것 같습니다.
    */
 
-  const selectedFuc = (Characterid) => {
-    setSelectedData(Characterid);
+  const selectedFuc = (CharacterObject) => {
+    setSelectedData(CharacterObject);
     setisNull(false);
   };
 
