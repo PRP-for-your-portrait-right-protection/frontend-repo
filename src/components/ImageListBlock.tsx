@@ -364,7 +364,10 @@ function ImageListBlock() {
                   </div>
                 </li>
                 <li className="personName2">
-                  <div>Select All</div>
+                  <div>NOBODY</div>
+                  <div className="text-2xl">
+                    : Please check if you want to blur everything out
+                  </div>
                 </li>
               </ul>
             </ol>
@@ -379,19 +382,20 @@ function ImageListBlock() {
                 checked={checkedItems.has(imgList.whitelistFaceId)}
               />
             ))}
-          <button //ImgList추가 버튼
-            className="addBtn"
-            onClick={() => addImgList(null)}
-          >
-            <span data-tip data-for="tooltip">
+          <div className="addBox">
+            <button //ImgList추가 버튼
+              className="addBtn"
+              onClick={() => addImgList(null)}
+            >
               <HiUserAdd
                 size="50"
                 flex-direction="row"
                 justify-content="center"
                 place-content="center"
               />
-            </span>
-          </button>
+            </button>
+            <p className="fontBox">Plus Person</p>
+          </div>
           <div className="fixed bottom-0 right-0 p-5">
             <ButtonSession
               img="images/right.png"

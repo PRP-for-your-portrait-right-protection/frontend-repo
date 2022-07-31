@@ -42,8 +42,8 @@
   height: 180px;
   align-items: center;
   padding-bottom: 1rem;
-  padding-left: 5%;
-  padding-right: 5%;
+  /* padding-left: 5%;
+  padding-right: 5%; */
   justify-content: center;
 }
 
@@ -52,7 +52,7 @@
   display: flex;
   font-size: 2vw;
   color: #121fa6;
-  font-family: "StardosStencil-Regular", serif;
+  font-family: "Poppins_ExtraLight";
   text-align: center;
   align-items: center;
 }
