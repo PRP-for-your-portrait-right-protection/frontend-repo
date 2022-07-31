@@ -16,11 +16,11 @@ function Result() {
     formData.append("face_type", faceType);
 
     if (faceType === "character") {
-      formData.append("block_character_id", character);
+      formData.append("block_character_id", character.id);
     }
 
-    faceId.map((id) => {
-      formData.append("whitelist_face_id", id);
+    faceId.map((data) => {
+      formData.append("whitelist_face_id", data.id);
     });
 
     formData.append("video_id", video.id);
@@ -93,6 +93,19 @@ function Result() {
         <ul className="result">
           <li>
             <div>WhiteList Number :{faceId.length}</div>
+            {faceId &&
+              faceId.map((img) => (
+                <>
+                  <img
+                    key={img.id}
+                    className="h-36 w-36 z-10"
+                    alt="sample"
+                    src={img.url}
+                  />
+                  <p>이름 : {img.name}</p>
+                  <p>개수 : {img.count}</p>
+                </>
+              ))}
           </li>
           <li>
             <div>
@@ -108,16 +121,12 @@ function Result() {
           </li>
           {character === "M" ? (
             <li>
-              <div>
-                Processing effect :
-                {character.id === "M" ? "Mosaic" : "Character"}
-              </div>
+              <div>Processing effect :{"Mosaic"}</div>
             </li>
           ) : (
             <li>
               <div>
-                Processing effect :
-                {character.id === "M" ? "Mosaic" : "Character"}
+                Processing effect :{"Character"}
                 <img className="h-40 w-40" alt="sample" src={character.url} />
               </div>
             </li>

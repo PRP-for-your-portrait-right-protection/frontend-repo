@@ -109,6 +109,31 @@ function ImageListBlock() {
    */
   const makeFormData = () => {
     setFaceId(Array.from(checkedItems));
+
+    let testDataList = [];
+    console.log("여기보세요");
+    console.log(totalList);
+    checkedItems.forEach((data1) => {
+      console.log("------");
+      console.log(totalList.data.whitelistFaceId);
+      console.log(data1);
+      console.log("------");
+      totalList.data.forEach((inner) => {
+        if (inner.whitelistFaceId === data1) {
+          let temp = {
+            id: inner.whitelistFaceId,
+            url: inner.whitelistFaceImages[0].url,
+            name: inner.whitelistFaceName,
+            count: inner.whitelistFaceImages.length,
+          };
+          testDataList.push(temp);
+        }
+      });
+
+      console.log("최종으로 저장될 썸네일 , 개수 등등~");
+      console.log(testDataList);
+      setFaceId(testDataList);
+    });
   };
 
   /**
