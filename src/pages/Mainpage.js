@@ -3,7 +3,7 @@ import styles from "./Mainpage.module.css";
 import { Link } from "react-router-dom";
 function Mainpage() {
   const [token, setToken] = useState(false);
-  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
   const [isactive, setActive] = useState(false);
 
   const Checktoken = localStorage.getItem("token");
@@ -16,10 +16,10 @@ function Mainpage() {
   useEffect(() => {
     if (Checktoken !== null) {
       setToken(true);
-      setName(localStorage.getItem("name"));
+      setEmail(localStorage.getItem("email"));
     }
     console.log(token);
-  }, [name, token]);
+  }, [email, token]);
 
   // 토큰이 존재할 경우 메인페이지(회원)
   // 아닐 경우 메인페이지(로그인 전) 보여줍니다.
@@ -48,7 +48,7 @@ function Mainpage() {
               </li>
             </ul>
             <ul className={styles.navbar__info}>
-              <li>{name} 님 환영합니다.</li>
+              <li> {email}</li>
               <Link to="/">
                 <button
                   className={styles.navbar__button}

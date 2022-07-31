@@ -1,7 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { faArrowLeftLong } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./Signup.css";
 import axios from "../api/axios";
 
@@ -38,11 +36,11 @@ const Login = () => {
         console.log(response);
         console.log(response?.data);
         const accessToken = response?.data?.token;
-        const userName = response?.data?.user_name;
+        const Email = response?.data?.email;
         localStorage.setItem("token", accessToken);
-        localStorage.setItem("name", userName);
+        localStorage.setItem("email", Email);
         console.log(localStorage.getItem("token"));
-        console.log(localStorage.getItem("name"));
+        console.log(localStorage.getItem("email"));
         setEmail("");
         setPwd("");
         navigate("/");
