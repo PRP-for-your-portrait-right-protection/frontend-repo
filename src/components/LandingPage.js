@@ -58,9 +58,10 @@ function LandingPage() {
       });
 
     setVideos(videos.filter((video) => video.id !== videoId));
-    if (videos.length % (characterPerPage + 1) == 0) {
+    if (videos.length % (videosPerPage + 1) == 0) {
       //페이지 삭제 예외처리
       setCurrentPage((currentPage) => currentPage - 1);
+      console.log("aaaaaa");
     }
     console.log(videos);
   };

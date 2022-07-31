@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import "./Result.css";
 import Title from "components/Title";
 import ButtonSession from "../components/ButtonSession";
+import ResultImageList from "../components/ResultImageList";
 import axios from "../api/axios";
 import { useStore } from "../components/store";
 import "../components/Step.css";
@@ -93,23 +94,13 @@ function Result() {
         <ul className="result">
           <li>
             <div>WhiteList Number :{faceId.length}</div>
-            {faceId &&
-              faceId.map((img) => (
-                <>
-                  <img
-                    key={img.id}
-                    className="h-36 w-36 z-10"
-                    alt="sample"
-                    src={img.url}
-                  />
-                  <p>이름 : {img.name}</p>
-                  <p>개수 : {img.count}</p>
-                </>
-              ))}
           </li>
+          <ResultImageList object={faceId} />
           <li>
-            <div>
-              Uploaded video : {video.videoName}
+            <div className="mt-10">
+              <p className="w-96 truncate">
+                Uploaded video : {video.videoName}{" "}
+              </p>
               <video
                 className="flex items-center justify-center w-3/4 h-72"
                 id="video"

@@ -108,7 +108,7 @@ function ImageListBlock() {
    * - 사용자가 선택한 이미지리스트(faceId)를 세션에 저장
    */
   const makeFormData = () => {
-    setFaceId(Array.from(checkedItems));
+    // setFaceId(Array.from(checkedItems));
 
     let testDataList = [];
     console.log("여기보세요");
@@ -192,9 +192,11 @@ function ImageListBlock() {
    */
 
   const changeFuc = (object, whitelistFace, type) => {
+    console.log("전체 값");
+    console.log(totalList);
     const formData = new FormData();
     let findIndex = totalList.data.findIndex(
-      (element) => element.whitelistFaceName == whitelistFace.whitelistFaceName
+      (element) => element.whitelistFaceId == whitelistFace.whitelistFaceId
     );
 
     let copyArray = { ...totalList };
