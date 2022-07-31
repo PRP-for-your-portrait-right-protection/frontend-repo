@@ -1,5 +1,5 @@
 .tooltip {
-  width: 17rem;
+  width: 15rem;
   display: inline-flex;
   /* position: relative; */
   color: #6246ea;
@@ -15,7 +15,7 @@
 .tooltip .tooltip-text {
   display: none;
   z-index: 1;
-  max-width: 50rem;
+  max-width: 20rem;
   border-radius: 5px;
   height: 60%;
   padding: 5px;

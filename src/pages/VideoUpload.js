@@ -141,18 +141,26 @@ function VideoUpload() {
         ) : fileVideo ? ( //입력된 비디오파일이 있다면 드롭박스를 숨기고 파일업로드 버튼이 생기도록 함
           <div>
             <video
-              className="w-3/4 h-64"
+              className="w-full h-full"
               id="video"
               src={window.URL.createObjectURL(fileVideo)}
               style={{ margin: "auto" }}
               controls
             ></video>
-            <span
-              className="uploadButton flex justify-center mt-6 "
-              onClick={() => fileInput.current.click()}
-            >
-              <img src="images\videoupload.png" alt="" className="file" />
-            </span>
+            <div className="flex justify-end">
+              <span
+                className="uploadButton flex mt-3 mr-3 "
+                onClick={() => fileInput.current.click()}
+              >
+                <button>CHANGE</button>
+              </span>
+              <span
+                className="cancelBox flex mt-3 "
+                // onClick={() => fileInput.current.click()}
+              >
+                <button>CANCEL</button>
+              </span>
+            </div>
           </div>
         ) : (
           <div className="flex cc items-center justify-center w-3/4 h-64 mt-9">

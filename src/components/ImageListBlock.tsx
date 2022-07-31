@@ -389,12 +389,11 @@ function ImageListBlock() {
             >
               <HiUserAdd
                 size="50"
-                flex-direction="row"
                 justify-content="center"
                 place-content="center"
               />
+              <p className="fontBox">Plus Person</p>
             </button>
-            <p className="fontBox">Plus Person</p>
           </div>
           <div className="fixed bottom-0 right-0 p-5">
             <ButtonSession

@@ -16,7 +16,7 @@
   top: 50%;
   width: 6rem;
   height: 6rem;
-  border: 3px solid rgb(56 189 248);
+  border: 3px solid #121fa6;
   border-radius: 20px;
   background-color: #eeeef4;
 }
@@ -25,6 +25,7 @@
   display: flex;
   color: #121fa6;
   cursor: pointer;
+  flex-direction: column;
   /* height: 4rem;
   width: 4rem; */
   padding-top: 0.5rem;
@@ -35,13 +36,23 @@
   justify-content: center;
   align-items: center;
 }
-.addBtn:hover {
+.addBox:hover .addBtn {
   transition: 0.3s;
   background: transparent;
   color: rgb(56 189 248);
   /* box-shadow: inset 0 0 0 36px var(--btn-bg);
   box-shadow: rgba(55, 42, 42, 0.9) 0 0px 0px 2px inset; */
 }
+.addBox:hover .fontBox {
+  transition: 0.3s;
+  color: rgb(56 189 248);
+}
+
+.addBox:hover {
+  transition: 0.3s;
+  border: 3px solid rgb(56 189 248);
+}
+
 .fontBox {
   font-family: "Poppins_ExtraLight";
   font-size: 1rem;
@@ -144,6 +155,7 @@
   float: right;
 }
 .previous img {
+  display: flex;
   float: left;
   /* margin-top: 5px; */
   align-items: center;
