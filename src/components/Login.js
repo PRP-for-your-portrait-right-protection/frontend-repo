@@ -1,5 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { faArrowLeftLong } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./Signup.css";
 import axios from "../api/axios";
 
@@ -69,6 +71,9 @@ const Login = () => {
       >
         {errMsg}
       </p>
+      <Link to="/" className="w-12 h-8">
+        <FontAwesomeIcon icon={faArrowLeftLong} className="text-blue-900" />
+      </Link>
       <h1 className="text-3xl font-Ubuntu text-blue-900">Sign In</h1>
       <form className="signupForm" onSubmit={handleSubmit}>
         <label

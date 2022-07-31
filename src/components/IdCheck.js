@@ -3,6 +3,7 @@ import {
   faCheck,
   faTimes,
   faInfoCircle,
+  faArrowLeftLong,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
@@ -119,6 +120,9 @@ function IdCheck() {
           >
             {errMsg}
           </p>
+          <Link to="/signin" className="w-12 h-8">
+            <FontAwesomeIcon icon={faArrowLeftLong} className="text-blue-900" />
+          </Link>
           <h1 className="mt-12 text-3xl font-Ubuntu text-blue-900">
             Forget Email?
           </h1>

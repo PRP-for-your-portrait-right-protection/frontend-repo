@@ -3,9 +3,10 @@ import {
   faCheck,
   faTimes,
   faInfoCircle,
+  faArrowLeftLong,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Signup.css";
 import axios from "../api/axios";
 
@@ -265,6 +266,9 @@ function InfoCheck() {
           >
             {errMsg}
           </p>
+          <Link to="/signin" className="w-12 h-8">
+            <FontAwesomeIcon icon={faArrowLeftLong} className="text-blue-900" />
+          </Link>
           <h1 className="mt-12 text-3xl font-Ubuntu text-blue-900">
             Forget Password?
             <div className="text-2xl">check your Information</div>
