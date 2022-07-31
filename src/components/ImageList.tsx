@@ -226,11 +226,7 @@ function ImageList({ object, changeFuc, checkFuc, checked }: ImageListProps) {
               className="col-span-1 uploadButton flex justify-center"
               onClick={() => imageInput.current.click()}
             >
-              <img
-                src="images\frame.png"
-                alt=""
-                className="object-cover h-36 w-36"
-              />
+              <img src="images\frame.png" alt="" className="h-36 w-36" />
             </span>
 
             {imgList[0].whitelistFaceImages &&
