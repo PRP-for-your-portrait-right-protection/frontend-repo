@@ -1,11 +1,8 @@
 import React from "react";
 import "./Photo.css";
 import ListButton from "../components/ListButton";
-import ResearchListBlock from "components/ResearchListBlock";
-import Button from "components/Button";
-import UserPageImageListBlock from "components/UserPageImageListBlock";
+import UserPageImageListBlock from "../components/UserPageImageListBlock";
 
-import PhotoLandingPage from "components/PhotoLandingPage";
 function Photo() {
   return (
     <ul>

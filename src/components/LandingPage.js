@@ -1,9 +1,9 @@
 import React, { useEffect, useState, version } from "react";
 import axios from "../api/axios";
-import VideoPost from "components/VideoPost";
+import VideoPost from "./VideoPost";
 import "rc-pagination/assets/index.css";
-import Pagination from "components/Pagination";
-import Load from "components/Load";
+import Pagination from "./Pagination";
+import Load from "./Load";
 import WaitVideos from "../components/WaitVideos";
 
 function LandingPage() {

@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect } from "react";
 import axios from "../api/axios";
 import "./VideoUpload.css";
 import ButtonSession from "../components/ButtonSession";
-import Title from "components/Title";
+import Title from "../components/Title";
 import "../components/Step.css";
 import { AiOutlineCheck } from "react-icons/ai";
 import { useStore } from "../components/store";

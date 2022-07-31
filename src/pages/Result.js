@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import "./Result.css";
-import Title from "components/Title";
+import Title from "../components/Title";
 import ButtonSession from "../components/ButtonSession";
 import ResultImageList from "../components/ResultImageList";
 import axios from "../api/axios";
