@@ -3,9 +3,10 @@ import {
   faCheck,
   faTimes,
   faInfoCircle,
+  faArrowLeftLong,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Signup.css";
 import axios from "../api/axios";
 
@@ -162,13 +163,13 @@ function InfoCheck() {
           >
             {errMsg}
           </p>
-          <h1 className="mt-12 text-3xl font-Stardos text-black">
+          <h1 className="mt-12 text-3xl font-Ubuntu text-blue-900">
             Reset Password
           </h1>
           <form className="signupForm" onSubmit={resetHandle}>
             <label
               htmlFor="password"
-              className="text-xl font-Stardos text-black signupLabel"
+              className="text-xl font-Ubuntu text-blue-900 signupLabel"
             >
               Password:
               <FontAwesomeIcon
@@ -212,7 +213,7 @@ function InfoCheck() {
 
             <label
               htmlFor="confirm_pwd"
-              className="text-xl font-Stardos text-black signupLabel"
+              className="text-xl font-Ubuntu text-blue-900 signupLabel"
             >
               Confirm Password:
               <FontAwesomeIcon
@@ -248,8 +249,9 @@ function InfoCheck() {
 
             <button
               disabled={!validPwd || !validMatch ? true : false}
-              className="border-2 border-amber-900 text-2xl font-Stardos 
-              text-black hover:text-white bg-amber-900 signupButton"
+              className="border-2 border-sky-400 
+              text-2xl font-Ubuntu text-white 
+              hover:text-blue-900 bg-sky-400 signupButton"
             >
               Reset Password
             </button>
@@ -264,14 +266,14 @@ function InfoCheck() {
           >
             {errMsg}
           </p>
-          <h1 className="mt-12 text-3xl font-Stardos text-black">
+          <h1 className="mt-12 text-3xl font-Ubuntu text-blue-900">
             Forget Password?
-            <div className="text-2xl">check your Infomation</div>
+            <div className="text-2xl">check your Information</div>
           </h1>
           <form className="signupForm" onSubmit={handleSubmit}>
             <label
               htmlFor="email"
-              className="mt-16 text-xl font-Stardos text-black signupLabel"
+              className="mt-16 text-xl font-Ubuntu text-blue-900 signupLabel"
             >
               Email:
               <FontAwesomeIcon
@@ -311,7 +313,7 @@ function InfoCheck() {
 
             <label
               htmlFor="phonenum"
-              className="mt-16 text-xl font-Stardos text-black signupLabel"
+              className="mt-16 text-xl font-Ubuntu text-blue-900 signupLabel"
             >
               Phone Number:
               <FontAwesomeIcon
@@ -351,8 +353,9 @@ function InfoCheck() {
 
             <button
               disabled={!validEmail || !validPhoneNum ? true : false}
-              className="border-2 border-amber-900 text-2xl font-Stardos 
-              text-black hover:text-white bg-amber-900 signupButton"
+              className="border-2 border-sky-400 
+              text-2xl font-Ubuntu text-white 
+              hover:text-blue-900 bg-sky-400 signupButton"
             >
               Information check
             </button>

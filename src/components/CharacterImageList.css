@@ -6,10 +6,10 @@ label > input[type="radio"]:checked + img {
   display: flex;
   width: 80%;
   height: 10%;
-  font-family: "StardosStencil-Regular", serif;
+  font-family: "Ubuntu-Bold", serif;
   font-style: normal;
   font-weight: 200;
   font-size: 2.5vw;
   margin-left: 2rem;
-  color: white;
+  color: #03045e;
 }

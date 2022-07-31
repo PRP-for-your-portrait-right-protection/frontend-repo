@@ -25,11 +25,11 @@
 
 .caption {
   display: flex;
-  font-family: "StardosStencil-Regular", serif;
+  font-family: "Ubuntu-Bold", serif;
   font-style: normal;
   font-weight: 400;
   font-size: 2vw;
-  color: #ffffff;
+  color: #03045e;
   justify-content: center;
   align-items: center;
 }

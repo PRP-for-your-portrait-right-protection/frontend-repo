@@ -99,14 +99,14 @@ function IdCheck() {
     <>
       {success ? (
         <section className="signupSection">
-          <div className="text-4xl font-Stardos text-black">
+          <div className="text-4xl font-Ubuntu text-blue-900">
             Find Your Email!
           </div>
-          <div className="text-4xl font-Stardos text-black">
+          <div className="text-4xl font-Ubuntu text-sky-400">
             Your Email = {result}
           </div>
           <br />
-          <p className="mt-16 text-2xl font-Stardos text-black hover:text-amber-300">
+          <p className="mt-16 text-2xl font-Ubuntu text-blue-900 hover:text-sky-400">
             <Link to="/signin">Sign in</Link>
           </p>
         </section>
@@ -119,13 +119,13 @@ function IdCheck() {
           >
             {errMsg}
           </p>
-          <h1 className="mt-12 text-3xl font-Stardos text-black">
+          <h1 className="mt-12 text-3xl font-Ubuntu text-blue-900">
             Forget Email?
           </h1>
           <form className="signupForm" onSubmit={handleSubmit}>
             <label
               htmlFor="username"
-              className="mt-16 text-xl font-Stardos text-black signupLabel"
+              className="mt-16 text-xl font-Ubuntu text-blue-900 signupLabel"
             >
               User Name:
               <FontAwesomeIcon
@@ -165,7 +165,7 @@ function IdCheck() {
 
             <label
               htmlFor="phonenum"
-              className="mt-16 text-xl font-Stardos text-black signupLabel"
+              className="mt-16 text-xl font-Ubuntu text-blue-900 signupLabel"
             >
               Phone Number:
               <FontAwesomeIcon
@@ -205,8 +205,8 @@ function IdCheck() {
 
             <button
               disabled={!validName || !validPhoneNum ? true : false}
-              className="border-2 border-amber-900 text-2xl font-Stardos 
-              text-black hover:text-white bg-amber-900 signupButton"
+              className="border-2 border-sky-400 text-2xl font-Ubuntu 
+              text-white hover:text-blue-900 bg-sky-400 signupButton"
             >
               Find Email
             </button>

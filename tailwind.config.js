@@ -4,6 +4,8 @@ module.exports = {
     extend: {
       fontFamily: {
         Stardos: ["Stardos Stencil", "cursive"],
+        Ubuntu: ["Ubuntu-Bold", "cursive"],
+        Poppins: ["Poppins", "cursive"],
       },
     },
   },
