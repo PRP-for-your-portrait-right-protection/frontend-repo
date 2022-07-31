@@ -5,7 +5,7 @@ import "./VideoPost.css";
 const VideoPost = ({ videos, deleteFuc }) => {
   const useConfirm = (message = null, onConfirm, onCancel, videoId) => {
     if (!onConfirm || typeof onConfirm !== "function") {
-      retrun;
+      return;
     }
     if (onCancel && typeof onCancel !== "function") {
       return;

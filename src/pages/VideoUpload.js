@@ -3,6 +3,8 @@ import axios from "../api/axios";
 import "./VideoUpload.css";
 import ButtonSession from "../components/ButtonSession";
 import Title from "components/Title";
+import "../components/Step.css";
+import { AiOutlineCheck } from "react-icons/ai";
 function VideoUpload() {
   const fileInput = useRef(); // 외부 이미지 클릭 시  <input>가 눌리도록 설정하기 위한 변수
   const [fileVideo, setFileVideo] = useState(); //화면에 보여 줄 비디오 오브젝트
@@ -71,13 +73,14 @@ function VideoUpload() {
     <div>
       {isNull ? (
         <div className="fixed bottom-0 right-0 p-5 opacity-30">
-          <img src="images/rightArrow.png" />
+          <img src="images/nextImg.png" />
         </div>
       ) : (
         <div className="fixed bottom-0 right-0 p-5">
           <ButtonSession
-            img="images/rightArrow.png"
+            img="images/right.png"
             url="/Mosaic"
+            text="next"
             saveFuc={makeFormData}
           ></ButtonSession>
         </div>
@@ -85,13 +88,36 @@ function VideoUpload() {
 
       <div className="fixed bottom-0 left-0 p-5">
         <ButtonSession
-          img="images/leftArrow.png"
+          img="images/left.png"
           url="/upload"
+          text="previous"
           saveFuc={null}
         ></ButtonSession>
       </div>
-
-      <Title textValue="Please upload your video"></Title>
+      <Title
+        textValue="Please upload your video"
+        textTooltip="Please upload the video to be blurred."
+      ></Title>
+      <div className="stepper-wrapper">
+        <div className="stepper-item completed">
+          <div className="step-counter">
+            <AiOutlineCheck size="20" color="white" />
+          </div>
+          <div className="step-name">Whitelist Picture</div>
+        </div>
+        <div className="stepper-item active">
+          <div className="step-counter">2</div>
+          <div className="step-name">Video</div>
+        </div>
+        <div className="stepper-item">
+          <div className="step-counter">3</div>
+          <div className="step-name">Effect</div>
+        </div>
+        <div className="stepper-item">
+          <div className="step-counter">4</div>
+          <div className="step-name">Result</div>
+        </div>
+      </div>
       <div className="wrapVideo">
         {preFileVideo ? ( //이전 값을 사용할 때는 별도의 파일을object로 바꾸지 않고 그대로 출력하기 위해 따로 if문으로 분리
           <div>

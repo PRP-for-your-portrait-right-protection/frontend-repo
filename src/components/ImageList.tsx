@@ -2,6 +2,9 @@ import React, { useRef, useState } from "react";
 import "./ImageList.css";
 import ImgBlock from "../components/ImageBlock";
 import uuid from "react-uuid";
+import { AiOutlineRight } from "react-icons/ai";
+import { AiOutlineLeft } from "react-icons/ai";
+import { HiOutlineX } from "react-icons/hi";
 
 /**
  * @name : Teawon
@@ -54,6 +57,45 @@ function ImageList({ object, changeFuc, checkFuc, checked }: ImageListProps) {
 
   /**
    * @name : Teawon
+   * @function :deleteFileImage - 전체 리스트컴포넌트를 지우는 함수 (부모의 상태값 갱신함수 changeFuc 호출)
+   */
+  const deleteFileImageList = () => {
+    changeFuc(null, object, "deleteList");
+  };
+
+  const useConfirm = (message = null, onConfirm, onCancel) => {
+    if (!onConfirm || typeof onConfirm !== "function") {
+      return;
+    }
+    if (onCancel && typeof onCancel !== "function") {
+      return;
+    }
+
+    const confirmAction = () => {
+      if (window.confirm(message)) {
+        onConfirm();
+      } else {
+        onCancel();
+      }
+    };
+    confirmAction();
+  };
+  const deleteConfirm = () => {
+    deleteFileImageList();
+  };
+
+  const cancelConfirm = () => console.log("취소했습니다.");
+
+  const confirmDelete = () => {
+    useConfirm(
+      "Are you sure you want to delete it?",
+      deleteConfirm,
+      cancelConfirm
+    );
+  };
+
+  /**
+   * @name : Teawon
    * @function :deleteFileImage - 특정 사진을 지우는 함수 (부모의 상태값 갱신함수 changeFuc 호출)
    * @param :
    * id - 특정 사진의 id값 (식별용)
@@ -70,14 +112,6 @@ function ImageList({ object, changeFuc, checkFuc, checked }: ImageListProps) {
     if (curPage > 0) {
       setPage((curPage) => curPage - 1);
     }
-  };
-
-  /**
-   * @name : Teawon
-   * @function :deleteFileImage - 전체 리스트컴포넌트를 지우는 함수 (부모의 상태값 갱신함수 changeFuc 호출)
-   */
-  const deleteFileImageList = () => {
-    changeFuc(null, object, "deleteList");
   };
 
   /**
@@ -123,93 +157,111 @@ function ImageList({ object, changeFuc, checkFuc, checked }: ImageListProps) {
   };
   return (
     <div className="wrapImage">
-      <ul className="pictureList">
-        <li className="checkbox">
-          <input
-            type="checkbox"
-            name="check"
-            id="check"
-            value="1"
-            className="checkbox1"
-            checked={bChecked}
-            onChange={(e) => checkHandler(e)}
-          />
-        </li>
-
-        <li className="personName">
-          {edit ? (
-            <input
-              className="text-black text-center text-4xl w-40"
-              type="text"
-              value={text}
-              onChange={(event) => handleChange(event)}
-              onKeyDown={handleKeyDown}
-              maxLength={50}
-            />
-          ) : (
-            <span className="text-4xl" onDoubleClick={() => changeEditMode()}>
-              {text}
-            </span>
-          )}
-        </li>
-        <button className="p-2" onClick={() => deleteFileImageList()}>
-          <img
-            className="w-8 justify-center items-center"
-            alt="deleteBtn"
-            src="images\delete.png"
-          />
-        </button>
-
-        {/* <p className="personName"> {object.name} </p> */}
-        <li>
-          <button
-            className="show flex items-center"
-            onClick={() =>
-              setPage((curPage) => (curPage > 0 ? curPage - 1 : curPage))
-            }
-          >
-            <img
-              src="images/iconoir_nav-arrow-left.png"
-              alt=""
-              className="justify-center"
-            />
-          </button>
-        </li>
-
-        <li className="g grid grid-cols-4 gap-4">
-          <span
-            className="col-span-1 uploadButton flex justify-center"
-            onClick={() => imageInput.current.click()}
-          >
-            <img src="images\addImage.png" alt="" className="h-36 w-36" />
-          </span>
-
-          {imgList[0].whitelistFaceImages &&
-            silceImage(imgList[0].whitelistFaceImages).map((img) => (
-              <ImgBlock
-                key={img.id}
-                object={img}
-                deleteFileImage={deleteFileImage}
+      <ol className="box">
+        <ul className="pictureList justify-between">
+          <li className="flex items-center float-left">
+            <div className="checkbox">
+              <input
+                type="checkbox"
+                name="check"
+                id="check"
+                value="1"
+                className="checkbox1"
+                checked={bChecked}
+                onChange={(e) => checkHandler(e)}
               />
-            ))}
+            </div>
+
+            <div className="personName">
+              {edit ? (
+                <input
+                  className="text-black text-center text-4xl w-40"
+                  type="text"
+                  value={text}
+                  onChange={(event) => handleChange(event)}
+                  onKeyDown={handleKeyDown}
+                  maxLength={50}
+                />
+              ) : (
+                <span
+                  className="text-4xl"
+                  onDoubleClick={() => changeEditMode()}
+                >
+                  {text}
+                </span>
+              )}
+            </div>
+          </li>
+          <li className="float-right ">
+            <button onClick={() => confirmDelete()}>
+              {/* <img
+                className="w-8 justify-center items-center"
+                alt="deleteBtn"
+                src="images\delete.png"
+              /> */}
+              <HiOutlineX size="40" color="red" />
+            </button>
+          </li>
+        </ul>
+
+        <li className="pictureList1">
+          {/* <p className="personName"> {object.name} </p> */}
+          <div>
+            <button
+              className="show flex items-center"
+              onClick={() =>
+                setPage((curPage) => (curPage > 0 ? curPage - 1 : curPage))
+              }
+            >
+              <AiOutlineLeft
+                size="60"
+                justify-content="center"
+                place-content="center"
+                color="#767093"
+              />
+            </button>
+          </div>
+
+          <div className="g grid grid-cols-4 gap-10">
+            <span
+              className="col-span-1 uploadButton flex justify-center"
+              onClick={() => imageInput.current.click()}
+            >
+              <img
+                src="images\frame.png"
+                alt=""
+                className="object-cover h-36 w-36"
+              />
+            </span>
+
+            {imgList[0].whitelistFaceImages &&
+              silceImage(imgList[0].whitelistFaceImages).map((img) => (
+                <ImgBlock
+                  key={img.id}
+                  object={img}
+                  deleteFileImage={deleteFileImage}
+                />
+              ))}
+          </div>
+          <div>
+            <button
+              className="show flex items-center"
+              onClick={() =>
+                setPage((curPage) =>
+                  count > 3 && count - curPage > 3 ? curPage + 1 : curPage
+                )
+              }
+            >
+              <AiOutlineRight
+                size="60"
+                justify-content="center"
+                place-content="center"
+                color="#767093"
+              />
+            </button>
+          </div>
         </li>
-        <li>
-          <button
-            className="show flex items-center"
-            onClick={() =>
-              setPage((curPage) =>
-                count > 3 && count - curPage > 3 ? curPage + 1 : curPage
-              )
-            }
-          >
-            <img
-              src="images/iconoir_nav-arrow-right.png"
-              alt=""
-              className="justify-center"
-            />
-          </button>
-        </li>
-      </ul>
+      </ol>
 
       <div>
         <input

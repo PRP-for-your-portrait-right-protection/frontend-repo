@@ -3,6 +3,8 @@ import "./Result.css";
 import Title from "components/Title";
 import ButtonSession from "../components/ButtonSession";
 import axios from "../api/axios";
+import "../components/Step.css";
+import { AiOutlineCheck } from "react-icons/ai";
 
 function Result() {
   useEffect(() => {
@@ -70,7 +72,35 @@ function Result() {
         ></ButtonSession>
       </div>
       <button onClick={makeFormData}>dadaddssadasdasdsad</button>
-      <Title textValue="Selected Result"></Title>
+      <Title
+        textValue="Selected Result"
+        textTooltip="After selecting the target to be excluded from the mosaic, please upload the face image of the person."
+      ></Title>
+
+      <div className="stepper-wrapper">
+        <div className="stepper-item completed">
+          <div className="step-counter">
+            <AiOutlineCheck size="20" color="white" />
+          </div>
+          <div className="step-name">Whitelist Picture</div>
+        </div>
+        <div className="stepper-item completed">
+          <div className="step-counter">
+            <AiOutlineCheck size="20" color="white" />
+          </div>
+          <div className="step-name">Video</div>
+        </div>
+        <div className="stepper-item completed">
+          <div className="step-counter">
+            <AiOutlineCheck size="20" color="white" />
+          </div>
+          <div className="step-name">Effect</div>
+        </div>
+        <div className="stepper-item active">
+          <div className="step-counter">4</div>
+          <div className="step-name">Result</div>
+        </div>
+      </div>
       <div className="wrapResult">
         <ul className="result">
           <li>

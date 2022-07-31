@@ -13,14 +13,19 @@ interface ImageButtonProps {
 
 function ImgBlock({ deleteFileImage, object }: ImageButtonProps) {
   return (
-    <div className="col-span-1 relative justify-center">
-      <button
-        onClick={() => deleteFileImage(object.id)}
-        className="absolute z-1 place-items-start w-36"
-      >
-        <HiOutlineX size="30" color="red" />
+    <div className="relative">
+      <img
+        className="flex object-cover w-36 h-36"
+        alt="sample"
+        src={object.url}
+      />
+      <button onClick={() => deleteFileImage(object.id)} className="deleteBtn">
+        <img
+          className="absolute w-5 h-5 right-0"
+          alt="deleteBtn"
+          src="images/delete.png"
+        />
       </button>
-      <img className="h-36 w-36 z-10" alt="sample" src={object.url} />
 
       {/* <img
           className="flex w-14 h-8 z-1 "
@@ -32,3 +37,6 @@ function ImgBlock({ deleteFileImage, object }: ImageButtonProps) {
 }
 
 export default ImgBlock;
+// col-span-1 relative justify-center
+// h-36 w-36 z-10
+// absolute z-1 origin-top-right
