@@ -9,13 +9,17 @@
 .navbarbefore {
   display: flex;
   justify-content: flex-start;
-  padding-top: 4.5rem;
-  padding-left: 8.7%;
+  padding-top: 2.5rem;
+  padding-left: 11.1%;
+  padding-bottom: 2.5rem;
+  background-color: rgb(125 211 252);
 }
 .navbarafter {
   display: flex;
-  justify-content: space-around;
-  padding-top: 4.5rem;
+  justify-content: space-evenly;
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
+  background-color: rgb(125 211 252);
 }
 .navbar__logo {
   font-size: 40px;
@@ -55,10 +59,10 @@
 }
 .img {
   position: absolute;
-  top: 40%;
-  right: 32%;
-  max-width: 480px;
-  max-height: 360px;
+  top: 30%;
+  right: 10%;
+  max-width: 640px;
+  max-height: 480px;
 }
 .For_Your_PRP {
   margin-top: 12rem;

@@ -9,13 +9,19 @@
 .navbarbefore {
   display: flex;
   justify-content: flex-start;
-  padding-top: 4.5rem;
-  padding-left: 8.7%;
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
+  padding-left: 11.1%;
+  align-items: center;
+  background-color: rgb(125 211 252);
 }
 .navbarafter {
   display: flex;
-  justify-content: space-around;
-  padding-top: 4.5rem;
+  justify-content: space-evenly;
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
+  align-items: center;
+  background-color: rgb(125 211 252);
 }
 .navbar__logo {
   font-size: 40px;
@@ -30,7 +36,7 @@
   font-size: 24px;
 }
 .navbar__menu li {
-  padding: 20px 24px;
+  padding: 12px 48px;
 }
 .navbar__info {
   display: flex;
@@ -103,7 +109,7 @@
   }
   .navbar__info {
     position: absolute;
-    top: 1.5%;
+    top: 3%;
     right: 12%;
   }
   .navbar__button {

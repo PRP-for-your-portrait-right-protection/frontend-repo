@@ -30,7 +30,7 @@ function Mainpage() {
           <nav className={styles.navbarafter}>
             <div className={styles.navbar__logo}>
               <img src="images\path28.png" className="inline"></img>
-              <a href="/">PRP</a>
+              <Link to="/">PRP</Link>
             </div>
             <ul
               className={
@@ -38,13 +38,13 @@ function Mainpage() {
               }
             >
               <li>
-                <a href="/photo">PHOTO</a>
+                <Link to="/photo">PHOTO</Link>
               </li>
               <li>
-                <a href="/video">VIDEO</a>
+                <Link to="/video">VIDEO</Link>
               </li>
               <li>
-                <a href="/character">CHARACTER</a>
+                <Link to="/character">CHARACTER</Link>
               </li>
             </ul>
             <ul className={styles.navbar__info}>
@@ -61,13 +61,13 @@ function Mainpage() {
                 </button>
               </Link>
             </ul>
-            <a
-              href="#"
+            <Link
+              to="#"
               className={styles.navbar__toggleBtn}
               onClick={HandleToggle}
             >
               <i className="fa-solid fa-bars"></i>
-            </a>
+            </Link>
           </nav>
           <div className={styles.For_Your_PRP}>
             For Your PRP
@@ -93,7 +93,7 @@ function Mainpage() {
           <nav className={styles.navbarbefore}>
             <div className={styles.navbar__logo}>
               <img src="images\path28.png" className="inline"></img>
-              <a href="/">PRP</a>
+              <Link to="/">PRP</Link>
             </div>
           </nav>
           <div className={styles.For_Your_PRP}>
