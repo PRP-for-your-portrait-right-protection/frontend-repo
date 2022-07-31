@@ -207,7 +207,7 @@ function ImageList({ object, changeFuc, checkFuc, checked }: ImageListProps) {
           {/* <p className="personName"> {object.name} </p> */}
           <div>
             <button
-              className="show flex items-center"
+              className="show flex items-center justify-center"
               onClick={() =>
                 setPage((curPage) => (curPage > 0 ? curPage - 1 : curPage))
               }
@@ -221,7 +221,7 @@ function ImageList({ object, changeFuc, checkFuc, checked }: ImageListProps) {
             </button>
           </div>
 
-          <div className="g grid grid-cols-4 gap-10">
+          <div className="g grid grid-cols-4 gap-8">
             <span
               className="col-span-1 uploadButton flex justify-center"
               onClick={() => imageInput.current.click()}
@@ -240,7 +240,7 @@ function ImageList({ object, changeFuc, checkFuc, checked }: ImageListProps) {
           </div>
           <div>
             <button
-              className="show flex items-center"
+              className="show flex items-center justify-center"
               onClick={() =>
                 setPage((curPage) =>
                   count > 3 && count - curPage > 3 ? curPage + 1 : curPage
