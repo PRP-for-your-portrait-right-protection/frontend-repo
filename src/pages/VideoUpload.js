@@ -136,7 +136,7 @@ function VideoUpload() {
               style={{ margin: "auto" }}
               controls
             ></video>
-            <div className="videoBtn flex justify-end pb-3">
+            <div className="videoBtn flex justify-end pb-16">
               <span
                 className="uploadButton flex mt-3 mr-3 "
                 onClick={() => fileInput.current.click()}
