@@ -8,23 +8,48 @@
   }
 }
 .result {
-  font-family: "StardosStencil-Regular", serif;
+  font-family: "Ubuntu-Bold", serif;
   font-style: normal;
-  font-weight: 400;
-  font-size: 2.5vw;
+  font-size: 2.3vw;
   line-height: 55px;
-  color: #ffffff;
+  color: #121fa6;
   margin-right: 20%;
   margin-left: 20%;
-  margin-top: 3%;
+  /* margin-top: 3%; */
 }
 .result li {
-  margin-bottom: 15%;
+  margin-bottom: 2%;
 }
 .wrapResult {
   display: flex;
   align-items: center;
   min-height: 10vh;
   place-items: center;
-  margin-top: 2rem;
+  padding-top: 2%;
 }
+
+/* .resultBox::-webkit-scrollbar {
+  display: none;
+} */
+
+/* .wrap-vertical {
+  width: 80rem;
+  padding: 20px;
+  overflow-y: scroll;
+  color: #112031;
+  /* background: #f0d9ff; */
+/* border-radius: 20px;
+  background-color: #eeeef4; */
+/* 가로 스크롤 */
+/* overflow: auto;
+  white-space: nowrap;
+}  */
+/* .resultCharacter {
+  background-color: #0a0aba;
+  padding: 20px;
+  border-radius: 15px;
+  border: 10px solid rgba(0, 0, 0, 0.18);
+} */
+/* .wrap-vertical::-webkit-scrollbar {
+  display: none;
+} */

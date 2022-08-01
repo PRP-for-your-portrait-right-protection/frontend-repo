@@ -165,13 +165,19 @@ function Mosaic() {
     <div>
       {isNull ? (
         <div className="fixed bottom-0 right-0 p-5 opacity-30">
-          <img src="images/rightArrow.png" />
+          <img
+            id="image_large"
+            src="images/nextImg.png"
+            // className="img-responsive"
+          />
+          <img id="image_small" src="images/noneNext.png" />
         </div>
       ) : (
         <div className="fixed bottom-0 right-0 p-5">
           <ButtonSession
-            img="images/rightArrow.png"
+            img="images/right.png"
             url="/Result"
+            text="next"
             saveFuc={makeFormData}
           ></ButtonSession>
         </div>
@@ -179,15 +185,16 @@ function Mosaic() {
 
       <div className="fixed bottom-0 left-0 p-5">
         <ButtonSession
-          img="images/leftArrow.png"
+          img="images/left.png"
           url="/VideoUpload"
+          text="previous"
           saveFuc={null}
         ></ButtonSession>
       </div>
 
       <Title
         textValue="Select the image Processing type"
-        textTooltip="After selecting the target to be excluded from the mosaic, please upload the face image of the person."
+        textTooltip="Please select the mosaic effect to be used in the video."
       ></Title>
 
       <div className="stepper-wrapper">

@@ -13,7 +13,7 @@ interface ImageButtonProps {
 
 function ImgBlock({ deleteFileImage, object }: ImageButtonProps) {
   return (
-    <div className="relative">
+    <div className="relative" style={{ height: "145px" }}>
       <img
         className="flex object-cover w-36 h-36"
         alt="sample"

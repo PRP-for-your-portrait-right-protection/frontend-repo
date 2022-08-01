@@ -49,7 +49,7 @@ function Result() {
     <div>
       <Title
         textValue="Selected Result"
-        textTooltip="After selecting the target to be excluded from the mosaic, please upload the face image of the person."
+        textTooltip="Please check the result selected earlier."
       ></Title>
       <div className="stepper-wrapper">
         <div className="stepper-item completed">
@@ -80,51 +80,60 @@ function Result() {
           {" "}
           <div className="fixed bottom-0 right-0 p-5">
             <ButtonSession
-              img="images/rightArrow.png"
+              img="images/right.png"
               url="/video"
+              text="next"
               saveFuc={makeFormData}
             ></ButtonSession>
           </div>
           <div className="fixed bottom-0 left-0 p-5">
             <ButtonSession
-              img="images/leftArrow.png"
+              img="images/left.png"
               url="/Mosaic"
+              text="previous"
               saveFuc={null}
             ></ButtonSession>
           </div>
           <div className="wrapResult">
             <ul className="result">
               <li>
-                <div>WhiteList Number :{faceId.length}</div>
+                <div>WhiteList Number : {faceId.length}</div>
               </li>
-              <ResultImageList object={faceId} />
               <li>
-                <div className="mt-10">
+                <ResultImageList object={faceId} />
+              </li>
+
+              <li>
+                <div>
                   <p className="w-96 truncate">
                     Uploaded video : {video.videoName}{" "}
                   </p>
-                  <video
-                    className="flex items-center justify-center w-3/4 h-72"
-                    id="video"
-                    src={video.url}
-                    style={{ margin: "auto" }}
-                    controls
-                  ></video>
+                  <div className="flex justify-center items-center w-7/12 border-4 rounded-lg border-sky-600">
+                    <video
+                      className="flex w-full h-full"
+                      id="video"
+                      src={video.url}
+                      style={{ margin: "auto" }}
+                      controls
+                    ></video>
+                  </div>
                 </div>
               </li>
               {character === "M" ? (
-                <li>
-                  <div>Processing effect :{"Mosaic"}</div>
+                <li className="pb-10">
+                  <div>Processing effect : {"Mosaic"}</div>
                 </li>
               ) : (
-                <li>
+                <li className="pb-10">
                   <div>
-                    Processing effect :{"Character"}
-                    <img
-                      className="h-40 w-40"
-                      alt="sample"
-                      src={character.url}
-                    />
+                    Processing effect : {"Character"}
+                    <div className=" w-48">
+                      <img
+                        className="h-40 w-40 border-4 rounded-2xl border-sky-600"
+                        alt="sample"
+                        src={character.url}
+                      />
+                    </div>
                   </div>
                 </li>
               )}

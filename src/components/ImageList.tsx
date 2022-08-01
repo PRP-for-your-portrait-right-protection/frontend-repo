@@ -220,7 +220,7 @@ function ImageList({
               }
             >
               <AiOutlineLeft
-                size="60"
+                size="40"
                 justify-content="center"
                 place-content="center"
                 color="#767093"
@@ -255,7 +255,7 @@ function ImageList({
               }
             >
               <AiOutlineRight
-                size="60"
+                size="40"
                 justify-content="center"
                 place-content="center"
                 color="#767093"
