@@ -55,7 +55,7 @@ function UserPageCharacterImageList({
           onClick={() => imageInput.current.click()}
         >
           <img
-            src="images\addImage.png"
+            src="images\frame.png"
             alt=""
             className="object-cover h-60 w-60"
           />
@@ -90,3 +90,13 @@ function UserPageCharacterImageList({
 }
 
 export default UserPageCharacterImageList;
+
+{
+  /* <div className="g grid grid-cols-4 gap-8">
+            <span
+              className="col-span-1 flex justify-center"
+              onClick={() => imageInput.current.click()}
+            >
+              <img src="images\frame.png" alt="" className="h-36 w-36" />
+            </span> */
+}

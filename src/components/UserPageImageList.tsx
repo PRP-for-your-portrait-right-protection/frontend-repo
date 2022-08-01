@@ -3,6 +3,7 @@ import "./ImageList.css";
 import ImgBlock from "../components/ImageBlock";
 import { AiOutlineRight } from "react-icons/ai";
 import { AiOutlineLeft } from "react-icons/ai";
+import { HiOutlineX } from "react-icons/hi";
 
 /**
  * @name : Teawon
@@ -109,7 +110,7 @@ function UserPageImageList({ object, changeFuc }: ImageListProps) {
   };
   return (
     <div className="wrapImage">
-      <ol className="box">
+      <ol className="box mt-4">
         <ul className="pictureList justify-between">
           <li className="flex items-center float-left">
             <div className="personName">
@@ -129,11 +130,7 @@ function UserPageImageList({ object, changeFuc }: ImageListProps) {
           <li className="float-right">
             {/* <p className="personName"> {object.name} </p> */}
             <button className="d" onClick={() => deleteFileImageList()}>
-              <img
-                className="deleteBtn"
-                alt="deleteBtn"
-                src="images\delete.png"
-              />
+              <HiOutlineX size="2.5vw" color="red" />
             </button>
           </li>
         </ul>
@@ -154,12 +151,12 @@ function UserPageImageList({ object, changeFuc }: ImageListProps) {
               />
             </button>
           </div>
-          <div className="g grid grid-cols-4 gap-10">
+          <div className="g grid grid-cols-4 gap-8">
             <span
-              className="col-span-1 uploadButton flex justify-center"
+              className="col-span-1 flex justify-center"
               onClick={() => imageInput.current.click()}
             >
-              <img src="images\addImage.png" alt="" className="h-36 w-36" />
+              <img src="images\frame.png" alt="" className="h-36 w-36" />
             </span>
 
             {imgList[0].whitelistFaceImages &&
