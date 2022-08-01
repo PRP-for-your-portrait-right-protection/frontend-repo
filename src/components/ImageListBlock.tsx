@@ -364,8 +364,8 @@ function ImageListBlock() {
                   </div>
                 </li>
                 <li className="personName2">
-                  <div>NOBODY</div>
-                  <div className="text-2xl">
+                  <div className="pl-5">NOBODY</div>
+                  <div className="info">
                     : Please check if you want to blur everything out
                   </div>
                 </li>
@@ -388,7 +388,7 @@ function ImageListBlock() {
               onClick={() => addImgList(null)}
             >
               <HiUserAdd
-                size="50"
+                size="3.5vw"
                 justify-content="center"
                 place-content="center"
               />

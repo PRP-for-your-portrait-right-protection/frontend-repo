@@ -80,27 +80,101 @@
 .cancelBox {
   width: 5rem;
   height: 3rem;
-  border: 3px solid #ffffff;
+  border: 3px solid #ffffff00;
   background-color: #eeeef4;
   align-items: center;
   background: #c7c7cd;
   border-radius: 8px;
   justify-content: center;
   font-family: "Poppins_ExtraLight";
-  font-size: 1rem;
+  font-size: 1vw;
   color: white;
 }
 
 .uploadButton {
   width: 5rem;
   height: 3rem;
-  border: 3px solid #ffffff;
+  border: 3px solid #ffffff00;
   background-color: #eeeef4;
   align-items: center;
   background: #c7c7cd;
   border-radius: 8px;
   justify-content: center;
   font-family: "Poppins_ExtraLight";
-  font-size: 1rem;
+  font-size: 1vw;
   color: white;
+}
+@media (min-width: 1000px) {
+  #image_large {
+    display: block;
+  }
+  #image_small {
+    display: none;
+  }
+}
+@media (max-width: 1000px) {
+  /* .none {
+    width: 6rem;
+    height: 2rem;
+    justify-content: center;
+    font-size: 1rem;
+    background-image: url("../../public/images/n.png");
+  } */
+  #image_large {
+    display: none;
+  }
+  #image_small {
+    display: block;
+    width: 6rem;
+    height: 2rem;
+  }
+
+  .uploadButton {
+    width: 4rem;
+    height: 2.5rem;
+  }
+
+  .cancelBox {
+    width: 4rem;
+    height: 2.5rem;
+  }
+
+  .videoBtn {
+    padding-top: 1%;
+    justify-content: center;
+    padding-bottom: 1%;
+  }
+}
+
+@media (max-width: 800px) {
+  /* .none {
+    width: 3rem;
+    height: 2rem;
+    justify-content: center;
+    font-size: 0.3rem;
+  } */
+  #image_large {
+    display: none;
+  }
+  #image_small {
+    display: block;
+    width: 3rem;
+    height: 2rem;
+  }
+
+  .uploadButton {
+    width: 4rem;
+    height: 2rem;
+  }
+
+  .cancelBox {
+    width: 4rem;
+    height: 2rem;
+  }
+
+  .videoBtn {
+    padding-top: 1%;
+    justify-content: center;
+    padding-bottom: 1%;
+  }
 }

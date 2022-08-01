@@ -198,7 +198,7 @@ function ImageList({ object, changeFuc, checkFuc, checked }: ImageListProps) {
                 alt="deleteBtn"
                 src="images\delete.png"
               /> */}
-              <HiOutlineX size="40" color="red" />
+              <HiOutlineX size="2.5vw" color="red" />
             </button>
           </li>
         </ul>

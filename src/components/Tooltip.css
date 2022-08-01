@@ -20,7 +20,7 @@
   width: auto;
   height: auto;
   padding: 5px;
-  font-size: 0.8rem;
+  font-size: 0.8vw;
   color: rgb(0, 0, 0);
   background: #dadada;
   align-content: center;
@@ -32,4 +32,11 @@
 .icon_tooltip {
   width: 3rem;
   color: #767093;
+}
+
+@media screen and (max-width: 800px) {
+  .tooltip {
+    width: 10rem;
+    margin-left: 0;
+  }
 }

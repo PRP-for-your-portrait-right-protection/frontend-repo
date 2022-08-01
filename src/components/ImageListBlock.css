@@ -1,11 +1,18 @@
+@media screen and (max-width: 800px) {
+  .checkbox2 input.checkbox2 {
+    width: 1rem;
+    height: 1rem;
+  }
+}
+
 .checkbox2 {
   width: 80%;
   padding-left: 18.5%;
   padding-right: 19%;
 }
 .checkbox2 input.checkbox2 {
-  width: 2em;
-  height: 2em;
+  width: 2rem;
+  height: 2rem;
 }
 
 .addBox {
@@ -55,7 +62,7 @@
 
 .fontBox {
   font-family: "Poppins_ExtraLight";
-  font-size: 1rem;
+  font-size: 1vw;
   color: #020a64;
   justify-content: center;
 }
@@ -90,12 +97,15 @@
 .personName2 {
   width: 60rem;
   display: flex;
-  font-size: 2rem;
+  font-size: 2.5vw;
   color: #121fa6;
   font-family: "Poppins_ExtraLight";
   text-align: center;
   align-items: center;
-  padding-left: 1.5rem;
+}
+
+.personName2 .info {
+  font-size: 2vw;
 }
 
 /* .tooltip {
@@ -123,7 +133,7 @@
   font-family: "Inter";
   font-style: normal;
   font-weight: 700;
-  font-size: 1.5vw;
+  font-size: 1.5rem;
   line-height: 20px;
   text-transform: uppercase;
   justify-content: center;
@@ -146,7 +156,7 @@
   font-family: "Inter";
   font-style: normal;
   font-weight: 700;
-  font-size: 1.5vw;
+  font-size: 1.5rem;
   line-height: 20px;
   text-transform: uppercase;
   flex-direction: row-reverse;
@@ -167,15 +177,17 @@
 
 @media (max-width: 1000px) {
   .next {
-    width: 5rem;
+    width: 6rem;
     height: 2rem;
     justify-content: center;
+    font-size: 1rem;
   }
 
   .previous {
-    width: 5rem;
+    width: 6rem;
     height: 2rem;
     justify-content: center;
+    font-size: 1rem;
   }
 
   .next img {
@@ -185,7 +197,49 @@
   .previous img {
     display: none;
   }
+
   .addBox {
-    bottom: 2rem;
+    width: 4rem;
+    height: 5rem;
+  }
+}
+/* @media ((min-width: 1000px) and (max-width: 1200px)) {
+  .next {
+    width: 8rem;
+    height: 2.5rem;
+    justify-content: center;
+    font-size: 1.5rem;
+  }
+
+  .previous {
+    width: 8rem;
+    height: 2.5rem;
+    justify-content: center;
+    font-size: 1.5rem;
+  }
+  .addBox {
+    width: 3rem;
+    height: 4rem;
+  }
+} */
+@media (max-width: 800px) {
+  .next {
+    width: 3rem;
+    height: 2rem;
+    justify-content: center;
+    font-size: 0.3rem;
+  }
+
+  .previous {
+    width: 3rem;
+    height: 2rem;
+    justify-content: center;
+    font-size: 0.3rem;
+  }
+
+  .addBox {
+    width: 3rem;
+    height: 4rem;
+    right: 2%;
   }
 }

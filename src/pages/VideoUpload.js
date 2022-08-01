@@ -76,7 +76,12 @@ function VideoUpload() {
     <div>
       {isNull ? (
         <div className="fixed bottom-0 right-0 p-5 opacity-30">
-          <img src="images/nextImg.png" />
+          <img
+            id="image_large"
+            src="images/nextImg.png"
+            // className="img-responsive"
+          />
+          <img id="image_small" src="images/noneNext.png" />
         </div>
       ) : (
         <div className="fixed bottom-0 right-0 p-5">
@@ -147,7 +152,7 @@ function VideoUpload() {
               style={{ margin: "auto" }}
               controls
             ></video>
-            <div className="flex justify-end">
+            <div className="videoBtn flex justify-end pb-3">
               <span
                 className="uploadButton flex mt-3 mr-3 "
                 onClick={() => fileInput.current.click()}
@@ -185,7 +190,7 @@ function VideoUpload() {
                   ></path>
                 </svg>
 
-                <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                <p className="mb-2 w-80 text-sm text-gray-500 dark:text-gray-400">
                   <span className="font-semibold">Click to upload</span> or drag
                   and drop
                 </p>
