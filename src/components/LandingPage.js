@@ -71,7 +71,7 @@ function LandingPage() {
     axios
       .delete(`/processed-videos/${videoId}`, {
         headers: {
-          token: localStorage.getItem("token"),
+          token: getItemWithExpireTime("token"),
         },
       })
       .then(function (response) {
