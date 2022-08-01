@@ -58,7 +58,7 @@ function LandingPage() {
       });
 
     setVideos(videos.filter((video) => video.id !== videoId));
-    if (videos.length % (videosPerPage + 1) == 0) {
+    if (videos.length % (videosPerPage + 1) == 0 && currentPage != 1) {
       //페이지 삭제 예외처리
       setCurrentPage((currentPage) => currentPage - 1);
       console.log("aaaaaa");

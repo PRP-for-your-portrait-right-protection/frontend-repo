@@ -18,8 +18,8 @@ function ImageListBlock() {
   const [count, setCount] = useState<number>(1); //other + n으로 사용하기 위한 url
   const [isLoding, setIsLoading]: [boolean, any] = useState(false); //api통신 완료 상태 값
   const [checkedItems, setCheckedItems] = useState(new Set<string>()); //checkBox확인
-  const [checkedList, setCheckedList]: [any, any] = useState([]);
   const [isNobodyNotChecked, setIsNobodyNotChecked] = useState(false);
+  const [isNull, setIsNull] = useState(false);
   const [totalList, setTotalList]: [any, any] = useState({
     //최종적으로 backend로 보내질 데이터 리스트 집합
     data: [
@@ -90,7 +90,7 @@ function ImageListBlock() {
     const preValueCheck = () => {
       if (faceId != null) {
         faceId.forEach((face) => {
-          checkedItemHandler(face, true);
+          checkedItemHandler(face.id, true);
         });
       }
     };
@@ -107,32 +107,28 @@ function ImageListBlock() {
    * - 사용자가 선택한 이미지리스트(faceId)를 세션에 저장
    */
   const makeFormData = () => {
-    // setFaceId(Array.from(checkedItems));
-
     let testDataList = [];
-    console.log("여기보세요");
-    console.log(totalList);
-    checkedItems.forEach((data1) => {
-      console.log("------");
-      console.log(totalList.data.whitelistFaceId);
-      console.log(data1);
-      console.log("------");
-      totalList.data.forEach((inner) => {
-        if (inner.whitelistFaceId === data1) {
-          let temp = {
-            id: inner.whitelistFaceId,
-            url: inner.whitelistFaceImages[0].url,
-            name: inner.whitelistFaceName,
-            count: inner.whitelistFaceImages.length,
-          };
-          testDataList.push(temp);
-        }
-      });
 
-      console.log("최종으로 저장될 썸네일 , 개수 등등~");
-      console.log(testDataList);
-      setFaceId(testDataList);
-    });
+    if (checkedItems.size == 0) {
+      //만약 값이 없다면
+      setFaceId([]);
+    } else {
+      checkedItems.forEach((checkedId) => {
+        totalList.data.forEach((imageObejct) => {
+          if (imageObejct.whitelistFaceId === checkedId) {
+            let temp = {
+              id: imageObejct.whitelistFaceId,
+              url: imageObejct.whitelistFaceImages[0].url,
+              name: imageObejct.whitelistFaceName,
+              count: imageObejct.whitelistFaceImages.length,
+            };
+            testDataList.push(temp);
+          }
+        });
+
+        setFaceId(testDataList);
+      });
+    }
   };
 
   /**
@@ -317,11 +313,14 @@ function ImageListBlock() {
       checkedItems.add(id);
       setCheckedItems(checkedItems);
       setIsNobodyNotChecked(false);
+      setIsNull(true);
     } else if (!isChecked && checkedItems.has(id)) {
       checkedItems.delete(id);
       setCheckedItems(checkedItems);
+      if (checkedItems.size == 0) {
+        setIsNull(false);
+      }
     }
-    console.log(checkedItems);
   };
 
   const onCheckedAll = (checked) => {
@@ -329,8 +328,8 @@ function ImageListBlock() {
       checkedItems.clear();
       setCheckedItems(checkedItems);
       setIsNobodyNotChecked(true);
+      setIsNull(true);
     }
-    console.log(checkedItems);
   };
 
   return (
@@ -386,14 +385,21 @@ function ImageListBlock() {
               <p className="fontBox">Plus Person</p>
             </button>
           </div>
-          <div className="fixed bottom-0 right-0 p-5">
-            <ButtonSession
-              img="images/right.png"
-              url="/VideoUpload"
-              text="next"
-              saveFuc={makeFormData}
-            ></ButtonSession>
-          </div>
+          {isNull ? (
+            <div className="fixed bottom-0 right-0 p-5">
+              <ButtonSession
+                img="images/right.png"
+                url="/VideoUpload"
+                text="next"
+                saveFuc={makeFormData}
+              ></ButtonSession>
+            </div>
+          ) : (
+            <div className="fixed bottom-0 right-0 p-5 opacity-30">
+              <img src="images/nextImg.png" />
+            </div>
+          )}
+
           <div className="fixed bottom-0 left-0 p-5">
             <ButtonSession
               img="images/left.png"
