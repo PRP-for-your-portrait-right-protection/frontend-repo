@@ -55,7 +55,7 @@ function Mainpage() {
               }
             >
               <li>
-                <Link to="/photo">PHOTO</Link>
+                <Link to="/photo">WHITELIST</Link>
               </li>
               <li>
                 <Link to="/video">VIDEO</Link>
