@@ -19,6 +19,7 @@ function ImageListBlock() {
   const [isLoding, setIsLoading]: [boolean, any] = useState(false); //api통신 완료 상태 값
   const [checkedItems, setCheckedItems] = useState(new Set<string>()); //checkBox확인
   const [checkedList, setCheckedList]: [any, any] = useState([]);
+  const [isNobodyNotChecked, setIsNobodyNotChecked] = useState(false);
   const [totalList, setTotalList]: [any, any] = useState({
     //최종적으로 backend로 보내질 데이터 리스트 집합
     data: [
@@ -315,24 +316,22 @@ function ImageListBlock() {
     if (isChecked) {
       checkedItems.add(id);
       setCheckedItems(checkedItems);
+      setIsNobodyNotChecked(false);
     } else if (!isChecked && checkedItems.has(id)) {
       checkedItems.delete(id);
       setCheckedItems(checkedItems);
     }
+    console.log(checkedItems);
   };
 
-  const onCheckedAll = useCallback(
-    (checked) => {
-      if (checked) {
-        const checkedListArray = [];
-        totalList.forEach((list) => checkedListArray.push(list));
-        setCheckedList(checkedListArray);
-      } else {
-        setCheckedList([]);
-      }
-    },
-    [totalList]
-  );
+  const onCheckedAll = (checked) => {
+    if (checked) {
+      checkedItems.clear();
+      setCheckedItems(checkedItems);
+      setIsNobodyNotChecked(true);
+    }
+    console.log(checkedItems);
+  };
 
   return (
     <>
@@ -349,14 +348,8 @@ function ImageListBlock() {
                       id="check"
                       value="1"
                       className="checkbox2"
+                      checked={isNobodyNotChecked}
                       onChange={(e) => onCheckedAll(e.target.checked)}
-                      checked={
-                        checkedList.length === 0
-                          ? false
-                          : checkedList.length === totalList.length
-                          ? true
-                          : false
-                      }
                     />
                   </div>
                 </li>
@@ -377,6 +370,7 @@ function ImageListBlock() {
                 changeFuc={changeFuc}
                 checkFuc={checkedItemHandler}
                 checked={checkedItems.has(imgList.whitelistFaceId)}
+                isNobodyNotChecked={isNobodyNotChecked}
               />
             ))}
           <div className="addBox">

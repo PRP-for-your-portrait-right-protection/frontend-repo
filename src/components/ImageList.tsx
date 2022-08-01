@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import "./ImageList.css";
 import ImgBlock from "../components/ImageBlock";
 import { AiOutlineRight } from "react-icons/ai";
@@ -16,9 +16,16 @@ interface ImageListProps {
   changeFuc: any;
   checkFuc: any;
   checked: boolean;
+  isNobodyNotChecked: boolean;
 }
 
-function ImageList({ object, changeFuc, checkFuc, checked }: ImageListProps) {
+function ImageList({
+  object,
+  changeFuc,
+  checkFuc,
+  checked,
+  isNobodyNotChecked,
+}: ImageListProps) {
   const imageInput = useRef<any>();
   const imgList = useState(object); //특정 리스트의 이미지 데이터
   const count: number = object.whitelistFaceImages.length; //해당 컴포넌트가 가지고있는 list개수
@@ -26,6 +33,12 @@ function ImageList({ object, changeFuc, checkFuc, checked }: ImageListProps) {
   const [edit, setEdit] = useState(false); //텍스트 변경을 위한 inputBox 활성화 여부
   const [text, setText] = useState(object.whitelistFaceName); //리스트 이미지 텍스트 변경을 위한 변수
   const [bChecked, setChecked] = useState(checked); //체크박스 활성화 여부
+
+  const allCheckHandler = () => {
+    if (isNobodyNotChecked) setChecked(false);
+  };
+
+  useEffect(() => allCheckHandler(), [isNobodyNotChecked]);
 
   /**
    * @name : Teawon
