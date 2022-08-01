@@ -6,20 +6,37 @@ function Mainpage() {
   const [email, setEmail] = useState("");
   const [isactive, setActive] = useState(false);
 
-  const Checktoken = localStorage.getItem("token");
+  useEffect(() => {
+    const checkToken = getItemWithExpireTime("token");
+    const checkEmail = getItemWithExpireTime("email");
+    if (checkToken !== null) {
+      setToken(true);
+      setEmail(checkEmail);
+    }
+  }, [email, token]);
+
+  const getItemWithExpireTime = (keyName) => {
+    const objString = localStorage.getItem(keyName);
+
+    if (!objString) {
+      return null;
+    }
+
+    const obj = JSON.parse(objString);
+
+    if (Date.now() > obj.expire) {
+      localStorage.removeItem(keyName);
+
+      return null;
+    }
+
+    return obj.value;
+  };
 
   const HandleToggle = () => {
     setActive(!isactive);
     console.log(isactive);
   };
-
-  useEffect(() => {
-    if (Checktoken !== null) {
-      setToken(true);
-      setEmail(localStorage.getItem("email"));
-    }
-    console.log(token);
-  }, [email, token]);
 
   // 토큰이 존재할 경우 메인페이지(회원)
   // 아닐 경우 메인페이지(로그인 전) 보여줍니다.
