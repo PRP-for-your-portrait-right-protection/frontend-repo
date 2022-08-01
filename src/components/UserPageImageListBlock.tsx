@@ -284,17 +284,19 @@ function UserPageImageListBlock() {
     <>
       {isLoding ? (
         <>
-          <button //ImgList추가 버튼
-            className="addBtn"
-            onClick={() => addImgList(null)}
-          >
-            <HiUserAdd
-              size="50"
-              flex-direction="row"
-              justify-content="center"
-              place-content="center"
-            />
-          </button>
+          <div className="addBox">
+            <button //ImgList추가 버튼
+              className="addBtn"
+              onClick={() => addImgList(null)}
+            >
+              <HiUserAdd
+                size="3.5vw"
+                justify-content="center"
+                place-content="center"
+              />
+              <p className="fontBox">Plus Person</p>
+            </button>
+          </div>
           {totalList.data && //map을 통해 각 imgList를 출력
             currentImageList(totalList.data).map((imgList) => (
               <UserPageImageList

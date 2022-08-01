@@ -1,372 +1,94 @@
-/* @font-face {
-  font-family: "StardosStencil-Regular";
-  src: url("../fonts/StardosStencil-Regular.ttf");
-}
-/*@media screen and (max-width: 1075px) {
-  .navbar {
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: flex-start;
-    align-items: center; /*중앙배치
-    padding: 10px;
-  }
-  
-} 
-*/
-/*
-.hr3 {
-  position: absolute;
-  margin: auto;
-  width: 70%;
-  height: 0px;
-  align-items: center;
-  left: 15%;
-  top: 170px;
-  background-color: white;
-  border: 2px solid #fffcfc;
-}
-
-.header {
-  margin: 0;
-  font-family: "StardosStencil-Regular", sans-serif;
-  font-size: var(--button-font-size, 3.3vw);
-  color: var(--button-color, #ffffff);
-  list-style: none;
-  position: relative;
-}
-.nav {
-  display: flex; /*한 줄에 나란히*/
-/*
-  justify-content: space-between; /*스페이스를 사이사이에 넣음
-  align-items: center; /*중앙 배치
-  padding: 0 15px; /*navbar 크기 조정
-}
-.nav li {
-  float: right;
-  padding: 15px 15px; /*navbar 크기 조정
-  position: absolute;
-  top: 0;
-  right: 0;
-}
-
-.body {
-  margin: 0;
-  font-family: "StardosStencil-Regular", sans-serif;
-  font-size: var(--button-font-size, 3.3vw);
-  color: var(--button-color, #ffffff);
-}
-
-.navbar_menu {
-  display: flex; /*한 줄에 나란히
-  line-height: 80px;
-  justify-content: space-between; /*스페이스를 사이사이에 넣음
-  align-items: center; /*중앙 배치
-  padding: 8px; /*navbar 크기 조정
-  justify-content: center;
-  list-style: none;
-  padding-left: 0;
-}
-.navbar_menu li {
-  padding: 8px 50px;
-}
-.navbar_menu li:hover {
-  transition: 0.1s;
-  transform: scale(1);
-  background-color: "orange";
-  color: transparent;
-  text-shadow: 2px 2px 3px rgba(219, 109, 36, 0.838);
-  -webkit-background-clip: text;
-  -moz-background-clip: text;
-  background-clip: text;
-}
-.fas {
-  display: none;
-}
-@media (max-width: 800px) {
-  .header {
-    display: none;
-  }
-  .body {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  .navbar_menu {
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    display: none;
-    padding: 8px 24px;
-    background-color: #756c6c;
-  }
-  .navbar_menu li {
-    width: 100%;
-  }
-  .hr3 {
-    display: none;
-  }
-  .fas {
-    display: block;
-    font-size: 25px;
-    color: var(--text-color);
-    position: absolute;
-    right: 30px;
-    top: 50px;
-  }
-  .active {
-    display: flex;
-  }
-}
- */
-
 .navigation__wrapper {
-  width: 100%;
-  height: 75px;
   display: flex;
+  justify-content: space-evenly;
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
   align-items: center;
-  justify-content: space-between;
-  top: 0;
-  z-index: 9999;
   background-color: white;
   border-bottom: 3px solid rgba(253, 253, 253, 0.81);
   box-shadow: 0px 2px 3px rgba(44, 44, 44, 0.137);
-  padding: 8px 12px;
 }
 .navbar__logo {
-  display: flex;
-  font-size: 3rem;
+  font-size: 40px;
   color: #03045e;
-  position: absolute;
-  left: 1rem;
-  justify-content: center;
-  align-items: center;
   font-family: "Ubuntu-Bold";
 }
 
-.menu__list {
-  display: flex;
-  justify-content: center;
-  font-family: "Ubuntu-Bold";
-  justify-content: space-between;
-  color: var(--button-color, #03045e);
-  padding-left: 0;
-}
-.navbar__icons {
-  position: absolute;
-  list-style: none;
-  justify-content: center;
-  display: flex;
-  color: var(--icons-color);
-  margin: 0;
-  right: 1em;
-  align-items: center;
-}
-
-.navbar__icons li {
-  padding: 8px 5px;
-  margin: 0;
-}
-
-@media (max-width: 1099px) {
-  .burger__menu,
-  .x__menu {
-    display: block;
-    margin-left: 40px;
-    cursor: pointer;
-  }
-
-  .burger__menu > div,
-  .x__menu > div {
-    width: 25px;
-    height: 3px;
-    background-color: rgb(255, 255, 255);
-    margin: 5px;
-    transition: all 0.3s ease;
-  }
-
-  .x__menu > .burger_line1 {
-    transform: rotate(-45deg) translate(-5px, 6px);
-  }
-
-  .x__menu > .burger_line2 {
-    opacity: 0;
-  }
-
-  .x__menu > .burger_line3 {
-    transform: rotate(45deg) translate(-5px, -6px);
-  }
-
-  .menu__box__visible {
-    width: 220px;
-    height: 100%;
-    position: fixed;
-    left: 0;
-    top: 76px;
-    background-color: rgba(94, 72, 72, 0.86);
-    box-shadow: 2px 0px 1px rgba(44, 44, 44, 0.137);
-  }
-
-  .menu__box__hidden {
-    display: none;
-  }
-
-  .menu__list {
-    position: relative;
-    top: 50px;
-    left: 50px;
-    flex-direction: column;
-    font-size: var(--button-font-size, 1rem);
-    align-content: space-between;
-  }
-
-  .menu__item {
-    margin: 15px 0;
-  }
-
-  .menu_list:hover {
-    transition: 0.1s;
-    transform: scale(1);
-    background-color: "orange";
-    color: transparent;
-    text-shadow: 2px 2px 3px rgba(219, 109, 36, 0.838);
-    -webkit-background-clip: text;
-    -moz-background-clip: text;
-    background-clip: text;
-  }
-
-  .navbar__icons {
-    list-style: none;
-    display: flex;
-    color: var(--icons-color);
-    margin: 0;
-  }
-
-  .navbar__icons li {
-    padding: 8px 5px;
-    margin: 0;
-  }
-  .navbar__logo {
-    display: none;
-  }
-}
-
-@media (min-width: 1100px) {
-  .navigation__wrapper {
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .burger__menu,
-  .x__menu {
-    display: none;
-  }
-
-  .menu__box {
-    width: 50%;
-    height: fit-content;
-  }
-
-  .menu__list {
-    flex-direction: row;
-    align-items: center;
-    font-size: var(--button-font-size, 2rem);
-  }
-  .navbar__icons {
-    flex-direction: row;
-    align-items: center;
-  }
-}
-/* .body {
-  margin: 0;
-  background-color: var(--bodybackground-color);
-  font-family: "StardosStencil-Regular", sans-serif;
-  background-color: #413232;
-}
-
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: var(--background-color);
-  padding: 8px 12px;
-  color: white;
-}
-.navbar__logo {
-  color: var(--accent-color);
-  padding-left: 0;
-  width: 10rem;
-}
 .navbar__menu {
-  list-style: none;
   display: flex;
-  margin: 0;
   padding-left: 0;
-  justify-content: space-between;
-  font-size: 2vw;
+  color: #03045e;
+  font-family: "Ubuntu-Bold";
+  font-size: 24px;
 }
-
 .navbar__menu li {
-  padding: 8px 30px;
+  padding: 12px 48px;
 }
-
-.navbar_menu li:hover {
-  transition: 0.1s;
-  transform: scale(1);
-  background-color: "orange";
-  color: transparent;
-  text-shadow: 2px 2px 3px rgba(219, 109, 36, 0.838);
-  -webkit-background-clip: text;
-  -moz-background-clip: text;
-  background-clip: text;
-}
-
-.navbar__icons {
-  list-style: none;
+.navbar__info {
   display: flex;
-  color: var(--icons-color);
-  margin: 0;
-  padding-left: 0;
+  font-family: "Poppins_ExtraLight";
+  font-size: 16px;
+  align-items: center;
 }
-
-.navbar__icons li {
-  padding: 8px 5px;
-  margin: 0;
+.navbar__button {
+  font-size: 16px;
+  color: white;
+  font-family: "Ubuntu-Bold";
+  width: 8rem;
+  height: 3rem;
+  background-color: #03045e;
+  margin-left: 12px;
 }
-
 .navbar__toggleBtn {
-  color: var(--accent-color);
-  position: absolute;
-  right: 15px;
   display: none;
+  position: absolute;
+  top: 3.5%;
+  right: 5%;
 }
-
-@media screen and (max-width: 700px) {
-  .navbar {
+@media all and (max-width: 768px) {
+  /*가로 너비가 768px 이하일 때 아래 스타일 적용*/
+  .navigation__wrapper {
     flex-direction: column;
     align-items: flex-start;
-    margin: 0;
+    padding: 16px 24px;
   }
   .navbar__menu {
     display: none;
     flex-direction: column;
     align-items: center;
     width: 100%;
+    color: #03045e;
+    font-family: "Ubuntu-Bold";
+    font-size: 24px;
+    padding-left: 0;
   }
-
-  .navbar__menu li {
-    width: 100%;
-    text-align: center;
+  .navbar__info {
+    position: absolute;
+    top: 3%;
+    right: 12%;
   }
-  .navbar__icons {
-    display: none;
-    justify-content: center;
-    width: 100%;
+  .navbar__button {
+    font-size: 12px;
+    color: white;
+    font-family: "Ubuntu-Bold";
+    width: 5rem;
+    height: 2rem;
+    background-color: #03045e;
   }
   .navbar__toggleBtn {
     display: block;
   }
-  .navbar__menu.active,
-  .navbar__icons.active {
+  .navbar__menu__active {
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    color: #03045e;
+    font-family: "Ubuntu-Bold";
+    font-size: 24px;
+    padding-left: 0;
   }
-} */
+  .navbar__menu__active li {
+    padding: 20px;
+  }
+}

@@ -49,22 +49,26 @@ function UserPageCharacterImageList({
 
   return (
     <div className="imageList-component">
-      <div className="grid grid-cols-4 gap-4">
-        <span
-          className="col-span-1 uploadButton flex justify-center"
+      <div className="g grid grid-cols-4 gap-12">
+        <div
+          className="col-span-1 uploadButton flex"
           onClick={() => imageInput.current.click()}
         >
-          <img src="images\addImage.png" alt="" className=" h-36 w-36" />
-        </span>
+          <img
+            src="images\frame.png"
+            alt=""
+            className="object-cover h-60 w-60"
+          />
+        </div>
 
         {userCharacterList &&
           userCharacterList.map((img) => (
-            <div className="col-span-1 " key={img.id}>
-              <img className="h-60 w-60" alt="sample" src={img.url} />
+            <div className="relative w-60 h-60" key={img.id}>
+              <img className="flex h-60 w-60" alt="sample" src={img.url} />
 
               <button onClick={() => deleteCharacterImage(img.id)}>
                 <img
-                  className="relative w-8 h-8 z-1 -top-14 -left-14"
+                  className="absolute w-8 h-8 right-0 top-0"
                   alt="deleteBtn"
                   src="images/deleteButton.png"
                 />
@@ -86,3 +90,13 @@ function UserPageCharacterImageList({
 }
 
 export default UserPageCharacterImageList;
+
+{
+  /* <div className="g grid grid-cols-4 gap-8">
+            <span
+              className="col-span-1 flex justify-center"
+              onClick={() => imageInput.current.click()}
+            >
+              <img src="images\frame.png" alt="" className="h-36 w-36" />
+            </span> */
+}
