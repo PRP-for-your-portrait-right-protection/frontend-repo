@@ -222,7 +222,10 @@ function UserPageImageListBlock() {
         copyArray.data = copyArray.data.filter(
           (list) => list.whitelistFaceId !== whitelistFace.whitelistFaceId
         );
-        if (totalList.data.length % (characterPerPage + 1) == 0) {
+        if (
+          totalList.data.length % (characterPerPage + 1) == 0 &&
+          currentPage != 1
+        ) {
           //페이지 삭제 예외처리
           setCurrentPage((currentPage) => currentPage - 1);
         }

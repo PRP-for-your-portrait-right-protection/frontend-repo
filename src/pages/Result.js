@@ -7,6 +7,7 @@ import axios from "../api/axios";
 import { useStore } from "../components/store";
 import "../components/Step.css";
 import { AiOutlineCheck } from "react-icons/ai";
+import Load from "../components/Load";
 
 function Result() {
   const { faceId, video, character, task, setTask, removeAllData } = useStore(); //zustand 전역변수
@@ -46,26 +47,10 @@ function Result() {
 
   return (
     <div>
-      <div className="fixed bottom-0 right-0 p-5">
-        <ButtonSession
-          img="images/rightArrow.png"
-          url="/video"
-          saveFuc={makeFormData}
-        ></ButtonSession>
-      </div>
-      <div className="fixed bottom-0 left-0 p-5">
-        <ButtonSession
-          img="images/leftArrow.png"
-          url="/Mosaic"
-          saveFuc={null}
-        ></ButtonSession>
-      </div>
-      <button onClick={makeFormData}>dadaddssadasdasdsad</button>
       <Title
         textValue="Selected Result"
         textTooltip="After selecting the target to be excluded from the mosaic, please upload the face image of the person."
       ></Title>
-
       <div className="stepper-wrapper">
         <div className="stepper-item completed">
           <div className="step-counter">
@@ -90,40 +75,65 @@ function Result() {
           <div className="step-name">Result</div>
         </div>
       </div>
-      <div className="wrapResult">
-        <ul className="result">
-          <li>
-            <div>WhiteList Number :{faceId.length}</div>
-          </li>
-          <ResultImageList object={faceId} />
-          <li>
-            <div className="mt-10">
-              <p className="w-96 truncate">
-                Uploaded video : {video.videoName}{" "}
-              </p>
-              <video
-                className="flex items-center justify-center w-3/4 h-72"
-                id="video"
-                src={video.url}
-                style={{ margin: "auto" }}
-                controls
-              ></video>
-            </div>
-          </li>
-          {character === "M" ? (
-            <li>
-              <div>Processing effect :{"Mosaic"}</div>
-            </li>
-          ) : (
-            <li>
-              <div>
-                Processing effect :{"Character"}
-                <img className="h-40 w-40" alt="sample" src={character.url} />
-              </div>
-            </li>
-          )}
-        </ul>
-      </div>
+      {video ? (
+        <>
+          {" "}
+          <div className="fixed bottom-0 right-0 p-5">
+            <ButtonSession
+              img="images/rightArrow.png"
+              url="/video"
+              saveFuc={makeFormData}
+            ></ButtonSession>
+          </div>
+          <div className="fixed bottom-0 left-0 p-5">
+            <ButtonSession
+              img="images/leftArrow.png"
+              url="/Mosaic"
+              saveFuc={null}
+            ></ButtonSession>
+          </div>
+          <div className="wrapResult">
+            <ul className="result">
+              <li>
+                <div>WhiteList Number :{faceId.length}</div>
+              </li>
+              <ResultImageList object={faceId} />
+              <li>
+                <div className="mt-10">
+                  <p className="w-96 truncate">
+                    Uploaded video : {video.videoName}{" "}
+                  </p>
+                  <video
+                    className="flex items-center justify-center w-3/4 h-72"
+                    id="video"
+                    src={video.url}
+                    style={{ margin: "auto" }}
+                    controls
+                  ></video>
+                </div>
+              </li>
+              {character === "M" ? (
+                <li>
+                  <div>Processing effect :{"Mosaic"}</div>
+                </li>
+              ) : (
+                <li>
+                  <div>
+                    Processing effect :{"Character"}
+                    <img
+                      className="h-40 w-40"
+                      alt="sample"
+                      src={character.url}
+                    />
+                  </div>
+                </li>
+              )}
+            </ul>
+          </div>{" "}
+        </>
+      ) : (
+        <Load />
+      )}
     </div>
   );
 }

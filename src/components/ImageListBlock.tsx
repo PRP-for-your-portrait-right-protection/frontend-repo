@@ -18,7 +18,8 @@ function ImageListBlock() {
   const [count, setCount] = useState<number>(1); //other + n으로 사용하기 위한 url
   const [isLoding, setIsLoading]: [boolean, any] = useState(false); //api통신 완료 상태 값
   const [checkedItems, setCheckedItems] = useState(new Set<string>()); //checkBox확인
-  const [checkedList, setCheckedList]: [any, any] = useState([]);
+  const [isNobodyNotChecked, setIsNobodyNotChecked] = useState(false);
+  const [isNull, setIsNull] = useState(false);
   const [totalList, setTotalList]: [any, any] = useState({
     //최종적으로 backend로 보내질 데이터 리스트 집합
     data: [
@@ -46,7 +47,6 @@ function ImageListBlock() {
           },
         })
         .then(function (response) {
-          console.log(response);
           let initialData = {
             //초기 설정 값
             data: [],
@@ -73,6 +73,7 @@ function ImageListBlock() {
             initialData.data = initialData.data.concat(imgListBlock);
           });
           setTotalList(initialData); //가져온 데이터의 가공한 최종 리스트를 totalList에 저장
+          setCount(totalList.data.length);
           setIsLoading(true);
         })
         .catch(function (error) {
@@ -89,7 +90,7 @@ function ImageListBlock() {
     const preValueCheck = () => {
       if (faceId != null) {
         faceId.forEach((face) => {
-          checkedItemHandler(face, true);
+          checkedItemHandler(face.id, true);
         });
       }
     };
@@ -106,32 +107,28 @@ function ImageListBlock() {
    * - 사용자가 선택한 이미지리스트(faceId)를 세션에 저장
    */
   const makeFormData = () => {
-    // setFaceId(Array.from(checkedItems));
-
     let testDataList = [];
-    console.log("여기보세요");
-    console.log(totalList);
-    checkedItems.forEach((data1) => {
-      console.log("------");
-      console.log(totalList.data.whitelistFaceId);
-      console.log(data1);
-      console.log("------");
-      totalList.data.forEach((inner) => {
-        if (inner.whitelistFaceId === data1) {
-          let temp = {
-            id: inner.whitelistFaceId,
-            url: inner.whitelistFaceImages[0].url,
-            name: inner.whitelistFaceName,
-            count: inner.whitelistFaceImages.length,
-          };
-          testDataList.push(temp);
-        }
-      });
 
-      console.log("최종으로 저장될 썸네일 , 개수 등등~");
-      console.log(testDataList);
-      setFaceId(testDataList);
-    });
+    if (checkedItems.size == 0) {
+      //만약 값이 없다면
+      setFaceId([]);
+    } else {
+      checkedItems.forEach((checkedId) => {
+        totalList.data.forEach((imageObejct) => {
+          if (imageObejct.whitelistFaceId === checkedId) {
+            let temp = {
+              id: imageObejct.whitelistFaceId,
+              url: imageObejct.whitelistFaceImages[0].url,
+              name: imageObejct.whitelistFaceName,
+              count: imageObejct.whitelistFaceImages.length,
+            };
+            testDataList.push(temp);
+          }
+        });
+
+        setFaceId(testDataList);
+      });
+    }
   };
 
   /**
@@ -189,8 +186,6 @@ function ImageListBlock() {
    */
 
   const changeFuc = (object, whitelistFace, type) => {
-    console.log("전체 값");
-    console.log(totalList);
     const formData = new FormData();
     let findIndex = totalList.data.findIndex(
       (element) => element.whitelistFaceId == whitelistFace.whitelistFaceId
@@ -217,7 +212,7 @@ function ImageListBlock() {
           })
           .catch(function (error) {
             console.log(error);
-            object.id = -1;
+            object.id = "error";
           });
 
         delete object["file"];
@@ -315,24 +310,35 @@ function ImageListBlock() {
     if (isChecked) {
       checkedItems.add(id);
       setCheckedItems(checkedItems);
+      setIsNobodyNotChecked(false);
+      setIsNull(true);
     } else if (!isChecked && checkedItems.has(id)) {
       checkedItems.delete(id);
       setCheckedItems(checkedItems);
+      if (checkedItems.size == 0) {
+        setIsNull(false);
+      }
     }
   };
 
-  const onCheckedAll = useCallback(
-    (checked) => {
-      if (checked) {
-        const checkedListArray = [];
-        totalList.forEach((list) => checkedListArray.push(list));
-        setCheckedList(checkedListArray);
-      } else {
-        setCheckedList([]);
-      }
-    },
-    [totalList]
-  );
+  /**
+   * @name : Teawon
+   * @function :onCheckedAll - 각 이미지리스트의 체크값 상태 변화 함수
+   * 부모컴포넌트인 ImageListBlock의 상태값 갱신 함수를 통해 전체 상태값의 변화를 관리합니다.
+   * @param :
+   *  id- 삭제할 이미지 id
+   *  isChecked - 체크 여부
+   * @create-date: 2022-07-27
+   */
+
+  const nobodyCheckedhandler = (checked) => {
+    if (checked) {
+      checkedItems.clear();
+      setCheckedItems(checkedItems);
+      setIsNobodyNotChecked(true);
+      setIsNull(true);
+    }
+  };
 
   return (
     <>
@@ -349,14 +355,8 @@ function ImageListBlock() {
                       id="check"
                       value="1"
                       className="checkbox2"
-                      onChange={(e) => onCheckedAll(e.target.checked)}
-                      checked={
-                        checkedList.length === 0
-                          ? false
-                          : checkedList.length === totalList.length
-                          ? true
-                          : false
-                      }
+                      checked={isNobodyNotChecked}
+                      onChange={(e) => nobodyCheckedhandler(e.target.checked)}
                     />
                   </div>
                 </li>
@@ -377,6 +377,7 @@ function ImageListBlock() {
                 changeFuc={changeFuc}
                 checkFuc={checkedItemHandler}
                 checked={checkedItems.has(imgList.whitelistFaceId)}
+                isNobodyNotChecked={isNobodyNotChecked}
               />
             ))}
           <div className="addBox">
@@ -392,14 +393,21 @@ function ImageListBlock() {
               <p className="fontBox">Plus Person</p>
             </button>
           </div>
-          <div className="fixed bottom-0 right-0 p-5">
-            <ButtonSession
-              img="images/right.png"
-              url="/VideoUpload"
-              text="next"
-              saveFuc={makeFormData}
-            ></ButtonSession>
-          </div>
+          {isNull ? (
+            <div className="fixed bottom-0 right-0 p-5">
+              <ButtonSession
+                img="images/right.png"
+                url="/VideoUpload"
+                text="next"
+                saveFuc={makeFormData}
+              ></ButtonSession>
+            </div>
+          ) : (
+            <div className="fixed bottom-0 right-0 p-5 opacity-30">
+              <img src="images/nextImg.png" />
+            </div>
+          )}
+
           <div className="fixed bottom-0 left-0 p-5">
             <ButtonSession
               img="images/left.png"
