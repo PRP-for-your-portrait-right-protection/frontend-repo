@@ -1,7 +1,8 @@
 import React, { useRef, useState } from "react";
 import "./ImageList.css";
 import ImgBlock from "../components/ImageBlock";
-import uuid from "react-uuid";
+import { AiOutlineRight } from "react-icons/ai";
+import { AiOutlineLeft } from "react-icons/ai";
 
 /**
  * @name : Teawon
@@ -107,57 +108,88 @@ function UserPageImageList({ object, changeFuc }: ImageListProps) {
     setEdit((edit) => !edit);
   };
   return (
-    <div className="pictureList">
-      <div className="personName">
-        {edit ? (
-          <input
-            className="form-control text-black w-32"
-            type="text"
-            value={text}
-            onChange={(event) => handleChange(event)}
-            onKeyDown={handleKeyDown}
-          />
-        ) : (
-          <span onDoubleClick={() => changeEditMode()}>{text}</span>
-        )}
-      </div>
+    <div className="wrapImage">
+      <ol className="box">
+        <ul className="pictureList justify-between">
+          <li className="flex items-center float-left">
+            <div className="personName">
+              {edit ? (
+                <input
+                  className="text-black text-center w-40"
+                  type="text"
+                  value={text}
+                  onChange={(event) => handleChange(event)}
+                  onKeyDown={handleKeyDown}
+                />
+              ) : (
+                <span onDoubleClick={() => changeEditMode()}>{text}</span>
+              )}
+            </div>
+          </li>
+          <li className="float-right">
+            {/* <p className="personName"> {object.name} </p> */}
+            <button className="d" onClick={() => deleteFileImageList()}>
+              <img
+                className="deleteBtn"
+                alt="deleteBtn"
+                src="images\delete.png"
+              />
+            </button>
+          </li>
+        </ul>
 
-      {/* <p className="personName"> {object.name} </p> */}
-      <button className="d" onClick={() => deleteFileImageList()}>
-        <img className="deleteBtn" alt="deleteBtn" src="images\delete.png" />
-      </button>
-      <button
-        className="showNext"
-        onClick={() =>
-          setPage((curPage) =>
-            count > 3 && count - curPage > 3 ? curPage + 1 : curPage
-          )
-        }
-      ></button>
-      <button
-        className="showPre"
-        onClick={() =>
-          setPage((curPage) => (curPage > 0 ? curPage - 1 : curPage))
-        }
-      ></button>
+        <li className="pictureList1">
+          <div>
+            <button
+              className="showPre"
+              onClick={() =>
+                setPage((curPage) => (curPage > 0 ? curPage - 1 : curPage))
+              }
+            >
+              <AiOutlineLeft
+                size="60"
+                justify-content="center"
+                place-content="center"
+                color="#767093"
+              />
+            </button>
+          </div>
+          <div className="g grid grid-cols-4 gap-10">
+            <span
+              className="col-span-1 uploadButton flex justify-center"
+              onClick={() => imageInput.current.click()}
+            >
+              <img src="images\addImage.png" alt="" className="h-36 w-36" />
+            </span>
 
-      <div className="grid grid-cols-4 gap-4 mx-96">
-        <span
-          className="col-span-1 uploadButton flex justify-center"
-          onClick={() => imageInput.current.click()}
-        >
-          <img src="images\addImage.png" alt="" className="h-36 w-36" />
-        </span>
-
-        {imgList[0].whitelistFaceImages &&
-          silceImage(imgList[0].whitelistFaceImages).map((img) => (
-            <ImgBlock
-              key={img.id}
-              object={img}
-              deleteFileImage={deleteFileImage}
-            />
-          ))}
-      </div>
+            {imgList[0].whitelistFaceImages &&
+              silceImage(imgList[0].whitelistFaceImages).map((img) => (
+                <ImgBlock
+                  key={img.id}
+                  object={img}
+                  deleteFileImage={deleteFileImage}
+                />
+              ))}
+          </div>
+          <div>
+            <button
+              className="showNext"
+              onClick={() =>
+                setPage((curPage) =>
+                  count > 3 && count - curPage > 3 ? curPage + 1 : curPage
+                )
+              }
+            >
+              <AiOutlineRight
+                size="60"
+                justify-content="center"
+                place-content="center"
+                color="#767093"
+              />
+            </button>
+          </div>
+        </li>
+      </ol>
 
       <div>
         <input
