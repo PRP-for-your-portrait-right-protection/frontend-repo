@@ -51,7 +51,7 @@ function UserPageCharacterImageList({
     <div className="imageList-component">
       <div className="g grid grid-cols-4 gap-12">
         <div
-          className="col-span-1 uploadButton flex"
+          className="col-span-1 flex justify-center"
           onClick={() => imageInput.current.click()}
         >
           <img

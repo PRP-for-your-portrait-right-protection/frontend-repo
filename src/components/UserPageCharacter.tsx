@@ -106,7 +106,7 @@ function UserPageCharacter() {
     axios
       .delete(`/block-characters/user/${imgId}`, {
         headers: {
-          token: localStorage.getItem("token"),
+          token: getItemWithExpireTime("token"),
         },
       })
       .then(function (response) {
@@ -124,7 +124,7 @@ function UserPageCharacter() {
     axios
       .post(`/block-characters/user`, formData, {
         headers: {
-          token: localStorage.getItem("token"),
+          token: getItemWithExpireTime("token"),
         },
       })
       .then(function (response) {

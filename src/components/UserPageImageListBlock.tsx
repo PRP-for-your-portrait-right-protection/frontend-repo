@@ -38,7 +38,6 @@ function UserPageImageListBlock() {
    * @create-date: 2022-08-01
    * @update-date: 2022-08-01
    */
-
   const getItemWithExpireTime = (keyName) => {
     const objString = localStorage.getItem(keyName);
 
