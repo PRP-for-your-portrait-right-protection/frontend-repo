@@ -71,7 +71,7 @@
 }
 .stepper-item.active .step-name {
   color: #121fa6;
-  font-family: "Poppins_ExtraLight";
+  font-family: "Ubuntu-Bold", serif;
   font-size: 1vw;
 }
 

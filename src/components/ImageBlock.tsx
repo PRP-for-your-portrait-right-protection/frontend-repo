@@ -13,11 +13,15 @@ interface ImageButtonProps {
 
 function ImgBlock({ deleteFileImage, object }: ImageButtonProps) {
   return (
-    <div className="col-span-1 relative justify-center">
-      <img className="object-cover w-36 h-36" alt="sample" src={object.url} />
+    <div className="relative">
+      <img
+        className="flex object-cover w-36 h-36"
+        alt="sample"
+        src={object.url}
+      />
       <button onClick={() => deleteFileImage(object.id)} className="deleteBtn">
         <img
-          className="del absolute w-5 h-5 right-0 top-0"
+          className="del absolute w-5 h-5 right-0 top-0 mt-1 mr-1"
           alt="deleteBtn"
           src="images/delete.png"
         />

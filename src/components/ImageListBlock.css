@@ -61,7 +61,7 @@
 }
 
 .fontBox {
-  font-family: "Poppins_ExtraLight";
+  font-family: "Ubuntu-Bold", serif;
   font-size: 1vw;
   color: #020a64;
   justify-content: center;
@@ -71,10 +71,11 @@
   display: flex;
   justify-content: center;
   padding-top: 2%;
+  padding-bottom: 2%;
 }
 
 .box2 {
-  width: 70%;
+  width: 60%;
   /* border: 3px solid rgb(56 189 248); */
   border-radius: 20px;
   background-color: #eeeef4;
@@ -99,13 +100,15 @@
   display: flex;
   font-size: 2.5vw;
   color: #121fa6;
-  font-family: "Poppins_ExtraLight";
+  font-family: "Ubuntu-Bold", serif;
+
   text-align: center;
   align-items: center;
 }
 
 .personName2 .info {
-  font-size: 2vw;
+  font-size: 1.5vw;
+  justify-content: start;
 }
 
 /* .tooltip {
@@ -120,7 +123,7 @@
 } */
 
 .next {
-  background: #c7c7cd;
+  background: rgb(56 189 248);
   border-radius: 8px;
   width: 10rem;
   height: 3rem;
@@ -172,7 +175,7 @@
 }
 
 .next:hover {
-  background-color: rgb(56 189 248);
+  background-color: rgb(125 211 252);
 }
 
 @media (max-width: 1000px) {

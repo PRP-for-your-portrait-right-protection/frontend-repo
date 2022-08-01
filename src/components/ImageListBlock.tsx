@@ -5,9 +5,7 @@ import "./ImageListBlock.css";
 import ButtonSession from "./ButtonSession";
 import { HiUserAdd } from "react-icons/hi";
 import Load from "../components/Load";
-import ReactTooltip from "react-tooltip";
 import { useStore } from "../components/store";
-import { faCreditCard } from "@fortawesome/free-solid-svg-icons";
 
 /**
  * @name : Teawon
@@ -144,8 +142,6 @@ function ImageListBlock() {
    * -api 및 구조 변경
    */
   const addImgList = (filename) => {
-    window.scrollTo(0, document.body.scrollHeight);
-
     let strName = filename;
     if (filename == null) {
       strName = "other".concat(String(count));
@@ -176,6 +172,7 @@ function ImageListBlock() {
         console.log(error);
       });
     setCount((count) => count + 1);
+    window.scrollTo(0, document.body.scrollHeight);
   };
 
   /**

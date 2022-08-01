@@ -2,7 +2,7 @@
   width: 15rem;
   display: inline-block;
   /* position: relative; */
-  color: #6246ea;
+  color: #767093;
   font-weight: bold;
   /* justify-content: center; */
   align-content: center;
@@ -21,13 +21,13 @@
   height: auto;
   padding: 5px;
   font-size: 0.8vw;
-  color: rgb(0, 0, 0);
-  background: #dadada;
+  color: rgb(255, 255, 255);
+  background: #767093;
   align-content: center;
   padding-top: 0.5rem;
 }
 .tooltip:hover .tooltip-text {
-  display: block;
+  display: flex;
 }
 .icon_tooltip {
   width: 3rem;

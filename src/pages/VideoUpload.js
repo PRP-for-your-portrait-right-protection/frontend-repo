@@ -128,23 +128,31 @@ function VideoUpload() {
       </div>
       <div className="wrapVideo">
         {preFileVideo ? ( //이전 값을 사용할 때는 별도의 파일을object로 바꾸지 않고 그대로 출력하기 위해 따로 if문으로 분리
-          <div>
+          <div className="w-9/12">
             <video
-              className="flex items-center justify-center w-3/4 h-72"
+              className="flex items-center justify-center w-full h-full"
               id="video"
               src={preFileVideo}
               style={{ margin: "auto" }}
               controls
             ></video>
-            <span
-              className="uploadButton flex justify-center"
-              onClick={() => fileInput.current.click()}
-            >
-              <img src="images\videoupload.png" alt="" className="file" />
-            </span>
+            <div className="videoBtn flex justify-end pb-3">
+              <span
+                className="uploadButton flex mt-3 mr-3 "
+                onClick={() => fileInput.current.click()}
+              >
+                <button>CHANGE</button>
+              </span>
+              <span
+                className="cancelBox flex mt-3 "
+                // onClick={() => fileInput.current.click()}
+              >
+                <button>CANCEL</button>
+              </span>
+            </div>
           </div>
         ) : fileVideo ? ( //입력된 비디오파일이 있다면 드롭박스를 숨기고 파일업로드 버튼이 생기도록 함
-          <div>
+          <div className="w-9/12">
             <video
               className="w-full h-full"
               id="video"

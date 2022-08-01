@@ -5,20 +5,21 @@
   background-repeat: no-repeat;
 }
 
-.uploadLabel > button {
+/* .uploadLabel > button {
   display: flex;
   width: 30rem;
   left: 0;
-}
+} */
 
 .wrapImage {
   display: flex;
   justify-content: center;
-  padding-top: 2%;
+  /* padding-top: 2%; */
+  padding-bottom: 2%;
 }
 
 .box {
-  width: 70%;
+  width: 60%;
   /* border: 3px solid rgb(56 189 248); */
   border-radius: 20px;
   background-color: #eeeef4;
@@ -52,7 +53,7 @@
   display: flex;
   font-size: 2.5vw;
   color: #121fa6;
-  font-family: "Poppins_ExtraLight";
+  font-family: "Ubuntu-Bold", serif;
   text-align: center;
   align-items: center;
 }

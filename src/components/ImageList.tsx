@@ -174,7 +174,7 @@ function ImageList({ object, changeFuc, checkFuc, checked }: ImageListProps) {
             <div className="personName">
               {edit ? (
                 <input
-                  className="text-black text-center text-4xl w-40"
+                  className="text-black text-center text-4xl w-40 border-0 hover:outline-offset-0"
                   type="text"
                   value={text}
                   onChange={(event) => handleChange(event)}
@@ -223,7 +223,7 @@ function ImageList({ object, changeFuc, checkFuc, checked }: ImageListProps) {
 
           <div className="g grid grid-cols-4 gap-8">
             <span
-              className="col-span-1 uploadButton flex justify-center"
+              className="col-span-1 flex justify-center"
               onClick={() => imageInput.current.click()}
             >
               <img src="images\frame.png" alt="" className="h-36 w-36" />

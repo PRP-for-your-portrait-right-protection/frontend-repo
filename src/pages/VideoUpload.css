@@ -83,10 +83,19 @@
   border: 3px solid #ffffff00;
   background-color: #eeeef4;
   align-items: center;
-  background: #c7c7cd;
+  background: #e36161;
   border-radius: 8px;
   justify-content: center;
   font-family: "Poppins_ExtraLight";
+  font-size: 1vw;
+  color: white;
+}
+
+.cancelBox:hover {
+  border: 3px solid #ffffff00;
+  align-items: center;
+  background: #f74747;
+  font-family: "Ubuntu-Bold", serif;
   font-size: 1vw;
   color: white;
 }
@@ -104,6 +113,16 @@
   font-size: 1vw;
   color: white;
 }
+
+.uploadButton:hover {
+  border: 3px solid #ffffff00;
+  align-items: center;
+  background: #95959b;
+  font-family: "Ubuntu-Bold", serif;
+  font-size: 1vw;
+  color: white;
+}
+
 @media (min-width: 1000px) {
   #image_large {
     display: block;
