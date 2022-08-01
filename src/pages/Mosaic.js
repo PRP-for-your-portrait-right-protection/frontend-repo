@@ -187,23 +187,25 @@ function Mosaic() {
   return (
     <div>
       {isNull ? (
-        <div className="fixed bottom-0 right-0 p-5 opacity-30">
-          <img src="images/rightArrow.png" />
-        </div>
-      ) : (
         <div className="fixed bottom-0 right-0 p-5">
           <ButtonSession
-            img="images/rightArrow.png"
-            url="/Result"
+            img="images/right.png"
+            url="/VideoUpload"
+            text="next"
             saveFuc={makeFormData}
           ></ButtonSession>
+        </div>
+      ) : (
+        <div className="fixed bottom-0 right-0 p-5 opacity-30">
+          <img src="images/nextImg.png" />
         </div>
       )}
 
       <div className="fixed bottom-0 left-0 p-5">
         <ButtonSession
-          img="images/leftArrow.png"
-          url="/VideoUpload"
+          img="images/left.png"
+          url="/"
+          text="previous"
           saveFuc={null}
         ></ButtonSession>
       </div>
@@ -241,25 +243,20 @@ function Mosaic() {
         <ul>
           <li>
             <ToggleBtn onClick={clickedToggleM} toggle={toggleM}>
-              <img src="images\mosaic.png" alt="" className="choiceImage" />
+              <button className="MOSAIC">
+                <div>MOSAIC</div>
+              </button>
             </ToggleBtn>
-            <span className="caption">MOSAIC</span>
           </li>
         </ul>
         <div>
           <ul>
             <li>
               <ToggleBtn onClick={clickedToggleC} toggle={toggleC}>
-                <img
-                  src="images\character.png"
-                  alt=""
-                  className="choiceImage"
-                  onClick={openModal}
-                />
+                <button className="MOSAIC" onClick={openModal}>
+                  <div>CHARACTER</div>
+                </button>
               </ToggleBtn>
-            </li>
-            <li>
-              <span className="caption ml-3">CHARACTER</span>
             </li>
           </ul>
 
@@ -285,9 +282,10 @@ export default Mosaic;
 const ToggleBtn = styled.button`
   display: flex;
   width: 15vw;
-  height: 22vh;
+  height: 10vh;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
+  align-items: center;
   cursor: pointer;
   background-color: ${(props) =>
     !props.toggle ? "transparent" : "rgb(231, 179, 35)"};
@@ -300,3 +298,27 @@ const ToggleBtn = styled.button`
     -o-transform: scale(1.2);
   }
 `;
+
+// {isNull ? (
+//   <div className="fixed bottom-0 right-0 p-5">
+//     <ButtonSession
+//       img="images/right.png"
+//       url="/VideoUpload"
+//       text="next"
+//       saveFuc={makeFormData}
+//     ></ButtonSession>
+//   </div>
+// ) : (
+//   <div className="fixed bottom-0 right-0 p-5 opacity-30">
+//     <img src="images/nextImg.png" />
+//   </div>
+// )}
+
+// <div className="fixed bottom-0 left-0 p-5">
+//   <ButtonSession
+//     img="images/left.png"
+//     url="/"
+//     text="previous"
+//     saveFuc={null}
+//   ></ButtonSession>
+// </div>

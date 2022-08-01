@@ -70,6 +70,19 @@
 .wrapChoice ul {
   padding-right: 10%;
 }
+.MOSAIC {
+  background-color: rgb(56 189 248);
+  border-radius: 8px;
+  width: 20rem;
+  height: 5rem;
+  align-items: center;
+  padding: 14px 18px;
+  color: white;
+  font-family: "Ubuntu-Bold";
+  font-weight: 700;
+  font-size: 2.5rem;
+  line-height: 20px;
+}
 @media (max-width: 800px) {
   .wrapChoice {
     margin-top: 5%;
