@@ -164,12 +164,12 @@ function ImageListBlock() {
             },
           ],
         });
+        window.scrollTo(0, document.body.scrollHeight);
       })
       .catch(function (error) {
         console.log(error);
       });
     setCount((count) => count + 1);
-    window.scrollTo(0, document.body.scrollHeight);
   };
 
   /**

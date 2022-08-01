@@ -6,7 +6,7 @@ import Pagination from "../components/Pagination";
 function UserPageCharacter() {
   const [userCharacterList, setUserCharacterList] = useState([]); // 사용자 캐릭터 이미지
   const [currentPage, setCurrentPage] = useState(1);
-  const [characterPerPage, setCharacterPerPage] = useState(8); //페이지당 원하는개수
+  const [characterPerPage, setCharacterPerPage] = useState(7); //페이지당 원하는개수
   const indexOfLastVideo = currentPage * characterPerPage;
   const indexOfFirstVideo = indexOfLastVideo - characterPerPage;
 

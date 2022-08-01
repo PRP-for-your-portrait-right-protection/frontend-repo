@@ -108,6 +108,37 @@ function UserPageImageList({ object, changeFuc }: ImageListProps) {
   const changeEditMode = () => {
     setEdit((edit) => !edit);
   };
+
+  const useConfirm = (message = null, onConfirm, onCancel) => {
+    if (!onConfirm || typeof onConfirm !== "function") {
+      return;
+    }
+    if (onCancel && typeof onCancel !== "function") {
+      return;
+    }
+
+    const confirmAction = () => {
+      if (window.confirm(message)) {
+        onConfirm();
+      } else {
+        onCancel();
+      }
+    };
+    confirmAction();
+  };
+  const deleteConfirm = () => {
+    deleteFileImageList();
+  };
+
+  const cancelConfirm = () => console.log("Canceled.");
+
+  const confirmDelete = () => {
+    useConfirm(
+      "Are you sure you want to delete it?",
+      deleteConfirm,
+      cancelConfirm
+    );
+  };
   return (
     <div className="wrapImage">
       <ol className="box mt-4">
@@ -129,7 +160,7 @@ function UserPageImageList({ object, changeFuc }: ImageListProps) {
           </li>
           <li className="float-right">
             {/* <p className="personName"> {object.name} </p> */}
-            <button className="d" onClick={() => deleteFileImageList()}>
+            <button className="d" onClick={() => confirmDelete()}>
               <HiOutlineX size="2.5vw" color="red" />
             </button>
           </li>
