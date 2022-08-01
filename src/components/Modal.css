@@ -36,11 +36,8 @@
 }
 .modal > section > header button {
   position: absolute;
-  top: -5px;
-  right: 4px;
-  width: 30px;
-  font-size: 27px;
-  font-weight: 700;
+  top: 0;
+  right: 5px;
   text-align: center;
   color: rgb(33, 31, 31);
   background-color: transparent;
@@ -62,22 +59,20 @@
   padding: 5rem 10rem;
   text-align: right;
   left: 5rem;
+  justify-content: center;
+  margin-top: 5%;
 }
 .modal > section > footer button {
   padding: 0.5% 2%;
   color: #fff;
   display: flex;
-  position: absolute;
-  top: 85%;
-  left: 43%;
   cursor: pointer;
   height: 8vh;
   width: 15%;
-  text-align: center;
   font-family: "Ubuntu-Bold", serif;
   font-style: normal;
   font-weight: 400;
-  font-size: 2vw;
+  font-size: 1.5vw;
   background-color: rgb(56 189 248);
   border-radius: 8px;
   box-shadow: white 0 0px 0px 2px inset;

@@ -12,6 +12,30 @@ import Load from "../components/Load";
 function Result() {
   const { faceId, video, character, task, setTask, removeAllData } = useStore(); //zustand 전역변수
 
+  /**
+   * @name : Sunghyun
+   * @Function : 로컬 스토리지에서 특정 키에 저장된 value와 Expire(만료 시간)을 가져와 만료시간에 따라서 값을 null 또는 value 를 가져온다.
+   * @create-date: 2022-08-01
+   * @update-date: 2022-08-01
+   */
+  const getItemWithExpireTime = (keyName) => {
+    const objString = localStorage.getItem(keyName);
+
+    if (!objString) {
+      return null;
+    }
+
+    const obj = JSON.parse(objString);
+
+    if (Date.now() > obj.expire) {
+      localStorage.removeItem(keyName);
+
+      return null;
+    }
+
+    return obj.value;
+  };
+
   const makeFormData = () => {
     const formData = new FormData();
     let faceType = character === "M" ? "mosaic" : "character";
@@ -30,7 +54,7 @@ function Result() {
     axios
       .post(`/processed-videos`, formData, {
         headers: {
-          token: localStorage.getItem("token"),
+          token: getItemWithExpireTime("token"),
         },
       })
       .then(function (response) {

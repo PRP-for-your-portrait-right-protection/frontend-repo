@@ -3,6 +3,30 @@ import axios from "../api/axios";
 import "./WaitVideos.css";
 import { useStore } from "../components/store";
 /**
+ * @name : Sunghyun
+ * @Function : 로컬 스토리지에서 특정 키에 저장된 value와 Expire(만료 시간)을 가져와 만료시간에 따라서 값을 null 또는 value 를 가져온다.
+ * @create-date: 2022-08-01
+ * @update-date: 2022-08-01
+ */
+const getItemWithExpireTime = (keyName) => {
+  const objString = localStorage.getItem(keyName);
+
+  if (!objString) {
+    return null;
+  }
+
+  const obj = JSON.parse(objString);
+
+  if (Date.now() > obj.expire) {
+    localStorage.removeItem(keyName);
+
+    return null;
+  }
+
+  return obj.value;
+};
+
+/**
  * @name : Teawon
  * @component :WaitVideos - 현재 처리중인 영상에 대한 celeryID값을 통해 처리 여부를 확인하고 현재 처리중인 영상의 개수를 알려주는 컴포넌트
  * @create-date: 2022-07-26
@@ -29,7 +53,7 @@ function WaitVideos() {
       axios
         .get(`/processed-videos/status/${celeryId}`, {
           headers: {
-            token: localStorage.getItem("token"),
+            token: getItemWithExpireTime("token"),
           },
         })
         .then(function (response) {

@@ -32,6 +32,29 @@ function ImageListBlock() {
   });
 
   /**
+   * @name : Sunghyun
+   * @Function : 로컬 스토리지에서 특정 키에 저장된 value와 Expire(만료 시간)을 가져와 만료시간에 따라서 값을 null 또는 value 를 가져온다.
+   * @create-date: 2022-08-01
+   * @update-date: 2022-08-01
+   */
+  const getItemWithExpireTime = (keyName) => {
+    const objString = localStorage.getItem(keyName);
+
+    if (!objString) {
+      return null;
+    }
+
+    const obj = JSON.parse(objString);
+
+    if (Date.now() > obj.expire) {
+      localStorage.removeItem(keyName);
+
+      return null;
+    }
+
+    return obj.value;
+  };
+  /**
    * @name : Teawon
    * @Function :fetchData - 특정 유저에게 등록된 모든 인물사진들을 가져와 설정하는 함수, 값이 정상적으로 설정되면 isLoading값을 true로 바꾼다
    * @create-date: 2022-07-21
@@ -43,7 +66,7 @@ function ImageListBlock() {
       const result = await axios
         .get(`/whitelist-faces/images`, {
           headers: {
-            token: localStorage.getItem("token"),
+            token: getItemWithExpireTime("token"),
           },
         })
         .then(function (response) {
@@ -149,7 +172,7 @@ function ImageListBlock() {
     axios
       .post(`/whitelist-faces`, formData, {
         headers: {
-          token: localStorage.getItem("token"),
+          token: getItemWithExpireTime("token"),
         },
       })
       .then(function (response) {
@@ -203,7 +226,7 @@ function ImageListBlock() {
             formData,
             {
               headers: {
-                token: localStorage.getItem("token"),
+                token: getItemWithExpireTime("token"),
               },
             }
           )
@@ -230,7 +253,7 @@ function ImageListBlock() {
             `/whitelist-faces/${whitelistFace.whitelistFaceId}/images/${object}`,
             {
               headers: {
-                token: localStorage.getItem("token"),
+                token: getItemWithExpireTime("token"),
               },
             }
           )
@@ -257,7 +280,7 @@ function ImageListBlock() {
         axios
           .delete(`/whitelist-faces/${whitelistFace.whitelistFaceId}`, {
             headers: {
-              token: localStorage.getItem("token"),
+              token: getItemWithExpireTime("token"),
             },
           })
           .then(function (response) {
@@ -276,7 +299,7 @@ function ImageListBlock() {
             formData,
             {
               headers: {
-                token: localStorage.getItem("token"),
+                token: getItemWithExpireTime("token"),
               },
             }
           )

@@ -21,6 +21,29 @@ function Mosaic() {
   const { character, setCharacter } = useStore(); //zustand 전역변수
 
   /**
+   * @name : Sunghyun
+   * @Function : 로컬 스토리지에서 특정 키에 저장된 value와 Expire(만료 시간)을 가져와 만료시간에 따라서 값을 null 또는 value 를 가져온다.
+   * @create-date: 2022-08-01
+   * @update-date: 2022-08-01
+   */
+  const getItemWithExpireTime = (keyName) => {
+    const objString = localStorage.getItem(keyName);
+
+    if (!objString) {
+      return null;
+    }
+
+    const obj = JSON.parse(objString);
+
+    if (Date.now() > obj.expire) {
+      localStorage.removeItem(keyName);
+
+      return null;
+    }
+
+    return obj.value;
+  };
+  /**
    * @name : Teawon
    * @function :useEffect - 캐릭터의 사진 및 사용자 캐릭터를 가져와 리스트에 설정
    * 만약 세션에 이전에 선택했던 정보가 들어있다면 selectedData에 값을 설정하여 복구
@@ -34,7 +57,7 @@ function Mosaic() {
       const resultFix = await axios
         .get(`block-characters/origin`, {
           headers: {
-            token: localStorage.getItem("token"),
+            token: getItemWithExpireTime("token"),
           },
         })
         .then(function (response) {
@@ -48,7 +71,7 @@ function Mosaic() {
       const resultUser = await axios
         .get(`block-characters/user`, {
           headers: {
-            token: localStorage.getItem("token"),
+            token: getItemWithExpireTime("token"),
           },
         })
         .then(function (response) {
@@ -127,7 +150,7 @@ function Mosaic() {
     axios
       .delete(`/block-characters/user/${imgId}`, {
         headers: {
-          token: localStorage.getItem("token"),
+          token: getItemWithExpireTime("token"),
         },
       })
       .then(function (response) {
@@ -145,7 +168,7 @@ function Mosaic() {
     axios
       .post(`/block-characters/user`, formData, {
         headers: {
-          token: localStorage.getItem("token"),
+          token: getItemWithExpireTime("token"),
         },
       })
       .then(function (response) {
@@ -165,13 +188,19 @@ function Mosaic() {
     <div>
       {isNull ? (
         <div className="fixed bottom-0 right-0 p-5 opacity-30">
-          <img src="images/rightArrow.png" />
+          <img
+            id="image_large"
+            src="images/nextImg.png"
+            // className="img-responsive"
+          />
+          <img id="image_small" src="images/noneNext.png" />
         </div>
       ) : (
         <div className="fixed bottom-0 right-0 p-5">
           <ButtonSession
-            img="images/rightArrow.png"
+            img="images/right.png"
             url="/Result"
+            text="next"
             saveFuc={makeFormData}
           ></ButtonSession>
         </div>
@@ -179,8 +208,9 @@ function Mosaic() {
 
       <div className="fixed bottom-0 left-0 p-5">
         <ButtonSession
-          img="images/leftArrow.png"
+          img="images/left.png"
           url="/VideoUpload"
+          text="previous"
           saveFuc={null}
         ></ButtonSession>
       </div>
@@ -218,25 +248,20 @@ function Mosaic() {
         <ul>
           <li>
             <ToggleBtn onClick={clickedToggleM} toggle={toggleM}>
-              <img src="images\mosaic.png" alt="" className="choiceImage" />
+              <button className="MOSAIC">
+                <div>MOSAIC</div>
+              </button>
             </ToggleBtn>
-            <span className="caption">MOSAIC</span>
           </li>
         </ul>
         <div>
           <ul>
             <li>
               <ToggleBtn onClick={clickedToggleC} toggle={toggleC}>
-                <img
-                  src="images\character.png"
-                  alt=""
-                  className="choiceImage"
-                  onClick={openModal}
-                />
+                <button className="MOSAIC" onClick={openModal}>
+                  <div>CHARACTER</div>
+                </button>
               </ToggleBtn>
-            </li>
-            <li>
-              <span className="caption ml-3">CHARACTER</span>
             </li>
           </ul>
 
@@ -262,9 +287,10 @@ export default Mosaic;
 const ToggleBtn = styled.button`
   display: flex;
   width: 15vw;
-  height: 22vh;
+  height: 10vh;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
+  align-items: center;
   cursor: pointer;
   background-color: ${(props) =>
     !props.toggle ? "transparent" : "rgb(231, 179, 35)"};
@@ -277,3 +303,27 @@ const ToggleBtn = styled.button`
     -o-transform: scale(1.2);
   }
 `;
+
+// {isNull ? (
+//   <div className="fixed bottom-0 right-0 p-5">
+//     <ButtonSession
+//       img="images/right.png"
+//       url="/VideoUpload"
+//       text="next"
+//       saveFuc={makeFormData}
+//     ></ButtonSession>
+//   </div>
+// ) : (
+//   <div className="fixed bottom-0 right-0 p-5 opacity-30">
+//     <img src="images/nextImg.png" />
+//   </div>
+// )}
+
+// <div className="fixed bottom-0 left-0 p-5">
+//   <ButtonSession
+//     img="images/left.png"
+//     url="/"
+//     text="previous"
+//     saveFuc={null}
+//   ></ButtonSession>
+// </div>

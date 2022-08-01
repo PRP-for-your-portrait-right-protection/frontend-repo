@@ -6,6 +6,8 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./CharacterImageList.css";
 import { HiOutlineX } from "react-icons/hi";
+import { AiOutlineRight } from "react-icons/ai";
+import { AiOutlineLeft } from "react-icons/ai";
 
 /**
  * @name : Teawon
@@ -95,7 +97,7 @@ function CharacterImageList({
   };
 
   return (
-    <div className="imageList-component">
+    <div className="imageList-component2">
       <div>
         <div className="modalFont my-5 mb-5">CHARACTER</div>
         <li className="inline-block flex justify-center space-x-16 mt-3 ">
@@ -105,9 +107,11 @@ function CharacterImageList({
               setPage((curPage) => (curPage > 0 ? curPage - 1 : curPage))
             }
           >
-            <FontAwesomeIcon
-              icon={faChevronLeft}
-              className="w-32 h-32 text-blue-900"
+            <AiOutlineLeft
+              size="128"
+              justify-content="center"
+              place-content="center"
+              color="#767093"
             />
           </button>
 
@@ -136,14 +140,16 @@ function CharacterImageList({
               )
             }
           >
-            <FontAwesomeIcon
-              icon={faChevronRight}
-              className="w-32 h-32 text-blue-900"
+            <AiOutlineRight
+              size="128"
+              justify-content="center"
+              place-content="center"
+              color="#767093"
             />
           </button>
         </li>
       </div>
-      <div className="mycharacter">
+      <div className="mt-8">
         <div className="modalFont my-3">MY CHARACTER</div>
         <li className="inline-block flex justify-center space-x-16 mt-5 ">
           <button
@@ -154,14 +160,16 @@ function CharacterImageList({
               )
             }
           >
-            <FontAwesomeIcon
-              icon={faChevronLeft}
-              className="w-32 h-32 text-blue-900"
+            <AiOutlineLeft
+              size="128"
+              justify-content="center"
+              place-content="center"
+              color="#767093"
             />
           </button>
-          <div className="grid grid-cols-4 gap-4">
+          <div className="grid grid-cols-4 gap-8">
             <span
-              className="col-span-1 uploadButton flex justify-center"
+              className="col-span-1 flex justify-center"
               onClick={() => imageInput.current.click()}
             >
               <img src="images\frame.png" alt="" className="flex h-36 w-36" />
@@ -190,7 +198,7 @@ function CharacterImageList({
                   </label>
                   <button
                     onClick={() => deleteCharacterImage(img.id)}
-                    className="absolute z-1 place-items-start w-36"
+                    className="absolute top-0 right-0 h-8 w-8"
                   >
                     <HiOutlineX size="30" color="red" />
                   </button>
@@ -208,9 +216,11 @@ function CharacterImageList({
               )
             }
           >
-            <FontAwesomeIcon
-              icon={faChevronRight}
-              className="w-32 h-32 text-blue-900"
+            <AiOutlineRight
+              size="128"
+              justify-content="center"
+              place-content="center"
+              color="#767093"
             />
           </button>
         </li>
