@@ -1,8 +1,8 @@
 .tooltip {
-  width: 17rem;
-  display: inline-flex;
+  width: 15rem;
+  display: inline-block;
   /* position: relative; */
-  color: #6246ea;
+  color: #767093;
   font-weight: bold;
   /* justify-content: center; */
   align-content: center;
@@ -15,21 +15,28 @@
 .tooltip .tooltip-text {
   display: none;
   z-index: 1;
-  max-width: 50rem;
+  max-width: 20rem;
   border-radius: 5px;
-  height: 60%;
+  width: auto;
+  height: auto;
   padding: 5px;
-  font-size: 0.8rem;
-  color: rgb(0, 0, 0);
-  background: #dadada;
+  font-size: 0.8vw;
+  color: rgb(255, 255, 255);
+  background: #767093;
   align-content: center;
   padding-top: 0.5rem;
 }
 .tooltip:hover .tooltip-text {
-  display: block;
-  width: 20rem;
+  display: flex;
 }
 .icon_tooltip {
   width: 3rem;
   color: #767093;
+}
+
+@media screen and (max-width: 800px) {
+  .tooltip {
+    width: 10rem;
+    margin-left: 0;
+  }
 }

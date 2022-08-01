@@ -1,43 +1,81 @@
+@media screen and (max-width: 800px) {
+  .checkbox2 input.checkbox2 {
+    width: 1rem;
+    height: 1rem;
+  }
+}
+
 .checkbox2 {
   width: 80%;
   padding-left: 18.5%;
   padding-right: 19%;
 }
 .checkbox2 input.checkbox2 {
-  width: 2em;
-  height: 2em;
+  width: 2rem;
+  height: 2rem;
+}
+
+.addBox {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  right: 5%;
+  top: 50%;
+  width: 6rem;
+  height: 6rem;
+  border: 3px solid #121fa6;
+  border-radius: 20px;
+  background-color: #eeeef4;
 }
 .addBtn {
-  padding: 10px;
-  position: fixed;
-  /* display: flex; */
+  /* padding: 10px; */
+  display: flex;
   color: #121fa6;
   cursor: pointer;
-  height: 4rem;
-  width: 4rem;
+  flex-direction: column;
+  /* height: 4rem;
+  width: 4rem; */
+  padding-top: 0.5rem;
   background-color: transparent;
   z-index: 1;
   border: 0;
   outline: 0;
-  right: 10%;
-  top: 50%;
+  justify-content: center;
+  align-items: center;
 }
-.addBtn:hover {
+.addBox:hover .addBtn {
   transition: 0.3s;
-  background: white;
-  color: rgba(55, 42, 42, 0.9);
-  box-shadow: inset 0 0 0 36px var(--btn-bg);
-  box-shadow: rgba(55, 42, 42, 0.9) 0 0px 0px 2px inset;
+  background: transparent;
+  color: rgb(56 189 248);
+  /* box-shadow: inset 0 0 0 36px var(--btn-bg);
+  box-shadow: rgba(55, 42, 42, 0.9) 0 0px 0px 2px inset; */
+}
+.addBox:hover .fontBox {
+  transition: 0.3s;
+  color: rgb(56 189 248);
+}
+
+.addBox:hover {
+  transition: 0.3s;
+  border: 3px solid rgb(56 189 248);
+}
+
+.fontBox {
+  font-family: "Ubuntu-Bold", serif;
+  font-size: 1vw;
+  color: #020a64;
+  justify-content: center;
 }
 
 .wrapImage2 {
   display: flex;
   justify-content: center;
   padding-top: 2%;
+  padding-bottom: 2%;
 }
 
 .box2 {
-  width: 70%;
+  width: 60%;
   /* border: 3px solid rgb(56 189 248); */
   border-radius: 20px;
   background-color: #eeeef4;
@@ -58,14 +96,19 @@
 }
 
 .personName2 {
-  width: 10rem;
+  width: 60rem;
   display: flex;
-  font-size: 2rem;
+  font-size: 2.5vw;
   color: #121fa6;
-  font-family: "StardosStencil-Regular", serif;
+  font-family: "Ubuntu-Bold", serif;
+
   text-align: center;
   align-items: center;
-  padding-left: 1.5rem;
+}
+
+.personName2 .info {
+  font-size: 1.5vw;
+  justify-content: start;
 }
 
 /* .tooltip {
@@ -80,7 +123,7 @@
 } */
 
 .next {
-  background: #c7c7cd;
+  background: rgb(56 189 248);
   border-radius: 8px;
   width: 10rem;
   height: 3rem;
@@ -93,7 +136,7 @@
   font-family: "Inter";
   font-style: normal;
   font-weight: 700;
-  font-size: 1.5vw;
+  font-size: 1.5rem;
   line-height: 20px;
   text-transform: uppercase;
   justify-content: center;
@@ -116,7 +159,7 @@
   font-family: "Inter";
   font-style: normal;
   font-weight: 700;
-  font-size: 1.5vw;
+  font-size: 1.5rem;
   line-height: 20px;
   text-transform: uppercase;
   flex-direction: row-reverse;
@@ -125,26 +168,29 @@
   float: right;
 }
 .previous img {
+  display: flex;
   float: left;
   /* margin-top: 5px; */
   align-items: center;
 }
 
 .next:hover {
-  background-color: rgb(56 189 248);
+  background-color: rgb(125 211 252);
 }
 
 @media (max-width: 1000px) {
   .next {
-    width: 5rem;
+    width: 6rem;
     height: 2rem;
     justify-content: center;
+    font-size: 1rem;
   }
 
   .previous {
-    width: 5rem;
+    width: 6rem;
     height: 2rem;
     justify-content: center;
+    font-size: 1rem;
   }
 
   .next img {
@@ -153,5 +199,50 @@
 
   .previous img {
     display: none;
+  }
+
+  .addBox {
+    width: 4rem;
+    height: 5rem;
+  }
+}
+/* @media ((min-width: 1000px) and (max-width: 1200px)) {
+  .next {
+    width: 8rem;
+    height: 2.5rem;
+    justify-content: center;
+    font-size: 1.5rem;
+  }
+
+  .previous {
+    width: 8rem;
+    height: 2.5rem;
+    justify-content: center;
+    font-size: 1.5rem;
+  }
+  .addBox {
+    width: 3rem;
+    height: 4rem;
+  }
+} */
+@media (max-width: 800px) {
+  .next {
+    width: 3rem;
+    height: 2rem;
+    justify-content: center;
+    font-size: 0.3rem;
+  }
+
+  .previous {
+    width: 3rem;
+    height: 2rem;
+    justify-content: center;
+    font-size: 0.3rem;
+  }
+
+  .addBox {
+    width: 3rem;
+    height: 4rem;
+    right: 2%;
   }
 }

@@ -5,9 +5,7 @@ import "./ImageListBlock.css";
 import ButtonSession from "./ButtonSession";
 import { HiUserAdd } from "react-icons/hi";
 import Load from "../components/Load";
-import ReactTooltip from "react-tooltip";
 import { useStore } from "../components/store";
-import { faCreditCard } from "@fortawesome/free-solid-svg-icons";
 
 /**
  * @name : Teawon
@@ -144,8 +142,6 @@ function ImageListBlock() {
    * -api 및 구조 변경
    */
   const addImgList = (filename) => {
-    window.scrollTo(0, document.body.scrollHeight);
-
     let strName = filename;
     if (filename == null) {
       strName = "other".concat(String(count));
@@ -176,6 +172,7 @@ function ImageListBlock() {
         console.log(error);
       });
     setCount((count) => count + 1);
+    window.scrollTo(0, document.body.scrollHeight);
   };
 
   /**
@@ -364,7 +361,10 @@ function ImageListBlock() {
                   </div>
                 </li>
                 <li className="personName2">
-                  <div>Select All</div>
+                  <div className="pl-5">NOBODY</div>
+                  <div className="info">
+                    : Please check if you want to blur everything out
+                  </div>
                 </li>
               </ul>
             </ol>
@@ -379,19 +379,19 @@ function ImageListBlock() {
                 checked={checkedItems.has(imgList.whitelistFaceId)}
               />
             ))}
-          <button //ImgList추가 버튼
-            className="addBtn"
-            onClick={() => addImgList(null)}
-          >
-            <span data-tip data-for="tooltip">
+          <div className="addBox">
+            <button //ImgList추가 버튼
+              className="addBtn"
+              onClick={() => addImgList(null)}
+            >
               <HiUserAdd
-                size="50"
-                flex-direction="row"
+                size="3.5vw"
                 justify-content="center"
                 place-content="center"
               />
-            </span>
-          </button>
+              <p className="fontBox">Plus Person</p>
+            </button>
+          </div>
           <div className="fixed bottom-0 right-0 p-5">
             <ButtonSession
               img="images/right.png"

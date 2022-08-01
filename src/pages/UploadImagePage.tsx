@@ -7,7 +7,8 @@ function UploadImagePage() {
   return (
     <>
       <Title
-        textValue="Select portraits without mosaic"
+        // textValue="Select portraits without mosaic"
+        textValue="Select WhiteList"
         textTooltip="After selecting the target to be excluded from the mosaic, please upload the face image of the person."
       ></Title>
 

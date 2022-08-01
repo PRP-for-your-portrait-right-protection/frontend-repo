@@ -21,12 +21,11 @@ function ImgBlock({ deleteFileImage, object }: ImageButtonProps) {
       />
       <button onClick={() => deleteFileImage(object.id)} className="deleteBtn">
         <img
-          className="absolute w-5 h-5 right-0"
+          className="del absolute w-5 h-5 right-0 top-0 mt-1 mr-1"
           alt="deleteBtn"
           src="images/delete.png"
         />
       </button>
-
       {/* <img
           className="flex w-14 h-8 z-1 "
           alt="deleteBtn"

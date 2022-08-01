@@ -57,6 +57,8 @@
 
 .stepper-item .step-name {
   color: rgb(15, 15, 15);
+  font-family: "Poppins_ExtraLight";
+  font-size: 1vw;
 }
 
 .stepper-item.active {
@@ -69,6 +71,8 @@
 }
 .stepper-item.active .step-name {
   color: #121fa6;
+  font-family: "Ubuntu-Bold", serif;
+  font-size: 1vw;
 }
 
 .stepper-item.completed .step-counter {
@@ -79,6 +83,8 @@
 .stepper-item.completed .step-name {
   color: #121fa6;
   font-weight: 500;
+  font-family: "Poppins_ExtraLight";
+  font-size: 1vw;
 }
 
 .stepper-item.completed::after {
