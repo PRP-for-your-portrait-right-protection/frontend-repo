@@ -47,7 +47,6 @@ function ImageListBlock() {
           },
         })
         .then(function (response) {
-          console.log(response);
           let initialData = {
             //초기 설정 값
             data: [],
@@ -74,6 +73,7 @@ function ImageListBlock() {
             initialData.data = initialData.data.concat(imgListBlock);
           });
           setTotalList(initialData); //가져온 데이터의 가공한 최종 리스트를 totalList에 저장
+          setCount(totalList.data.length);
           setIsLoading(true);
         })
         .catch(function (error) {
@@ -186,8 +186,6 @@ function ImageListBlock() {
    */
 
   const changeFuc = (object, whitelistFace, type) => {
-    console.log("전체 값");
-    console.log(totalList);
     const formData = new FormData();
     let findIndex = totalList.data.findIndex(
       (element) => element.whitelistFaceId == whitelistFace.whitelistFaceId
@@ -214,7 +212,7 @@ function ImageListBlock() {
           })
           .catch(function (error) {
             console.log(error);
-            object.id = -1;
+            object.id = "error";
           });
 
         delete object["file"];
@@ -323,7 +321,17 @@ function ImageListBlock() {
     }
   };
 
-  const onCheckedAll = (checked) => {
+  /**
+   * @name : Teawon
+   * @function :onCheckedAll - 각 이미지리스트의 체크값 상태 변화 함수
+   * 부모컴포넌트인 ImageListBlock의 상태값 갱신 함수를 통해 전체 상태값의 변화를 관리합니다.
+   * @param :
+   *  id- 삭제할 이미지 id
+   *  isChecked - 체크 여부
+   * @create-date: 2022-07-27
+   */
+
+  const nobodyCheckedhandler = (checked) => {
     if (checked) {
       checkedItems.clear();
       setCheckedItems(checkedItems);
@@ -348,7 +356,7 @@ function ImageListBlock() {
                       value="1"
                       className="checkbox2"
                       checked={isNobodyNotChecked}
-                      onChange={(e) => onCheckedAll(e.target.checked)}
+                      onChange={(e) => nobodyCheckedhandler(e.target.checked)}
                     />
                   </div>
                 </li>

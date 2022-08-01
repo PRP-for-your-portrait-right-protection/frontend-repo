@@ -96,7 +96,7 @@ function ImageList({
     deleteFileImageList();
   };
 
-  const cancelConfirm = () => console.log("취소했습니다.");
+  const cancelConfirm = () => console.log("Canceled.");
 
   const confirmDelete = () => {
     useConfirm(
@@ -133,15 +133,9 @@ function ImageList({
    * imgList - 이미지 리스트
    */
   const silceImage = (imgList) => {
-    // const reverse = [...imgList.reverse()];
-    // let temp = [...imgList[0]].reverse();
-    //temp.reverse();
     let currentPosts = [];
     let reverse = [...imgList].reverse();
-    console.log(imgList);
     currentPosts = reverse.slice(curPage, curPage + 3);
-    console.log(curPage);
-
     return currentPosts;
   };
 
