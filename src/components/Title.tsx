@@ -9,10 +9,14 @@ interface TitleProps {
 
 function Title({ textValue, textTooltip }: TitleProps) {
   return (
-    <li className="title-component flex mt-7">
-      <span className="textBasic"> {textValue} </span>
-      <Tooltip tooltipText={textTooltip}></Tooltip>
-    </li>
+    <ul>
+      <li className="title-component flex mt-7">
+        <span className="textBasic"> {textValue} </span>
+      </li>
+      <li>
+        <Tooltip tooltipText={textTooltip}></Tooltip>
+      </li>
+    </ul>
   );
 }
 

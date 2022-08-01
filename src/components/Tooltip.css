@@ -1,5 +1,9 @@
 .tooltip {
+  position: absolute;
+  top: 6%;
+  right: 3%;
   width: 15rem;
+  font-size: 4vw;
   display: inline-block;
   /* position: relative; */
   color: #767093;
