@@ -172,7 +172,7 @@ function ImageListBlock() {
     axios
       .post(`/whitelist-faces`, formData, {
         headers: {
-          token: localStorage.getItem("token"),
+          token: getItemWithExpireTime("token"),
         },
       })
       .then(function (response) {
@@ -226,7 +226,7 @@ function ImageListBlock() {
             formData,
             {
               headers: {
-                token: localStorage.getItem("token"),
+                token: getItemWithExpireTime("token"),
               },
             }
           )
@@ -253,7 +253,7 @@ function ImageListBlock() {
             `/whitelist-faces/${whitelistFace.whitelistFaceId}/images/${object}`,
             {
               headers: {
-                token: localStorage.getItem("token"),
+                token: getItemWithExpireTime("token"),
               },
             }
           )
@@ -280,7 +280,7 @@ function ImageListBlock() {
         axios
           .delete(`/whitelist-faces/${whitelistFace.whitelistFaceId}`, {
             headers: {
-              token: localStorage.getItem("token"),
+              token: getItemWithExpireTime("token"),
             },
           })
           .then(function (response) {
@@ -299,7 +299,7 @@ function ImageListBlock() {
             formData,
             {
               headers: {
-                token: localStorage.getItem("token"),
+                token: getItemWithExpireTime("token"),
               },
             }
           )
