@@ -141,7 +141,7 @@ function UserPageImageList({ object, changeFuc }: ImageListProps) {
   };
   return (
     <div className="wrapImage">
-      <ol className="box mt-4">
+      <ol className="box mt-10">
         <ul className="pictureList justify-between">
           <li className="flex items-center float-left">
             <div className="personName">

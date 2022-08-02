@@ -27,7 +27,9 @@
   background-clip: text;
 }*/
 .active {
-  color: red;
+  color: rgb(56 189 248);
+  text-decoration-line: underline;
+  text-decoration-color: rgb(56 189 248);
 }
 
 /* .nav-container {  //상단에 고정시킴

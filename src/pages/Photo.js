@@ -7,9 +7,7 @@ function Photo() {
   return (
     <ul>
       <ListButton></ListButton>
-      <div className="gridWrap">
-        <div className="font2">WHITELIST</div>
-      </div>
+      <div className="gridWrap"></div>
       <UserPageImageListBlock></UserPageImageListBlock>
     </ul>
   );

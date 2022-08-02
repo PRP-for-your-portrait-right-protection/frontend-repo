@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Mainpage.module.css";
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
+
 function Mainpage() {
   const [token, setToken] = useState(false);
   const [email, setEmail] = useState("");
@@ -55,7 +56,7 @@ function Mainpage() {
               }
             >
               <li>
-                <Link to="/photo">WHITELIST</Link>
+                <Link to="/Photo">WHITELIST</Link>
               </li>
               <li>
                 <Link to="/video">VIDEO</Link>
