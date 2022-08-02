@@ -1,5 +1,5 @@
 label > input[type="radio"]:checked + img {
-  border: 6px solid #c6c627;
+  border: 6px solid rgb(56 189 248);
 }
 
 .modalFont {
