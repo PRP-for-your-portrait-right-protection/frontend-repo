@@ -168,7 +168,7 @@ function Result() {
                 </div>
 
                 <div className="flex flex-col float-left pt-5">
-                  <div className="line ml-10 mb-2"></div>
+                  <div className="line2 ml-10 mb-2"></div>
                   <p className="t w-96 truncate text-slate-700 pb-5 pl-10">
                     Uploaded video
                   </p>
@@ -225,7 +225,7 @@ function Result() {
               <li className="resultBox mb-3">
                 <li className="inline-flex justify-center pl-5">
                   <div className="flex flex-col float-left">
-                    <div className="line mb-2"></div>
+                    <div className="line2 mb-2"></div>
                     <p className="t text-slate-700 float-left">
                       Processing effect
                     </p>
@@ -250,7 +250,7 @@ function Result() {
               <li className="resultBox mb-3">
                 <li className="inline-flex justify-center pl-5">
                   <div className="flex flex-col float-left">
-                    <div className="line mb-2  align-middle"></div>
+                    <div className="line2 mb-2  align-middle"></div>
                     <p className="t text-slate-700 float-left">
                       Processing effect
                     </p>
