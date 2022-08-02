@@ -8,6 +8,7 @@ import { useStore } from "../components/store";
 import "../components/Step.css";
 import { AiOutlineCheck } from "react-icons/ai";
 import Load from "../components/Load";
+import { FaCircle } from "react-icons/fa";
 
 function Result() {
   const { faceId, video, character, task, setTask, removeAllData } = useStore(); //zustand 전역변수
@@ -94,51 +95,160 @@ function Result() {
               saveFuc={null}
             ></ButtonSession>
           </div>
-          <div className="wrapResult">
-            <ul className="result">
-              <li>
-                <div>WhiteList Number : {faceId.length}</div>
-              </li>
-              <li>
-                <ResultImageList object={faceId} />
-              </li>
-
-              <li>
-                <div>
-                  <p className="w-96 truncate">
-                    Uploaded video : {video.videoName}{" "}
+          <ul className="result">
+            <li
+              className="flex flex-col justify-center resultBox mb-3"
+              style={{ paddingTop: "15px" }}
+            >
+              <div className="t text-slate-700 flex font-Poppins-Bold justify-center mt-0">
+                <p>WhiteList Number </p>
+                <div className="relative pl-2">
+                  <FaCircle
+                    size="45"
+                    className="flex"
+                    color="rgb(56 189 248)"
+                    background="rgb(56 189 248)"
+                  />
+                  <p className="c text-3xl absolute left-5 top-1.5 text-white">
+                    {faceId.length}
                   </p>
-                  <div className="flex justify-center items-center w-7/12 border-4 rounded-lg border-sky-600">
-                    <video
-                      className="flex w-full h-full"
-                      id="video"
-                      src={video.url}
-                      style={{ margin: "auto" }}
-                      controls
-                    ></video>
-                  </div>
+                </div>
+              </div>
+              <div className="justify-center">
+                <ResultImageList object={faceId} />
+              </div>
+            </li>
+
+            <li className="resultBox mb-3">
+              {/* <hr
+                style={{
+                  border: "solid 2px #303038",
+                  backgroundColor: "#303038",
+                  width: "4rem",
+                  paddingLeft: "3rem",
+                }}
+              /> */}
+
+              {/* <li className="flex items-start">PRP</li> */}
+
+              <li className="inline-flex justify-center pt-3">
+                <div className="w-6/12 float-right">
+                  <video
+                    className="flex w-full h-full"
+                    id="video"
+                    src={video.url}
+                    style={{ margin: "auto" }}
+                    controls
+                  ></video>
+                </div>
+
+                <div className="flex flex-col float-left pt-5">
+                  <div className="line ml-10 mb-2"></div>
+                  <p className="t w-96 truncate text-slate-700 pb-5 pl-10">
+                    Uploaded video
+                  </p>
+
+                  {/* <p className="text-sky-400 text-2xl text-justify">
+                  {video.videoName}
+                </p> */}
+                  <p className="c text-slate-500 text-base pl-10">
+                    This is a video uploaded. <br></br>Please make sure the
+                    video is correct. <br></br>If you do not want to change this
+                    video,
+                    <br></br>click the Previous button.
+                  </p>
                 </div>
               </li>
-              {character === "M" ? (
-                <li className="pb-10">
-                  <div>Processing effect : {"Mosaic"}</div>
-                </li>
-              ) : (
-                <li className="pb-10">
-                  <div>
-                    Processing effect : {"Character"}
-                    <div className=" w-48">
-                      <img
-                        className="h-40 w-40 border-4 rounded-2xl border-sky-600"
-                        alt="sample"
-                        src={character.url}
-                      />
-                    </div>
+            </li>
+
+            {/* {character === "M" ? (
+              <li className="flex justify-between items-center resultBox mb-3">
+                <div className="t text-slate-700 float-left pl-3">
+                  <p>Processing effect</p>
+                  <p className="c text-slate-500 text-2xl text-right">
+                    {"Mosaic"}
+                  </p>
+                </div>
+                <div className="w-80">
+                  <img
+                    className="h-48 w-48 border-7 rounded border-transparent justify-center"
+                    alt="sample"
+                    src="images/mo.jpg"
+                  />
+                </div>
+              </li>
+            ) : (
+              <li className="flex justify-between items-center resultBox mb-3">
+                <div className="float-text-slate-700 left pl-3">
+                  <p>Processing effect</p>
+                  <p className="c text-slate-500 text-2xl text-right">
+                    {" "}
+                    {"Character"}
+                  </p>
+                </div>
+
+                <div className="w-80">
+                  <img
+                    className="h-48 w-48 border-7 rounded border-transparent justify-center"
+                    alt="sample"
+                    src={character.url}
+                  />
+                </div>
+              </li>
+            )} */}
+            {character === "M" ? (
+              <li className="resultBox mb-3">
+                <li className="inline-flex justify-center pl-5">
+                  <div className="flex flex-col float-left">
+                    <div className="line mb-2"></div>
+                    <p className="t text-slate-700 float-left">
+                      Processing effect
+                    </p>
+                    <p className="c text-slate-600 text-2xl text-left pb-5">
+                      {"Mosaic"}
+                    </p>
+                    <p className="c text-slate-500 text-base ">
+                      Effect to be used for mosaic processing. <br></br>If the
+                      selected effect is correct, please press NEXT button.
+                    </p>
+                  </div>
+                  <div className="w-80 float-right pl-28">
+                    <img
+                      className="h-48 w-48 border-10 rounded border-transparent justify-center"
+                      alt="sample"
+                      src="images/mo.jpg"
+                    />
                   </div>
                 </li>
-              )}
-            </ul>
-          </div>{" "}
+              </li>
+            ) : (
+              <li className="resultBox mb-3">
+                <li className="inline-flex justify-center pl-5">
+                  <div className="flex flex-col float-left">
+                    <div className="line mb-2  align-middle"></div>
+                    <p className="t text-slate-700 float-left">
+                      Processing effect
+                    </p>
+                    <p className="c text-slate-600 text-2xl text-left pb-5">
+                      {"Character"}
+                    </p>
+                    <p className="c text-slate-500 text-base ">
+                      Effect to be used for mosaic processing. <br></br>If the
+                      selected effect is correct, please press NEXT button.
+                    </p>
+                  </div>
+
+                  <div className="w-80 float-right pl-28">
+                    <img
+                      className="h-48 w-48 border-10 rounded border-transparent justify-center"
+                      alt="sample"
+                      src={character.url}
+                    />
+                  </div>
+                </li>
+              </li>
+            )}
+          </ul>
         </>
       ) : (
         <Load />

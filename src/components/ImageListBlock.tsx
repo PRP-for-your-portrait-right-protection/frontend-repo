@@ -393,6 +393,7 @@ function ImageListBlock() {
               <p className="fontBox">Plus Person</p>
             </button>
           </div>
+
           {isNull ? (
             <div className="fixed bottom-0 right-0 p-5">
               <ButtonSession

@@ -92,12 +92,12 @@
 }
 
 .cancelBox:hover {
+  transition: 0.5s;
   border: 3px solid #ffffff00;
   align-items: center;
   background: #f74747;
   font-family: "Ubuntu-Bold", serif;
   font-size: 1vw;
-  color: white;
 }
 
 .uploadButton {
@@ -115,6 +115,7 @@
 }
 
 .uploadButton:hover {
+  transition: 0.5s;
   border: 3px solid #ffffff00;
   align-items: center;
   background: #95959b;

@@ -29,7 +29,7 @@ function ResultImageList({ object }: ImageListProps) {
     let currentPosts = [];
     let reverse = [...imgList].reverse();
     console.log(imgList);
-    currentPosts = reverse.slice(curPage, curPage + 3);
+    currentPosts = reverse.slice(curPage, curPage + 4);
     console.log(curPage);
 
     return currentPosts;
@@ -43,52 +43,62 @@ function ResultImageList({ object }: ImageListProps) {
    */
 
   return (
-    <div className="wrapImage pt-14">
-      <ul className="pictureList">
-        <li>
-          <button
-            className="show flex items-center justify-center"
-            onClick={() =>
-              setPage((curPage) => (curPage > 0 ? curPage - 1 : curPage))
-            }
-          >
-            <AiOutlineLeft
-              size="40"
-              justify-content="center"
-              place-content="center"
-              color="#767093"
-            />
-          </button>
-        </li>
-        <li className="g grid grid-cols-4 gap-4">
-          {object &&
-            silceImage(object).map((img) => (
-              <div key={img.id} className="col-span-1 relative justify-center">
-                <img className="h-36 w-36 z-10" alt="sample" src={img.url} />
-                <p className="text-base justify-center">NAME : {img.name}</p>
-                <p className="text-base">COUNT : {img.count}</p>
-              </div>
-            ))}
-        </li>
-        <li>
-          <button
-            className="show flex items-center justify-center"
-            onClick={() =>
-              setPage((curPage) =>
-                count > 3 && count - curPage > 3 ? curPage + 1 : curPage
-              )
-            }
-          >
-            <AiOutlineRight
-              size="40"
-              justify-content="center"
-              place-content="center"
-              color="#767093"
-            />
-          </button>
-        </li>
-      </ul>
-    </div>
+    <ul
+      className="pictureList1"
+      style={{ height: "13rem", paddingTop: "2rem" }}
+    >
+      <li>
+        <button
+          className="show flex items-center justify-center"
+          onClick={() =>
+            setPage((curPage) => (curPage > 0 ? curPage - 1 : curPage))
+          }
+        >
+          <AiOutlineLeft
+            size="40"
+            justify-content="center"
+            place-content="center"
+            color="#767093"
+          />
+        </button>
+      </li>
+      <li className="resultgrid grid grid-cols-4 gap-4">
+        {object &&
+          silceImage(object).map((img) => (
+            <div
+              key={img.id}
+              className="col-span-1 relative justify-center bg-slate-50 border-8 border-slate-50"
+            >
+              <img className="h-36 w-52 z-10" alt="sample" src={img.url} />
+              <li className="flex justify-between pt-1">
+                <div className="n text-base text-slate-500 float-left pl-1">
+                  {img.name}
+                </div>
+                <div className="cnt text-base text-slate-500 float-right pr-1">
+                  {img.count}
+                </div>
+              </li>
+            </div>
+          ))}
+      </li>
+      <li>
+        <button
+          className="show flex items-center justify-center"
+          onClick={() =>
+            setPage((curPage) =>
+              count > 3 && count - curPage > 4 ? curPage + 1 : curPage
+            )
+          }
+        >
+          <AiOutlineRight
+            size="40"
+            justify-content="center"
+            place-content="center"
+            color="#767093"
+          />
+        </button>
+      </li>
+    </ul>
   );
 }
 

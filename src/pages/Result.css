@@ -1,55 +1,43 @@
-@font-face {
-  font-family: "StardosStencil-Regular";
-  src: url("../fonts/StardosStencil-Regular.ttf");
-}
 @media (max-width: 700px) {
   .Select {
     font-size: 20px;
   }
 }
 .result {
-  font-family: "Ubuntu-Bold", serif;
+  /* font-family: "Poppins-Bold"; */
   font-style: normal;
-  font-size: 2.3vw;
+  font-size: 2vw;
   line-height: 55px;
   color: #121fa6;
   margin-right: 20%;
   margin-left: 20%;
   /* margin-top: 3%; */
 }
-.result li {
-  margin-bottom: 2%;
+.t {
+  font-family: "Poppins-Bold";
 }
-.wrapResult {
+.c {
+  font-family: "Poppins-Regular";
+}
+
+/* .wrapResult {
   display: flex;
   align-items: center;
   min-height: 10vh;
   place-items: center;
   padding-top: 2%;
+} */
+
+.resultBox {
+  border: solid 3px #eeeef4;
+  background-color: #eeeef4;
+  border-radius: 1.5rem;
+  padding: 2rem;
 }
 
-/* .resultBox::-webkit-scrollbar {
-  display: none;
-} */
-
-/* .wrap-vertical {
-  width: 80rem;
-  padding: 20px;
-  overflow-y: scroll;
-  color: #112031;
-  /* background: #f0d9ff; */
-/* border-radius: 20px;
-  background-color: #eeeef4; */
-/* 가로 스크롤 */
-/* overflow: auto;
-  white-space: nowrap;
-}  */
-/* .resultCharacter {
-  background-color: #0a0aba;
-  padding: 20px;
-  border-radius: 15px;
-  border: 10px solid rgba(0, 0, 0, 0.18);
-} */
-/* .wrap-vertical::-webkit-scrollbar {
-  display: none;
-} */
+.line {
+  border: solid #121fa6;
+  width: 4rem;
+  height: 0.5rem;
+  background-color: #121fa6;
+}
