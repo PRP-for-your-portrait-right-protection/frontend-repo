@@ -96,6 +96,13 @@ function VideoUpload() {
     }
   }, []);
 
+  const cancelVideo = () => {
+    console.log("취소합니다?");
+    setFileVideo(null);
+    setPreFileVideo(null);
+    setisNull(true);
+  };
+
   return (
     <div>
       {isNull ? (
@@ -167,11 +174,8 @@ function VideoUpload() {
               >
                 <button>CHANGE</button>
               </span>
-              <span
-                className="cancelBox flex mt-3 "
-                // onClick={() => fileInput.current.click()}
-              >
-                <button>CANCEL</button>
+              <span className="cancelBox flex mt-3 " onClick={cancelVideo}>
+                <button onClick={cancelVideo}>CANCEL</button>
               </span>
             </div>
           </div>
@@ -191,11 +195,8 @@ function VideoUpload() {
               >
                 <button>CHANGE</button>
               </span>
-              <span
-                className="cancelBox flex mt-3 "
-                // onClick={() => fileInput.current.click()}
-              >
-                <button>CANCEL</button>
+              <span className="cancelBox flex mt-3 " onClick={cancelVideo}>
+                <button onClick={cancelVideo}>CANCEL</button>
               </span>
             </div>
           </div>
