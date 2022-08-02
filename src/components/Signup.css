@@ -44,7 +44,10 @@ textarea {
   margin-top: 3rem;
   padding: 0.5rem;
 }
-
+.signupButton:disabled {
+  background-color: #ccc;
+  pointer-events: none;
+}
 .checkButton {
   width: 20%;
   height: 10%;
