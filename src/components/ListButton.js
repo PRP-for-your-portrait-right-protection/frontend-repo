@@ -7,20 +7,37 @@ function ListButton() {
   const [email, setEmail] = useState("");
   const [isactive, setActive] = useState(false);
 
-  const Checktoken = localStorage.getItem("token");
+  useEffect(() => {
+    const checkToken = getItemWithExpireTime("token");
+    const checkEmail = getItemWithExpireTime("email");
+    if (checkToken !== null) {
+      setToken(true);
+      setEmail(checkEmail);
+    }
+  }, [email, token]);
+
+  const getItemWithExpireTime = (keyName) => {
+    const objString = localStorage.getItem(keyName);
+
+    if (!objString) {
+      return null;
+    }
+
+    const obj = JSON.parse(objString);
+
+    if (Date.now() > obj.expire) {
+      localStorage.removeItem(keyName);
+
+      return null;
+    }
+
+    return obj.value;
+  };
 
   const HandleToggle = () => {
     setActive(!isactive);
     console.log(isactive);
   };
-
-  useEffect(() => {
-    if (Checktoken !== null) {
-      setToken(true);
-      setEmail(localStorage.getItem("email"));
-    }
-    console.log(token);
-  }, [email, token]);
 
   return (
     <nav className="navigation__wrapper">
@@ -30,7 +47,7 @@ function ListButton() {
       </div>
       <ul className={isactive ? "navbar__menu__active" : "navbar__menu"}>
         <li>
-          <Link to="/photo">PHOTO</Link>
+          <Link to="/photo">WHITELIST</Link>
         </li>
         <li>
           <Link to="/video">VIDEO</Link>

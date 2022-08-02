@@ -1,6 +1,7 @@
 import React from "react";
 import "./Modal.css";
 import PropTypes from "prop-types";
+import { HiOutlineX } from "react-icons/hi";
 
 const Modal = (props) => {
   // 열기, 닫기를 부모로부터 받아옴
@@ -13,7 +14,7 @@ const Modal = (props) => {
         <section>
           <header>
             <button className="close" onClick={close}>
-              &times;
+              <HiOutlineX size="38" color="red" />
             </button>
           </header>
           <main>{props.children}</main>

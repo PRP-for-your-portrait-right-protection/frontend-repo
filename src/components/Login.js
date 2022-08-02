@@ -33,14 +33,18 @@ const Login = () => {
     const response = await axios
       .post(`/auth`, formData)
       .then(function (response) {
-        console.log(response);
-        console.log(response?.data);
-        const accessToken = response?.data?.token;
-        const Email = response?.data?.email;
-        localStorage.setItem("token", accessToken);
-        localStorage.setItem("email", Email);
-        console.log(localStorage.getItem("token"));
-        console.log(localStorage.getItem("email"));
+        const accessToken = {
+          value: response?.data?.token,
+          expire: Date.now() + 3600000,
+        };
+        const Email = {
+          value: response?.data?.email,
+          expire: Date.now() + 3600000,
+        };
+        const tokenString = JSON.stringify(accessToken);
+        const EmailString = JSON.stringify(Email);
+        localStorage.setItem("token", tokenString);
+        localStorage.setItem("email", EmailString);
         setEmail("");
         setPwd("");
         navigate("/");

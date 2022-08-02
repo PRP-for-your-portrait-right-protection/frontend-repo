@@ -15,6 +15,30 @@ function VideoUpload() {
   const { video, setVideo } = useStore(); //zustand 전역변수
 
   /**
+   * @name : Sunghyun
+   * @Function : 로컬 스토리지에서 특정 키에 저장된 value와 Expire(만료 시간)을 가져와 만료시간에 따라서 값을 null 또는 value 를 가져온다.
+   * @create-date: 2022-08-01
+   * @update-date: 2022-08-01
+   */
+  const getItemWithExpireTime = (keyName) => {
+    const objString = localStorage.getItem(keyName);
+
+    if (!objString) {
+      return null;
+    }
+
+    const obj = JSON.parse(objString);
+
+    if (Date.now() > obj.expire) {
+      localStorage.removeItem(keyName);
+
+      return null;
+    }
+
+    return obj.value;
+  };
+
+  /**
    * @name : Teawon
    * @function :saveFile - 파일을 입력받아 화면에 보여줄 ObjectURL을 만드는 함수
    * @create-date: 2022-07-18
@@ -41,7 +65,7 @@ function VideoUpload() {
       axios
         .post(`/origin-videos`, formData, {
           headers: {
-            token: localStorage.getItem("token"),
+            token: getItemWithExpireTime("token"),
           },
         })
         .then(function (response) {
@@ -71,6 +95,13 @@ function VideoUpload() {
       setisNull(false);
     }
   }, []);
+
+  const cancelVideo = () => {
+    console.log("취소합니다?");
+    setFileVideo(null);
+    setPreFileVideo(null);
+    setisNull(true);
+  };
 
   return (
     <div>
@@ -143,11 +174,8 @@ function VideoUpload() {
               >
                 <button>CHANGE</button>
               </span>
-              <span
-                className="cancelBox flex mt-3 "
-                // onClick={() => fileInput.current.click()}
-              >
-                <button>CANCEL</button>
+              <span className="cancelBox flex mt-3 " onClick={cancelVideo}>
+                <button onClick={cancelVideo}>CANCEL</button>
               </span>
             </div>
           </div>
@@ -167,11 +195,8 @@ function VideoUpload() {
               >
                 <button>CHANGE</button>
               </span>
-              <span
-                className="cancelBox flex mt-3 "
-                // onClick={() => fileInput.current.click()}
-              >
-                <button>CANCEL</button>
+              <span className="cancelBox flex mt-3 " onClick={cancelVideo}>
+                <button onClick={cancelVideo}>CANCEL</button>
               </span>
             </div>
           </div>

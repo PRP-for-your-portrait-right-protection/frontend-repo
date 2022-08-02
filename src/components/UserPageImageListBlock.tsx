@@ -5,7 +5,9 @@ import "./ImageListBlock.css";
 import ButtonSession from "./ButtonSession";
 import { HiUserAdd } from "react-icons/hi";
 import Load from "../components/Load";
-import Pagination from "../components/Pagination";
+//import Pagination from "../components/Pagination";
+import Pagination from "react-js-pagination";
+import "./Paging.css";
 
 /**
  * @name : Teawon
@@ -33,6 +35,30 @@ function UserPageImageListBlock() {
   });
 
   /**
+   * @name : Sunghyun
+   * @Function : 로컬 스토리지에서 특정 키에 저장된 value와 Expire(만료 시간)을 가져와 만료시간에 따라서 값을 null 또는 value 를 가져온다.
+   * @create-date: 2022-08-01
+   * @update-date: 2022-08-01
+   */
+  const getItemWithExpireTime = (keyName) => {
+    const objString = localStorage.getItem(keyName);
+
+    if (!objString) {
+      return null;
+    }
+
+    const obj = JSON.parse(objString);
+
+    if (Date.now() > obj.expire) {
+      localStorage.removeItem(keyName);
+
+      return null;
+    }
+
+    return obj.value;
+  };
+
+  /**
    * @name : Teawon
    * @Function :fetchData - 특정 유저에게 등록된 모든 인물사진들을 가져와 설정하는 함수, 값이 정상적으로 설정되면 isLoading값을 true로 바꾼다
    * @create-date: 2022-07-21
@@ -44,7 +70,7 @@ function UserPageImageListBlock() {
       const result = await axios
         .get(`/whitelist-faces/images`, {
           headers: {
-            token: localStorage.getItem("token"),
+            token: getItemWithExpireTime("token"),
           },
         })
         .then(function (response) {
@@ -120,7 +146,7 @@ function UserPageImageListBlock() {
     axios
       .post(`/whitelist-faces`, formData, {
         headers: {
-          token: localStorage.getItem("token"),
+          token: getItemWithExpireTime("token"),
         },
       })
       .then(function (response) {
@@ -174,7 +200,7 @@ function UserPageImageListBlock() {
             formData,
             {
               headers: {
-                token: localStorage.getItem("token"),
+                token: getItemWithExpireTime("token"),
               },
             }
           )
@@ -201,7 +227,7 @@ function UserPageImageListBlock() {
             `/whitelist-faces/${whitelistFace.whitelistFaceId}/images/${object}`,
             {
               headers: {
-                token: localStorage.getItem("token"),
+                token: getItemWithExpireTime("token"),
               },
             }
           )
@@ -223,7 +249,7 @@ function UserPageImageListBlock() {
           (list) => list.whitelistFaceId !== whitelistFace.whitelistFaceId
         );
         if (
-          totalList.data.length % (characterPerPage + 1) == 0 &&
+          (totalList.data.length - 1) % characterPerPage == 0 &&
           currentPage != 1
         ) {
           //페이지 삭제 예외처리
@@ -234,7 +260,7 @@ function UserPageImageListBlock() {
         axios
           .delete(`/whitelist-faces/${whitelistFace.whitelistFaceId}`, {
             headers: {
-              token: localStorage.getItem("token"),
+              token: getItemWithExpireTime("token"),
             },
           })
           .then(function (response) {
@@ -253,7 +279,7 @@ function UserPageImageListBlock() {
             formData,
             {
               headers: {
-                token: localStorage.getItem("token"),
+                token: getItemWithExpireTime("token"),
               },
             }
           )
@@ -307,9 +333,13 @@ function UserPageImageListBlock() {
             ))}
 
           <Pagination
-            componentsPerPage={characterPerPage}
-            totalComponents={totalList.data.length}
-            paginate={setCurrentPage}
+            itemsCountPerPage={characterPerPage}
+            totalItemsCount={totalList.data.length}
+            onChange={setCurrentPage}
+            activePage={currentPage}
+            pageRangeDisplayed={5}
+            prevPageText={"‹"}
+            nextPageText={"›"}
           />
         </>
       ) : (

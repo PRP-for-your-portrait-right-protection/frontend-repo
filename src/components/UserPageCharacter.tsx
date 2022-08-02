@@ -2,7 +2,8 @@ import React, { useState, useRef, useEffect } from "react";
 import axios from "../api/axios";
 import styled from "styled-components";
 import UserPageCharacterImageList from "../components/UserPageCharacterImageList";
-import Pagination from "../components/Pagination";
+//import Pagination from "../components/Pagination";
+import Pagination from "react-js-pagination";
 function UserPageCharacter() {
   const [userCharacterList, setUserCharacterList] = useState([]); // 사용자 캐릭터 이미지
   const [currentPage, setCurrentPage] = useState(1);
@@ -10,6 +11,29 @@ function UserPageCharacter() {
   const indexOfLastVideo = currentPage * characterPerPage;
   const indexOfFirstVideo = indexOfLastVideo - characterPerPage;
 
+  /**
+   * @name : Sunghyun
+   * @Function : 로컬 스토리지에서 특정 키에 저장된 value와 Expire(만료 시간)을 가져와 만료시간에 따라서 값을 null 또는 value 를 가져온다.
+   * @create-date: 2022-08-01
+   * @update-date: 2022-08-01
+   */
+  const getItemWithExpireTime = (keyName) => {
+    const objString = localStorage.getItem(keyName);
+
+    if (!objString) {
+      return null;
+    }
+
+    const obj = JSON.parse(objString);
+
+    if (Date.now() > obj.expire) {
+      localStorage.removeItem(keyName);
+
+      return null;
+    }
+
+    return obj.value;
+  };
   /**
    * @name : Teawon
    * @function :useEffect - 캐릭터의 사진 및 사용자 캐릭터를 가져와 리스트에 설정
@@ -24,7 +48,7 @@ function UserPageCharacter() {
       const resultUser = await axios
         .get(`block-characters/user`, {
           headers: {
-            token: localStorage.getItem("token"),
+            token: getItemWithExpireTime("token"),
           },
         })
         .then(function (response) {
@@ -62,7 +86,6 @@ function UserPageCharacter() {
    */
 
   const currentCharacters = (characterImg) => {
-    console.log(characterImg);
     let currentPosts = [];
     let reverse = [...characterImg].reverse();
 
@@ -74,7 +97,7 @@ function UserPageCharacter() {
       userCharacterList.filter((characterImg) => characterImg.id !== imgId)
     );
     if (
-      userCharacterList.length % (characterPerPage + 1) == 0 &&
+      (userCharacterList.length - 1) % characterPerPage == 0 &&
       currentPage != 1
     ) {
       //페이지 삭제 예외처리
@@ -83,7 +106,7 @@ function UserPageCharacter() {
     axios
       .delete(`/block-characters/user/${imgId}`, {
         headers: {
-          token: localStorage.getItem("token"),
+          token: getItemWithExpireTime("token"),
         },
       })
       .then(function (response) {
@@ -101,7 +124,7 @@ function UserPageCharacter() {
     axios
       .post(`/block-characters/user`, formData, {
         headers: {
-          token: localStorage.getItem("token"),
+          token: getItemWithExpireTime("token"),
         },
       })
       .then(function (response) {
@@ -125,9 +148,13 @@ function UserPageCharacter() {
         deleteFuc={deleteImgList}
       ></UserPageCharacterImageList>
       <Pagination
-        componentsPerPage={characterPerPage}
-        totalComponents={userCharacterList.length}
-        paginate={setCurrentPage}
+        itemsCountPerPage={characterPerPage}
+        totalItemsCount={userCharacterList.length}
+        onChange={setCurrentPage}
+        activePage={currentPage}
+        pageRangeDisplayed={5}
+        prevPageText={"‹"}
+        nextPageText={"›"}
       />
     </div>
   );

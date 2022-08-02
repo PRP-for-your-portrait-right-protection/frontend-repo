@@ -8,7 +8,7 @@ function Photo() {
     <ul>
       <ListButton></ListButton>
       <div className="gridWrap">
-        <div className="font2">PHOTO</div>
+        <div className="font2">WHITELIST</div>
       </div>
       <UserPageImageListBlock></UserPageImageListBlock>
     </ul>

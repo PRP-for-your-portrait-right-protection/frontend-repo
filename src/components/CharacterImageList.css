@@ -13,9 +13,17 @@ label > input[type="radio"]:checked + img {
   margin-left: 2rem;
   color: #03045e;
 }
+.imageList-component2 {
+  width: 100%;
+  position: relative;
+  justify-content: center;
+  place-items: center;
+  margin-top: 3%;
+}
 .imageList-component {
-  width: 80%;
-  margin: 0 10%;
+  display: inline-flex;
+  position: relative;
+  width: 100%;
   justify-content: center;
   place-items: center;
   margin-top: 3%;
