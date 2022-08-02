@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Mainpage.module.css";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 function Mainpage() {
   const [token, setToken] = useState(false);
   const [email, setEmail] = useState("");
@@ -120,7 +120,9 @@ function Mainpage() {
               <div>Are you want to make mosaic videos?</div>
             </div>
             <Link to="/signin">
-              <button className={styles.For_Your_PRP_button}>Sign in</button>
+              <button className={styles.For_Your_PRP_button}>
+                <span>Sign in</span>
+              </button>
             </Link>
           </div>
         </div>

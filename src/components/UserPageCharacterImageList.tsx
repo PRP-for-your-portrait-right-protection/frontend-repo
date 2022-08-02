@@ -70,7 +70,7 @@ function UserPageCharacterImageList({
                 <img
                   className="absolute w-8 h-8 right-0 top-0"
                   alt="deleteBtn"
-                  src="images/deleteButton.png"
+                  src="images/negative.png"
                 />
               </button>
             </div>
