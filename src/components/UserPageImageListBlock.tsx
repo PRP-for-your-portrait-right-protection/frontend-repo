@@ -247,7 +247,7 @@ function UserPageImageListBlock() {
           (list) => list.whitelistFaceId !== whitelistFace.whitelistFaceId
         );
         if (
-          totalList.data.length % (characterPerPage + 1) == 0 &&
+          (totalList.data.length - 1) % characterPerPage == 0 &&
           currentPage != 1
         ) {
           //페이지 삭제 예외처리

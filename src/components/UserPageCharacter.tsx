@@ -97,7 +97,7 @@ function UserPageCharacter() {
       userCharacterList.filter((characterImg) => characterImg.id !== imgId)
     );
     if (
-      userCharacterList.length % (characterPerPage + 1) == 0 &&
+      (userCharacterList.length - 1) % characterPerPage == 0 &&
       currentPage != 1
     ) {
       //페이지 삭제 예외처리
