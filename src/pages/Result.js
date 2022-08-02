@@ -66,6 +66,7 @@ function Result() {
       })
       .catch(function (error) {
         console.log(error);
+        removeAllData();
       });
   };
 

@@ -5,7 +5,9 @@ import "./ImageListBlock.css";
 import ButtonSession from "./ButtonSession";
 import { HiUserAdd } from "react-icons/hi";
 import Load from "../components/Load";
-import Pagination from "../components/Pagination";
+//import Pagination from "../components/Pagination";
+import Pagination from "react-js-pagination";
+import "./Paging.css";
 
 /**
  * @name : Teawon
@@ -247,7 +249,7 @@ function UserPageImageListBlock() {
           (list) => list.whitelistFaceId !== whitelistFace.whitelistFaceId
         );
         if (
-          totalList.data.length % (characterPerPage + 1) == 0 &&
+          (totalList.data.length - 1) % characterPerPage == 0 &&
           currentPage != 1
         ) {
           //페이지 삭제 예외처리
@@ -331,9 +333,13 @@ function UserPageImageListBlock() {
             ))}
 
           <Pagination
-            componentsPerPage={characterPerPage}
-            totalComponents={totalList.data.length}
-            paginate={setCurrentPage}
+            itemsCountPerPage={characterPerPage}
+            totalItemsCount={totalList.data.length}
+            onChange={setCurrentPage}
+            activePage={currentPage}
+            pageRangeDisplayed={5}
+            prevPageText={"‹"}
+            nextPageText={"›"}
           />
         </>
       ) : (
