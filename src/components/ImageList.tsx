@@ -3,8 +3,8 @@ import "./ImageList.css";
 import ImgBlock from "../components/ImageBlock";
 import { AiOutlineRight } from "react-icons/ai";
 import { AiOutlineLeft } from "react-icons/ai";
-import { HiOutlineX } from "react-icons/hi";
-
+// import { HiOutlineX } from "react-icons/hi";
+import { MdDelete } from "react-icons/md";
 /**
  * @name : Teawon
  * @component :ImageList - name , picture리스트를 통해 특정 유저에 대한 사진리스트를 관리하는 컴포넌트
@@ -200,12 +200,11 @@ function ImageList({
           </li>
           <li className="float-right ">
             <button onClick={() => confirmDelete()}>
-              {/* <img
+              <img
                 className="w-8 justify-center items-center"
                 alt="deleteBtn"
-                src="images\delete.png"
-              /> */}
-              <HiOutlineX size="2.5vw" color="red" />
+                src="images\close.png"
+              />
             </button>
           </li>
         </ul>
@@ -220,7 +219,7 @@ function ImageList({
               }
             >
               <AiOutlineLeft
-                size="60"
+                size="40"
                 justify-content="center"
                 place-content="center"
                 color="#767093"
@@ -255,7 +254,7 @@ function ImageList({
               }
             >
               <AiOutlineRight
-                size="60"
+                size="40"
                 justify-content="center"
                 place-content="center"
                 color="#767093"
