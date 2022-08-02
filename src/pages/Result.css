@@ -41,3 +41,14 @@
   height: 0.5rem;
   background-color: #121fa6;
 }
+
+.peopleCnt {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  background: #121ea6d9;
+  font-size: 1.5rem;
+  text-align: center;
+  line-height: center;
+  color: white;
+}

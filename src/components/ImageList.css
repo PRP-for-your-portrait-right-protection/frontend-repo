@@ -102,9 +102,9 @@
 .cnt {
   font-family: "Poppins-Regular";
   color: rgb(136, 147, 152);
-  font-size: 1.1rem;
+  font-size: 1.3rem;
 }
 
 .resultgrid {
-  grid-template-columns: repeat(4, 10rem);
+  grid-template-columns: repeat(3, 13rem);
 }
