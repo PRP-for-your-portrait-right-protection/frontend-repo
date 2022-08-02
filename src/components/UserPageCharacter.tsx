@@ -2,7 +2,8 @@ import React, { useState, useRef, useEffect } from "react";
 import axios from "../api/axios";
 import styled from "styled-components";
 import UserPageCharacterImageList from "../components/UserPageCharacterImageList";
-import Pagination from "../components/Pagination";
+//import Pagination from "../components/Pagination";
+import Pagination from "react-js-pagination";
 function UserPageCharacter() {
   const [userCharacterList, setUserCharacterList] = useState([]); // 사용자 캐릭터 이미지
   const [currentPage, setCurrentPage] = useState(1);
@@ -85,7 +86,6 @@ function UserPageCharacter() {
    */
 
   const currentCharacters = (characterImg) => {
-    console.log(characterImg);
     let currentPosts = [];
     let reverse = [...characterImg].reverse();
 
@@ -148,9 +148,13 @@ function UserPageCharacter() {
         deleteFuc={deleteImgList}
       ></UserPageCharacterImageList>
       <Pagination
-        componentsPerPage={characterPerPage}
-        totalComponents={userCharacterList.length}
-        paginate={setCurrentPage}
+        itemsCountPerPage={characterPerPage}
+        totalItemsCount={userCharacterList.length}
+        onChange={setCurrentPage}
+        activePage={currentPage}
+        pageRangeDisplayed={5}
+        prevPageText={"‹"}
+        nextPageText={"›"}
       />
     </div>
   );

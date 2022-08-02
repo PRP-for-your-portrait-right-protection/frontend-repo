@@ -5,7 +5,9 @@ import "./ImageListBlock.css";
 import ButtonSession from "./ButtonSession";
 import { HiUserAdd } from "react-icons/hi";
 import Load from "../components/Load";
-import Pagination from "../components/Pagination";
+//import Pagination from "../components/Pagination";
+import Pagination from "react-js-pagination";
+import "./Paging.css";
 
 /**
  * @name : Teawon
@@ -331,9 +333,13 @@ function UserPageImageListBlock() {
             ))}
 
           <Pagination
-            componentsPerPage={characterPerPage}
-            totalComponents={totalList.data.length}
-            paginate={setCurrentPage}
+            itemsCountPerPage={characterPerPage}
+            totalItemsCount={totalList.data.length}
+            onChange={setCurrentPage}
+            activePage={currentPage}
+            pageRangeDisplayed={5}
+            prevPageText={"‹"}
+            nextPageText={"›"}
           />
         </>
       ) : (

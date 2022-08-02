@@ -2,7 +2,7 @@ import React, { useEffect, useState, version } from "react";
 import axios from "../api/axios";
 import VideoPost from "./VideoPost";
 import "rc-pagination/assets/index.css";
-import Pagination from "./Pagination";
+import Pagination from "react-js-pagination";
 import Load from "./Load";
 import WaitVideos from "../components/WaitVideos";
 
@@ -101,9 +101,13 @@ function LandingPage() {
                 deleteFuc={deleteVideo}
               />
               <Pagination
-                componentsPerPage={videosPerPage}
-                totalComponents={videos.length}
-                paginate={setCurrentPage}
+                itemsCountPerPage={videosPerPage}
+                totalItemsCount={videos.length}
+                onChange={setCurrentPage}
+                activePage={currentPage}
+                pageRangeDisplayed={5}
+                prevPageText={"‹"}
+                nextPageText={"›"}
               />
             </>
           ) : null}
