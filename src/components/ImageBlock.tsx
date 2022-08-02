@@ -23,7 +23,7 @@ function ImgBlock({ deleteFileImage, object }: ImageButtonProps) {
         <img
           className="del absolute w-5 h-5 right-0 top-0 mt-1 mr-1"
           alt="deleteBtn"
-          src="images/delete.png"
+          src="images\negative.png"
         />
       </button>
       {/* <img

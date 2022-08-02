@@ -3,7 +3,6 @@ import {
   faCheck,
   faTimes,
   faInfoCircle,
-  faArrowLeftLong,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link, useNavigate } from "react-router-dom";

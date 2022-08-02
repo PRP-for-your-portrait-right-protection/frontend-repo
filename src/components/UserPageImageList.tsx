@@ -161,7 +161,11 @@ function UserPageImageList({ object, changeFuc }: ImageListProps) {
           <li className="float-right">
             {/* <p className="personName"> {object.name} </p> */}
             <button className="d" onClick={() => confirmDelete()}>
-              <HiOutlineX size="2.5vw" color="red" />
+              <img
+                className="w-8 justify-center items-center"
+                alt="deleteBtn"
+                src="images\close.png"
+              />
             </button>
           </li>
         </ul>

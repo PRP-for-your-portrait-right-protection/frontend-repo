@@ -217,7 +217,7 @@ function Mosaic() {
 
       <Title
         textValue="Select the image Processing type"
-        textTooltip="After selecting the target to be excluded from the mosaic, please upload the face image of the person."
+        textTooltip="Please select the mosaic effect to be used in the video."
       ></Title>
 
       <div className="stepper-wrapper">
@@ -248,8 +248,11 @@ function Mosaic() {
         <ul>
           <li>
             <ToggleBtn onClick={clickedToggleM} toggle={toggleM}>
-              <button className="MOSAIC">
-                <div>MOSAIC</div>
+              <button
+                className="w-20 h-10 button1 button1--ujarak 
+                button1--border-medium button1--round-s button1--text-thick"
+              >
+                MOSAIC
               </button>
             </ToggleBtn>
           </li>
@@ -258,8 +261,12 @@ function Mosaic() {
           <ul>
             <li>
               <ToggleBtn onClick={clickedToggleC} toggle={toggleC}>
-                <button className="MOSAIC" onClick={openModal}>
-                  <div>CHARACTER</div>
+                <button
+                  className="w-20 h-10 button1 button1--ujarak 
+                button1--border-medium button1--round-s button1--text-thick"
+                  onClick={openModal}
+                >
+                  CHARACTER
                 </button>
               </ToggleBtn>
             </li>
@@ -286,14 +293,14 @@ function Mosaic() {
 export default Mosaic;
 const ToggleBtn = styled.button`
   display: flex;
-  width: 15vw;
-  height: 10vh;
+  width: 20rem;
+  height: 5rem;
   border: none;
   border-radius: 8px;
   align-items: center;
   cursor: pointer;
   background-color: ${(props) =>
-    !props.toggle ? "transparent" : "rgb(231, 179, 35)"};
+    !props.toggle ? "transparent" : "rgb(56 189 248)"};
   transition: all 0.3s ease-in-out; /* 부드러운 모션을 위해 추가*/
   &:hover {
     transform: scale(1.2);

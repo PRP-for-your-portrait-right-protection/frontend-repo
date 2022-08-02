@@ -9,7 +9,7 @@
   z-index: 1;
   -moz-osx-font-smoothing: grayscale;
   font-size: 1.2vw;
-  color: white;
+  color: #e36161;
 }
 
 .button--ujarak {
@@ -23,7 +23,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: #fdfdfd;
+  background: #f74747;
   z-index: -1;
   opacity: 0;
   -webkit-transform: scale3d(0.7, 1, 1);
@@ -45,8 +45,8 @@
   transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
 }
 .button--ujarak:hover {
-  color: rgb(0, 0, 0);
-  border-color: #fbfbfb;
+  color: white;
+  border-color: #f74747;
 }
 .button--ujarak.button--inverted:hover {
   color: #ffffff;

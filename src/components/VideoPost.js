@@ -35,20 +35,24 @@ const VideoPost = ({ videos, deleteFuc }) => {
     );
   };
   return (
-    <div className="wrap">
-      <div className="grid grid-cols-2 grid-rows-2 w-8/12 place-items-center content-center mt-5">
+    <div className="wrap mt-5">
+      <div
+        className="grid grid-cols-2 grid-rows-2 w-3/5 
+      place-items-center content-center mt-5"
+      >
         {videos &&
           videos.map((item) => (
             <div className="card" key={item.id}>
               <video
-                className="w-11/12 h-68"
+                className="w-11/12 h-60"
                 id="video"
                 src={item.url}
                 style={{ margin: "auto" }}
                 controls
               ></video>
               <button
-                className="w-20 h-10 button button--ujarak button--border-medium button--round-s button--text-thick"
+                className="w-20 h-10 button button--ujarak 
+                button--border-medium button--round-s button--text-thick"
                 onClick={() => confirmDelete(item.id)}
               >
                 Delete
