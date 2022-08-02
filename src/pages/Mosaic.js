@@ -293,14 +293,20 @@ function Mosaic() {
 export default Mosaic;
 const ToggleBtn = styled.button`
   display: flex;
+
   width: 20rem;
   height: 5rem;
+
+
   border: none;
   border-radius: 8px;
   align-items: center;
   cursor: pointer;
+
   background-color: ${(props) =>
     !props.toggle ? "transparent" : "rgb(56 189 248)"};
+
+
   transition: all 0.3s ease-in-out; /* 부드러운 모션을 위해 추가*/
   &:hover {
     transform: scale(1.2);

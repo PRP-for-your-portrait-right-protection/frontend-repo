@@ -1,30 +1,43 @@
-@font-face {
-  font-family: "StardosStencil-Regular";
-  src: url("../fonts/StardosStencil-Regular.ttf");
-}
 @media (max-width: 700px) {
   .Select {
     font-size: 20px;
   }
 }
 .result {
-  font-family: "StardosStencil-Regular", serif;
+  /* font-family: "Poppins-Bold"; */
   font-style: normal;
-  font-weight: 400;
-  font-size: 2.5vw;
+  font-size: 2vw;
   line-height: 55px;
-  color: #ffffff;
+  color: #121fa6;
   margin-right: 20%;
   margin-left: 20%;
-  margin-top: 3%;
+  /* margin-top: 3%; */
 }
-.result li {
-  margin-bottom: 15%;
+.t {
+  font-family: "Poppins-Bold";
 }
-.wrapResult {
+.c {
+  font-family: "Poppins-Regular";
+}
+
+/* .wrapResult {
   display: flex;
   align-items: center;
   min-height: 10vh;
   place-items: center;
-  margin-top: 2rem;
+  padding-top: 2%;
+} */
+
+.resultBox {
+  border: solid 3px #eeeef4;
+  background-color: #eeeef4;
+  border-radius: 1.5rem;
+  padding: 2rem;
+}
+
+.line {
+  border: solid #121fa6;
+  width: 4rem;
+  height: 0.5rem;
+  background-color: #121fa6;
 }

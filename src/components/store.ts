@@ -1,4 +1,5 @@
 import create from "zustand";
+import { persist } from "zustand/middleware";
 
 interface SelectContentState {
   //ts를 사용하기때문에 타입지정이 필요.js사용시 미사용 코드
@@ -13,25 +14,27 @@ interface SelectContentState {
   setTask: (select: string[]) => void;
 }
 
-export const useStore = create<SelectContentState>((set) => ({
-  faceId: [],
-  setFaceId: (select) => {
-    set((state) => ({ ...state, faceId: select }));
-  },
-  removeAllData: () => set({ faceId: [], video: null, character: null }),
+export const useStore = create<any>(
+  persist((set) => ({
+    faceId: [],
+    setFaceId: (select) => {
+      set((state) => ({ ...state, faceId: select }));
+    },
+    removeAllData: () => set({ faceId: [], video: null, character: null }),
 
-  video: null,
-  setVideo: (select) => {
-    set((state) => ({ ...state, video: select }));
-  },
+    video: null,
+    setVideo: (select) => {
+      set((state) => ({ ...state, video: select }));
+    },
 
-  character: null,
-  setCharacter: (select) => {
-    set((state) => ({ ...state, character: select }));
-  },
+    character: null,
+    setCharacter: (select) => {
+      set((state) => ({ ...state, character: select }));
+    },
 
-  task: [],
-  setTask: (select) => {
-    set((state) => ({ ...state, task: select }));
-  },
-}));
+    task: [],
+    setTask: (select) => {
+      set((state) => ({ ...state, task: select }));
+    },
+  }))
+);

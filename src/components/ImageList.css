@@ -93,3 +93,18 @@
     height: 5rem;
   }
 }
+
+.n {
+  font-family: "Poppins-SemiBold";
+  color: #303038;
+  font-size: 1.2rem;
+}
+.cnt {
+  font-family: "Poppins-Regular";
+  color: rgb(136, 147, 152);
+  font-size: 1.1rem;
+}
+
+.resultgrid {
+  grid-template-columns: repeat(4, 10rem);
+}

@@ -8,6 +8,7 @@ import { useStore } from "../components/store";
 import "../components/Step.css";
 import { AiOutlineCheck } from "react-icons/ai";
 import Load from "../components/Load";
+import { FaCircle } from "react-icons/fa";
 
 function Result() {
   const { faceId, video, character, task, setTask, removeAllData } = useStore(); //zustand 전역변수
@@ -66,6 +67,7 @@ function Result() {
       })
       .catch(function (error) {
         console.log(error);
+        removeAllData();
       });
   };
 
@@ -73,7 +75,7 @@ function Result() {
     <div>
       <Title
         textValue="Selected Result"
-        textTooltip="After selecting the target to be excluded from the mosaic, please upload the face image of the person."
+        textTooltip="Please check the result selected earlier."
       ></Title>
       <div className="stepper-wrapper">
         <div className="stepper-item completed">
@@ -104,56 +106,174 @@ function Result() {
           {" "}
           <div className="fixed bottom-0 right-0 p-5">
             <ButtonSession
-              img="images/rightArrow.png"
+              img="images/right.png"
               url="/video"
+              text="next"
               saveFuc={makeFormData}
             ></ButtonSession>
           </div>
           <div className="fixed bottom-0 left-0 p-5">
             <ButtonSession
-              img="images/leftArrow.png"
+              img="images/left.png"
               url="/Mosaic"
+              text="previous"
               saveFuc={null}
             ></ButtonSession>
           </div>
-          <div className="wrapResult">
-            <ul className="result">
-              <li>
-                <div>WhiteList Number :{faceId.length}</div>
-              </li>
-              <ResultImageList object={faceId} />
-              <li>
-                <div className="mt-10">
-                  <p className="w-96 truncate">
-                    Uploaded video : {video.videoName}{" "}
+          <ul className="result">
+            <li
+              className="flex flex-col justify-center resultBox mb-3"
+              style={{ paddingTop: "15px" }}
+            >
+              <div className="t text-slate-700 flex font-Poppins-Bold justify-center mt-0">
+                <p>WhiteList Number </p>
+                <div className="relative pl-2">
+                  <FaCircle
+                    size="45"
+                    className="flex"
+                    color="rgb(56 189 248)"
+                    background="rgb(56 189 248)"
+                  />
+                  <p className="c text-3xl absolute left-5 top-1.5 text-white">
+                    {faceId.length}
                   </p>
+                </div>
+              </div>
+              <div className="justify-center">
+                <ResultImageList object={faceId} />
+              </div>
+            </li>
+
+            <li className="resultBox mb-3">
+              {/* <hr
+                style={{
+                  border: "solid 2px #303038",
+                  backgroundColor: "#303038",
+                  width: "4rem",
+                  paddingLeft: "3rem",
+                }}
+              /> */}
+
+              {/* <li className="flex items-start">PRP</li> */}
+
+              <li className="inline-flex justify-center pt-3">
+                <div className="w-6/12 float-right">
                   <video
-                    className="flex items-center justify-center w-3/4 h-72"
+                    className="flex w-full h-full"
                     id="video"
                     src={video.url}
                     style={{ margin: "auto" }}
                     controls
                   ></video>
                 </div>
+
+                <div className="flex flex-col float-left pt-5">
+                  <div className="line ml-10 mb-2"></div>
+                  <p className="t w-96 truncate text-slate-700 pb-5 pl-10">
+                    Uploaded video
+                  </p>
+
+                  {/* <p className="text-sky-400 text-2xl text-justify">
+                  {video.videoName}
+                </p> */}
+                  <p className="c text-slate-500 text-base pl-10">
+                    This is a video uploaded. <br></br>Please make sure the
+                    video is correct. <br></br>If you do not want to change this
+                    video,
+                    <br></br>click the Previous button.
+                  </p>
+                </div>
               </li>
-              {character === "M" ? (
-                <li>
-                  <div>Processing effect :{"Mosaic"}</div>
-                </li>
-              ) : (
-                <li>
-                  <div>
-                    Processing effect :{"Character"}
+            </li>
+
+            {/* {character === "M" ? (
+              <li className="flex justify-between items-center resultBox mb-3">
+                <div className="t text-slate-700 float-left pl-3">
+                  <p>Processing effect</p>
+                  <p className="c text-slate-500 text-2xl text-right">
+                    {"Mosaic"}
+                  </p>
+                </div>
+                <div className="w-80">
+                  <img
+                    className="h-48 w-48 border-7 rounded border-transparent justify-center"
+                    alt="sample"
+                    src="images/mo.jpg"
+                  />
+                </div>
+              </li>
+            ) : (
+              <li className="flex justify-between items-center resultBox mb-3">
+                <div className="float-text-slate-700 left pl-3">
+                  <p>Processing effect</p>
+                  <p className="c text-slate-500 text-2xl text-right">
+                    {" "}
+                    {"Character"}
+                  </p>
+                </div>
+
+                <div className="w-80">
+                  <img
+                    className="h-48 w-48 border-7 rounded border-transparent justify-center"
+                    alt="sample"
+                    src={character.url}
+                  />
+                </div>
+              </li>
+            )} */}
+            {character === "M" ? (
+              <li className="resultBox mb-3">
+                <li className="inline-flex justify-center pl-5">
+                  <div className="flex flex-col float-left">
+                    <div className="line mb-2"></div>
+                    <p className="t text-slate-700 float-left">
+                      Processing effect
+                    </p>
+                    <p className="c text-slate-600 text-2xl text-left pb-5">
+                      {"Mosaic"}
+                    </p>
+                    <p className="c text-slate-500 text-base ">
+                      Effect to be used for mosaic processing. <br></br>If the
+                      selected effect is correct, please press NEXT button.
+                    </p>
+                  </div>
+                  <div className="w-80 float-right pl-28">
                     <img
-                      className="h-40 w-40"
+                      className="h-48 w-48 border-10 rounded border-transparent justify-center"
+                      alt="sample"
+                      src="images/mo.jpg"
+                    />
+                  </div>
+                </li>
+              </li>
+            ) : (
+              <li className="resultBox mb-3">
+                <li className="inline-flex justify-center pl-5">
+                  <div className="flex flex-col float-left">
+                    <div className="line mb-2  align-middle"></div>
+                    <p className="t text-slate-700 float-left">
+                      Processing effect
+                    </p>
+                    <p className="c text-slate-600 text-2xl text-left pb-5">
+                      {"Character"}
+                    </p>
+                    <p className="c text-slate-500 text-base ">
+                      Effect to be used for mosaic processing. <br></br>If the
+                      selected effect is correct, please press NEXT button.
+                    </p>
+                  </div>
+
+                  <div className="w-80 float-right pl-28">
+                    <img
+                      className="h-48 w-48 border-10 rounded border-transparent justify-center"
                       alt="sample"
                       src={character.url}
                     />
                   </div>
                 </li>
-              )}
-            </ul>
-          </div>{" "}
+              </li>
+            )}
+          </ul>
         </>
       ) : (
         <Load />

@@ -416,6 +416,7 @@ function ImageListBlock() {
               <p className="fontBox">Plus Person</p>
             </button>
           </div>
+
           {isNull ? (
             <div className="fixed bottom-0 right-0 p-5">
               <ButtonSession
@@ -427,7 +428,12 @@ function ImageListBlock() {
             </div>
           ) : (
             <div className="fixed bottom-0 right-0 p-5 opacity-30">
-              <img src="images/nextImg.png" />
+              <img
+                id="image_large"
+                src="images/nextImg.png"
+                // className="img-responsive"
+              />
+              <img id="image_small" src="images/noneNext.png" />
             </div>
           )}
 
