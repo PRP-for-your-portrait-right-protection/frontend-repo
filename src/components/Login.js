@@ -23,7 +23,6 @@ const Login = () => {
   // 로그인 함수
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(email, pwd);
 
     const formData = new FormData();
 

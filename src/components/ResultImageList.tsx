@@ -29,9 +29,8 @@ function ResultImageList({ object }: ImageListProps) {
     //temp.reverse();
     let currentPosts = [];
     let reverse = [...imgList].reverse();
-    console.log(imgList);
+
     currentPosts = reverse.slice(curPage, curPage + 3);
-    console.log(curPage);
 
     return currentPosts;
   };

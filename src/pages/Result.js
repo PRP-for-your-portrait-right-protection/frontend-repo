@@ -35,7 +35,6 @@ function Result() {
         },
       })
       .then(function (response) {
-        console.log(response);
         let temp = task;
         temp.push(response.data.id);
         setTask(temp);

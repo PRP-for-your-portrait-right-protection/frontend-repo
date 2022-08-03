@@ -38,7 +38,6 @@ function Mosaic() {
           },
         })
         .then(function (response) {
-          console.log(response.data);
           setCharacterList(response.data.data);
         })
         .catch(function (error) {
@@ -130,9 +129,7 @@ function Mosaic() {
           token: JSON.parse(localStorage.getItem("token")).value,
         },
       })
-      .then(function (response) {
-        console.log(response.data);
-      })
+      .then(function (response) {})
       .catch(function (error) {
         console.log(error);
       });
@@ -149,7 +146,6 @@ function Mosaic() {
         },
       })
       .then(function (response) {
-        console.log(response.data);
         let tempAxiosData = {
           id: response.data.id,
           url: URL.createObjectURL(insertData),

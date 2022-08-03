@@ -28,8 +28,6 @@ function LandingPage() {
           },
         })
         .then(function (response) {
-          console.log("결과값은?");
-          console.log(response);
           setVideos(response.data.data);
           setLoading(true);
         })
@@ -46,7 +44,6 @@ function LandingPage() {
   const indexOfFirstVideo = indexOfLastVideo - videosPerPage;
 
   const currentVideos = (video) => {
-    console.log(video);
     return video.slice(indexOfFirstVideo, indexOfLastVideo);
   };
 
@@ -69,7 +66,6 @@ function LandingPage() {
       //페이지 삭제 예외처리
       setCurrentPage((currentPage) => currentPage - 1);
     }
-    console.log(videos);
   };
 
   return (
@@ -83,6 +79,7 @@ function LandingPage() {
                 videos={currentVideos(videos)}
                 deleteFuc={deleteVideo}
               />
+
               <Pagination
                 itemsCountPerPage={videosPerPage}
                 totalItemsCount={videos.length}

@@ -97,7 +97,7 @@ function ImageList({
     deleteFileImageList();
   };
 
-  const cancelConfirm = () => console.log("Canceled.");
+  const cancelConfirm = () => {};
 
   const confirmDelete = () => {
     useConfirm(

@@ -26,7 +26,6 @@ function WaitVideos() {
      *
      */
     const checkStatus = (celeryId) => {
-      console.log("통신을 시작합니다.");
       axios
         .get(`/processed-videos/status/${celeryId}`, {
           headers: {

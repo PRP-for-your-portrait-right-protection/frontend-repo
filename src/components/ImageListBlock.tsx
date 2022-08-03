@@ -71,7 +71,6 @@ function ImageListBlock() {
           setIsLoading(true);
         })
         .catch(function (error) {
-          console.log("error");
           console.log(error);
         });
     };
@@ -147,7 +146,6 @@ function ImageListBlock() {
         },
       })
       .then(function (response) {
-        console.log(response);
         setTotalList([
           ...totalList,
           {
@@ -226,9 +224,7 @@ function ImageListBlock() {
               },
             }
           )
-          .then(function (response) {
-            console.log(response);
-          })
+          .then(function (response) {})
           .catch(function (error) {
             console.log(error);
           });
@@ -252,9 +248,7 @@ function ImageListBlock() {
               token: JSON.parse(localStorage.getItem("token")).value,
             },
           })
-          .then(function (response) {
-            console.log(response);
-          })
+          .then(function (response) {})
           .catch(function (error) {
             console.log(error);
           });
@@ -272,9 +266,7 @@ function ImageListBlock() {
               },
             }
           )
-          .then(function (response) {
-            console.log(response);
-          })
+          .then(function (response) {})
           .catch(function (error) {
             console.log(error);
           });

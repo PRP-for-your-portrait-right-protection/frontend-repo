@@ -79,7 +79,6 @@ function UserPageImageListBlock() {
           setIsLoading(true);
         })
         .catch(function (error) {
-          console.log("error");
           console.log(error);
         });
     };
@@ -125,7 +124,6 @@ function UserPageImageListBlock() {
         },
       })
       .then(function (response) {
-        console.log(response);
         setTotalList({
           data: [
             ...totalList.data,
@@ -206,9 +204,7 @@ function UserPageImageListBlock() {
               },
             }
           )
-          .then(function (response) {
-            console.log(response);
-          })
+          .then(function (response) {})
           .catch(function (error) {
             console.log(error);
           });
@@ -238,9 +234,7 @@ function UserPageImageListBlock() {
               token: JSON.parse(localStorage.getItem("token")).value,
             },
           })
-          .then(function (response) {
-            console.log(response);
-          })
+          .then(function (response) {})
           .catch(function (error) {
             console.log(error);
           });
@@ -258,9 +252,7 @@ function UserPageImageListBlock() {
               },
             }
           )
-          .then(function (response) {
-            console.log(response);
-          })
+          .then(function (response) {})
           .catch(function (error) {
             console.log(error);
           });
@@ -276,8 +268,6 @@ function UserPageImageListBlock() {
   };
 
   const currentImageList = (characterImg) => {
-    console.log(characterImg);
-
     return characterImg.slice(indexOfFirstVideo, indexOfLastVideo);
   };
 

@@ -79,9 +79,8 @@ function UserPageImageList({ object, changeFuc }: ImageListProps) {
     //temp.reverse();
     let currentPosts = [];
     let reverse = [...imgList].reverse();
-    console.log(imgList);
-    currentPosts = reverse.slice(curPage, curPage + 3);
-    console.log(curPage);
+
+    currentPosts = reverse.slice(curPage, curPage + perPageSize);
 
     return currentPosts;
   };
@@ -130,7 +129,7 @@ function UserPageImageList({ object, changeFuc }: ImageListProps) {
     deleteFileImageList();
   };
 
-  const cancelConfirm = () => console.log("Canceled.");
+  const cancelConfirm = () => {};
 
   const confirmDelete = () => {
     useConfirm(

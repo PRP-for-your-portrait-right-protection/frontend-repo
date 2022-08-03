@@ -117,8 +117,6 @@ const SignUp = () => {
     const response = await axios
       .post(`/users`, formData)
       .then(function (response) {
-        console.log(response);
-        console.log(response?.data);
         //   //clear state and controlled inputs
         //   //need value attrib on inputs for this
         setEmail("");
@@ -153,12 +151,10 @@ const SignUp = () => {
     const formData = new FormData();
 
     formData.append("email", email);
-    console.log(email);
+
     const response = await axios
       .post(`/users/email/validation`, formData)
       .then(function (response) {
-        console.log(response);
-        console.log(response?.data);
         setUsableID(true);
         setCheckErrMsg("사용 가능한 Email 입니다.");
       })

@@ -95,8 +95,6 @@ function InfoCheck() {
     const response = await axios
       .post(`/users/password/validation`, formData)
       .then(function (response) {
-        console.log(response);
-        console.log(response?.data);
         setEmail("");
         setPhonenum("");
         setSuccess(true);
@@ -129,8 +127,6 @@ function InfoCheck() {
     const response = await axios
       .patch(`/users/password`, formData)
       .then(function (response) {
-        console.log(response);
-        console.log(response?.data);
         setPwd("");
         setMatchPwd("");
         sessionStorage.clear();
