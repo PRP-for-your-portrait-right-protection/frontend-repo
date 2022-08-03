@@ -20,25 +20,9 @@ const TRACKING_ID = process.env.REACT_APP_GOOGLE_ANALYTICS_TRACKING_ID;
 ReactGA.initialize(TRACKING_ID);
 
 function App() {
-  const [isLogin, setIsLogin] = useState(false);
-  const nowDate = new Date().getTime();
-
   useEffect(() => {
     ReactGA.pageview(window.location.pathname + window.location.search);
-
-    if (JSON.parse(localStorage.getItem("token")) != null) {
-      if (nowDate > Number(JSON.parse(localStorage.getItem("token")).expire)) {
-        setIsLogin(false);
-        console.log("토큰 있는데 만료되서 로그인아님");
-      } else {
-        setIsLogin(true);
-        console.log("토큰 있고 만료 안됨 로그인상태");
-      }
-    } else {
-      setIsLogin(false);
-      console.log("토큰 없어서 로그인아님");
-    }
-  }, [nowDate]);
+  }, []);
 
   return (
     <BrowserRouter>

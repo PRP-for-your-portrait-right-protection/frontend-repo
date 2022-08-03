@@ -1,20 +1,24 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
 
-//향후 로그인 children 타입 확인 필요
-
 type RequireAuthProps = {
   children: JSX.Element;
 };
 
 function RequireAuth({ children }: RequireAuthProps) {
-  if (JSON.parse(localStorage.getItem("token")) == null) {
+  const nowDate = new Date().getTime() + 1000;
+
+  if (JSON.parse(localStorage.getItem("token")) != null) {
     {
-      alert("Your login has expired.");
+      if (nowDate > Number(JSON.parse(localStorage.getItem("token")).expire)) {
+        alert("Your login has expired.");
+        return <Navigate to="/" />;
+      }
+      return children;
     }
-    return <Navigate to="/" />;
   }
-  return children;
+  alert("Login is required.");
+  return <Navigate to="/" />;
 }
 
 export default RequireAuth;
