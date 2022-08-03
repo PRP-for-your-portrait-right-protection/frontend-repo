@@ -108,3 +108,15 @@
 .resultgrid {
   grid-template-columns: repeat(3, 13rem);
 }
+
+.nowrap {
+  white-space: nowrap;
+}
+
+.overflow {
+  overflow: hidden;
+}
+
+.ellipsis {
+  text-overflow: ellipsis;
+}

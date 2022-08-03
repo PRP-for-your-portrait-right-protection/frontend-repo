@@ -100,11 +100,12 @@ function Result() {
               className="flex flex-col justify-center resultBox mb-3"
               style={{ paddingTop: "15px" }}
             >
-              <div className="t text-slate-700 flex flex-col justify-center items-center">
-                <div className="line2 mr-56"></div>
-                <p className="pr-1">WhiteList Number </p>
-                {/* <div className="peopleCnt"> */}
-                {/* <p className="c peopleCnt">{faceId.length}</p> */}
+              <div className="t pt-3 text-slate-700 flex flex-col justify-center items-center">
+                <div className="line2 lineColor1 mr-56"></div>
+                <div className="flex flex-row">
+                  <p className="pr-1">WhiteList Faces</p>
+                  <p className="c peopleCnt">{faceId.length}</p>
+                </div>
                 {/* <FaCircle
                     size="45"
                     className="peoplecnt"
@@ -118,8 +119,8 @@ function Result() {
                 {/* <p className="c text-2xl absolute text-white">
                       {faceId.length}
                     </p> */}
-                {/* </div> */}
               </div>
+
               <div className="justify-center">
                 <ResultImageList object={faceId} />
               </div>
@@ -149,7 +150,7 @@ function Result() {
                 </div>
 
                 <div className="flex flex-col float-left pt-5">
-                  <div className="line2 ml-10 mb-2"></div>
+                  <div className="line2 lineColor2 ml-10 mb-2"></div>
                   <p className="t w-96 truncate text-slate-700 pb-5 pl-10">
                     Uploaded video
                   </p>
@@ -206,7 +207,7 @@ function Result() {
               <li className="resultBox mb-3">
                 <li className="inline-flex justify-center pl-5">
                   <div className="flex flex-col float-left">
-                    <div className="line2 mb-2"></div>
+                    <div className="line2 lineColor3 mb-2"></div>
                     <p className="t text-slate-700 float-left">
                       Processing effect
                     </p>
@@ -231,7 +232,7 @@ function Result() {
               <li className="resultBox mb-3">
                 <li className="inline-flex justify-center pl-5">
                   <div className="flex flex-col float-left">
-                    <div className="line2 mb-2  align-middle"></div>
+                    <div className="line2 lineColor3 mb-2  align-middle"></div>
                     <p className="t text-slate-700 float-left">
                       Processing effect
                     </p>

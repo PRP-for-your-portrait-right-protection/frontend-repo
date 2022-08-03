@@ -69,41 +69,26 @@ function ResultImageList({ object }: ImageListProps) {
               key={img.id}
               className="col-span-1 relative justify-center bg-slate-50 border-8 border-slate-50"
             >
-              <img className="h-36 w-52 z-10" alt="sample" src={img.url} />
+              <img className="h-44 w-52 z-10" alt="sample" src={img.url} />
               <li className="flex justify-between pt-1">
                 <div className="n flex text-base text-slate-500 float-left pl-1">
-                  {/* <img
-                    src="images/166246.png"
-                    alt="person"
-                    className="w-6 h-6 mr-1"
-                  /> */}
-                  {/* <img
-                    src="images/5910434.png"
-                    alt="person"
-                    className="w-6 h-6 mr-1"
-                  /> */}
                   <img
-                    src="images/3237472.png"
-                    alt="person"
-                    className="w-6 h-6 mr-1"
-                  />
-                  {/* <img
                     src="images/1177568.png"
                     alt="person"
                     className="w-6 h-6 mr-1"
-                  /> */}
-                  {img.name}
+                  />
+                  <p>
+                    {img.name.length < 11
+                      ? img.name
+                      : img.name.slice(0, 9) + "..."}
+                  </p>
                 </div>
                 <div className="cnt flex text-base text-slate-500 float-right pr-1">
-                  {/* <img
-                    src="images/1632686.png"
-                    alt="plus"
-                    className="w-4 h-4 mt-1"
-                  /> */}
                   <img
                     src="images/7131330.png"
                     alt="plus"
                     className="w-5 h-5"
+                    style={{ marginTop: "3px" }}
                   />
                   {img.count}
                 </div>
