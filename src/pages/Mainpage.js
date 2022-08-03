@@ -21,7 +21,7 @@ function Mainpage() {
     if (!objString) {
       return null;
     }
-
+    console.log(objString);
     const obj = JSON.parse(objString);
 
     if (Date.now() > obj.expire) {

@@ -29,7 +29,7 @@ function ResultImageList({ object }: ImageListProps) {
     let currentPosts = [];
     let reverse = [...imgList].reverse();
     console.log(imgList);
-    currentPosts = reverse.slice(curPage, curPage + 4);
+    currentPosts = reverse.slice(curPage, curPage + 3);
     console.log(curPage);
 
     return currentPosts;
@@ -62,19 +62,34 @@ function ResultImageList({ object }: ImageListProps) {
           />
         </button>
       </li>
-      <li className="resultgrid grid grid-cols-4 gap-4">
+      <li className="resultgrid grid grid-cols-3 gap-4">
         {object &&
           silceImage(object).map((img) => (
             <div
               key={img.id}
               className="col-span-1 relative justify-center bg-slate-50 border-8 border-slate-50"
             >
-              <img className="h-36 w-52 z-10" alt="sample" src={img.url} />
+              <img className="h-44 w-52 z-10" alt="sample" src={img.url} />
               <li className="flex justify-between pt-1">
-                <div className="n text-base text-slate-500 float-left pl-1">
-                  {img.name}
+                <div className="n flex text-base text-slate-500 float-left pl-1">
+                  <img
+                    src="images/1177568.png"
+                    alt="person"
+                    className="w-6 h-6 mr-1"
+                  />
+                  <p>
+                    {img.name.length < 11
+                      ? img.name
+                      : img.name.slice(0, 9) + "..."}
+                  </p>
                 </div>
-                <div className="cnt text-base text-slate-500 float-right pr-1">
+                <div className="cnt flex text-base text-slate-500 float-right pr-1">
+                  <img
+                    src="images/7131330.png"
+                    alt="plus"
+                    className="w-5 h-5"
+                    style={{ marginTop: "3px" }}
+                  />
                   {img.count}
                 </div>
               </li>
@@ -86,7 +101,7 @@ function ResultImageList({ object }: ImageListProps) {
           className="show flex items-center justify-center"
           onClick={() =>
             setPage((curPage) =>
-              count > 3 && count - curPage > 4 ? curPage + 1 : curPage
+              count > 3 && count - curPage > 3 ? curPage + 1 : curPage
             )
           }
         >

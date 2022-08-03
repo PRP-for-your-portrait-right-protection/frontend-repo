@@ -13,30 +13,6 @@ import { FaCircle } from "react-icons/fa";
 function Result() {
   const { faceId, video, character, task, setTask, removeAllData } = useStore(); //zustand 전역변수
 
-  /**
-   * @name : Sunghyun
-   * @Function : 로컬 스토리지에서 특정 키에 저장된 value와 Expire(만료 시간)을 가져와 만료시간에 따라서 값을 null 또는 value 를 가져온다.
-   * @create-date: 2022-08-01
-   * @update-date: 2022-08-01
-   */
-  const getItemWithExpireTime = (keyName) => {
-    const objString = localStorage.getItem(keyName);
-
-    if (!objString) {
-      return null;
-    }
-
-    const obj = JSON.parse(objString);
-
-    if (Date.now() > obj.expire) {
-      localStorage.removeItem(keyName);
-
-      return null;
-    }
-
-    return obj.value;
-  };
-
   const makeFormData = () => {
     const formData = new FormData();
     let faceType = character === "M" ? "mosaic" : "character";
@@ -55,7 +31,7 @@ function Result() {
     axios
       .post(`/processed-videos`, formData, {
         headers: {
-          token: getItemWithExpireTime("token"),
+          token: localStorage.getItem("token"),
         },
       })
       .then(function (response) {
@@ -67,7 +43,6 @@ function Result() {
       })
       .catch(function (error) {
         console.log(error);
-        removeAllData();
       });
   };
 
@@ -125,20 +100,27 @@ function Result() {
               className="flex flex-col justify-center resultBox mb-3"
               style={{ paddingTop: "15px" }}
             >
-              <div className="t text-slate-700 flex font-Poppins-Bold justify-center mt-0">
-                <p>WhiteList Number </p>
-                <div className="relative pl-2">
-                  <FaCircle
+              <div className="t pt-3 text-slate-700 flex flex-col justify-center items-center">
+                <div className="line2 lineColor1 mr-56"></div>
+                <div className="flex flex-row">
+                  <p className="pr-1">WhiteList Faces</p>
+                  <p className="c peopleCnt">{faceId.length}</p>
+                </div>
+                {/* <FaCircle
                     size="45"
-                    className="flex"
+                    className="peoplecnt"
                     color="rgb(56 189 248)"
                     background="rgb(56 189 248)"
-                  />
-                  <p className="c text-3xl absolute left-5 top-1.5 text-white">
+                    font-color="white"
+
+                  >
                     {faceId.length}
-                  </p>
-                </div>
+                  </FaCircle> */}
+                {/* <p className="c text-2xl absolute text-white">
+                      {faceId.length}
+                    </p> */}
               </div>
+
               <div className="justify-center">
                 <ResultImageList object={faceId} />
               </div>
@@ -168,7 +150,7 @@ function Result() {
                 </div>
 
                 <div className="flex flex-col float-left pt-5">
-                  <div className="line2 ml-10 mb-2"></div>
+                  <div className="line2 lineColor2 ml-10 mb-2"></div>
                   <p className="t w-96 truncate text-slate-700 pb-5 pl-10">
                     Uploaded video
                   </p>
@@ -225,7 +207,7 @@ function Result() {
               <li className="resultBox mb-3">
                 <li className="inline-flex justify-center pl-5">
                   <div className="flex flex-col float-left">
-                    <div className="line2 mb-2"></div>
+                    <div className="line2 lineColor3 mb-2"></div>
                     <p className="t text-slate-700 float-left">
                       Processing effect
                     </p>
@@ -250,7 +232,7 @@ function Result() {
               <li className="resultBox mb-3">
                 <li className="inline-flex justify-center pl-5">
                   <div className="flex flex-col float-left">
-                    <div className="line2 mb-2  align-middle"></div>
+                    <div className="line2 lineColor3 mb-2  align-middle"></div>
                     <p className="t text-slate-700 float-left">
                       Processing effect
                     </p>

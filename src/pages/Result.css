@@ -36,8 +36,33 @@
 }
 
 .line2 {
-  border: solid #121fa6;
+  border: solid;
   width: 4rem;
   height: 0.5rem;
-  background-color: #121fa6;
+}
+
+.peopleCnt {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: #00bfd2;
+  font-size: 1.2rem;
+  text-align: center;
+  line-height: 2rem;
+  color: white;
+}
+
+.lineColor1 {
+  background-color: #00bfd2;
+  border: #00bfd2;
+}
+
+.lineColor2 {
+  background-color: #f8a934;
+  border: #f8a934;
+}
+
+.lineColor3 {
+  background-color: #7aa94b;
+  border: #7aa94b;
 }
