@@ -3,7 +3,6 @@ import "./ImageList.css";
 import ImgBlock from "../components/ImageBlock";
 import { AiOutlineRight } from "react-icons/ai";
 import { AiOutlineLeft } from "react-icons/ai";
-import { HiOutlineX } from "react-icons/hi";
 
 /**
  * @name : Teawon
@@ -23,6 +22,7 @@ function UserPageImageList({ object, changeFuc }: ImageListProps) {
   const [curPage, setPage]: [number, any] = useState<number>(0); //curPage를 기점으로 curPage~curPage3까지의 요소만 보여줌
   const [edit, setEdit] = useState(false); //텍스트 변경을 위한 inputBox 활성화 여부
   const [text, setText] = useState(object.whitelistFaceName); //리스트 이미지 텍스트 변경을 위한 변수
+  const perPageSize = 3;
 
   /**
    * @name : Teawon
@@ -79,9 +79,8 @@ function UserPageImageList({ object, changeFuc }: ImageListProps) {
     //temp.reverse();
     let currentPosts = [];
     let reverse = [...imgList].reverse();
-    console.log(imgList);
-    currentPosts = reverse.slice(curPage, curPage + 3);
-    console.log(curPage);
+
+    currentPosts = reverse.slice(curPage, curPage + perPageSize);
 
     return currentPosts;
   };
@@ -130,7 +129,7 @@ function UserPageImageList({ object, changeFuc }: ImageListProps) {
     deleteFileImageList();
   };
 
-  const cancelConfirm = () => console.log("Canceled.");
+  const cancelConfirm = () => {};
 
   const confirmDelete = () => {
     useConfirm(
@@ -171,21 +170,24 @@ function UserPageImageList({ object, changeFuc }: ImageListProps) {
         </ul>
 
         <li className="pictureList1">
-          <div>
-            <button
-              className="showPre"
-              onClick={() =>
-                setPage((curPage) => (curPage > 0 ? curPage - 1 : curPage))
-              }
-            >
-              <AiOutlineLeft
-                size="60"
-                justify-content="center"
-                place-content="center"
-                color="#767093"
-              />
-            </button>
-          </div>
+          {perPageSize < count ? (
+            <div>
+              <button
+                className="showPre"
+                onClick={() =>
+                  setPage((curPage) => (curPage > 0 ? curPage - 1 : curPage))
+                }
+              >
+                <AiOutlineLeft
+                  size="60"
+                  justify-content="center"
+                  place-content="center"
+                  color="#767093"
+                />
+              </button>
+            </div>
+          ) : null}
+
           <div className="g grid grid-cols-4 gap-8">
             <span
               className="col-span-1 flex justify-center"
@@ -198,28 +200,32 @@ function UserPageImageList({ object, changeFuc }: ImageListProps) {
               silceImage(imgList[0].whitelistFaceImages).map((img) => (
                 <ImgBlock
                   key={img.id}
-                  object={img}
+                  whiteFaceImageDto={img}
                   deleteFileImage={deleteFileImage}
                 />
               ))}
           </div>
-          <div>
-            <button
-              className="showNext"
-              onClick={() =>
-                setPage((curPage) =>
-                  count > 3 && count - curPage > 3 ? curPage + 1 : curPage
-                )
-              }
-            >
-              <AiOutlineRight
-                size="60"
-                justify-content="center"
-                place-content="center"
-                color="#767093"
-              />
-            </button>
-          </div>
+          {perPageSize < count ? (
+            <div>
+              <button
+                className="showNext"
+                onClick={() =>
+                  setPage((curPage) =>
+                    count > perPageSize && count - curPage > perPageSize
+                      ? curPage + 1
+                      : curPage
+                  )
+                }
+              >
+                <AiOutlineRight
+                  size="60"
+                  justify-content="center"
+                  place-content="center"
+                  color="#767093"
+                />
+              </button>
+            </div>
+          ) : null}
         </li>
       </ol>
 

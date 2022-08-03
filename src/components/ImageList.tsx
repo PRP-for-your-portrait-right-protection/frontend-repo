@@ -3,8 +3,8 @@ import "./ImageList.css";
 import ImgBlock from "../components/ImageBlock";
 import { AiOutlineRight } from "react-icons/ai";
 import { AiOutlineLeft } from "react-icons/ai";
-// import { HiOutlineX } from "react-icons/hi";
-import { MdDelete } from "react-icons/md";
+import { whiteFaceImageListsDto, saveImageFileDto } from "../utils/types";
+
 /**
  * @name : Teawon
  * @component :ImageList - name , picture리스트를 통해 특정 유저에 대한 사진리스트를 관리하는 컴포넌트
@@ -12,27 +12,29 @@ import { MdDelete } from "react-icons/md";
  */
 
 interface ImageListProps {
-  object: any;
-  changeFuc: any;
-  checkFuc: any;
+  whiteFaceImageLists: whiteFaceImageListsDto;
+  changeFuc: (saveImageFileDto, whiteFaceImageListsDto, string) => void;
+  checkFuc: (string, boolean) => void;
   checked: boolean;
   isNobodyNotChecked: boolean;
 }
 
 function ImageList({
-  object,
+  whiteFaceImageLists,
   changeFuc,
   checkFuc,
   checked,
   isNobodyNotChecked,
 }: ImageListProps) {
-  const imageInput = useRef<any>();
-  const imgList = useState(object); //특정 리스트의 이미지 데이터
-  const count: number = object.whitelistFaceImages.length; //해당 컴포넌트가 가지고있는 list개수
-  const [curPage, setPage]: [number, any] = useState<number>(0); //curPage를 기점으로 curPage~curPage3까지의 요소만 보여줌
-  const [edit, setEdit] = useState(false); //텍스트 변경을 위한 inputBox 활성화 여부
-  const [text, setText] = useState(object.whitelistFaceName); //리스트 이미지 텍스트 변경을 위한 변수
-  const [bChecked, setChecked] = useState(checked); //체크박스 활성화 여부
+  const imageInput = useRef<HTMLInputElement>();
+  const count: number = whiteFaceImageLists.whitelistFaceImages.length; //해당 컴포넌트가 가지고있는 list개수
+  const [curPage, setPage] = useState<number>(0); //curPage를 기점으로 curPage~curPage3까지의 요소만 보여줌
+  const perPageSize = 3;
+  const [edit, setEdit] = useState<boolean>(false); //텍스트 변경을 위한 inputBox 활성화 여부
+  const [text, setText] = useState<string>(
+    whiteFaceImageLists.whitelistFaceName
+  ); //리스트 이미지 텍스트 변경을 위한 변수
+  const [bChecked, setChecked] = useState<boolean>(checked); //체크박스 활성화 여부
 
   const allCheckHandler = () => {
     if (isNobodyNotChecked) setChecked(false);
@@ -48,7 +50,7 @@ function ImageList({
   const checkHandler = ({ target }) => {
     if (count != 0) {
       setChecked(!bChecked);
-      checkFuc(object.whitelistFaceId, target.checked);
+      checkFuc(whiteFaceImageLists.whitelistFaceId, target.checked);
     }
   };
 
@@ -60,11 +62,10 @@ function ImageList({
   const saveFileImageNew = (event: React.ChangeEvent<HTMLInputElement>) => {
     let data = {
       url: URL.createObjectURL(event.target.files[0]),
-
       file: event.target.files[0],
     };
 
-    changeFuc(data, object, "add");
+    changeFuc(data, whiteFaceImageLists, "add");
   };
 
   /**
@@ -72,7 +73,7 @@ function ImageList({
    * @function :deleteFileImage - 전체 리스트컴포넌트를 지우는 함수 (부모의 상태값 갱신함수 changeFuc 호출)
    */
   const deleteFileImageList = () => {
-    changeFuc(null, object, "deleteList");
+    changeFuc(null, whiteFaceImageLists, "deleteList");
   };
 
   const useConfirm = (message = null, onConfirm, onCancel) => {
@@ -96,7 +97,7 @@ function ImageList({
     deleteFileImageList();
   };
 
-  const cancelConfirm = () => console.log("Canceled.");
+  const cancelConfirm = () => {};
 
   const confirmDelete = () => {
     useConfirm(
@@ -117,10 +118,10 @@ function ImageList({
     if (count == 1) {
       if (bChecked == true) {
         setChecked(false);
-        checkFuc(object.whitelistFaceId, false);
+        checkFuc(whiteFaceImageLists.whitelistFaceId, false);
       }
     }
-    changeFuc(id, object, "deleteImg");
+    changeFuc(id, whiteFaceImageLists, "deleteImg");
     if (curPage > 0) {
       setPage((curPage) => curPage - 1);
     }
@@ -135,7 +136,7 @@ function ImageList({
   const silceImage = (imgList) => {
     let currentPosts = [];
     let reverse = [...imgList].reverse();
-    currentPosts = reverse.slice(curPage, curPage + 3);
+    currentPosts = reverse.slice(curPage, curPage + perPageSize);
     return currentPosts;
   };
 
@@ -152,8 +153,8 @@ function ImageList({
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
       setEdit((edit) => !edit);
-      if (object.name !== text) {
-        changeFuc(text, object, "reName");
+      if (whiteFaceImageLists.whitelistFaceName !== text) {
+        changeFuc(text, whiteFaceImageLists, "reName");
       }
     }
   };
@@ -211,21 +212,23 @@ function ImageList({
 
         <li className="pictureList1">
           {/* <p className="personName"> {object.name} </p> */}
-          <div>
-            <button
-              className="show flex items-center justify-center"
-              onClick={() =>
-                setPage((curPage) => (curPage > 0 ? curPage - 1 : curPage))
-              }
-            >
-              <AiOutlineLeft
-                size="40"
-                justify-content="center"
-                place-content="center"
-                color="#767093"
-              />
-            </button>
-          </div>
+          {perPageSize < count ? (
+            <div>
+              <button
+                className="show flex items-center justify-center"
+                onClick={() =>
+                  setPage((curPage) => (curPage > 0 ? curPage - 1 : curPage))
+                }
+              >
+                <AiOutlineLeft
+                  size="40"
+                  justify-content="center"
+                  place-content="center"
+                  color="#767093"
+                />
+              </button>
+            </div>
+          ) : null}
 
           <div className="g grid grid-cols-4 gap-8">
             <span
@@ -235,39 +238,43 @@ function ImageList({
               <img src="images\frame.png" alt="" className="h-36 w-36" />
             </span>
 
-            {imgList[0].whitelistFaceImages &&
-              silceImage(imgList[0].whitelistFaceImages).map((img) => (
+            {whiteFaceImageLists.whitelistFaceImages &&
+              silceImage(whiteFaceImageLists.whitelistFaceImages).map((img) => (
                 <ImgBlock
                   key={img.id}
-                  object={img}
+                  whiteFaceImageDto={img}
                   deleteFileImage={deleteFileImage}
                 />
               ))}
           </div>
-          <div>
-            <button
-              className="show flex items-center justify-center"
-              onClick={() =>
-                setPage((curPage) =>
-                  count > 3 && count - curPage > 3 ? curPage + 1 : curPage
-                )
-              }
-            >
-              <AiOutlineRight
-                size="40"
-                justify-content="center"
-                place-content="center"
-                color="#767093"
-              />
-            </button>
-          </div>
+          {perPageSize < count ? (
+            <div>
+              <button
+                className="show flex items-center justify-center"
+                onClick={() =>
+                  setPage((curPage) =>
+                    count > perPageSize && count - curPage > perPageSize
+                      ? curPage + 1
+                      : curPage
+                  )
+                }
+              >
+                <AiOutlineRight
+                  size="40"
+                  justify-content="center"
+                  place-content="center"
+                  color="#767093"
+                />
+              </button>
+            </div>
+          ) : null}
         </li>
       </ol>
 
       <div>
         <input
           ref={imageInput}
-          id={object.name}
+          id={whiteFaceImageLists.whitelistFaceName}
           className="hidden"
           name="imageUpload"
           type="file"

@@ -1,5 +1,5 @@
 import UploadImagePage from "./pages/UploadImagePage";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Mainpage from "./pages/Mainpage";
 import Loginpage from "./pages/Loginpage";
@@ -14,35 +14,85 @@ import Character from "./pages/Character";
 import VideoUpload from "./pages/VideoUpload";
 import SignUppage from "./pages/SignUppage";
 import ReactGA from "react-ga";
+import RequireAuth from "./components/RequireAuth";
+import usePageTracking from "./components/usePageTracking";
 
 const TRACKING_ID = process.env.REACT_APP_GOOGLE_ANALYTICS_TRACKING_ID;
 ReactGA.initialize(TRACKING_ID);
 
 function App() {
-  useEffect(() => {
-    ReactGA.pageview(window.location.pathname + window.location.search);
-  }, []);
-
+  usePageTracking();
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Mainpage />} />
-        <Route path="/people" element={<UploadImagePage />} />
-        <Route path="/signin" element={<Loginpage />} />
-        <Route path="/signup" element={<SignUppage />} />
-        <Route path="/email" element={<ForgetEmailpage />} />
-        <Route path="/reset" element={<ForgetPasswordpage />} />
-
-        <Route path="/upload" element={<UploadImagePage />} />
-        <Route path="/VideoUpload" element={<VideoUpload />} />
-        <Route path="/Mosaic" element={<Mosaic />} />
-        <Route path="/Result" element={<Result />} />
-
-        <Route path="/Video" element={<Video />} />
-        <Route path="/Photo" element={<Photo />} />
-        <Route path="/Character" element={<Character />} />
-      </Routes>
-    </BrowserRouter>
+    <Routes>
+      <Route path="/" element={<Mainpage />} />
+      <Route path="/signin" element={<Loginpage />} />
+      <Route path="/signup" element={<SignUppage />} />
+      <Route path="/email" element={<ForgetEmailpage />} />
+      <Route path="/reset" element={<ForgetPasswordpage />} />
+      <Route
+        path="/upload"
+        element={
+          <RequireAuth>
+            {" "}
+            <UploadImagePage />{" "}
+          </RequireAuth>
+        }
+      />
+      <Route
+        path="/VideoUpload"
+        element={
+          <RequireAuth>
+            {" "}
+            <VideoUpload />{" "}
+          </RequireAuth>
+        }
+      />
+      <Route
+        path="/Mosaic"
+        element={
+          <RequireAuth>
+            {" "}
+            <Mosaic />{" "}
+          </RequireAuth>
+        }
+      />
+      <Route
+        path="/Result"
+        element={
+          <RequireAuth>
+            {" "}
+            <Result />{" "}
+          </RequireAuth>
+        }
+      />
+      <Route
+        path="/Video"
+        element={
+          <RequireAuth>
+            {" "}
+            <Video />{" "}
+          </RequireAuth>
+        }
+      />
+      <Route
+        path="/Photo"
+        element={
+          <RequireAuth>
+            {" "}
+            <Photo />{" "}
+          </RequireAuth>
+        }
+      />
+      <Route
+        path="/Character"
+        element={
+          <RequireAuth>
+            {" "}
+            <Character />{" "}
+          </RequireAuth>
+        }
+      />
+    </Routes>
   );
 }
 

@@ -37,7 +37,6 @@ function ListButton() {
 
   const HandleToggle = () => {
     setActive(!isactive);
-    console.log(isactive);
   };
 
   return (

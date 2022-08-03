@@ -73,11 +73,12 @@ function IdCheck() {
     const response = await axios
       .post(`/users/email`, formData)
       .then(function (response) {
-        console.log(response);
-        console.log(response?.data);
         setName("");
+
         setPhonenum("");
-        setResult(response?.data);
+
+        setResult(response?.data.email);
+
         setSuccess(true);
       })
       .catch(function (error) {
@@ -91,7 +92,6 @@ function IdCheck() {
         } else {
           setErrMsg("Don't find your Email");
         }
-        errRef.current.focus();
       });
   };
 
@@ -99,12 +99,10 @@ function IdCheck() {
     <>
       {success ? (
         <section className="signupSection">
-          <div className="text-4xl font-Ubuntu text-blue-900">
+          <div className="text-4xl font-Ubuntu text-blue-900 mt-16">
             Find Your Email!
           </div>
-          <div className="text-4xl font-Ubuntu text-sky-400">
-            Your Email = {result}
-          </div>
+          <div className="text-4xl font-Ubuntu text-sky-400">{result}</div>
           <br />
           <p className="mt-16 text-2xl font-Ubuntu text-blue-900 hover:text-sky-400">
             <Link to="/signin">Sign in</Link>

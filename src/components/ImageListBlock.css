@@ -5,6 +5,18 @@
   }
 }
 
+.noContent {
+  width: 100%;
+  font-family: "Ubuntu-Bold";
+  text-align: center;
+  font-size: 60px;
+  color: #03045e;
+  margin: auto 0;
+  height: 80vh;
+  justify-content: center;
+  margin-top: 16rem;
+}
+
 .checkbox2 {
   width: 80%;
   padding-left: 18.5%;

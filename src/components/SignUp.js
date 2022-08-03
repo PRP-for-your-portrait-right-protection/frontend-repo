@@ -12,7 +12,7 @@ import "./Signup.css";
 const EMAIL_REGEX =
   /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
-const NAME_REGEX = /^[가-힣]{2,4}|[a-zA-Z]{2,10}\s[a-zA-Z]{2,10}$/;
+const NAME_REGEX = /^[가-힣]{2,4}|[a-zA-Z]{2,30}$/;
 const PHNUM_REGEX = /^[0-9\b -]{11,13}$/;
 //const REGISTER_URL = "/signup";
 
@@ -117,8 +117,6 @@ const SignUp = () => {
     const response = await axios
       .post(`/users`, formData)
       .then(function (response) {
-        console.log(response);
-        console.log(response?.data);
         //   //clear state and controlled inputs
         //   //need value attrib on inputs for this
         setEmail("");
@@ -153,12 +151,10 @@ const SignUp = () => {
     const formData = new FormData();
 
     formData.append("email", email);
-    console.log(email);
+
     const response = await axios
       .post(`/users/email/validation`, formData)
       .then(function (response) {
-        console.log(response);
-        console.log(response?.data);
         setUsableID(true);
         setCheckErrMsg("사용 가능한 Email 입니다.");
       })
@@ -273,9 +269,7 @@ const SignUp = () => {
           }
         >
           <FontAwesomeIcon icon={faInfoCircle} />
-          Must input Korean 2 to 4 characters.
-          <br />
-          or Must input First Name(3~11) and Last Name(3~11)
+          Must input your Name
         </p>
 
         <label

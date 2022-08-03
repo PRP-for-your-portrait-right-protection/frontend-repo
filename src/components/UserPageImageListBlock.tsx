@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import UserPageImageList from "../components/UserPageImageList";
 import axios from "../api/axios";
 import "./ImageListBlock.css";
-import ButtonSession from "./ButtonSession";
 import { HiUserAdd } from "react-icons/hi";
 import Load from "../components/Load";
 //import Pagination from "../components/Pagination";
@@ -35,30 +34,6 @@ function UserPageImageListBlock() {
   });
 
   /**
-   * @name : Sunghyun
-   * @Function : 로컬 스토리지에서 특정 키에 저장된 value와 Expire(만료 시간)을 가져와 만료시간에 따라서 값을 null 또는 value 를 가져온다.
-   * @create-date: 2022-08-01
-   * @update-date: 2022-08-01
-   */
-  const getItemWithExpireTime = (keyName) => {
-    const objString = localStorage.getItem(keyName);
-
-    if (!objString) {
-      return null;
-    }
-
-    const obj = JSON.parse(objString);
-
-    if (Date.now() > obj.expire) {
-      localStorage.removeItem(keyName);
-
-      return null;
-    }
-
-    return obj.value;
-  };
-
-  /**
    * @name : Teawon
    * @Function :fetchData - 특정 유저에게 등록된 모든 인물사진들을 가져와 설정하는 함수, 값이 정상적으로 설정되면 isLoading값을 true로 바꾼다
    * @create-date: 2022-07-21
@@ -70,7 +45,7 @@ function UserPageImageListBlock() {
       const result = await axios
         .get(`/whitelist-faces/images`, {
           headers: {
-            token: getItemWithExpireTime("token"),
+            token: JSON.parse(localStorage.getItem("token")).value,
           },
         })
         .then(function (response) {
@@ -104,7 +79,6 @@ function UserPageImageListBlock() {
           setIsLoading(true);
         })
         .catch(function (error) {
-          console.log("error");
           console.log(error);
         });
     };
@@ -146,11 +120,10 @@ function UserPageImageListBlock() {
     axios
       .post(`/whitelist-faces`, formData, {
         headers: {
-          token: getItemWithExpireTime("token"),
+          token: JSON.parse(localStorage.getItem("token")).value,
         },
       })
       .then(function (response) {
-        console.log(response);
         setTotalList({
           data: [
             ...totalList.data,
@@ -200,7 +173,7 @@ function UserPageImageListBlock() {
             formData,
             {
               headers: {
-                token: getItemWithExpireTime("token"),
+                token: JSON.parse(localStorage.getItem("token")).value,
               },
             }
           )
@@ -227,13 +200,11 @@ function UserPageImageListBlock() {
             `/whitelist-faces/${whitelistFace.whitelistFaceId}/images/${object}`,
             {
               headers: {
-                token: getItemWithExpireTime("token"),
+                token: JSON.parse(localStorage.getItem("token")).value,
               },
             }
           )
-          .then(function (response) {
-            console.log(response);
-          })
+          .then(function (response) {})
           .catch(function (error) {
             console.log(error);
           });
@@ -260,12 +231,10 @@ function UserPageImageListBlock() {
         axios
           .delete(`/whitelist-faces/${whitelistFace.whitelistFaceId}`, {
             headers: {
-              token: getItemWithExpireTime("token"),
+              token: JSON.parse(localStorage.getItem("token")).value,
             },
           })
-          .then(function (response) {
-            console.log(response);
-          })
+          .then(function (response) {})
           .catch(function (error) {
             console.log(error);
           });
@@ -279,13 +248,11 @@ function UserPageImageListBlock() {
             formData,
             {
               headers: {
-                token: getItemWithExpireTime("token"),
+                token: JSON.parse(localStorage.getItem("token")).value,
               },
             }
           )
-          .then(function (response) {
-            console.log(response);
-          })
+          .then(function (response) {})
           .catch(function (error) {
             console.log(error);
           });
@@ -301,8 +268,6 @@ function UserPageImageListBlock() {
   };
 
   const currentImageList = (characterImg) => {
-    console.log(characterImg);
-
     return characterImg.slice(indexOfFirstVideo, indexOfLastVideo);
   };
 
@@ -331,16 +296,19 @@ function UserPageImageListBlock() {
                 changeFuc={changeFuc}
               />
             ))}
-
-          <Pagination
-            itemsCountPerPage={characterPerPage}
-            totalItemsCount={totalList.data.length}
-            onChange={setCurrentPage}
-            activePage={currentPage}
-            pageRangeDisplayed={5}
-            prevPageText={"‹"}
-            nextPageText={"›"}
-          />
+          {totalList.data.length != 0 ? (
+            <Pagination
+              itemsCountPerPage={characterPerPage}
+              totalItemsCount={totalList.data.length}
+              onChange={setCurrentPage}
+              activePage={currentPage}
+              pageRangeDisplayed={5}
+              prevPageText={"‹"}
+              nextPageText={"›"}
+            />
+          ) : (
+            <div className="noContent">No content</div>
+          )}
         </>
       ) : (
         <Load />

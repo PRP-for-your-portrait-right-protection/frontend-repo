@@ -2,29 +2,6 @@ import React, { useState, useEffect } from "react";
 import axios from "../api/axios";
 import "./WaitVideos.css";
 import { useStore } from "../components/store";
-/**
- * @name : Sunghyun
- * @Function : 로컬 스토리지에서 특정 키에 저장된 value와 Expire(만료 시간)을 가져와 만료시간에 따라서 값을 null 또는 value 를 가져온다.
- * @create-date: 2022-08-01
- * @update-date: 2022-08-01
- */
-const getItemWithExpireTime = (keyName) => {
-  const objString = localStorage.getItem(keyName);
-
-  if (!objString) {
-    return null;
-  }
-
-  const obj = JSON.parse(objString);
-
-  if (Date.now() > obj.expire) {
-    localStorage.removeItem(keyName);
-
-    return null;
-  }
-
-  return obj.value;
-};
 
 /**
  * @name : Teawon
@@ -49,11 +26,10 @@ function WaitVideos() {
      *
      */
     const checkStatus = (celeryId) => {
-      console.log("통신을 시작합니다.");
       axios
         .get(`/processed-videos/status/${celeryId}`, {
           headers: {
-            token: getItemWithExpireTime("token"),
+            token: JSON.parse(localStorage.getItem("token")).value,
           },
         })
         .then(function (response) {

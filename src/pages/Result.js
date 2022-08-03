@@ -13,24 +13,6 @@ import { FaCircle } from "react-icons/fa";
 function Result() {
   const { faceId, video, character, task, setTask, removeAllData } = useStore(); //zustand 전역변수
 
-  const getItemWithExpireTime = (keyName) => {
-    const objString = localStorage.getItem(keyName);
-
-    if (!objString) {
-      return null;
-    }
-    console.log(objString);
-    const obj = JSON.parse(objString);
-
-    if (Date.now() > obj.expire) {
-      localStorage.removeItem(keyName);
-
-      return null;
-    }
-
-    return obj.value;
-  };
-
   const makeFormData = () => {
     const formData = new FormData();
     let faceType = character === "M" ? "mosaic" : "character";
@@ -49,11 +31,10 @@ function Result() {
     axios
       .post(`/processed-videos`, formData, {
         headers: {
-          token: getItemWithExpireTime("token"),
+          token: JSON.parse(localStorage.getItem("token")).value,
         },
       })
       .then(function (response) {
-        console.log(response);
         let temp = task;
         temp.push(response.data.id);
         setTask(temp);

@@ -18,35 +18,16 @@ function LandingPage() {
    * @create-date: 2022-08-01
    * @update-date: 2022-08-01
    */
-  const getItemWithExpireTime = (keyName) => {
-    const objString = localStorage.getItem(keyName);
-
-    if (!objString) {
-      return null;
-    }
-
-    const obj = JSON.parse(objString);
-
-    if (Date.now() > obj.expire) {
-      localStorage.removeItem(keyName);
-
-      return null;
-    }
-
-    return obj.value;
-  };
 
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios
         .get(`/processed-videos`, {
           headers: {
-            token: getItemWithExpireTime("token"),
+            token: JSON.parse(localStorage.getItem("token")).value,
           },
         })
         .then(function (response) {
-          console.log("결과값은?");
-          console.log(response);
           setVideos(response.data.data);
           setLoading(true);
         })
@@ -63,7 +44,6 @@ function LandingPage() {
   const indexOfFirstVideo = indexOfLastVideo - videosPerPage;
 
   const currentVideos = (video) => {
-    console.log(video);
     return video.slice(indexOfFirstVideo, indexOfLastVideo);
   };
 
@@ -71,7 +51,7 @@ function LandingPage() {
     axios
       .delete(`/processed-videos/${videoId}`, {
         headers: {
-          token: getItemWithExpireTime("token"),
+          token: JSON.parse(localStorage.getItem("token")).value,
         },
       })
       .then(function (response) {
@@ -86,7 +66,6 @@ function LandingPage() {
       //페이지 삭제 예외처리
       setCurrentPage((currentPage) => currentPage - 1);
     }
-    console.log(videos);
   };
 
   return (
@@ -100,6 +79,7 @@ function LandingPage() {
                 videos={currentVideos(videos)}
                 deleteFuc={deleteVideo}
               />
+
               <Pagination
                 itemsCountPerPage={videosPerPage}
                 totalItemsCount={videos.length}
