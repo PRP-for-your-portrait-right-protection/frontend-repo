@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import UserPageImageList from "../components/UserPageImageList";
 import axios from "../api/axios";
 import "./ImageListBlock.css";
-import ButtonSession from "./ButtonSession";
 import { HiUserAdd } from "react-icons/hi";
 import Load from "../components/Load";
 //import Pagination from "../components/Pagination";
@@ -307,16 +306,19 @@ function UserPageImageListBlock() {
                 changeFuc={changeFuc}
               />
             ))}
-
-          <Pagination
-            itemsCountPerPage={characterPerPage}
-            totalItemsCount={totalList.data.length}
-            onChange={setCurrentPage}
-            activePage={currentPage}
-            pageRangeDisplayed={5}
-            prevPageText={"‹"}
-            nextPageText={"›"}
-          />
+          {totalList.data.length != 0 ? (
+            <Pagination
+              itemsCountPerPage={characterPerPage}
+              totalItemsCount={totalList.data.length}
+              onChange={setCurrentPage}
+              activePage={currentPage}
+              pageRangeDisplayed={5}
+              prevPageText={"‹"}
+              nextPageText={"›"}
+            />
+          ) : (
+            <div className="noContent">No content</div>
+          )}
         </>
       ) : (
         <Load />
