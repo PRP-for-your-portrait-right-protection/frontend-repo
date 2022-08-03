@@ -18,30 +18,13 @@ function LandingPage() {
    * @create-date: 2022-08-01
    * @update-date: 2022-08-01
    */
-  const getItemWithExpireTime = (keyName) => {
-    const objString = localStorage.getItem(keyName);
-
-    if (!objString) {
-      return null;
-    }
-
-    const obj = JSON.parse(objString);
-
-    if (Date.now() > obj.expire) {
-      localStorage.removeItem(keyName);
-
-      return null;
-    }
-
-    return obj.value;
-  };
 
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios
         .get(`/processed-videos`, {
           headers: {
-            token: getItemWithExpireTime("token"),
+            token: JSON.parse(localStorage.getItem("token")).value,
           },
         })
         .then(function (response) {
@@ -71,7 +54,7 @@ function LandingPage() {
     axios
       .delete(`/processed-videos/${videoId}`, {
         headers: {
-          token: getItemWithExpireTime("token"),
+          token: JSON.parse(localStorage.getItem("token")).value,
         },
       })
       .then(function (response) {
