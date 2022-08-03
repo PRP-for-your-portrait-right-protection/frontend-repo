@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Mainpage.module.css";
 import { Link } from "react-router-dom";
-
 function Mainpage() {
   const [token, setToken] = useState(false);
   const [email, setEmail] = useState("");
@@ -24,13 +23,6 @@ function Mainpage() {
     }
     console.log(objString);
     const obj = JSON.parse(objString);
-
-    if (Date.now() > obj.expire) {
-      localStorage.removeItem(keyName);
-
-      return null;
-    }
-
     return obj.value;
   };
 
