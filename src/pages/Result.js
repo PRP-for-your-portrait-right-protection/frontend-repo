@@ -96,7 +96,7 @@ function Result() {
           </div>
           <div className="step-name">Effect</div>
         </div>
-        <div className="stepper-item active">
+        <div className="stepper-item active2">
           <div className="step-counter">4</div>
           <div className="step-name">Result</div>
         </div>

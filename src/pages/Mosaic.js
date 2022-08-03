@@ -235,7 +235,7 @@ function Mosaic() {
           </div>
           <div className="step-name">Video</div>
         </div>
-        <div className="stepper-item active">
+        <div className="stepper-item active2">
           <div className="step-counter">3</div>
           <div className="step-name">Effect</div>
         </div>
@@ -297,7 +297,6 @@ const ToggleBtn = styled.button`
   width: 20rem;
   height: 5rem;
 
-
   border: none;
   border-radius: 8px;
   align-items: center;
@@ -305,7 +304,6 @@ const ToggleBtn = styled.button`
 
   background-color: ${(props) =>
     !props.toggle ? "transparent" : "rgb(56 189 248)"};
-
 
   transition: all 0.3s ease-in-out; /* 부드러운 모션을 위해 추가*/
   &:hover {

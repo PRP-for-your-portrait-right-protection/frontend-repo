@@ -61,15 +61,15 @@
   font-size: 1vw;
 }
 
-.stepper-item.active {
+.stepper-item.active2 {
   font-weight: bold;
 }
 
-.stepper-item.active .step-counter {
+.stepper-item.active2 .step-counter {
   background-color: rgb(196, 232, 249);
   color: #121fa6;
 }
-.stepper-item.active .step-name {
+.stepper-item.active2 .step-name {
   color: #121fa6;
   font-family: "Ubuntu-Bold", serif;
   font-size: 1vw;
