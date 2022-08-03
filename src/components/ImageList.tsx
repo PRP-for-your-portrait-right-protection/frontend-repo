@@ -29,6 +29,7 @@ function ImageList({
   const imageInput = useRef<HTMLInputElement>();
   const count: number = whiteFaceImageLists.whitelistFaceImages.length; //해당 컴포넌트가 가지고있는 list개수
   const [curPage, setPage] = useState<number>(0); //curPage를 기점으로 curPage~curPage3까지의 요소만 보여줌
+  const perPageSize = 3;
   const [edit, setEdit] = useState<boolean>(false); //텍스트 변경을 위한 inputBox 활성화 여부
   const [text, setText] = useState<string>(
     whiteFaceImageLists.whitelistFaceName
@@ -135,7 +136,7 @@ function ImageList({
   const silceImage = (imgList) => {
     let currentPosts = [];
     let reverse = [...imgList].reverse();
-    currentPosts = reverse.slice(curPage, curPage + 3);
+    currentPosts = reverse.slice(curPage, curPage + perPageSize);
     return currentPosts;
   };
 
@@ -211,21 +212,23 @@ function ImageList({
 
         <li className="pictureList1">
           {/* <p className="personName"> {object.name} </p> */}
-          <div>
-            <button
-              className="show flex items-center justify-center"
-              onClick={() =>
-                setPage((curPage) => (curPage > 0 ? curPage - 1 : curPage))
-              }
-            >
-              <AiOutlineLeft
-                size="40"
-                justify-content="center"
-                place-content="center"
-                color="#767093"
-              />
-            </button>
-          </div>
+          {perPageSize < count ? (
+            <div>
+              <button
+                className="show flex items-center justify-center"
+                onClick={() =>
+                  setPage((curPage) => (curPage > 0 ? curPage - 1 : curPage))
+                }
+              >
+                <AiOutlineLeft
+                  size="40"
+                  justify-content="center"
+                  place-content="center"
+                  color="#767093"
+                />
+              </button>
+            </div>
+          ) : null}
 
           <div className="g grid grid-cols-4 gap-8">
             <span
@@ -244,23 +247,27 @@ function ImageList({
                 />
               ))}
           </div>
-          <div>
-            <button
-              className="show flex items-center justify-center"
-              onClick={() =>
-                setPage((curPage) =>
-                  count > 3 && count - curPage > 3 ? curPage + 1 : curPage
-                )
-              }
-            >
-              <AiOutlineRight
-                size="40"
-                justify-content="center"
-                place-content="center"
-                color="#767093"
-              />
-            </button>
-          </div>
+          {perPageSize < count ? (
+            <div>
+              <button
+                className="show flex items-center justify-center"
+                onClick={() =>
+                  setPage((curPage) =>
+                    count > perPageSize && count - curPage > perPageSize
+                      ? curPage + 1
+                      : curPage
+                  )
+                }
+              >
+                <AiOutlineRight
+                  size="40"
+                  justify-content="center"
+                  place-content="center"
+                  color="#767093"
+                />
+              </button>
+            </div>
+          ) : null}
         </li>
       </ol>
 
