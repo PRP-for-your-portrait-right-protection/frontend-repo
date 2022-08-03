@@ -14,7 +14,11 @@ const Modal = (props) => {
         <section>
           <header>
             <button className="close" onClick={close}>
-              <HiOutlineX size="38" color="red" />
+              <img
+                className="w-8 justify-center items-center"
+                alt="deleteBtn"
+                src="images\close.png"
+              />
             </button>
           </header>
           <main>{props.children}</main>

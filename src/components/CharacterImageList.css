@@ -4,13 +4,13 @@ label > input[type="radio"]:checked + img {
 
 .modalFont {
   display: flex;
-  width: 80%;
+  width: 100%;
   height: 10%;
   font-family: "Ubuntu-Bold", serif;
   font-style: normal;
   font-weight: 200;
   font-size: 2.5vw;
-  margin-left: 2rem;
+  padding-left: 10%;
   color: #03045e;
 }
 .imageList-component2 {

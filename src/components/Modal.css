@@ -19,7 +19,7 @@
   border: 0;
 }
 .modal > section {
-  width: 80%;
+  width: 75%;
   margin: 0 auto;
   height: 90%;
   border-radius: 0.3rem;
@@ -60,7 +60,6 @@
   text-align: right;
   left: 5rem;
   justify-content: center;
-  margin-top: 5%;
 }
 .modal > section > footer button {
   padding: 0.5% 2%;

@@ -13,6 +13,24 @@ import { FaCircle } from "react-icons/fa";
 function Result() {
   const { faceId, video, character, task, setTask, removeAllData } = useStore(); //zustand 전역변수
 
+  const getItemWithExpireTime = (keyName) => {
+    const objString = localStorage.getItem(keyName);
+
+    if (!objString) {
+      return null;
+    }
+    console.log(objString);
+    const obj = JSON.parse(objString);
+
+    if (Date.now() > obj.expire) {
+      localStorage.removeItem(keyName);
+
+      return null;
+    }
+
+    return obj.value;
+  };
+
   const makeFormData = () => {
     const formData = new FormData();
     let faceType = character === "M" ? "mosaic" : "character";
@@ -31,7 +49,7 @@ function Result() {
     axios
       .post(`/processed-videos`, formData, {
         headers: {
-          token: localStorage.getItem("token"),
+          token: getItemWithExpireTime("token"),
         },
       })
       .then(function (response) {
@@ -97,7 +115,7 @@ function Result() {
           </div>
           <ul className="result">
             <li
-              className="flex flex-col justify-center resultBox mb-3"
+              className="flex flex-col justify-center resultBox mb-16"
               style={{ paddingTop: "15px" }}
             >
               <div className="t pt-3 text-slate-700 flex flex-col justify-center items-center">
@@ -129,7 +147,7 @@ function Result() {
               </div>
             </li>
 
-            <li className="resultBox mb-3">
+            <li className="resultBox mb-16">
               {/* <hr
                 style={{
                   border: "solid 2px #303038",
@@ -207,7 +225,7 @@ function Result() {
               </li>
             )} */}
             {character === "M" ? (
-              <li className="resultBox mb-3">
+              <li className="resultBox mb-16">
                 <li
                   className="inline-flex justify-center"
                   style={{ marginLeft: "4.7rem" }}
@@ -235,7 +253,7 @@ function Result() {
                 </li>
               </li>
             ) : (
-              <li className="resultBox mb-3">
+              <li className="resultBox mb-16">
                 <li
                   className="inline-flex justify-center"
                   style={{ marginLeft: "4.7rem" }}

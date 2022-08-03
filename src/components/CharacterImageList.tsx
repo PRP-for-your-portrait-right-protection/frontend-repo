@@ -1,11 +1,5 @@
 import React, { useRef, useState } from "react";
-import {
-  faChevronLeft,
-  faChevronRight,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./CharacterImageList.css";
-import { HiOutlineX } from "react-icons/hi";
 import { AiOutlineRight } from "react-icons/ai";
 import { AiOutlineLeft } from "react-icons/ai";
 
@@ -100,15 +94,15 @@ function CharacterImageList({
     <div className="imageList-component2">
       <div>
         <div className="modalFont my-5 mb-5">CHARACTER</div>
-        <li className="inline-block flex justify-center space-x-16 mt-3 ">
+        <li className="inline-block flex items-center justify-center space-x-16 mt-5 ">
           <button
-            className="flex w-32 h-32"
+            className="flex w-16 h-16"
             onClick={() =>
               setPage((curPage) => (curPage > 0 ? curPage - 1 : curPage))
             }
           >
             <AiOutlineLeft
-              size="128"
+              size="64"
               justify-content="center"
               place-content="center"
               color="#767093"
@@ -127,13 +121,13 @@ function CharacterImageList({
                       checked={selectedObject.id == img.id}
                       onChange={handleClickRadioButton}
                     />
-                    <img className="h-40 w-40" alt="sample" src={img.url} />
+                    <img className="h-48 w-48" alt="sample" src={img.url} />
                   </label>
                 </div>
               ))}
           </div>
           <button
-            className="flex w-32 h-32"
+            className="flex w-16 h-16"
             onClick={() =>
               setPage((curPage) =>
                 countFix > 4 && countFix - curPage > 4 ? curPage + 1 : curPage
@@ -141,7 +135,7 @@ function CharacterImageList({
             }
           >
             <AiOutlineRight
-              size="128"
+              size="64"
               justify-content="center"
               place-content="center"
               color="#767093"
@@ -150,10 +144,10 @@ function CharacterImageList({
         </li>
       </div>
       <div className="mt-8">
-        <div className="modalFont my-3">MY CHARACTER</div>
-        <li className="inline-block flex justify-center space-x-16 mt-5 ">
+        <div className="modalFont">MY CHARACTER</div>
+        <li className="inline-block flex items-center justify-center space-x-16 mt-5 ">
           <button
-            className="flex w-32 h-32 mt-3"
+            className="flex w-16 h-16 mt-3"
             onClick={() =>
               setPageUser((curPageUser) =>
                 curPageUser > 0 ? curPageUser - 1 : curPageUser
@@ -161,7 +155,7 @@ function CharacterImageList({
             }
           >
             <AiOutlineLeft
-              size="128"
+              size="64"
               justify-content="center"
               place-content="center"
               color="#767093"
@@ -172,7 +166,7 @@ function CharacterImageList({
               className="col-span-1 flex justify-center"
               onClick={() => imageInput.current.click()}
             >
-              <img src="images\frame.png" alt="" className="flex h-36 w-36" />
+              <img src="images\frame.png" alt="" className="flex h-48 w-48" />
             </span>
 
             {userCharacterList &&
@@ -191,7 +185,7 @@ function CharacterImageList({
                     />
 
                     <img
-                      className="h-36 w-36 z-10"
+                      className="h-48 w-48 z-10"
                       alt="sample"
                       src={img.url}
                     />
@@ -200,14 +194,18 @@ function CharacterImageList({
                     onClick={() => deleteCharacterImage(img.id)}
                     className="absolute top-0 right-0 h-8 w-8"
                   >
-                    <HiOutlineX size="30" color="red" />
+                    <img
+                      className="absolute w-8 h-8 right-0 top-0"
+                      alt="deleteBtn"
+                      src="images/negative.png"
+                    />
                   </button>
                 </div>
               ))}
           </div>
 
           <button
-            className="flex w-32 h-32 mt-3"
+            className="flex w-16 h-16 mt-3"
             onClick={() =>
               setPageUser((curPageUser) =>
                 countUser > 3 && countUser - curPageUser > 3
@@ -217,7 +215,7 @@ function CharacterImageList({
             }
           >
             <AiOutlineRight
-              size="128"
+              size="64"
               justify-content="center"
               place-content="center"
               color="#767093"

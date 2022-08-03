@@ -35,9 +35,9 @@ const VideoPost = ({ videos, deleteFuc }) => {
     );
   };
   return (
-    <div className="wrap mt-5">
+    <div className="wrap mt-12">
       <div
-        className="grid grid-cols-2 grid-rows-2 w-3/5 
+        className="grid grid-cols-2 w-3/5 
       place-items-center content-center mt-5"
       >
         {videos &&
