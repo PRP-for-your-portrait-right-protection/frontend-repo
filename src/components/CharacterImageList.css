@@ -26,5 +26,5 @@ label > input[type="radio"]:checked + img {
   width: 100%;
   justify-content: center;
   place-items: center;
-  margin-top: 3%;
+  margin-top: 2.5rem;
 }

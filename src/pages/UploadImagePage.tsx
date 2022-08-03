@@ -13,9 +13,9 @@ function UploadImagePage() {
       ></Title>
 
       <div className="stepper-wrapper">
-        <div className="stepper-item active">
+        <div className="stepper-item active2">
           <div className="step-counter">1</div>
-          <div className="step-name">Whitelist Picture</div>
+          <div className="step-name">Whitelist Faces</div>
         </div>
         <div className="stepper-item ">
           <div className="step-counter">2</div>

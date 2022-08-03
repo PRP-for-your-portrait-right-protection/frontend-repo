@@ -7,9 +7,7 @@ function Video() {
   return (
     <ul>
       <ListButton></ListButton>
-      <div className="gridWrap">
-        <div className="font1">VIDEO</div>
-      </div>
+      <div className="gridWrap"></div>
       <LandingPage />
     </ul>
   );

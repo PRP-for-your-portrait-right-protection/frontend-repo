@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./ListButton.css";
 import { Link } from "react-router-dom";
+import Navigation from "./Navigation";
 
 function ListButton() {
   const [token, setToken] = useState(false);
@@ -47,13 +48,13 @@ function ListButton() {
       </div>
       <ul className={isactive ? "navbar__menu__active" : "navbar__menu"}>
         <li>
-          <Link to="/photo">WHITELIST</Link>
+          <Navigation url="Photo" name="WHITELIST" />
         </li>
         <li>
-          <Link to="/video">VIDEO</Link>
+          <Navigation url="video" name="VIDEO" />
         </li>
         <li>
-          <Link to="/character">CHARACTER</Link>
+          <Navigation url="character" name="CHARACTER" />
         </li>
       </ul>
       <ul className="navbar__info">
