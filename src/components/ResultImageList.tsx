@@ -88,7 +88,7 @@ function ResultImageList({ object }: ImageListProps) {
                     src="images/7131330.png"
                     alt="plus"
                     className="w-5 h-5"
-                    style={{ marginTop: "3px" }}
+                    style={{ marginTop: "2px" }}
                   />
                   {img.count}
                 </div>

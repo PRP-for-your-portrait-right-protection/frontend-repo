@@ -101,7 +101,10 @@ function Result() {
               style={{ paddingTop: "15px" }}
             >
               <div className="t pt-3 text-slate-700 flex flex-col justify-center items-center">
-                <div className="line2 lineColor1 mr-56"></div>
+                <div
+                  className="line2 lineColor1"
+                  style={{ marginRight: "17.5rem" }}
+                ></div>
                 <div className="flex flex-row">
                   <p className="pr-1">WhiteList Faces</p>
                   <p className="c peopleCnt">{faceId.length}</p>
@@ -205,7 +208,10 @@ function Result() {
             )} */}
             {character === "M" ? (
               <li className="resultBox mb-3">
-                <li className="inline-flex justify-center pl-5">
+                <li
+                  className="inline-flex justify-center"
+                  style={{ marginLeft: "4.7rem" }}
+                >
                   <div className="flex flex-col float-left">
                     <div className="line2 lineColor3 mb-2"></div>
                     <p className="t text-slate-700 float-left">
@@ -219,7 +225,7 @@ function Result() {
                       selected effect is correct, please press NEXT button.
                     </p>
                   </div>
-                  <div className="w-80 float-right pl-28">
+                  <div className="w-80 float-right ml-56">
                     <img
                       className="h-48 w-48 border-10 rounded border-transparent justify-center"
                       alt="sample"
@@ -230,7 +236,10 @@ function Result() {
               </li>
             ) : (
               <li className="resultBox mb-3">
-                <li className="inline-flex justify-center pl-5">
+                <li
+                  className="inline-flex justify-center"
+                  style={{ marginLeft: "4.7rem" }}
+                >
                   <div className="flex flex-col float-left">
                     <div className="line2 lineColor3 mb-2  align-middle"></div>
                     <p className="t text-slate-700 float-left">
@@ -245,7 +254,7 @@ function Result() {
                     </p>
                   </div>
 
-                  <div className="w-80 float-right pl-28">
+                  <div className="w-80 float-right ml-56">
                     <img
                       className="h-48 w-48 border-10 rounded border-transparent justify-center"
                       alt="sample"
