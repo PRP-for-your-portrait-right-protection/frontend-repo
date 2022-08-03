@@ -6,7 +6,7 @@ import ButtonSession from "./ButtonSession";
 import { HiUserAdd } from "react-icons/hi";
 import Load from "../components/Load";
 import { useStore } from "../components/store";
-
+import { whiteFaceImageListsDto } from "../utils/types";
 /**
  * @name : Teawon
  * @component :ImageListBlock - 각각의 ImgList컴포넌트를 추가하고 전체 데이터를 관리하는 컴포넌트
@@ -16,20 +16,18 @@ import { useStore } from "../components/store";
 function ImageListBlock() {
   const { faceId, setFaceId } = useStore(); //zustand 전역변수
   const [count, setCount] = useState<number>(1); //other + n으로 사용하기 위한 url
-  const [isLoding, setIsLoading]: [boolean, any] = useState(false); //api통신 완료 상태 값
+  const [isLoding, setIsLoading] = useState<boolean>(false); //api통신 완료 상태 값
   const [checkedItems, setCheckedItems] = useState(new Set<string>()); //checkBox확인
-  const [isNobodyNotChecked, setIsNobodyNotChecked] = useState(false);
-  const [isNull, setIsNull] = useState(false);
-  const [totalList, setTotalList]: [any, any] = useState({
-    //최종적으로 backend로 보내질 데이터 리스트 집합
-    data: [
-      {
-        whitelistFaceId: "id",
-        whitelistFaceName: "you",
-        pictures: [],
-      },
-    ],
-  });
+  const [isNobodyNotChecked, setIsNobodyNotChecked] = useState<boolean>(false);
+  const [isNull, setIsNull] = useState<boolean>(false);
+  const [totalList, setTotalList] = useState<whiteFaceImageListsDto[]>([
+    {
+      //최종적으로 backend로 보내질 데이터 리스트 집합
+      whitelistFaceId: "id",
+      whitelistFaceName: "you",
+      whitelistFaceImages: [],
+    },
+  ]);
 
   /**
    * @name : Sunghyun
@@ -70,11 +68,8 @@ function ImageListBlock() {
           },
         })
         .then(function (response) {
-          let initialData = {
-            //초기 설정 값
-            data: [],
-          };
-
+          let initialData = [];
+          //초기 설정 값
           response.data.data.forEach((imgList) => {
             //바깥 반복문의 리스트 및 이름 정의
             let imgListBlock = {
@@ -93,10 +88,10 @@ function ImageListBlock() {
               imgListBlock.whitelistFaceImages =
                 imgListBlock.whitelistFaceImages.concat(imgData);
             });
-            initialData.data = initialData.data.concat(imgListBlock);
+            initialData = initialData.concat(imgListBlock);
           });
           setTotalList(initialData); //가져온 데이터의 가공한 최종 리스트를 totalList에 저장
-          setCount(totalList.data.length);
+          setCount(totalList.length);
           setIsLoading(true);
         })
         .catch(function (error) {
@@ -137,7 +132,7 @@ function ImageListBlock() {
       setFaceId([]);
     } else {
       checkedItems.forEach((checkedId) => {
-        totalList.data.forEach((imageObejct) => {
+        totalList.forEach((imageObejct) => {
           if (imageObejct.whitelistFaceId === checkedId) {
             let temp = {
               id: imageObejct.whitelistFaceId,
@@ -177,16 +172,14 @@ function ImageListBlock() {
       })
       .then(function (response) {
         console.log(response);
-        setTotalList({
-          data: [
-            ...totalList.data,
-            {
-              whitelistFaceName: strName,
-              whitelistFaceId: response.data.id,
-              whitelistFaceImages: [],
-            },
-          ],
-        });
+        setTotalList([
+          ...totalList,
+          {
+            whitelistFaceName: strName,
+            whitelistFaceId: response.data.id,
+            whitelistFaceImages: [],
+          },
+        ]);
         window.scrollTo(0, document.body.scrollHeight);
       })
       .catch(function (error) {
@@ -210,11 +203,11 @@ function ImageListBlock() {
 
   const changeFuc = (object, whitelistFace, type) => {
     const formData = new FormData();
-    let findIndex = totalList.data.findIndex(
+    let findIndex = totalList.findIndex(
       (element) => element.whitelistFaceId == whitelistFace.whitelistFaceId
     );
 
-    let copyArray = { ...totalList };
+    let copyArray = [...totalList];
 
     //함수의 입력값에 따라 상태값 변경함수 실행 및 api호출
     switch (type) {
@@ -240,8 +233,8 @@ function ImageListBlock() {
 
         delete object["file"];
 
-        copyArray.data[findIndex].whitelistFaceImages = [
-          ...copyArray.data[findIndex].whitelistFaceImages,
+        copyArray[findIndex].whitelistFaceImages = [
+          ...copyArray[findIndex].whitelistFaceImages,
           object,
         ];
         setTotalList(copyArray);
@@ -264,14 +257,14 @@ function ImageListBlock() {
             console.log(error);
           });
 
-        copyArray.data[findIndex].whitelistFaceImages = copyArray.data[
+        copyArray[findIndex].whitelistFaceImages = copyArray[
           findIndex
         ].whitelistFaceImages.filter((img) => img.id !== object);
         setTotalList(copyArray);
         break;
 
       case "deleteList": //특정 faceList 삭제
-        copyArray.data = copyArray.data.filter(
+        copyArray = copyArray.filter(
           (list) => list.whitelistFaceId !== whitelistFace.whitelistFaceId
         );
         setTotalList(copyArray);
@@ -310,7 +303,7 @@ function ImageListBlock() {
             console.log(error);
           });
 
-        copyArray.data.map((data) => {
+        copyArray.map((data) => {
           if (data.whitelistFaceName === whitelistFace.whitelistFaceName) {
             data.whitelistFaceName = object;
           }
@@ -392,11 +385,11 @@ function ImageListBlock() {
               </ul>
             </ol>
           </div>
-          {totalList.data && //map을 통해 각 imgList를 출력
-            totalList.data.map((imgList) => (
+          {totalList && //map을 통해 각 imgList를 출력
+            totalList.map((imgList) => (
               <ImageList
                 key={imgList.whitelistFaceId}
-                object={imgList}
+                whiteFaceImageLists={imgList}
                 changeFuc={changeFuc}
                 checkFuc={checkedItemHandler}
                 checked={checkedItems.has(imgList.whitelistFaceId)}

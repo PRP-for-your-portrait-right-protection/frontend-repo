@@ -3,7 +3,6 @@ import "./ImageList.css";
 import ImgBlock from "../components/ImageBlock";
 import { AiOutlineRight } from "react-icons/ai";
 import { AiOutlineLeft } from "react-icons/ai";
-import { HiOutlineX } from "react-icons/hi";
 
 /**
  * @name : Teawon
@@ -198,7 +197,7 @@ function UserPageImageList({ object, changeFuc }: ImageListProps) {
               silceImage(imgList[0].whitelistFaceImages).map((img) => (
                 <ImgBlock
                   key={img.id}
-                  object={img}
+                  whiteFaceImageDto={img}
                   deleteFileImage={deleteFileImage}
                 />
               ))}
