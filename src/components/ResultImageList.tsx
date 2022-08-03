@@ -15,6 +15,7 @@ interface ImageListProps {
 function ResultImageList({ object }: ImageListProps) {
   const count: number = object.length; //해당 컴포넌트가 가지고있는 list개수
   const [curPage, setPage]: [number, any] = useState<number>(0); //curPage를 기점으로 curPage~curPage3까지의 요소만 보여줌
+  const perPageSize = 3;
 
   /**
    * @name : Teawon
@@ -47,21 +48,24 @@ function ResultImageList({ object }: ImageListProps) {
       className="pictureList1"
       style={{ height: "13rem", paddingTop: "2rem" }}
     >
-      <li>
-        <button
-          className="show flex items-center justify-center"
-          onClick={() =>
-            setPage((curPage) => (curPage > 0 ? curPage - 1 : curPage))
-          }
-        >
-          <AiOutlineLeft
-            size="40"
-            justify-content="center"
-            place-content="center"
-            color="#767093"
-          />
-        </button>
-      </li>
+      {perPageSize < count ? (
+        <li>
+          <button
+            className="show flex items-center justify-center"
+            onClick={() =>
+              setPage((curPage) => (curPage > 0 ? curPage - 1 : curPage))
+            }
+          >
+            <AiOutlineLeft
+              size="40"
+              justify-content="center"
+              place-content="center"
+              color="#767093"
+            />
+          </button>
+        </li>
+      ) : null}
+
       <li className="resultgrid grid grid-cols-3 gap-4">
         {object &&
           silceImage(object).map((img) => (
@@ -96,23 +100,27 @@ function ResultImageList({ object }: ImageListProps) {
             </div>
           ))}
       </li>
-      <li>
-        <button
-          className="show flex items-center justify-center"
-          onClick={() =>
-            setPage((curPage) =>
-              count > 3 && count - curPage > 3 ? curPage + 1 : curPage
-            )
-          }
-        >
-          <AiOutlineRight
-            size="40"
-            justify-content="center"
-            place-content="center"
-            color="#767093"
-          />
-        </button>
-      </li>
+      {perPageSize < count ? (
+        <li>
+          <button
+            className="show flex items-center justify-center"
+            onClick={() =>
+              setPage((curPage) =>
+                count > perPageSize && count - curPage > perPageSize
+                  ? curPage + 1
+                  : curPage
+              )
+            }
+          >
+            <AiOutlineRight
+              size="40"
+              justify-content="center"
+              place-content="center"
+              color="#767093"
+            />
+          </button>
+        </li>
+      ) : null}
     </ul>
   );
 }
