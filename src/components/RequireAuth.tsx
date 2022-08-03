@@ -12,6 +12,8 @@ function RequireAuth({ children }: RequireAuthProps) {
     {
       if (nowDate > Number(JSON.parse(localStorage.getItem("token")).expire)) {
         alert("Your login has expired.");
+        localStorage.removeItem("token");
+        localStorage.removeItem("email");
         return <Navigate to="/" />;
       }
       return children;
