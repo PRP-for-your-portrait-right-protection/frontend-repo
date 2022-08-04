@@ -72,7 +72,11 @@ function ResultImageList({ object }: ImageListProps) {
               key={img.id}
               className="col-span-1 relative justify-center bg-slate-50 border-8 border-slate-50"
             >
-              <img className="h-44 w-52 z-10" alt="sample" src={img.url} />
+              <img
+                className="object-cover h-44 w-52 z-10"
+                alt="sample"
+                src={img.url}
+              />
               <li className="flex justify-between pt-1">
                 <div className="n flex text-base text-slate-500 float-left pl-1">
                   <img

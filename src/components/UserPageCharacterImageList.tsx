@@ -54,17 +54,17 @@ function UserPageCharacterImageList({
           className="col-span-1 flex justify-center"
           onClick={() => imageInput.current.click()}
         >
-          <img
-            src="images\frame.png"
-            alt=""
-            className="object-cover h-60 w-60"
-          />
+          <img src="images\frame.png" alt="" className="h-60 w-60" />
         </div>
 
         {userCharacterList &&
           userCharacterList.map((img) => (
             <div className="relative w-60 h-60" key={img.id}>
-              <img className="flex h-60 w-60" alt="sample" src={img.url} />
+              <img
+                className="flex object-cover h-60 w-60"
+                alt="sample"
+                src={img.url}
+              />
 
               <button onClick={() => deleteCharacterImage(img.id)}>
                 <img
