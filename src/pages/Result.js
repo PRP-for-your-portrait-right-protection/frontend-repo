@@ -268,13 +268,14 @@ function Result() {
                     </p>
                     <p className="c text-slate-500 text-base ">
                       Effect to be used for mosaic processing. <br></br>If the
-                      selected effect is correct, please press NEXT button.
+                      selected effect is correct, <br />
+                      please press NEXT button.
                     </p>
                   </div>
 
                   <div className="w-80 float-right ml-56">
                     <img
-                      className="h-48 w-48 border-10 rounded border-transparent justify-center"
+                      className="h-48 w-48 object-cover border-10 rounded border-transparent justify-center"
                       alt="sample"
                       src={character.url}
                     />

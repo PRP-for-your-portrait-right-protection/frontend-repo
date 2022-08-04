@@ -121,7 +121,11 @@ function CharacterImageList({
                       checked={selectedObject.id == img.id}
                       onChange={handleClickRadioButton}
                     />
-                    <img className="h-48 w-48" alt="sample" src={img.url} />
+                    <img
+                      className="object-cover h-48 w-48"
+                      alt="sample"
+                      src={img.url}
+                    />
                   </label>
                 </div>
               ))}
@@ -185,7 +189,7 @@ function CharacterImageList({
                     />
 
                     <img
-                      className="h-48 w-48 z-10"
+                      className="object-cover h-48 w-48 z-10"
                       alt="sample"
                       src={img.url}
                     />
