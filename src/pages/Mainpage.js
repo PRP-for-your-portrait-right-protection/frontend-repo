@@ -21,14 +21,13 @@ function Mainpage() {
     if (!objString) {
       return null;
     }
-    console.log(objString);
+
     const obj = JSON.parse(objString);
     return obj.value;
   };
 
   const HandleToggle = () => {
     setActive(!isactive);
-    console.log(isactive);
   };
 
   // 토큰이 존재할 경우 메인페이지(회원)
