@@ -345,7 +345,8 @@ const SignUp = () => {
           <FontAwesomeIcon icon={faInfoCircle} />
           8 to 24 characters.
           <br />
-          대문자, 소문자 , 숫자 , 특수문자를 포함하여 입력해주세요.
+          Must include uppercase and lowercase letters, a number and a special
+          character.
           <br />
           Allowed special characters:{" "}
           <span aria-label="exclamation mark">!</span>{" "}
