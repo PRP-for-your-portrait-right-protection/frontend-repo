@@ -37,6 +37,11 @@ function WaitVideos() {
             let temp = [...task];
             temp = temp.filter((taskId) => celeryId !== taskId);
             setTask(temp);
+          } else if (response.data.status === "FAILURE") {
+            console.log("Processing Failed");
+            let temp = [...task];
+            temp = temp.filter((taskId) => celeryId !== taskId);
+            setTask(temp);
           }
         })
         .catch(function (error) {
