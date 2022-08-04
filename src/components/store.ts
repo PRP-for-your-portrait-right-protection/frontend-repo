@@ -21,6 +21,8 @@ export const useStore = create<any>(
       set((state) => ({ ...state, faceId: select }));
     },
     removeAllData: () => set({ faceId: [], video: null, character: null }),
+    removeAllByLogout: () =>
+      set({ faceId: [], video: null, character: null, task: [] }),
 
     video: null,
     setVideo: (select) => {

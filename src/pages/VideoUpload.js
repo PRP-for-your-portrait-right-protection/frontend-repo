@@ -73,7 +73,6 @@ function VideoUpload() {
   }, []);
 
   const cancelVideo = () => {
-    console.log("취소합니다?");
     setFileVideo(null);
     setPreFileVideo(null);
     setisNull(true);

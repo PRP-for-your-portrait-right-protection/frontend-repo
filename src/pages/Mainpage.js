@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Mainpage.module.css";
 import { Link } from "react-router-dom";
+import { useStore } from "../components/store";
 function Mainpage() {
+  const { removeAllByLogout } = useStore(); //zustand 전역변수
   const [token, setToken] = useState(false);
   const [email, setEmail] = useState("");
   const [isactive, setActive] = useState(false);
@@ -63,6 +65,8 @@ function Mainpage() {
                   className={styles.navbar__button}
                   onClick={() => {
                     localStorage.clear();
+                    removeAllByLogout();
+
                     setToken(false);
                   }}
                 >
