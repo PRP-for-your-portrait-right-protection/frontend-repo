@@ -73,7 +73,7 @@ function LandingPage() {
       <WaitVideos />
       {loading ? (
         <>
-          {videos ? (
+          {videos == [] ? (
             <>
               <VideoPost
                 videos={currentVideos(videos)}

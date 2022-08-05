@@ -49,13 +49,13 @@ function Mainpage() {
               }
             >
               <li>
-                <Link to="/Photo">WHITELIST</Link>
+                <Link to="/user/photo">WHITELIST</Link>
               </li>
               <li>
-                <Link to="/video">VIDEO</Link>
+                <Link to="/user/video">VIDEO</Link>
               </li>
               <li>
-                <Link to="/character">CHARACTER</Link>
+                <Link to="/user/character">CHARACTER</Link>
               </li>
             </ul>
             <ul className={styles.navbar__info}>
@@ -89,7 +89,9 @@ function Mainpage() {
               <div>Do you want to make mosaic videos?</div>
             </div>
             <Link to="/whitelist-face">
-              <button className={styles.For_Your_PRP_button}>Start!</button>
+              <button className={styles.For_Your_PRP_button}>
+                <span>start</span>
+              </button>
             </Link>
             <img
               src="images/casual-life-3d-excited-young-woman.png"
