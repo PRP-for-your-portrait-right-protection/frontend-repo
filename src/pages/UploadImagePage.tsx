@@ -9,7 +9,11 @@ function UploadImagePage() {
       <Title
         // textValue="Select portraits without mosaic"
         textValue="Select WhiteList"
-        textTooltip="After selecting the target to be excluded from the mosaic, please upload the face image of the person."
+        textTooltip={[
+          "After selecting the target to be",
+          <div key="1">excluded from the mosaic</div>,
+          "please upload the face image of the person.",
+        ]}
       ></Title>
 
       <div className="stepper-wrapper">

@@ -106,10 +106,10 @@ const Login = () => {
           required
         />
         <span className="line mt-4 text-xl font-Ubuntu text-sky-400 hover:text-sky-300">
-          <Link to="/email">Forgot Email?</Link>
+          <Link to="/user/find/email">Forgot Email?</Link>
         </span>
         <span className="line text-xl font-Ubuntu text-sky-400 hover:text-sky-300">
-          <Link to="/reset">Forgot password?</Link>
+          <Link to="/user/reset/password">Forgot password?</Link>
         </span>
         <button
           className="border-2 border-sky-400 

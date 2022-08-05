@@ -54,7 +54,7 @@ function UserPageCharacterImageList({
           className="col-span-1 flex justify-center"
           onClick={() => imageInput.current.click()}
         >
-          <img src="images\frame.png" alt="" className="h-60 w-60" />
+          <img src="/images/frame.png" alt="" className="h-60 w-60" />
         </div>
 
         {userCharacterList &&
@@ -70,7 +70,7 @@ function UserPageCharacterImageList({
                 <img
                   className="absolute w-8 h-8 right-0 top-0"
                   alt="deleteBtn"
-                  src="images/negative.png"
+                  src="/images/negative.png"
                 />
               </button>
             </div>

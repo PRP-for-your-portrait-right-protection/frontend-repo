@@ -93,7 +93,7 @@ function VideoUpload() {
         <div className="fixed bottom-0 right-0 p-5">
           <ButtonSession
             img="images/right.png"
-            url="/Mosaic"
+            url="/effect"
             text="next"
             saveFuc={makeFormData}
           ></ButtonSession>
@@ -103,7 +103,7 @@ function VideoUpload() {
       <div className="fixed bottom-0 left-0 p-5">
         <ButtonSession
           img="images/left.png"
-          url="/upload"
+          url="/whitelist-face"
           text="previous"
           saveFuc={null}
         ></ButtonSession>

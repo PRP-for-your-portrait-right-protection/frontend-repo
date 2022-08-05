@@ -3,7 +3,7 @@ import "./Tooltip.css";
 import { AiOutlineQuestionCircle } from "react-icons/ai";
 
 interface TooltipProps {
-  tooltipText: string;
+  tooltipText: any;
 }
 
 function Tooltip({ tooltipText }: TooltipProps) {

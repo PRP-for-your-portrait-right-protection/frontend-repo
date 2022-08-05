@@ -42,18 +42,18 @@ function ListButton() {
   return (
     <nav className="navigation__wrapper">
       <div className="navbar__logo">
-        <img src="images\path28.png" className="inline"></img>
+        <img src="/images\path28.png" className="inline"></img>
         <Link to="/">PRP</Link>
       </div>
       <ul className={isactive ? "navbar__menu__active" : "navbar__menu"}>
         <li>
-          <Navigation url="Photo" name="WHITELIST" />
+          <Navigation url="user/photo" name="WHITELIST" />
         </li>
         <li>
-          <Navigation url="video" name="VIDEO" />
+          <Navigation url="user/video" name="VIDEO" />
         </li>
         <li>
-          <Navigation url="character" name="CHARACTER" />
+          <Navigation url="user/character" name="CHARACTER" />
         </li>
       </ul>
       <ul className="navbar__info">

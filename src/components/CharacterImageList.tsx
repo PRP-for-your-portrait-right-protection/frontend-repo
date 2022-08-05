@@ -171,7 +171,7 @@ function CharacterImageList({
               className="col-span-1 flex justify-center"
               onClick={() => imageInput.current.click()}
             >
-              <img src="images\frame.png" alt="" className="flex h-48 w-48" />
+              <img src="/images/frame.png" alt="" className="flex h-48 w-48" />
             </span>
             {userCharacterList &&
               silceImage(userCharacterList, curPageUser, perUserPageSize).map(
@@ -201,7 +201,7 @@ function CharacterImageList({
                       <img
                         className="absolute w-8 h-8 right-0 top-0"
                         alt="deleteBtn"
-                        src="images/negative.png"
+                        src="/images/negative.png"
                       />
                     </button>
                   </div>

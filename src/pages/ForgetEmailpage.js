@@ -8,7 +8,7 @@ function ForgetEmailpage() {
       <div>
         <nav className={styles.navbarbefore}>
           <div className={styles.navbar__logo}>
-            <img src="images\path28.png" className="inline"></img>
+            <img src="/images/path28.png" className="inline"></img>
             <a href="/">PRP</a>
           </div>
         </nav>
@@ -20,7 +20,7 @@ function ForgetEmailpage() {
           </div>
         </div>
         <img
-          src="images/casual-life-3d-excited-young-woman.png"
+          src="/images/casual-life-3d-excited-young-woman.png"
           className={styles.img}
         ></img>
       </div>

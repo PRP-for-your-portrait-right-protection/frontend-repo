@@ -81,7 +81,7 @@ function Result() {
           <div className="fixed bottom-0 right-0 p-5">
             <ButtonSession
               img="images/right.png"
-              url="/video"
+              url="/user/video"
               text="next"
               saveFuc={makeFormData}
             ></ButtonSession>
@@ -89,7 +89,7 @@ function Result() {
           <div className="fixed bottom-0 left-0 p-5">
             <ButtonSession
               img="images/left.png"
-              url="/Mosaic"
+              url="/effect"
               text="previous"
               saveFuc={null}
             ></ButtonSession>

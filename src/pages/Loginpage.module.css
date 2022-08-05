@@ -65,8 +65,7 @@
   position: absolute;
   top: 30%;
   right: 10%;
-  max-width: 640px;
-  max-height: 480px;
+  width: 900px;
 }
 .For_Your_PRP {
   margin-top: 18rem;

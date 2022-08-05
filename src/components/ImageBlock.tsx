@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { whiteFaceImageDto } from "../utils/types";
 /**
  * @name : Teawon
@@ -26,7 +26,7 @@ function ImgBlock({ deleteFileImage, whiteFaceImageDto }: ImageButtonProps) {
         <img
           className="del absolute w-5 h-5 right-0 top-0 mt-1 mr-1"
           alt="deleteBtn"
-          src="images\negative.png"
+          src="/images/negative.png"
         />
       </button>
     </div>

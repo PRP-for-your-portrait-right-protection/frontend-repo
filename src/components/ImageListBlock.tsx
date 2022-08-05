@@ -382,7 +382,7 @@ function ImageListBlock() {
             <div className="fixed bottom-0 right-0 p-5">
               <ButtonSession
                 img="images/right.png"
-                url="/VideoUpload"
+                url="/video"
                 text="next"
                 saveFuc={makeFormData}
               ></ButtonSession>

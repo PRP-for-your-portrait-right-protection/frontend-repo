@@ -4,7 +4,7 @@ import Tooltip from "../components/Tooltip";
 
 interface TitleProps {
   textValue: string;
-  textTooltip: string;
+  textTooltip: any;
 }
 
 function Title({ textValue, textTooltip }: TitleProps) {

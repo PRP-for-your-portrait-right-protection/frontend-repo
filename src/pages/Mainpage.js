@@ -88,7 +88,7 @@ function Mainpage() {
               portrait right protection
               <div>Are you want to make mosaic videos?</div>
             </div>
-            <Link to="/upload">
+            <Link to="/whitelist-face">
               <button className={styles.For_Your_PRP_button}>Start!</button>
             </Link>
             <img
@@ -100,12 +100,12 @@ function Mainpage() {
       ) : (
         <div>
           <img
-            src="images/casual-life-3d-excited-young-woman.png"
+            src="\images\casual-life-3d-excited-young-woman.png"
             className={styles.img}
           ></img>
           <nav className={styles.navbarbefore}>
             <div className={styles.navbar__logo}>
-              <img src="images\path28.png" className="inline"></img>
+              <img src="\images\path28.png" className="inline"></img>
               <Link to="/">PRP</Link>
             </div>
           </nav>

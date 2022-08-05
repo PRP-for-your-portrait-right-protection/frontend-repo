@@ -27,10 +27,10 @@ function App() {
       <Route path="/" element={<Mainpage />} />
       <Route path="/signin" element={<Loginpage />} />
       <Route path="/signup" element={<SignUppage />} />
-      <Route path="/email" element={<ForgetEmailpage />} />
-      <Route path="/reset" element={<ForgetPasswordpage />} />
+      <Route path="/user/find/email" element={<ForgetEmailpage />} />
+      <Route path="/user/reset/password" element={<ForgetPasswordpage />} />
       <Route
-        path="/upload"
+        path="/whitelist-face"
         element={
           <RequireAuth>
             {" "}
@@ -39,7 +39,7 @@ function App() {
         }
       />
       <Route
-        path="/VideoUpload"
+        path="/video"
         element={
           <RequireAuth>
             {" "}
@@ -48,7 +48,7 @@ function App() {
         }
       />
       <Route
-        path="/Mosaic"
+        path="/effect"
         element={
           <RequireAuth>
             {" "}
@@ -57,7 +57,7 @@ function App() {
         }
       />
       <Route
-        path="/Result"
+        path="/result"
         element={
           <RequireAuth>
             {" "}
@@ -66,7 +66,7 @@ function App() {
         }
       />
       <Route
-        path="/Video"
+        path="/user/video"
         element={
           <RequireAuth>
             {" "}
@@ -75,7 +75,7 @@ function App() {
         }
       />
       <Route
-        path="/Photo"
+        path="/user/photo"
         element={
           <RequireAuth>
             {" "}
@@ -84,7 +84,7 @@ function App() {
         }
       />
       <Route
-        path="/Character"
+        path="/user/character"
         element={
           <RequireAuth>
             {" "}

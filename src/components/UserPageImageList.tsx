@@ -163,7 +163,7 @@ function UserPageImageList({ object, changeFuc }: ImageListProps) {
               <img
                 className="w-8 justify-center items-center"
                 alt="deleteBtn"
-                src="images\close.png"
+                src="/images/close.png"
               />
             </button>
           </li>
@@ -193,7 +193,7 @@ function UserPageImageList({ object, changeFuc }: ImageListProps) {
               className="col-span-1 flex justify-center"
               onClick={() => imageInput.current.click()}
             >
-              <img src="images\frame.png" alt="" className="h-36 w-36" />
+              <img src="/images/frame.png" alt="" className="h-36 w-36" />
             </span>
 
             {imgList[0].whitelistFaceImages &&

@@ -12,11 +12,13 @@
   align-content: center;
   margin-left: 2rem;
 }
+
 /* .tooltip-text {
   width: 20rem;
   height: 5rem;
 } */
-.tooltip .tooltip-text {
+.tooltip .tooltip-text,
+.tooltip .tooltip-text .div {
   display: none;
   z-index: 1;
   max-width: 20rem;
@@ -30,7 +32,8 @@
   align-content: center;
   padding-top: 0.5rem;
 }
-.tooltip:hover .tooltip-text {
+.tooltip:hover .tooltip-text,
+.tooltip:hover .tooltip-text .div {
   display: flex;
 }
 .icon_tooltip {

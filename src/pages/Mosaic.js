@@ -172,7 +172,7 @@ function Mosaic() {
         <div className="fixed bottom-0 right-0 p-5">
           <ButtonSession
             img="images/right.png"
-            url="/Result"
+            url="/result"
             text="next"
             saveFuc={makeFormData}
           ></ButtonSession>
@@ -182,7 +182,7 @@ function Mosaic() {
       <div className="fixed bottom-0 left-0 p-5">
         <ButtonSession
           img="images/left.png"
-          url="/VideoUpload"
+          url="/video"
           text="previous"
           saveFuc={null}
         ></ButtonSession>
