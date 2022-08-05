@@ -86,7 +86,7 @@ function Mainpage() {
             For Your PRP
             <div className={styles.PRP}>
               portrait right protection
-              <div>Are you want to make mosaic videos?</div>
+              <div>Do you want to make mosaic videos?</div>
             </div>
             <Link to="/whitelist-face">
               <button className={styles.For_Your_PRP_button}>Start!</button>
@@ -113,7 +113,7 @@ function Mainpage() {
             For Your PRP
             <div className={styles.PRP}>
               portrait right protection
-              <div>Are you want to make mosaic videos?</div>
+              <div>Do you want to make mosaic videos?</div>
             </div>
             <Link to="/signin">
               <button className={styles.For_Your_PRP_button}>

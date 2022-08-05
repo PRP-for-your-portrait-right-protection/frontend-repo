@@ -49,7 +49,7 @@ function Result() {
     <div>
       <Title
         textValue="Selected Result"
-        textTooltip="Please check the result selected earlier."
+        textTooltip="Please check the result."
       ></Title>
       <div className="stepper-wrapper">
         <div className="stepper-item completed">
@@ -162,8 +162,7 @@ function Result() {
                 </p> */}
                   <p className="c text-slate-500 text-base pl-10">
                     This is a video uploaded. <br></br>Please make sure the
-                    video is correct. <br></br>If you do not want to change this
-                    video,
+                    video is correct. <br></br>If you do not want to continue,
                     <br></br>click the Previous button.
                   </p>
                 </div>
@@ -222,7 +221,7 @@ function Result() {
                     <p className="c text-slate-500 text-base ">
                       Effect to be used for mosaic processing. <br></br>If the
                       selected effect is correct, <br />
-                      please press NEXT button.
+                      please click the NEXT button.
                     </p>
                   </div>
                   <div className="w-80 float-right ml-56">

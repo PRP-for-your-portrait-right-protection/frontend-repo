@@ -189,8 +189,8 @@ function Mosaic() {
       </div>
 
       <Title
-        textValue="Select the image Processing type"
-        textTooltip="Please select the mosaic effect to be used in the video."
+        textValue="Select the effect"
+        textTooltip="Please select the effect to be used in the video."
       ></Title>
 
       <div className="stepper-wrapper">

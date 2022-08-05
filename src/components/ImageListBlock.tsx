@@ -347,7 +347,7 @@ function ImageListBlock() {
                 <li className="personName2">
                   <div className="pl-5">Nobody</div>
                   <div className="info">
-                    : Please check if you want to blur everything out
+                    : Please check if you want to blur everyone out
                   </div>
                 </li>
               </ul>

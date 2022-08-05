@@ -17,7 +17,7 @@ function SignUppage() {
           For Your PRP
           <div className={styles.PRP}>
             portrait right protection
-            <div>Are you want to make mosaic videos?</div>
+            <div>Do you want to make mosaic videos?</div>
           </div>
         </div>
         <img
