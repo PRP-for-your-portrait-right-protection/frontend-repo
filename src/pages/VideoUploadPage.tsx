@@ -8,10 +8,10 @@ import { AiOutlineCheck } from "react-icons/ai";
 import { useStore } from "../store/store";
 
 function VideoUploadPage() {
-  const fileInput = useRef(); // 외부 이미지 클릭 시  <input>가 눌리도록 설정하기 위한 변수
-  const [fileVideo, setFileVideo] = useState(); //화면에 보여 줄 비디오 오브젝트
-  const [preFileVideo, setPreFileVideo] = useState(); //기존에 넣었던 데이터가 있는 지
-  const [isNull, setisNull] = useState(true); //어떠한 동영상도 입력되지 않았다면 다음 페이지로 가지 않기
+  const fileInput = useRef<HTMLInputElement>(); // 외부 이미지 클릭 시  <input>가 눌리도록 설정하기 위한 변수
+  const [fileVideo, setFileVideo] = useState<File>(); //화면에 보여 줄 비디오 오브젝트
+  const [preFileVideo, setPreFileVideo] = useState<string>(); //기존에 넣었던 데이터가 있는 지
+  const [isNull, setisNull] = useState<boolean>(true); //어떠한 동영상도 입력되지 않았다면 다음 페이지로 가지 않기
   const { video, setVideo } = useStore(); //zustand 전역변수
 
   /**
@@ -22,7 +22,7 @@ function VideoUploadPage() {
    * - 새로 파일 업로드 시 , preFileVideo값을 null로 갱신로직 추가
    */
   const saveFile = (event) => {
-    setPreFileVideo();
+    setPreFileVideo(null);
     setFileVideo(event.target.files[0]);
     setisNull(false);
   };
@@ -45,8 +45,6 @@ function VideoUploadPage() {
           },
         })
         .then(function (response) {
-          console.log(response);
-
           let videoObject = {
             id: response.data.id,
             url: response.data.url,

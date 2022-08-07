@@ -10,7 +10,7 @@ import "../components/Step.css";
 import { AiOutlineCheck } from "react-icons/ai";
 
 import { useStore } from "../store/store";
-function Mosaic() {
+function CharacterModal() {
   const [modal, setModal] = useState(false); //스위치 역할
   const [toggleM, setToggleM] = useState(false); //Mosaic토글
   const [toggleC, setToggleC] = useState(false); //Character토글
@@ -263,7 +263,7 @@ function Mosaic() {
   );
 }
 
-export default Mosaic;
+export default CharacterModal;
 const ToggleBtn = styled.button`
   display: flex;
 
