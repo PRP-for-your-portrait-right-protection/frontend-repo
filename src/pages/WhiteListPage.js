@@ -1,9 +1,9 @@
 import React from "react";
-import "./PhotoPage.css";
+import "./WhiteListPage.css";
 import UserNavbar from "../components/UserNavbar";
 import UserPageImageListBlock from "../components/white-list/UserPageImageListBlock";
 
-function PhotoPage() {
+function WhiteListPage() {
   return (
     <ul>
       <UserNavbar></UserNavbar>
@@ -13,7 +13,7 @@ function PhotoPage() {
   );
 }
 
-export default PhotoPage;
+export default WhiteListPage;
 //<BasicButton></BasicButton>
 /*<button //ImgList추가 버튼
             className="addBtn"

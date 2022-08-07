@@ -8,7 +8,7 @@ import ForgetPasswordpage from "./pages/ForgetPasswordpage";
 import "./App.css";
 import ResultPage from "./pages/ResultPage";
 import EffectPage from "./pages/EffectPage";
-import Photo from "./pages/PhotoPage";
+import WhiteListPage from "./pages/WhiteListPage";
 import Character from "./pages/CharacterPage";
 import VideoUploadPage from "./pages/VideoUploadPage";
 import SignUpPage from "./pages/SignUpPage";
@@ -79,7 +79,7 @@ function App() {
         element={
           <RequireAuth>
             {" "}
-            <Photo />{" "}
+            <WhiteListPage />{" "}
           </RequireAuth>
         }
       />
