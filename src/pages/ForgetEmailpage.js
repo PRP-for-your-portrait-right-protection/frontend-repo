@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./Loginpage.module.css";
-import IdCheck from "../components/IdCheck";
+import IdCheck from "../components/account/IdCheck";
 function ForgetEmailpage() {
   return (
     //실제 화면에 출력할 내용들 설정 해주는 곳

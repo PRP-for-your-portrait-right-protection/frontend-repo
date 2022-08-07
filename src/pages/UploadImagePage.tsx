@@ -1,6 +1,6 @@
 import React from "react";
 import Title from "../components/Title";
-import ImageListBlock from "../components/ImageListBlock";
+import ImageListBlock from "../components/white-list/ImageListBlock";
 import "../components/Step.css";
 
 function UploadImagePage() {

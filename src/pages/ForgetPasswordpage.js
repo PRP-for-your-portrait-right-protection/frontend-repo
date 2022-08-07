@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./Loginpage.module.css";
-import InfoCheck from "../components/InfoCheck";
+import InfoCheck from "../components/account/InfoCheck";
 import { Link } from "react-router-dom";
 function ForgetPasswordpage() {
   return (
