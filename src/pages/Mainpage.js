@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Mainpage.module.css";
 import { Link } from "react-router-dom";
-import { useStore } from "../components/store";
+import { useStore } from "../store/store";
 function Mainpage() {
   const { removeAllByLogout } = useStore(); //zustand 전역변수
   const [token, setToken] = useState(false);

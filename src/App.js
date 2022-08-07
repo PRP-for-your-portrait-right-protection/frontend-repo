@@ -6,16 +6,16 @@ import Loginpage from "./pages/Loginpage";
 import ForgetEmailpage from "./pages/ForgetEmailpage";
 import ForgetPasswordpage from "./pages/ForgetPasswordpage";
 import "./App.css";
-import Result from "./pages/Result";
-import Mosaic from "./pages/Mosaic";
-import Video from "./pages/Video";
-import Photo from "./pages/Photo";
-import Character from "./pages/Character";
-import VideoUpload from "./pages/VideoUpload";
-import SignUppage from "./pages/SignUppage";
+import ResultPage from "./pages/ResultPage";
+import EffectPage from "./pages/EffectPage";
+import WhiteListPage from "./pages/WhiteListPage";
+import Character from "./pages/CharacterPage";
+import VideoUploadPage from "./pages/VideoUploadPage";
+import SignUpPage from "./pages/SignUpPage";
 import ReactGA from "react-ga";
-import RequireAuth from "./components/RequireAuth";
-import usePageTracking from "./components/usePageTracking";
+import RequireAuth from "./store/RequireAuth";
+import usePageTracking from "./utils/usePageTracking";
+import UserVideoPage from "./pages/UserVideoPage";
 
 const TRACKING_ID = process.env.REACT_APP_GOOGLE_ANALYTICS_TRACKING_ID;
 ReactGA.initialize(TRACKING_ID);
@@ -26,7 +26,7 @@ function App() {
     <Routes>
       <Route path="/" element={<Mainpage />} />
       <Route path="/signin" element={<Loginpage />} />
-      <Route path="/signup" element={<SignUppage />} />
+      <Route path="/signup" element={<SignUpPage />} />
       <Route path="/user/find/email" element={<ForgetEmailpage />} />
       <Route path="/user/reset/password" element={<ForgetPasswordpage />} />
       <Route
@@ -43,7 +43,7 @@ function App() {
         element={
           <RequireAuth>
             {" "}
-            <VideoUpload />{" "}
+            <VideoUploadPage />{" "}
           </RequireAuth>
         }
       />
@@ -52,7 +52,7 @@ function App() {
         element={
           <RequireAuth>
             {" "}
-            <Mosaic />{" "}
+            <EffectPage />{" "}
           </RequireAuth>
         }
       />
@@ -61,7 +61,7 @@ function App() {
         element={
           <RequireAuth>
             {" "}
-            <Result />{" "}
+            <ResultPage />{" "}
           </RequireAuth>
         }
       />
@@ -70,7 +70,7 @@ function App() {
         element={
           <RequireAuth>
             {" "}
-            <Video />{" "}
+            <UserVideoPage />{" "}
           </RequireAuth>
         }
       />
@@ -79,7 +79,7 @@ function App() {
         element={
           <RequireAuth>
             {" "}
-            <Photo />{" "}
+            <WhiteListPage />{" "}
           </RequireAuth>
         }
       />
