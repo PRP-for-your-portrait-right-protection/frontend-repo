@@ -50,16 +50,8 @@ function UserPageCharacter() {
 
   /**
    * @name : Teawon
-   * @function :clickedToggleM(C) - 각 버튼이 눌리면 자신의 Toggle값을 활성화 및 상대방 활성화를 False
+   * @function :currentCharacters  - 전체 캐릭터 이미지 중 페이지에 해당하는 내용만큼 잘라서 return하는 함수
    * @create-data: 2022-07-18
-   * @개선사항 : 향후 Radio버튼으로 변경하여 코드의 가독성을 높일 필요가 있을 것 같습니다.
-   */
-
-  /**
-   * @name : Teawon
-   * @function :addImgList - 사용자가 새로 추가한 캐릭터 이미지를 저장하는 함수
-   * @create-data: 2022-07-22
-   *
    */
 
   const currentCharacters = (characterImg) => {

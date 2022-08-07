@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 import { AiOutlineRight } from "react-icons/ai";
 import { AiOutlineLeft } from "react-icons/ai";
+import { storeWhiteListDto } from "../../utils/types";
 /**
  * @name : Teawon
  * @component :ImageList - name , picture리스트를 통해 특정 유저에 대한 사진리스트를 관리하는 컴포넌트
@@ -8,11 +9,11 @@ import { AiOutlineLeft } from "react-icons/ai";
  */
 
 interface ImageListProps {
-  object: any;
+  resultWhiteListFaces: storeWhiteListDto[];
 }
 
-function ResultImageList({ object }: ImageListProps) {
-  const count: number = object.length; //해당 컴포넌트가 가지고있는 list개수
+function ResultImageList({ resultWhiteListFaces }: ImageListProps) {
+  const count: number = resultWhiteListFaces.length; //해당 컴포넌트가 가지고있는 list개수
   const [curPage, setPage]: [number, any] = useState<number>(0); //curPage를 기점으로 curPage~curPage3까지의 요소만 보여줌
   const perPageSize = 3;
 
@@ -65,8 +66,8 @@ function ResultImageList({ object }: ImageListProps) {
       ) : null}
 
       <li className="resultgrid grid grid-cols-3 gap-4">
-        {object &&
-          silceImage(object).map((img) => (
+        {resultWhiteListFaces &&
+          silceImage(resultWhiteListFaces).map((img) => (
             <div
               key={img.id}
               className="col-span-1 relative justify-center bg-slate-50 border-8 border-slate-50"
