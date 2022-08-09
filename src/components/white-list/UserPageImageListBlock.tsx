@@ -7,7 +7,7 @@ import Load from "../Load";
 //import Pagination from "../components/Pagination";
 import Pagination from "react-js-pagination";
 import "../Paging.css";
-
+import { whiteFaceImageListsDto } from "../../utils/types";
 /**
  * @name : Teawon
  * @component :ImageListBlock - 각각의 ImgList컴포넌트를 추가하고 전체 데이터를 관리하는 컴포넌트
@@ -16,22 +16,20 @@ import "../Paging.css";
 
 function UserPageImageListBlock() {
   const [count, setCount] = useState<number>(1); //other + n으로 사용하기 위한 url
-  const [isLoding, setIsLoading]: [boolean, any] = useState(false); //api통신 완료 상태 값
-  const [currentPage, setCurrentPage] = useState(1);
-  const [characterPerPage, setCharacterPerPage] = useState(3); //페이지당 원하는개수
+  const [isLoding, setIsLoading] = useState<boolean>(false); //api통신 완료 상태 값
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [characterPerPage, setCharacterPerPage] = useState<number>(3); //페이지당 원하는개수
   const indexOfLastVideo = currentPage * characterPerPage;
   const indexOfFirstVideo = indexOfLastVideo - characterPerPage;
 
-  const [totalList, setTotalList]: [any, any] = useState({
-    //최종적으로 backend로 보내질 데이터 리스트 집합
-    data: [
-      {
-        whitelistFaceId: "id",
-        whitelistFaceName: "you",
-        pictures: [],
-      },
-    ],
-  });
+  const [totalList, setTotalList] = useState<whiteFaceImageListsDto[]>([
+    {
+      //최종적으로 backend로 보내질 데이터 리스트 집합
+      whitelistFaceId: "id",
+      whitelistFaceName: "you",
+      whitelistFaceImages: [],
+    },
+  ]);
 
   /**
    * @name : Teawon
@@ -49,12 +47,8 @@ function UserPageImageListBlock() {
           },
         })
         .then(function (response) {
-          console.log(response);
-          let initialData = {
-            //초기 설정 값
-            data: [],
-          };
-
+          let initialData = [];
+          //초기 설정 값
           response.data.data.forEach((imgList) => {
             //바깥 반복문의 리스트 및 이름 정의
             let imgListBlock = {
@@ -73,10 +67,11 @@ function UserPageImageListBlock() {
               imgListBlock.whitelistFaceImages =
                 imgListBlock.whitelistFaceImages.concat(imgData);
             });
-            initialData.data = initialData.data.concat(imgListBlock);
+            initialData = initialData.concat(imgListBlock);
           });
           setTotalList(initialData); //가져온 데이터의 가공한 최종 리스트를 totalList에 저장
           setIsLoading(true);
+          setCount(totalList.length);
         })
         .catch(function (error) {
           console.log(error);
@@ -94,22 +89,12 @@ function UserPageImageListBlock() {
 
   /**
    * @name : Teawon
-   * @function :makeFormData - 사용자가 입력한 url들을 세션에 저장하고, 만약 파일이 있다면 backend로 보내 버킷에 저장된 Url로 가져와 세션에 이어서 저장한다.
-   * @create-date: 2022-07-21
-   * @update-date: 2022-07-27
-   * - 사용자가 선택한 이미지리스트(faceId)를 세션에 저장
-   */
-
-  /**
-   * @name : Teawon
    * @function :addImgList - 전체 ImgList의 개수를 늘리는 함수(컴포넌트 수 증가), 처음 이름은 other{count}로 지정하여 컴포넌트를 생성함
    * @create-date: 2022-07-15
    * @update-date: 2022-07-27
    * -api 및 구조 변경
    */
   const addImgList = (filename) => {
-    window.scrollTo(0, document.body.scrollHeight);
-
     let strName = filename;
     if (filename == null) {
       strName = "other".concat(String(count));
@@ -124,16 +109,15 @@ function UserPageImageListBlock() {
         },
       })
       .then(function (response) {
-        setTotalList({
-          data: [
-            ...totalList.data,
-            {
-              whitelistFaceName: strName,
-              whitelistFaceId: response.data.id,
-              whitelistFaceImages: [],
-            },
-          ],
-        });
+        setTotalList([
+          ...totalList,
+          {
+            whitelistFaceName: strName,
+            whitelistFaceId: response.data.id,
+            whitelistFaceImages: [],
+          },
+        ]);
+        window.scrollTo(0, document.body.scrollHeight);
       })
       .catch(function (error) {
         console.log(error);
@@ -156,12 +140,11 @@ function UserPageImageListBlock() {
 
   const changeFuc = (object, whitelistFace, type) => {
     const formData = new FormData();
-
-    let findIndex = totalList.data.findIndex(
-      (element) => element.whitelistFaceName == whitelistFace.whitelistFaceName
+    let findIndex = totalList.findIndex(
+      (element) => element.whitelistFaceId == whitelistFace.whitelistFaceId
     );
 
-    let copyArray = { ...totalList };
+    let copyArray = [...totalList];
 
     //함수의 입력값에 따라 상태값 변경함수 실행 및 api호출
     switch (type) {
@@ -182,13 +165,13 @@ function UserPageImageListBlock() {
           })
           .catch(function (error) {
             console.log(error);
-            object.id = -1;
+            object.id = "error";
           });
 
         delete object["file"];
 
-        copyArray.data[findIndex].whitelistFaceImages = [
-          ...copyArray.data[findIndex].whitelistFaceImages,
+        copyArray[findIndex].whitelistFaceImages = [
+          ...copyArray[findIndex].whitelistFaceImages,
           object,
         ];
         setTotalList(copyArray);
@@ -209,18 +192,18 @@ function UserPageImageListBlock() {
             console.log(error);
           });
 
-        copyArray.data[findIndex].whitelistFaceImages = copyArray.data[
+        copyArray[findIndex].whitelistFaceImages = copyArray[
           findIndex
         ].whitelistFaceImages.filter((img) => img.id !== object);
         setTotalList(copyArray);
         break;
 
       case "deleteList": //특정 faceList 삭제
-        copyArray.data = copyArray.data.filter(
+        copyArray = copyArray.filter(
           (list) => list.whitelistFaceId !== whitelistFace.whitelistFaceId
         );
         if (
-          (totalList.data.length - 1) % characterPerPage == 0 &&
+          (totalList.length - 1) % characterPerPage == 0 &&
           currentPage != 1
         ) {
           //페이지 삭제 예외처리
@@ -257,7 +240,7 @@ function UserPageImageListBlock() {
             console.log(error);
           });
 
-        copyArray.data.map((data) => {
+        copyArray.map((data) => {
           if (data.whitelistFaceName === whitelistFace.whitelistFaceName) {
             data.whitelistFaceName = object;
           }
@@ -288,18 +271,18 @@ function UserPageImageListBlock() {
               <p className="fontBox">Plus Person</p>
             </button>
           </div>
-          {totalList.data && //map을 통해 각 imgList를 출력
-            currentImageList(totalList.data).map((imgList) => (
+          {totalList && //map을 통해 각 imgList를 출력
+            currentImageList(totalList).map((imgList) => (
               <UserPageImageList
                 key={imgList.whitelistFaceId}
-                object={imgList}
+                whiteFaceImageLists={imgList}
                 changeFuc={changeFuc}
               />
             ))}
-          {totalList.data.length != 0 ? (
+          {totalList.length != 0 ? (
             <Pagination
               itemsCountPerPage={characterPerPage}
-              totalItemsCount={totalList.data.length}
+              totalItemsCount={totalList.length}
               onChange={setCurrentPage}
               activePage={currentPage}
               pageRangeDisplayed={5}

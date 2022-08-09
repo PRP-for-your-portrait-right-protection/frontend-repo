@@ -14,19 +14,16 @@ import "./CharacterImageList.css";
 
 interface ImageListProps {
   userCharacterList: any; //사용자 이미지 리스트
-  insertFuc: any; //상태값 변경 함수(부모), 이미지의 정보를 리스트에 추가
-  deleteFuc: any;
+  insertFuc: (File) => void; //상태값 변경 함수(부모), 이미지의 정보를 리스트에 추가
+  deleteFuc: (number) => void;
 }
 
 function UserPageCharacterImageList({
   userCharacterList,
-
   insertFuc,
   deleteFuc,
 }: ImageListProps) {
-  const countUser: number = userCharacterList.length; //사용자 이미지 리스트의 개수
-  const [curPageUser, setPageUser]: [number, any] = useState<number>(0); //curPage를 기점으로 curPage~curPage3까지의 요소만 보여줌
-  const imageInput = useRef<any>();
+  const imageInput = useRef<HTMLInputElement>();
 
   /**
    * @name : Teawon

@@ -26,3 +26,19 @@ export interface saveImageFileDto {
   url: string;
   file: File;
 }
+
+export interface storeWhiteListDto {
+  //zustand에서 관리하는 whiteList 전역변수 정보를 Dto
+  count: number;
+  id: string;
+  name: string;
+  url: string;
+}
+
+export interface storeVideoDto {
+  //zustand에서 관리하는 whiteList 전역변수 정보를 Dto
+  count: number;
+  id: string;
+  name: string;
+  url: string;
+}

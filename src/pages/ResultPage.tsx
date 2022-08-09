@@ -8,7 +8,6 @@ import { useStore } from "../store/store";
 import "../components/Step.css";
 import { AiOutlineCheck } from "react-icons/ai";
 import Load from "../components/Load";
-import { FaCircle } from "react-icons/fa";
 
 function ResultPage() {
   const { faceId, video, character, task, setTask, removeAllData } = useStore(); //zustand 전역변수
@@ -108,23 +107,10 @@ function ResultPage() {
                   <p className="pr-1">WhiteList Faces</p>
                   <p className="c peopleCnt">{faceId.length}</p>
                 </div>
-                {/* <FaCircle
-                    size="45"
-                    className="peoplecnt"
-                    color="rgb(56 189 248)"
-                    background="rgb(56 189 248)"
-                    font-color="white"
-
-                  >
-                    {faceId.length}
-                  </FaCircle> */}
-                {/* <p className="c text-2xl absolute text-white">
-                      {faceId.length}
-                    </p> */}
               </div>
 
               <div className="justify-center">
-                <ResultImageList object={faceId} />
+                <ResultImageList resultWhiteListFaces={faceId} />
               </div>
             </li>
 
