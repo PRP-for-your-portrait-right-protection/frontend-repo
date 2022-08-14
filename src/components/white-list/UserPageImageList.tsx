@@ -187,14 +187,34 @@ function UserPageImageList({
                 />
               </button>
             </div>
-          ) : null}
+          ) : (
+            <div>
+              <button
+                className="show flex items-center justify-center invisible"
+                onClick={() =>
+                  setPage((curPage) => (curPage > 0 ? curPage - 1 : curPage))
+                }
+              >
+                <AiOutlineLeft
+                  size="40"
+                  justify-content="center"
+                  place-content="center"
+                  color="#767093"
+                />
+              </button>
+            </div>
+          )}
 
-          <div className="g grid grid-cols-4 gap-8">
+          <div className="g grid grid-cols-4 gap-8 items-center">
             <span
-              className="col-span-1 flex justify-center"
+              className="relative pb-full"
               onClick={() => imageInput.current.click()}
             >
-              <img src="\images\frame.png" alt="" className="h-36 w-36 " />
+              <img
+                src="\images\frame.png"
+                alt=""
+                className="flex object-cover object-center aspect-square"
+              />
             </span>
 
             {whiteFaceImageLists.whitelistFaceImages &&
@@ -226,7 +246,27 @@ function UserPageImageList({
                 />
               </button>
             </div>
-          ) : null}
+          ) : (
+            <div>
+              <button
+                className="show flex items-center justify-center invisible"
+                onClick={() =>
+                  setPage((curPage) =>
+                    count > perPageSize && count - curPage > perPageSize
+                      ? curPage + 1
+                      : curPage
+                  )
+                }
+              >
+                <AiOutlineRight
+                  size="40"
+                  justify-content="center"
+                  place-content="center"
+                  color="#767093"
+                />
+              </button>
+            </div>
+          )}
         </li>
       </ol>
 
