@@ -211,7 +211,6 @@ function ImageList({
         </ul>
 
         <li className="pictureList1">
-          {/* <p className="personName"> {object.name} </p> */}
           {perPageSize < count ? (
             <div>
               <button
@@ -228,9 +227,25 @@ function ImageList({
                 />
               </button>
             </div>
-          ) : null}
+          ) : (
+            <div>
+              <button
+                className="show flex items-center justify-center invisible "
+                onClick={() =>
+                  setPage((curPage) => (curPage > 0 ? curPage - 1 : curPage))
+                }
+              >
+                <AiOutlineLeft
+                  size="40"
+                  justify-content="center"
+                  place-content="center"
+                  color="#767093"
+                />
+              </button>
+            </div>
+          )}
 
-          <div className="g grid grid-cols-4 gap-8">
+          <div className="g grid grid-cols-4 gap-8 items-center">
             <div
               className=" relative pb-full"
               onClick={() => imageInput.current.click()}
@@ -271,7 +286,27 @@ function ImageList({
                 />
               </button>
             </div>
-          ) : null}
+          ) : (
+            <div>
+              <button
+                className="show flex items-center justify-center invisible"
+                onClick={() =>
+                  setPage((curPage) =>
+                    count > perPageSize && count - curPage > perPageSize
+                      ? curPage + 1
+                      : curPage
+                  )
+                }
+              >
+                <AiOutlineRight
+                  size="40"
+                  justify-content="center"
+                  place-content="center"
+                  color="#767093"
+                />
+              </button>
+            </div>
+          )}
         </li>
       </ol>
 

@@ -21,13 +21,9 @@ function ImgBlock({ deleteFileImage, whiteFaceImageDto }: ImageButtonProps) {
       />
       <button
         onClick={() => deleteFileImage(whiteFaceImageDto.id)}
-        className="deleteBtn"
+        className="deleteBtn absolute w-5 h-5 right-0 top-0 mt-1 mr-1"
       >
-        <img
-          className="del absolute w-5 h-5 right-0 top-0 mt-1 mr-1"
-          alt="deleteBtn"
-          src="/images/negative.png"
-        />
+        <img className="del" alt="deleteBtn" src="/images/negative.png" />
       </button>
     </div>
   );
