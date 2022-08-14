@@ -4,6 +4,7 @@ import ImgBlock from "./ImageBlock";
 import { AiOutlineRight } from "react-icons/ai";
 import { AiOutlineLeft } from "react-icons/ai";
 import { whiteFaceImageListsDto, saveImageFileDto } from "../../utils/types";
+import { useMediaQuery } from "react-responsive";
 
 /**
  * @name : Teawon
@@ -24,6 +25,8 @@ function UserPageImageList({
   const count: number = whiteFaceImageLists.whitelistFaceImages.length; //해당 컴포넌트가 가지고있는 list개수
   const [curPage, setPage] = useState<number>(0); //curPage를 기점으로 curPage~curPage3까지의 요소만 보여줌
   const perPageSize = 3;
+  const perPageSize_mobile = 1;
+  const isPc = useMediaQuery({ query: "(min-width: 785px)" });
   const [edit, setEdit] = useState<boolean>(false); //텍스트 변경을 위한 inputBox 활성화 여부
   const [text, setText] = useState<string>(
     whiteFaceImageLists.whitelistFaceName
@@ -104,10 +107,10 @@ function UserPageImageList({
    * @param :
    * imgList - 이미지 리스트
    */
-  const silceImage = (imgList) => {
+  const silceImage = (imgList, size) => {
     let currentPosts = [];
     let reverse = [...imgList].reverse();
-    currentPosts = reverse.slice(curPage, curPage + perPageSize);
+    currentPosts = reverse.slice(curPage, curPage + size);
     return currentPosts;
   };
 
@@ -135,140 +138,285 @@ function UserPageImageList({
   };
   return (
     <div className="wrapImage">
-      <ol className="box">
-        <ul className="pictureList justify-between">
-          <li className="flex items-center float-left">
-            <div className="personName">
-              {edit ? (
-                <input
-                  className="text-black text-center text-4xl w-40 border-0 hover:outline-offset-0"
-                  type="text"
-                  value={text}
-                  onChange={(event) => handleChange(event)}
-                  onKeyDown={handleKeyDown}
-                  maxLength={50}
+      {isPc ? (
+        <ol className="box">
+          <ul className="pictureList justify-between">
+            <li className="flex items-center float-left">
+              <div className="personName">
+                {edit ? (
+                  <input
+                    className="text-black text-center text-4xl w-40 border-0 hover:outline-offset-0"
+                    type="text"
+                    value={text}
+                    onChange={(event) => handleChange(event)}
+                    onKeyDown={handleKeyDown}
+                    maxLength={50}
+                  />
+                ) : (
+                  <span
+                    className="text-4xl"
+                    onDoubleClick={() => changeEditMode()}
+                  >
+                    {text}
+                  </span>
+                )}
+              </div>
+            </li>
+            <li className="float-right ">
+              <button onClick={() => confirmDelete()}>
+                <img
+                  className="w-8 justify-center items-center"
+                  alt="deleteBtn"
+                  src="\images\close.png"
                 />
-              ) : (
-                <span
-                  className="text-4xl"
-                  onDoubleClick={() => changeEditMode()}
+              </button>
+            </li>
+          </ul>
+
+          <li className="pictureList1">
+            {/* <p className="personName"> {object.name} </p> */}
+            {perPageSize < count ? (
+              <div>
+                <button
+                  className="show flex items-center justify-center"
+                  onClick={() =>
+                    setPage((curPage) => (curPage > 0 ? curPage - 1 : curPage))
+                  }
                 >
-                  {text}
-                </span>
-              )}
+                  <AiOutlineLeft
+                    size="40"
+                    justify-content="center"
+                    place-content="center"
+                    color="#767093"
+                  />
+                </button>
+              </div>
+            ) : (
+              <div>
+                <button
+                  className="show flex items-center justify-center invisible"
+                  onClick={() =>
+                    setPage((curPage) => (curPage > 0 ? curPage - 1 : curPage))
+                  }
+                >
+                  <AiOutlineLeft
+                    size="40"
+                    justify-content="center"
+                    place-content="center"
+                    color="#767093"
+                  />
+                </button>
+              </div>
+            )}
+
+            <div className="g grid grid-cols-4 gap-8 items-center">
+              <span
+                className="relative pb-full"
+                onClick={() => imageInput.current.click()}
+              >
+                <img
+                  src="\images\frame.png"
+                  alt=""
+                  className="flex object-cover object-center aspect-square"
+                />
+              </span>
+
+              {whiteFaceImageLists.whitelistFaceImages &&
+                silceImage(
+                  whiteFaceImageLists.whitelistFaceImages,
+                  perPageSize
+                ).map((img) => (
+                  <ImgBlock
+                    key={img.id}
+                    whiteFaceImageDto={img}
+                    deleteFileImage={deleteFileImage}
+                  />
+                ))}
             </div>
+            {perPageSize < count ? (
+              <div>
+                <button
+                  className="show flex items-center justify-center"
+                  onClick={() =>
+                    setPage((curPage) =>
+                      count > perPageSize && count - curPage > perPageSize
+                        ? curPage + 1
+                        : curPage
+                    )
+                  }
+                >
+                  <AiOutlineRight
+                    size="40"
+                    justify-content="center"
+                    place-content="center"
+                    color="#767093"
+                  />
+                </button>
+              </div>
+            ) : (
+              <div>
+                <button
+                  className="show flex items-center justify-center invisible"
+                  onClick={() =>
+                    setPage((curPage) =>
+                      count > perPageSize && count - curPage > perPageSize
+                        ? curPage + 1
+                        : curPage
+                    )
+                  }
+                >
+                  <AiOutlineRight
+                    size="40"
+                    justify-content="center"
+                    place-content="center"
+                    color="#767093"
+                  />
+                </button>
+              </div>
+            )}
           </li>
-          <li className="float-right ">
-            <button onClick={() => confirmDelete()}>
-              <img
-                className="w-8 justify-center items-center"
-                alt="deleteBtn"
-                src="\images\close.png"
-              />
-            </button>
+        </ol>
+      ) : (
+        <ol className="box">
+          <ul className="pictureList justify-between">
+            <li className="flex items-center float-left">
+              <div className="personName">
+                {edit ? (
+                  <input
+                    className="text-black text-center text-4xl w-40 border-0 hover:outline-offset-0"
+                    type="text"
+                    value={text}
+                    onChange={(event) => handleChange(event)}
+                    onKeyDown={handleKeyDown}
+                    maxLength={50}
+                  />
+                ) : (
+                  <span
+                    className="text-4xl"
+                    onDoubleClick={() => changeEditMode()}
+                  >
+                    {text}
+                  </span>
+                )}
+              </div>
+            </li>
+            <li className="float-right ">
+              <button onClick={() => confirmDelete()}>
+                <img
+                  className="w-8 justify-center items-center"
+                  alt="deleteBtn"
+                  src="\images\close.png"
+                />
+              </button>
+            </li>
+          </ul>
+
+          <li className="pictureList1">
+            {/* <p className="personName"> {object.name} </p> */}
+            {perPageSize_mobile < count ? (
+              <div>
+                <button
+                  className="show flex items-center justify-center"
+                  onClick={() =>
+                    setPage((curPage) => (curPage > 0 ? curPage - 1 : curPage))
+                  }
+                >
+                  <AiOutlineLeft
+                    size="40"
+                    justify-content="center"
+                    place-content="center"
+                    color="#767093"
+                  />
+                </button>
+              </div>
+            ) : (
+              <div>
+                <button
+                  className="show flex items-center justify-center invisible"
+                  onClick={() =>
+                    setPage((curPage) => (curPage > 0 ? curPage - 1 : curPage))
+                  }
+                >
+                  <AiOutlineLeft
+                    size="40"
+                    justify-content="center"
+                    place-content="center"
+                    color="#767093"
+                  />
+                </button>
+              </div>
+            )}
+
+            <div className="g grid grid-cols-2 gap-8 items-center">
+              <span
+                className="relative pb-full"
+                onClick={() => imageInput.current.click()}
+              >
+                <img
+                  src="\images\frame.png"
+                  alt=""
+                  className="flex object-cover object-center aspect-square"
+                />
+              </span>
+
+              {whiteFaceImageLists.whitelistFaceImages &&
+                silceImage(
+                  whiteFaceImageLists.whitelistFaceImages,
+                  perPageSize_mobile
+                ).map((img) => (
+                  <ImgBlock
+                    key={img.id}
+                    whiteFaceImageDto={img}
+                    deleteFileImage={deleteFileImage}
+                  />
+                ))}
+            </div>
+            {perPageSize_mobile < count ? (
+              <div>
+                <button
+                  className="show flex items-center justify-center"
+                  onClick={() =>
+                    setPage((curPage) =>
+                      count > perPageSize_mobile &&
+                      count - curPage > perPageSize_mobile
+                        ? curPage + 1
+                        : curPage
+                    )
+                  }
+                >
+                  <AiOutlineRight
+                    size="40"
+                    justify-content="center"
+                    place-content="center"
+                    color="#767093"
+                  />
+                </button>
+              </div>
+            ) : (
+              <div>
+                <button
+                  className="show flex items-center justify-center invisible"
+                  onClick={() =>
+                    setPage((curPage) =>
+                      count > perPageSize_mobile &&
+                      count - curPage > perPageSize_mobile
+                        ? curPage + 1
+                        : curPage
+                    )
+                  }
+                >
+                  <AiOutlineRight
+                    size="40"
+                    justify-content="center"
+                    place-content="center"
+                    color="#767093"
+                  />
+                </button>
+              </div>
+            )}
           </li>
-        </ul>
-
-        <li className="pictureList1">
-          {/* <p className="personName"> {object.name} </p> */}
-          {perPageSize < count ? (
-            <div>
-              <button
-                className="show flex items-center justify-center"
-                onClick={() =>
-                  setPage((curPage) => (curPage > 0 ? curPage - 1 : curPage))
-                }
-              >
-                <AiOutlineLeft
-                  size="40"
-                  justify-content="center"
-                  place-content="center"
-                  color="#767093"
-                />
-              </button>
-            </div>
-          ) : (
-            <div>
-              <button
-                className="show flex items-center justify-center invisible"
-                onClick={() =>
-                  setPage((curPage) => (curPage > 0 ? curPage - 1 : curPage))
-                }
-              >
-                <AiOutlineLeft
-                  size="40"
-                  justify-content="center"
-                  place-content="center"
-                  color="#767093"
-                />
-              </button>
-            </div>
-          )}
-
-          <div className="g grid grid-cols-4 gap-8 items-center">
-            <span
-              className="relative pb-full"
-              onClick={() => imageInput.current.click()}
-            >
-              <img
-                src="\images\frame.png"
-                alt=""
-                className="flex object-cover object-center aspect-square"
-              />
-            </span>
-
-            {whiteFaceImageLists.whitelistFaceImages &&
-              silceImage(whiteFaceImageLists.whitelistFaceImages).map((img) => (
-                <ImgBlock
-                  key={img.id}
-                  whiteFaceImageDto={img}
-                  deleteFileImage={deleteFileImage}
-                />
-              ))}
-          </div>
-          {perPageSize < count ? (
-            <div>
-              <button
-                className="show flex items-center justify-center"
-                onClick={() =>
-                  setPage((curPage) =>
-                    count > perPageSize && count - curPage > perPageSize
-                      ? curPage + 1
-                      : curPage
-                  )
-                }
-              >
-                <AiOutlineRight
-                  size="40"
-                  justify-content="center"
-                  place-content="center"
-                  color="#767093"
-                />
-              </button>
-            </div>
-          ) : (
-            <div>
-              <button
-                className="show flex items-center justify-center invisible"
-                onClick={() =>
-                  setPage((curPage) =>
-                    count > perPageSize && count - curPage > perPageSize
-                      ? curPage + 1
-                      : curPage
-                  )
-                }
-              >
-                <AiOutlineRight
-                  size="40"
-                  justify-content="center"
-                  place-content="center"
-                  color="#767093"
-                />
-              </button>
-            </div>
-          )}
-        </li>
-      </ol>
+        </ol>
+      )}
 
       <div>
         <input
