@@ -231,12 +231,16 @@ function ImageList({
           ) : null}
 
           <div className="g grid grid-cols-4 gap-8">
-            <span
-              className="col-span-1 flex justify-center"
+            <div
+              className=" relative pb-full"
               onClick={() => imageInput.current.click()}
             >
-              <img src="images\frame.png" alt="" className="h-36 w-36" />
-            </span>
+              <img
+                src="images\frame.png"
+                alt=""
+                className="flex object-cover object-center aspect-square "
+              />
+            </div>
 
             {whiteFaceImageLists.whitelistFaceImages &&
               silceImage(whiteFaceImageLists.whitelistFaceImages).map((img) => (

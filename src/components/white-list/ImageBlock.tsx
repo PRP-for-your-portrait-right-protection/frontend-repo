@@ -13,9 +13,9 @@ interface ImageButtonProps {
 
 function ImgBlock({ deleteFileImage, whiteFaceImageDto }: ImageButtonProps) {
   return (
-    <div className="relative" style={{ height: "145px" }}>
+    <div className="relative pb-full">
       <img
-        className="flex object-cover w-36 h-36"
+        className="flex object-cover object-center aspect-square"
         alt="sample"
         src={whiteFaceImageDto.url}
       />

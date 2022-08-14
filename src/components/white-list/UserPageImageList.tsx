@@ -194,7 +194,7 @@ function UserPageImageList({
               className="col-span-1 flex justify-center"
               onClick={() => imageInput.current.click()}
             >
-              <img src="\images\frame.png" alt="" className="h-36 w-36" />
+              <img src="\images\frame.png" alt="" className="h-36 w-36 " />
             </span>
 
             {whiteFaceImageLists.whitelistFaceImages &&
