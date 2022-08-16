@@ -210,7 +210,7 @@ function UserPageImageList({
           )}
 
           <div className="grid grid-cols-2 desktop:grid-cols-4 laptop:grid-cols-3 gap-8 items-center">
-            <span
+            <div
               className="relative pb-full"
               onClick={() => imageInput.current.click()}
             >
@@ -219,7 +219,7 @@ function UserPageImageList({
                 alt=""
                 className="flex object-cover object-center aspect-square"
               />
-            </span>
+            </div>
 
             {whiteFaceImageLists.whitelistFaceImages &&
               silceImage(

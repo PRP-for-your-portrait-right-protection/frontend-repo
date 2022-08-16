@@ -4,6 +4,7 @@ import ImgBlock from "./ImageBlock";
 import { AiOutlineRight } from "react-icons/ai";
 import { AiOutlineLeft } from "react-icons/ai";
 import { whiteFaceImageListsDto, saveImageFileDto } from "../../utils/types";
+import { useMediaQuery } from "react-responsive";
 
 /**
  * @name : Teawon
@@ -29,7 +30,8 @@ function ImageList({
   const imageInput = useRef<HTMLInputElement>();
   const count: number = whiteFaceImageLists.whitelistFaceImages.length; //해당 컴포넌트가 가지고있는 list개수
   const [curPage, setPage] = useState<number>(0); //curPage를 기점으로 curPage~curPage3까지의 요소만 보여줌
-  const perPageSize = 3;
+  const isPc = useMediaQuery({ query: "(min-width: 1024px)" });
+  const isLaptop = useMediaQuery({ query: "(min-width: 768px)" });
   const [edit, setEdit] = useState<boolean>(false); //텍스트 변경을 위한 inputBox 활성화 여부
   const [text, setText] = useState<string>(
     whiteFaceImageLists.whitelistFaceName
@@ -39,6 +41,7 @@ function ImageList({
   const allCheckHandler = () => {
     if (isNobodyNotChecked) setChecked(false);
   };
+  const perPageSize = isPc ? 3 : isLaptop ? 2 : 1;
 
   useEffect(() => allCheckHandler(), [isNobodyNotChecked]);
 
@@ -133,10 +136,10 @@ function ImageList({
    * @param :
    * imgList - 이미지 리스트
    */
-  const silceImage = (imgList) => {
+  const silceImage = (imgList, size) => {
     let currentPosts = [];
     let reverse = [...imgList].reverse();
-    currentPosts = reverse.slice(curPage, curPage + perPageSize);
+    currentPosts = reverse.slice(curPage, curPage + size);
     return currentPosts;
   };
 
@@ -245,7 +248,7 @@ function ImageList({
             </div>
           )}
 
-          <div className="g grid grid-cols-4 gap-8 items-center">
+          <div className="grid grid-cols-2 desktop:grid-cols-4 laptop:grid-cols-3 gap-8 items-center">
             <div
               className=" relative pb-full"
               onClick={() => imageInput.current.click()}
@@ -258,7 +261,10 @@ function ImageList({
             </div>
 
             {whiteFaceImageLists.whitelistFaceImages &&
-              silceImage(whiteFaceImageLists.whitelistFaceImages).map((img) => (
+              silceImage(
+                whiteFaceImageLists.whitelistFaceImages,
+                perPageSize
+              ).map((img) => (
                 <ImgBlock
                   key={img.id}
                   whiteFaceImageDto={img}
