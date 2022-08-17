@@ -209,7 +209,7 @@ function UserPageImageList({
             </div>
           )}
 
-          <div className="grid grid-cols-2 desktop:grid-cols-4 laptop:grid-cols-3 gap-8 items-center">
+          <div className="grid grid-cols-2 desktop:grid-cols-4 laptop:grid-cols-3 gap-8 items-center ">
             <div
               className="relative pb-full"
               onClick={() => imageInput.current.click()}

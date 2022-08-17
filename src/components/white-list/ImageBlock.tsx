@@ -13,7 +13,7 @@ interface ImageButtonProps {
 
 function ImgBlock({ deleteFileImage, whiteFaceImageDto }: ImageButtonProps) {
   return (
-    <div className="relative pb-full">
+    <div className="relative pb-full max-w-fit">
       <img
         className="flex object-cover object-center aspect-square"
         alt="sample"
