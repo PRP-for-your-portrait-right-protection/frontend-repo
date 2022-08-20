@@ -5,14 +5,14 @@ import ButtonSession from "../components/ButtonSession";
 import Title from "../components/Title";
 import "../components/Step.css";
 import { AiOutlineCheck } from "react-icons/ai";
-import { useStore } from "../store/store";
+import { useSelectContentStore } from "../store/store";
 
 function VideoUploadPage() {
   const fileInput = useRef<HTMLInputElement>(); // 외부 이미지 클릭 시  <input>가 눌리도록 설정하기 위한 변수
   const [fileVideo, setFileVideo] = useState<File>(); //화면에 보여 줄 비디오 오브젝트
   const [preFileVideo, setPreFileVideo] = useState<string>(); //기존에 넣었던 데이터가 있는 지
   const [isNull, setisNull] = useState<boolean>(true); //어떠한 동영상도 입력되지 않았다면 다음 페이지로 가지 않기
-  const { video, setVideo } = useStore(); //zustand 전역변수
+  const { video, setVideo } = useSelectContentStore(); //zustand 전역변수
 
   /**
    * @name : Teawon

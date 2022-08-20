@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "../../api/axios";
 import "./WaitVideos.css";
-import { useStore } from "../../store/store";
+import { useSelectContentStore } from "../../store/store";
 
 /**
  * @name : Teawon
@@ -10,7 +10,7 @@ import { useStore } from "../../store/store";
  *
  */
 function WaitVideos() {
-  const { task, setTask } = useStore(); //zustand 전역변수
+  const { task, setTask } = useSelectContentStore(); //zustand 전역변수
 
   /**
    * @name : Teawon

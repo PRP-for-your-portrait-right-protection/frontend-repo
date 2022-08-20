@@ -9,7 +9,7 @@ import ButtonSession from "../components/ButtonSession";
 import "../components/Step.css";
 import { AiOutlineCheck } from "react-icons/ai";
 
-import { useStore } from "../store/store";
+import { useSelectContentStore } from "../store/store";
 function CharacterModal() {
   const [modal, setModal] = useState(false); //스위치 역할
   const [toggleM, setToggleM] = useState(false); //Mosaic토글
@@ -18,7 +18,7 @@ function CharacterModal() {
   const [characterList, setCharacterList] = useState([]); //기존 캐릭터 이미지
   const [userCharacterList, setUserCharacterList] = useState([]); // 사용자 캐릭터 이미지
   const [isNull, setisNull] = useState(true); //어떠한 동영상도 입력되지 않았다면 다음 페이지로 가지 않기
-  const { character, setCharacter } = useStore(); //zustand 전역변수
+  const { character, setCharacter } = useSelectContentStore(); //zustand 전역변수
 
   /**
    * @name : Teawon

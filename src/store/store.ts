@@ -7,6 +7,7 @@ interface SelectContentState {
   faceId: storeWhiteListDto[];
   setFaceId: (select: storeWhiteListDto[]) => void;
   removeAllData: () => void;
+  removeAllByLogout: () => void;
   video: storeVideoDto;
   setVideo: (select: storeVideoDto) => void;
   character: any;
@@ -15,29 +16,32 @@ interface SelectContentState {
   setTask: (select: string[]) => void;
 }
 
-export const useStore = create<any>(
-  persist((set) => ({
-    faceId: [],
-    setFaceId: (select) => {
-      set((state) => ({ ...state, faceId: select }));
-    },
-    removeAllData: () => set({ faceId: [], video: null, character: null }),
-    removeAllByLogout: () =>
-      set({ faceId: [], video: null, character: null, task: [] }),
+export const useSelectContentStore = create<any>(
+  persist(
+    (set) => ({
+      faceId: [],
+      setFaceId: (select) => {
+        set((state) => ({ ...state, faceId: select }));
+      },
+      removeAllData: () => set({ faceId: [], video: null, character: null }),
+      removeAllByLogout: () =>
+        set({ faceId: [], video: null, character: null, task: [] }),
 
-    video: null,
-    setVideo: (select) => {
-      set((state) => ({ ...state, video: select }));
-    },
+      video: null,
+      setVideo: (select) => {
+        set((state) => ({ ...state, video: select }));
+      },
 
-    character: null,
-    setCharacter: (select) => {
-      set((state) => ({ ...state, character: select }));
-    },
+      character: null,
+      setCharacter: (select) => {
+        set((state) => ({ ...state, character: select }));
+      },
 
-    task: [],
-    setTask: (select) => {
-      set((state) => ({ ...state, task: select }));
-    },
-  }))
+      task: [],
+      setTask: (select) => {
+        set((state) => ({ ...state, task: select }));
+      },
+    }),
+    { name: "SelectContent-store" }
+  )
 );

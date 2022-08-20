@@ -4,13 +4,14 @@ import Title from "../components/Title";
 import ButtonSession from "../components/ButtonSession";
 import ResultImageList from "../components/result/ResultImageList";
 import axios from "../api/axios";
-import { useStore } from "../store/store";
+import { useSelectContentStore } from "../store/store";
 import "../components/Step.css";
 import { AiOutlineCheck } from "react-icons/ai";
 import Load from "../components/Load";
 
 function ResultPage() {
-  const { faceId, video, character, task, setTask, removeAllData } = useStore(); //zustand 전역변수
+  const { faceId, video, character, task, setTask, removeAllData } =
+    useSelectContentStore(); //zustand 전역변수
 
   const makeFormData = () => {
     const formData = new FormData();
