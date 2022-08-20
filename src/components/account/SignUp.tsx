@@ -17,8 +17,8 @@ const PHNUM_REGEX = /^[0-9\b -]{11,13}$/;
 //const REGISTER_URL = "/signup";
 
 const SignUp = () => {
-  const userRef = useRef();
-  const errRef = useRef();
+  const userRef: any = useRef();
+  const errRef: any = useRef();
 
   const [email, setEmail] = useState("");
   const [validEmail, setValidEmail] = useState(false);
@@ -91,7 +91,7 @@ const SignUp = () => {
   }, [email, name, phonenum, pwd, matchPwd]);
 
   // 회원가입 함수
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // if button enabled with JS hack
     const v1 = EMAIL_REGEX.test(email);
@@ -140,7 +140,7 @@ const SignUp = () => {
   };
 
   // 아이디 체크 함수
-  const Clicksubmit = async (e) => {
+  const Clicksubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     // if button enabled with JS hack
     const v1 = EMAIL_REGEX.test(email);
@@ -396,7 +396,6 @@ const SignUp = () => {
           }
           className="border-2 border-sky-400 text-2xl 
               font-Ubuntu text-white hover:text-blue-900 bg-sky-400 signupButton"
-          onClick={handleSubmit}
         >
           Sign Up
         </button>

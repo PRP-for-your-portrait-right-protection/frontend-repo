@@ -4,8 +4,8 @@ import "./Signup.css";
 import axios from "../../api/axios";
 
 const Login = () => {
-  const userRef = useRef();
-  const errRef = useRef();
+  const userRef: any = useRef();
+  const errRef: any = useRef();
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");

@@ -3,10 +3,9 @@ import {
   faCheck,
   faTimes,
   faInfoCircle,
-  faArrowLeftLong,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./Signup.css";
 import axios from "../../api/axios";
 
@@ -16,8 +15,8 @@ const PHNUM_REGEX = /^[0-9\b -]{11,13}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
 function InfoCheck() {
-  const userRef = useRef();
-  const errRef = useRef();
+  const userRef: any = useRef();
+  const errRef: any = useRef();
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
@@ -82,7 +81,7 @@ function InfoCheck() {
   }, [pwd, matchPwd]);
 
   // 비밀번호 찾기 전 정보 검증 함수
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const formData = new FormData();
@@ -115,7 +114,7 @@ function InfoCheck() {
   };
 
   // 비밀번호 변경 api 함수
-  const resetHandle = async (e) => {
+  const resetHandle = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const formData = new FormData();

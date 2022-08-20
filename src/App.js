@@ -11,7 +11,7 @@ import EffectPage from "./pages/EffectPage";
 import WhiteListPage from "./pages/WhiteListPage";
 import Character from "./pages/CharacterPage";
 import VideoUploadPage from "./pages/VideoUploadPage";
-import SignUpPage from "./pages/SignUpPage";
+import SignUpPage from "./pages/SignUppage";
 import ReactGA from "react-ga";
 import RequireAuth from "./store/RequireAuth";
 import usePageTracking from "./utils/usePageTracking";
