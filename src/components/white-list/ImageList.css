@@ -71,10 +71,8 @@
   height: 2rem;
 }
 
-@media screen and (max-width: 800px) {
-  /*  .show {
-    display: none;
-  } */
+/* @media screen and (max-width: 800px) {
+
 
   .personName {
     align-items: flex-start;
@@ -93,6 +91,8 @@
     height: 5rem;
   }
 }
+
+*/
 
 .n {
   font-family: "Poppins-SemiBold";

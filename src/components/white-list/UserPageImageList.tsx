@@ -4,6 +4,7 @@ import ImgBlock from "./ImageBlock";
 import { AiOutlineRight } from "react-icons/ai";
 import { AiOutlineLeft } from "react-icons/ai";
 import { whiteFaceImageListsDto, saveImageFileDto } from "../../utils/types";
+import { useMediaQuery } from "react-responsive";
 
 /**
  * @name : Teawon
@@ -23,11 +24,14 @@ function UserPageImageList({
   const imageInput = useRef<HTMLInputElement>();
   const count: number = whiteFaceImageLists.whitelistFaceImages.length; //해당 컴포넌트가 가지고있는 list개수
   const [curPage, setPage] = useState<number>(0); //curPage를 기점으로 curPage~curPage3까지의 요소만 보여줌
-  const perPageSize = 3;
+  const isPc = useMediaQuery({ query: "(min-width: 1024px)" });
+  const isLaptop = useMediaQuery({ query: "(min-width: 768px)" });
   const [edit, setEdit] = useState<boolean>(false); //텍스트 변경을 위한 inputBox 활성화 여부
   const [text, setText] = useState<string>(
     whiteFaceImageLists.whitelistFaceName
   ); //리스트 이미지 텍스트 변경을 위한 변수
+
+  const perPageSize = isPc ? 3 : isLaptop ? 2 : 1;
 
   /**
    * @name : Teawon
@@ -104,10 +108,10 @@ function UserPageImageList({
    * @param :
    * imgList - 이미지 리스트
    */
-  const silceImage = (imgList) => {
+  const silceImage = (imgList, size) => {
     let currentPosts = [];
     let reverse = [...imgList].reverse();
-    currentPosts = reverse.slice(curPage, curPage + perPageSize);
+    currentPosts = reverse.slice(curPage, curPage + size);
     return currentPosts;
   };
 
@@ -187,18 +191,41 @@ function UserPageImageList({
                 />
               </button>
             </div>
-          ) : null}
+          ) : (
+            <div>
+              <button
+                className="show flex items-center justify-center invisible"
+                onClick={() =>
+                  setPage((curPage) => (curPage > 0 ? curPage - 1 : curPage))
+                }
+              >
+                <AiOutlineLeft
+                  size="40"
+                  justify-content="center"
+                  place-content="center"
+                  color="#767093"
+                />
+              </button>
+            </div>
+          )}
 
-          <div className="g grid grid-cols-4 gap-8">
-            <span
-              className="col-span-1 flex justify-center"
+          <div className="grid grid-cols-2 desktop:grid-cols-4 laptop:grid-cols-3 gap-8 items-center ">
+            <div
+              className="relative pb-full"
               onClick={() => imageInput.current.click()}
             >
-              <img src="\images\frame.png" alt="" className="h-36 w-36" />
-            </span>
+              <img
+                src="\images\frame.png"
+                alt=""
+                className="flex object-cover object-center aspect-square"
+              />
+            </div>
 
             {whiteFaceImageLists.whitelistFaceImages &&
-              silceImage(whiteFaceImageLists.whitelistFaceImages).map((img) => (
+              silceImage(
+                whiteFaceImageLists.whitelistFaceImages,
+                perPageSize
+              ).map((img) => (
                 <ImgBlock
                   key={img.id}
                   whiteFaceImageDto={img}
@@ -226,7 +253,27 @@ function UserPageImageList({
                 />
               </button>
             </div>
-          ) : null}
+          ) : (
+            <div>
+              <button
+                className="show flex items-center justify-center invisible"
+                onClick={() =>
+                  setPage((curPage) =>
+                    count > perPageSize && count - curPage > perPageSize
+                      ? curPage + 1
+                      : curPage
+                  )
+                }
+              >
+                <AiOutlineRight
+                  size="40"
+                  justify-content="center"
+                  place-content="center"
+                  color="#767093"
+                />
+              </button>
+            </div>
+          )}
         </li>
       </ol>
 

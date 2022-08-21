@@ -5,7 +5,7 @@ import "./ImageListBlock.css";
 import ButtonSession from "../ButtonSession";
 import { HiUserAdd } from "react-icons/hi";
 import Load from "../Load";
-import { useStore } from "../../store/store";
+import { useSelectContentStore } from "../../store/store";
 import { whiteFaceImageListsDto } from "../../utils/types";
 /**
  * @name : Teawon
@@ -14,7 +14,7 @@ import { whiteFaceImageListsDto } from "../../utils/types";
  */
 
 function ImageListBlock() {
-  const { faceId, setFaceId } = useStore(); //zustand 전역변수
+  const { faceId, setFaceId } = useSelectContentStore(); //zustand 전역변수
   const [count, setCount] = useState<number>(1); //other + n으로 사용하기 위한 url
   const [isLoding, setIsLoading] = useState<boolean>(false); //api통신 완료 상태 값
   const [checkedItems, setCheckedItems] = useState(new Set<string>()); //checkBox확인

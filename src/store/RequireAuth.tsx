@@ -1,13 +1,13 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
-import { useStore } from "./store";
+import { useSelectContentStore } from "./store";
 
 type RequireAuthProps = {
   children: JSX.Element;
 };
 
 function RequireAuth({ children }: RequireAuthProps) {
-  const { removeAllByLogout } = useStore(); //zustand 전역변수
+  const { removeAllByLogout } = useSelectContentStore(); //zustand 전역변수
   const nowDate = new Date().getTime() + 1000;
 
   if (JSON.parse(localStorage.getItem("token")) != null) {

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Mainpage.module.css";
 import { Link } from "react-router-dom";
-import { useStore } from "../store/store";
+import { useSelectContentStore } from "../store/store";
 function Mainpage() {
-  const { removeAllByLogout } = useStore(); //zustand 전역변수
+  const { removeAllByLogout } = useSelectContentStore(); //zustand 전역변수
   const [token, setToken] = useState(false);
   const [email, setEmail] = useState("");
   const [isactive, setActive] = useState(false);

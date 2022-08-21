@@ -13,21 +13,17 @@ interface ImageButtonProps {
 
 function ImgBlock({ deleteFileImage, whiteFaceImageDto }: ImageButtonProps) {
   return (
-    <div className="relative" style={{ height: "145px" }}>
+    <div className="relative pb-full max-w-fit">
       <img
-        className="flex object-cover w-36 h-36"
+        className="flex object-cover object-center aspect-square"
         alt="sample"
         src={whiteFaceImageDto.url}
       />
       <button
         onClick={() => deleteFileImage(whiteFaceImageDto.id)}
-        className="deleteBtn"
+        className="deleteBtn absolute w-5 h-5 right-0 top-0 mt-1 mr-1"
       >
-        <img
-          className="del absolute w-5 h-5 right-0 top-0 mt-1 mr-1"
-          alt="deleteBtn"
-          src="/images/negative.png"
-        />
+        <img className="del" alt="deleteBtn" src="/images/negative.png" />
       </button>
     </div>
   );
