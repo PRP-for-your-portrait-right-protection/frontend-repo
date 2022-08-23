@@ -13,8 +13,8 @@ const NAME_REGEX = /^[가-힣]{2,4}|[a-zA-Z]{2,30}$/;
 const PHNUM_REGEX = /^[0-9\b -]{11,13}$/;
 
 function IdCheck() {
-  const userRef = useRef();
-  const errRef = useRef();
+  const userRef: any = useRef();
+  const errRef: any = useRef();
 
   const [name, setName] = useState("");
   const [validName, setValidName] = useState(false);
@@ -62,7 +62,7 @@ function IdCheck() {
   }, [phonenum]);
 
   // 아이디 찾기 함수
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const formData = new FormData();
